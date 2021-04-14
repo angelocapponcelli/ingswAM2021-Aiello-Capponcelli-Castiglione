@@ -1,4 +1,8 @@
 package it.polimi.ingsw.server.model;
 /** to do**/
-public class SpecialAbility {
+abstract class SpecialAbility {
+
+    void onActivation(Player player){};
+    /** check if we have to put isActivated method*/
+
 }

@@ -2,7 +2,7 @@ package it.polimi.ingsw.server.model;
 
 //TODO: all of the class
 
-public class Player {
+abstract class Player {
     protected String name;
     protected Integer faithPosition;
     protected VaticanReportStatus vaticanReportStatus;
@@ -17,8 +17,15 @@ public class Player {
     public Integer getFaithPosition() {
         return faithPosition;
     }
-//da fare getvaticanreportstatus
-//da fare dovaticanreportupdate
+
+    /** public VaticanReportStatus getVaticanReportStatus(VaticanReportSection vaticanReportSection) {
+        search in this.vaticanStatus vaticanreportsection and return its boolean value
+
+    }*/
+
+    public void doVaticanReportUpdate (VaticanReportSection vaticanReportSection){
+        /** to do*/
+    }
 
     public void increaseFaithPosition(){
         this.faithPosition= this.faithPosition+1;

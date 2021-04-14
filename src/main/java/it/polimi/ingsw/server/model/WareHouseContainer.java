@@ -1,18 +1,26 @@
 package it.polimi.ingsw.server.model;
 
+/**
+ * WareHouseContainer allowed to set resource type, or capacity
+ */
+
 public class WareHouseContainer extends  ResourceContainer{
 
-    public WareHouseContainer(ResourceType resource, int capacity) {
-        super(resource, capacity);
+    public WareHouseContainer(int capacity) {
+        super(capacity);
     }
 
     public void setResourceType (ResourceType resource) throws DepotException {
-        if (getCount() > 0) throw new DepotException("Depot not empty, impossible to change resource type");
+        if (count > 0) throw new DepotException("Depot not empty, impossible to change resource type");
         this.resource = resource;
     }
 
     public void setCapacity (int capacity) throws DepotException {
-        if (getCount() > capacity) throw new DepotException("Depot not empty, impossible to change resource type");
-        else this.capacity = capacity;
+        if (capacity < 0) this.capacity = -1;
+        else {
+            if (count > capacity)
+                throw new DepotException("There are too many resources, impossible to change capacity");
+            else this.capacity = capacity;
+        }
     }
 }

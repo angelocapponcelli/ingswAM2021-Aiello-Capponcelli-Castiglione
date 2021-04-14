@@ -1,13 +1,25 @@
 package it.polimi.ingsw.server.model;
 
-public class ResourceContainer {
+/**
+ * Used by depots, can contain only one resource type and capacity is maximum of resources that can contain,
+ * capacity = -1 indicate that there isn't capacity limitation
+ */
+
+public abstract class ResourceContainer {
     protected ResourceType resource;
     protected int capacity;
-    private int count;
+    protected int count;
 
     public ResourceContainer(ResourceType resource, int capacity) {
         this.resource = resource;
-        this.capacity = capacity;
+        if ( capacity < -1 ) capacity = -1;
+        else this.capacity = capacity;
+        count = 0;
+    }
+
+    public ResourceContainer(int capacity) {
+        if ( capacity < -1 ) capacity = -1;
+        else this.capacity = capacity;
         count = 0;
     }
 
@@ -30,20 +42,10 @@ public class ResourceContainer {
         } else throw new DepotException("Out of resource container bound");
     }
 
-    public void add () throws DepotException {
-        if (capacity >= count + 1 || capacity == -1) count++;
-        else throw new DepotException("Out of resource container bound");
-    }
-
     public void remove (int numResource) throws DepotException {
         if (numResource < 0) throw new DepotException("Invalid negative parameter");
         if (count >= numResource) {
             count = count - numResource;
         } else throw new DepotException("Not enough resource in the container");
-    }
-
-    public void remove () throws DepotException {
-        if (count >= 1) count--;
-        else throw new DepotException("Not enough resource in the container");
     }
 }

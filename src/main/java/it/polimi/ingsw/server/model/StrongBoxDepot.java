@@ -3,6 +3,9 @@ package it.polimi.ingsw.server.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Depot that include four StrongBoxContainers: one for each resource
+ */
 public class StrongBoxDepot extends Depot{
     private List<StrongBoxContainer> containers;
 

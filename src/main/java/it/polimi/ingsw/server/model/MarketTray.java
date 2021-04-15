@@ -3,6 +3,10 @@ package it.polimi.ingsw.server.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The marketTray of the board where you can get Takeable
+ */
+
 public class MarketTray {
     private Takeable[][] marketTray;
     private Takeable slide;

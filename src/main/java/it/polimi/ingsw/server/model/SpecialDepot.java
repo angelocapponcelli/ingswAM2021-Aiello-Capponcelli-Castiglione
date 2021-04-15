@@ -2,6 +2,9 @@ package it.polimi.ingsw.server.model;
 
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * Depot that include a series of SpecialContainers, make possible add new containers
+ */
 
 public class SpecialDepot extends Depot{
     private List<SpecialContainer> containers;

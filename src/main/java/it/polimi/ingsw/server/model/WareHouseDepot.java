@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Depot that include a three WareHouseContainer, each container represent a shelf so each
+ * container has resources different from the other, it's possible to swap container
+ */
+
 public class WareHouseDepot extends Depot{
     private List<WareHouseContainer> containers;
 
@@ -22,8 +27,13 @@ public class WareHouseDepot extends Depot{
                 if (selectedContainer.getType() == resource)
                     throw new DepotException("Not possible to add resources to this shelf: another shelf have same resource type");
             }
-            containers.get(indexShelf).add(numResource);
             containers.get(indexShelf).setResourceType(resource);
+            try {
+                containers.get(indexShelf).add(numResource);
+            } catch (DepotException e) {
+                containers.get(indexShelf).setResourceType(null);
+                throw e;
+            }
         } else throw new DepotException("Not possible to add resources to this shelf: shelf not Empty");
     }
 
@@ -46,13 +56,12 @@ public class WareHouseDepot extends Depot{
             tmpCapacity = containers.get(shelf1).getCapacity();
             containers.get(shelf1).setCapacity(containers.get(shelf2).getCapacity());
             containers.get(shelf2).setCapacity(tmpCapacity);
-            Collections.swap(containers,shelf1,shelf2);
         } else {
             tmpCapacity = containers.get(shelf2).getCapacity();
             containers.get(shelf2).setCapacity(containers.get(shelf1).getCapacity());
             containers.get(shelf1).setCapacity(tmpCapacity);
-            Collections.swap(containers,shelf1,shelf2);
         }
+        Collections.swap(containers,shelf1,shelf2);
     }
     @Override
     public int getResourceCount() {

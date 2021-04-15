@@ -16,12 +16,12 @@ public class Resource implements Takeable, Producible, Requirement{
     }
 
     @Override
-    public void onProduction(Player player) {
-        // TODO: player.getStrongbox().add(this.type);
+    public void onProduction(RealPlayer realPlayer) {
+        // TODO realPlayer.getPersonalBoard.getStrongBoxDepot().add(this.type);
     }
 
     @Override
-    public void onTaking(Player player) {
-        // TODO: player.getDepotForMarket().add(this.type);
+    public void onTaking(RealPlayer realPlayer) {
+        // TODO: realPlayer.getPersonalBoard.getDepotForMarket().add(this.type);
     }
 }

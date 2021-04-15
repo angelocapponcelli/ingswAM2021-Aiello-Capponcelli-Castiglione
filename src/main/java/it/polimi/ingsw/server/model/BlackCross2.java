@@ -7,8 +7,6 @@ public class BlackCross2 implements Revealable {
         lorenzo.increaseFaithPosition();
         lorenzo.increaseFaithPosition();
         /** it will be always lorenzo**/
-
-
     }
 
 }

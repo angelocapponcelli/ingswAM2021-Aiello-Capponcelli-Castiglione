@@ -38,10 +38,10 @@ public class DevelopmentCard implements Takeable{
     /**
      * Add the development card on the player's personal board
      *
-     * @param player The player who performs the card's taking.
+     * @param realPlayer The player who performs the card's taking.
      */
     @Override
-    public void onTaking(Player player) {
+    public void onTaking(RealPlayer realPlayer) {
 
     }
 }

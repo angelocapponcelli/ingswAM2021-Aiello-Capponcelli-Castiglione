@@ -20,6 +20,6 @@ public class Cost implements Checkable, Payable{
 
     @Override
     public void pay(Player player) {
-        // TODO: // TODO: if (this.check(player) == true) ==> Remove resources from player
+        // TODO: TODO if (this.check(player) == true) Remove resources from player
     }
 }

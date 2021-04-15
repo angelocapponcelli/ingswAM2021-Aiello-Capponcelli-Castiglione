@@ -13,12 +13,12 @@ public class Faith implements Takeable, Producible{
     public void setcolor(Colors color) { this.color= color; };
 
     @Override
-    public void onProduction(Player player){
-        player.increaseFaithPosition();
+    public void onProduction(RealPlayer realPlayer){
+        realPlayer.increaseFaithPosition();
     }
     @Override
-    public void onTaking(Player player){
-        player.increaseFaithPosition();
+    public void onTaking(RealPlayer realPlayer){
+        realPlayer.increaseFaithPosition();
     }
 
 }

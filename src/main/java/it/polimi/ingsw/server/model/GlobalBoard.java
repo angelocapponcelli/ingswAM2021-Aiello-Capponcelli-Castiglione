@@ -3,19 +3,19 @@ package it.polimi.ingsw.server.model;
 public class GlobalBoard {
 
     private MarketTray marketTray;
-    private DevelpmentCardGrid develpmentCardGrid;
+    private DevelopmentCardGrid developmentCardGrid;
     private FaithTrack faithTrack;
     private ProductionPower basicProductionPower;
 
-    public  GlobalBoard (MarketTray marketTray, DevelpmentCardGrid develpmentCardGrid, FaithTrack faithTrack, ProductionPower basicProductionPower){
+    public  GlobalBoard (MarketTray marketTray, DevelopmentCardGrid developmentCardGrid, FaithTrack faithTrack, ProductionPower basicProductionPower){
         this.marketTray = marketTray;
-        this.develpmentCardGrid = develpmentCardGrid;
+        this.developmentCardGrid = developmentCardGrid;
         this.faithTrack = faithTrack;
         this.basicProductionPower = basicProductionPower;
     }
 
     public MarketTray getMarketTray() {return marketTray;}
-    public DevelpmentCardGrid getDevelpmentCardGrid() {return develpmentCardGrid;}
+    public DevelopmentCardGrid getDevelpmentCardGrid() {return developmentCardGrid;}
     public FaithTrack getFaithTrack() {return faithTrack;}
     public ProductionPower getBasicProductionPower() {return basicProductionPower;}
 

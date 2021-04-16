@@ -15,9 +15,12 @@ public class VaticanReportStatus {
 
     public Integer getVictoryPoint(){
         int tmpvictoryPoints=0;
-        /** for each victoryreportsection getvictorypoint add to victorypoints if the value in the map is true
-         *
-         */
+        for (VaticanReportSection vaticanReportSection: vaticanReportStatus.keySet()){
+            if (vaticanReportStatus.get(vaticanReportSection)==true) {
+                tmpvictoryPoints= tmpvictoryPoints + vaticanReportSection.getVictoryPoints();
+            }
+
+        }
         return tmpvictoryPoints;
     }
 

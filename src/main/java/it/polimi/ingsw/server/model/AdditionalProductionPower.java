@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.model.resources.Resource;
+
 public class AdditionalProductionPower extends SpecialAbility{
     private Resource resource;
 

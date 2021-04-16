@@ -1,4 +1,4 @@
-package it.polimi.ingsw.server.model;
+package it.polimi.ingsw.server.model.interfaces;
 
 /**
  * The interface Requirement. Marker interface.

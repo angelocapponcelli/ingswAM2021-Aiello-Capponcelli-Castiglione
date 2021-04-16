@@ -1,13 +1,15 @@
 package it.polimi.ingsw.server.model;
 
-public class DevelopmentCard implements Takeable{
-    private String id;
+import it.polimi.ingsw.server.model.interfaces.Takeable;
+
+public class DevelopmentCard implements Takeable {
+    private Integer id;
     private Cost cost;
     private TypeLevel typeLevel;
     private ProductionPower productionPower;
     private int victoryPoints;
 
-    public DevelopmentCard(String id, Cost cost, TypeLevel typeLevel, ProductionPower productionPower, int victoryPoints) {
+    public DevelopmentCard(Integer id, Cost cost, TypeLevel typeLevel, ProductionPower productionPower, int victoryPoints) {
         this.id = id;
         this.cost = cost;
         this.typeLevel = typeLevel;
@@ -15,7 +17,7 @@ public class DevelopmentCard implements Takeable{
         this.victoryPoints = victoryPoints;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 

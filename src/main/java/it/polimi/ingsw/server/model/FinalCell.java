@@ -8,6 +8,6 @@ public class FinalCell extends PopeSpaceCell{
      * @param alreadyOccupied
      */
     public FinalCell(Integer victoryPoint, Boolean alreadyOccupied) {
-        super(victoryPoint, alreadyOccupied);
+        super(victoryPoint);
     }
 }

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.model.resources.ResourceType;
+
 /**
  * WareHouseContainer allowed to set resource type, or capacity
  */

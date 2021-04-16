@@ -1,4 +1,6 @@
-package it.polimi.ingsw.server.model;
+package it.polimi.ingsw.server.model.interfaces;
+
+import it.polimi.ingsw.server.model.RealPlayer;
 
 /**
  * The interface Checkable.

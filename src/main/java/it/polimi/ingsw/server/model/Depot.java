@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.model.resources.ResourceType;
+
 /**
  * Generic Depot without any specialization
  */

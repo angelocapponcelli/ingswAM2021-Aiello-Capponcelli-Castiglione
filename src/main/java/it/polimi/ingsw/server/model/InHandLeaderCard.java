@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.model.resources.Faith;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,8 +22,8 @@ public class InHandLeaderCard {
         for (LeaderCard leaderCard1: tmpCards){
             if(leaderCard1.equals(leaderCard)){
                 InHandLeaderCard.remove(leaderCard);
-                Faith faith= new Faith(Colors.RED);
-                faith.onTaking(realPlayer);
+                //Faith faith= new Faith(Colors.RED);
+                //faith.onTaking(realPlayer);
             }
         }
     }

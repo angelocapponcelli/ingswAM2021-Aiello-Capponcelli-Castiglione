@@ -1,4 +1,8 @@
-package it.polimi.ingsw.server.model;
+package it.polimi.ingsw.server.model.soloToken;
+
+import it.polimi.ingsw.server.model.Colors;
+import it.polimi.ingsw.server.model.Lorenzo;
+import it.polimi.ingsw.server.model.interfaces.Revealable;
 
 public class Discarder implements Revealable {
     private Colors type;

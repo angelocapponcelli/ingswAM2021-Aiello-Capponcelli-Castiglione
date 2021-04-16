@@ -1,6 +1,9 @@
-package it.polimi.ingsw.server.model;
+package it.polimi.ingsw.server.model.soloToken;
 
-public class BlackCross1 implements Revealable{
+import it.polimi.ingsw.server.model.Lorenzo;
+import it.polimi.ingsw.server.model.interfaces.Revealable;
+
+public class BlackCross1 implements Revealable {
 
     @Override
     public void onReveal(Lorenzo lorenzo){

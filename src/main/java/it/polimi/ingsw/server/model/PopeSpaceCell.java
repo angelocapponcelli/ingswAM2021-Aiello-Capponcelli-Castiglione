@@ -7,9 +7,9 @@ public class PopeSpaceCell extends Cell{
     /**
      * optional vaticanreportsection has to be put
      */
-    public PopeSpaceCell(Integer victoryPoint, Boolean alreadyOccupied) {
+    public PopeSpaceCell(Integer victoryPoint) {
         super(victoryPoint);
-        this.alreadyOccupied = alreadyOccupied;
+        this.alreadyOccupied = false;
     }
 
     public void setAlreadyOccupied(){

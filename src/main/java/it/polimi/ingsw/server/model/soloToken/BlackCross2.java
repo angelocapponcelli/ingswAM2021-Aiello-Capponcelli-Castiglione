@@ -1,4 +1,7 @@
-package it.polimi.ingsw.server.model;
+package it.polimi.ingsw.server.model.soloToken;
+
+import it.polimi.ingsw.server.model.Lorenzo;
+import it.polimi.ingsw.server.model.interfaces.Revealable;
 
 public class BlackCross2 implements Revealable {
 

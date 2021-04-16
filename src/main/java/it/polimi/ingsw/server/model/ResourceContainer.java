@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.model.resources.ResourceType;
+
 /**
  * Used by depots, can contain only one resource type and capacity is maximum of resources that can contain,
  * capacity = -1 indicate that there isn't capacity limitation

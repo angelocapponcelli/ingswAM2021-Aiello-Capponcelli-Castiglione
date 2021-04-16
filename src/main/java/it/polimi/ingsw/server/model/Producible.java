@@ -6,5 +6,5 @@ package it.polimi.ingsw.server.model;
  */
 public interface Producible {
 
-    void onProduction(RealPlayer realPlayer);
+    void onProduction(RealPlayer realPlayer, Integer molteplicity) throws DepotException;
 }

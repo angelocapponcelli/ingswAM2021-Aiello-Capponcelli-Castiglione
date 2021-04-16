@@ -10,7 +10,7 @@ public class LeaderRequirements implements Checkable{
     }
 
     @Override
-    public boolean check(Player player) {
+    public boolean check(RealPlayer realPlayer) {
         return true;
     }
 }

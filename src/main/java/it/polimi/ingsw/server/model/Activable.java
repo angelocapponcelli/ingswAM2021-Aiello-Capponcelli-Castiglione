@@ -8,7 +8,7 @@ public interface Activable {
     /**
      * Performs the activation.
      *
-     * @param player The player who performs the activation.
+     * @param realPlayer The player who performs the activation.
      */
-    void onActivation(Player player);
+    void onActivation(RealPlayer realPlayer);
 }

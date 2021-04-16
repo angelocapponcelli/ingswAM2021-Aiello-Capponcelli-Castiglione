@@ -13,13 +13,13 @@ public class Cost implements Checkable, Payable{
     }
 
     @Override
-    public boolean check(Player player) {
+    public boolean check(RealPlayer realPlayer) {
         // TODO: check if player owns the necessary resources
         return true;
     }
 
     @Override
-    public void pay(Player player) {
+    public void pay(RealPlayer realPlayer) {
         // TODO: TODO if (this.check(player) == true) Remove resources from player
     }
 }

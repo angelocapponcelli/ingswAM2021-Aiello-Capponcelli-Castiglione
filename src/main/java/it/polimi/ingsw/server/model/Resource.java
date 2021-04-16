@@ -16,8 +16,13 @@ public class Resource implements Takeable, Producible, Requirement{
     }
 
     @Override
-    public void onProduction(RealPlayer realPlayer) {
-        // TODO realPlayer.getPersonalBoard.getStrongBoxDepot().add(this.type);
+    public void onProduction(RealPlayer realPlayer, Integer molteplicity) throws DepotException {
+        PersonalBoard personalBoard;
+        StrongBoxDepot strongBoxDepot;
+        personalBoard= realPlayer.getPersonalBoard();
+        strongBoxDepot= personalBoard.getStrongBoxDepot();
+        strongBoxDepot.add(this.type, molteplicity);
+        // done realPlayer.getPersonalBoard.getStrongBoxDepot().add(this.type);
     }
 
     @Override

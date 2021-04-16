@@ -8,13 +8,17 @@ public class Faith implements Takeable, Producible{
         this.color = color;
     }
 
+
     public Colors getcolor() { return color; };
 
     public void setcolor(Colors color) { this.color= color; };
 
     @Override
-    public void onProduction(RealPlayer realPlayer){
-        realPlayer.increaseFaithPosition();
+    public void onProduction(RealPlayer realPlayer, Integer molteplicity){
+        int loop;
+        for (loop=0; loop>=molteplicity; loop++){
+            realPlayer.increaseFaithPosition();
+        }
     }
     @Override
     public void onTaking(RealPlayer realPlayer){

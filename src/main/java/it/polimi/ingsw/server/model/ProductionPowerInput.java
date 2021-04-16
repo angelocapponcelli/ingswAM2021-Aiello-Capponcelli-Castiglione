@@ -10,12 +10,12 @@ public class ProductionPowerInput implements Checkable, Payable{
     }
 
     @Override
-    public boolean check(Player player) {
+    public boolean check(RealPlayer realPlayer) {
         return true;
     }
 
     @Override
-    public void pay(Player player) {
+    public void pay(RealPlayer realPlayer) {
 
     }
 }

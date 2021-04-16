@@ -6,7 +6,7 @@ public class ProductionPowerOutput implements Activable {
     private Map<Producible, Integer> productionOutput;
 
     @Override
-    public void onActivation(Player player) {
-
+    public void onActivation(RealPlayer realPlayer) {
+    /** asks what it does*/
     }
 }

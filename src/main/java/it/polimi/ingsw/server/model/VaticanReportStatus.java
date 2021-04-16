@@ -14,9 +14,11 @@ public class VaticanReportStatus {
     }
 
     public Integer getVictoryPoint(){
-        int victoryPoints=0;
-        /** for each victoryreportsection getvictorypoint add to victorypoints*/
-        return victoryPoints;
+        int tmpvictoryPoints=0;
+        /** for each victoryreportsection getvictorypoint add to victorypoints if the value in the map is true
+         *
+         */
+        return tmpvictoryPoints;
     }
 
     public void flip(VaticanReportSection vaticanReportSection){

@@ -20,7 +20,7 @@ public class PersonalBoard {
     /**to do verify resources(?)*/
 
     public void addProductionPower(ProductionPower productionPower1){
-        //to do
+        this.productionPower.add(productionPower1);
     }
 
     public WareHouseDepot getWareHouseDepot(){

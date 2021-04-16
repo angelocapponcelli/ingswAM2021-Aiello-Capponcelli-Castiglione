@@ -8,7 +8,7 @@ public interface Checkable {
     /**
      * Performs the checking.
      *
-     * @param player The player on which perform the checking.
+     * @param realPlayer The player on which perform the checking.
      */
-    boolean check(Player player);
+    boolean check(RealPlayer realPlayer);
 }

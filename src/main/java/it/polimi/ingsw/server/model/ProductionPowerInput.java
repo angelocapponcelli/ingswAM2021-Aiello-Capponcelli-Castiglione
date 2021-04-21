@@ -15,20 +15,8 @@ public class    ProductionPowerInput implements Checkable, Payable {
     }
 
     public void add(ResourceType resourceType, Integer multiplicity){
-        switch (resourceType.toString()){
-            case "COIN":
-                productionPowerInput.put(Coin.getInstance(), multiplicity);
-                break;
-            case "STONE":
-                productionPowerInput.put(Stone.getInstance(), multiplicity);
-                break;
-            case "SHIELD":
-                productionPowerInput.put(Shield.getInstance(), multiplicity);
-                break;
-            case "SERVANT":
-                productionPowerInput.put(Servant.getInstance(), multiplicity);
-                break;
-        }
+        productionPowerInput.put(ResourceType.getResourceClass(resourceType), multiplicity);
+
     }
     @Override
     public boolean check(RealPlayer realPlayer) {

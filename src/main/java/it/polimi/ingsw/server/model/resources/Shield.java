@@ -3,7 +3,7 @@ package it.polimi.ingsw.server.model.resources;
 import it.polimi.ingsw.server.model.DepotException;
 import it.polimi.ingsw.server.model.RealPlayer;
 
-public class Shield extends Resource{
+public class Shield extends ConcreteResource{
     private static final Shield INSTANCE = new Shield();
     private static final ResourceType resourceType = ResourceType.SHIELD;
 

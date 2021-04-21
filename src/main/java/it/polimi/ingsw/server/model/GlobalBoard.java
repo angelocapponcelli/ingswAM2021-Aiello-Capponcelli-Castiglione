@@ -7,17 +7,28 @@ public class GlobalBoard {
     private FaithTrack faithTrack;
     private ProductionPower basicProductionPower;
 
-    public  GlobalBoard (MarketTray marketTray, DevelopmentCardGrid developmentCardGrid, FaithTrack faithTrack, ProductionPower basicProductionPower){
+    public GlobalBoard(MarketTray marketTray, DevelopmentCardGrid developmentCardGrid, FaithTrack faithTrack, ProductionPower basicProductionPower) {
         this.marketTray = marketTray;
         this.developmentCardGrid = developmentCardGrid;
         this.faithTrack = faithTrack;
         this.basicProductionPower = basicProductionPower;
     }
 
-    public MarketTray getMarketTray() {return marketTray;}
-    public DevelopmentCardGrid getDevelpmentCardGrid() {return developmentCardGrid;}
-    public FaithTrack getFaithTrack() {return faithTrack;}
-    public ProductionPower getBasicProductionPower() {return basicProductionPower;}
+    public MarketTray getMarketTray() {
+        return marketTray;
+    }
+
+    public DevelopmentCardGrid getDevelpmentCardGrid() {
+        return developmentCardGrid;
+    }
+
+    public FaithTrack getFaithTrack() {
+        return faithTrack;
+    }
+
+    public ProductionPower getBasicProductionPower() {
+        return basicProductionPower;
+    }
 
 
 }

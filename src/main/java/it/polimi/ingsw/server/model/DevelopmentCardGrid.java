@@ -6,11 +6,11 @@ package it.polimi.ingsw.server.model;
 public class DevelopmentCardGrid {
     private Deck[][] grid;
 
-    public DevelopmentCardGrid(Deck[][] grid){
-        this.grid=grid;
+    public DevelopmentCardGrid(Deck[][] grid) {
+        this.grid = grid;
     }
 
     /**
-    public Deck getDeck(Integer integer){
-    }*/
+     public Deck getDeck(Integer integer){
+     }*/
 }

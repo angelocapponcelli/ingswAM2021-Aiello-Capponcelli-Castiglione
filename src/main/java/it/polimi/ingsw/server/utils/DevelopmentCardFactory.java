@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class DevelopmentCardFactory {
 
-    public void loadCards() throws FileNotFoundException {
+    public static List<DevelopmentCard> getCards() throws FileNotFoundException {
         List<DevelopmentCardTemp> tempDeck;
         List<DevelopmentCard> deck = new ArrayList<>();
         Type listOfMyClassObject = new TypeToken<ArrayList<DevelopmentCardTemp>>() {}.getType();
@@ -43,14 +43,13 @@ public class DevelopmentCardFactory {
             }
             ProductionPower productionPower= new ProductionPower(productionPowerInput,productionPowerOutput);
 
-
             TypeLevel typeLevel= new TypeLevel(developmentCardTemp.getTypeLevel().getType(),developmentCardTemp.getTypeLevel().getLevel());
             deck.add(new DevelopmentCard(developmentCardTemp.getId(), cost, typeLevel,productionPower,developmentCardTemp.getVictoryPoints()));
 
 
         }
-
-
         //deck.forEach(card-> card.getCost().getCost().forEach((k, v)-> System.out.println(card.getId() + " " + k.toString() + " " + v)));
+        return deck;
+
     }
 }

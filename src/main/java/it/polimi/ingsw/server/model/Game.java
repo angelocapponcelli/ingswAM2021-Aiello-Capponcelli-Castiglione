@@ -1,5 +1,9 @@
 package it.polimi.ingsw.server.model;
-/** has to be finished*/
+
+/*
+ * has to be finished
+ */
+
 import java.util.List;
 
 abstract class Game {
@@ -9,18 +13,19 @@ abstract class Game {
     private Player currentPlayer;
     private Player winner;
 
-    public Game(Integer id, List<Player> players, GlobalBoard globalBoard, Player currentPlayer, Player winner){
+    public Game(Integer id, List<Player> players, GlobalBoard globalBoard, Player currentPlayer, Player winner) {
         this.id = id;
-        this.players= players;
-        this.globalBoard=globalBoard;
-        this.currentPlayer=currentPlayer;
-        this.winner=winner;
+        this.players = players;
+        this.globalBoard = globalBoard;
+        this.currentPlayer = currentPlayer;
+        this.winner = winner;
     }
 
-    public Integer getId(){
+    public Integer getId() {
         return id;
     }
-    public List<Player> getPlayers(){
+
+    public List<Player> getPlayers() {
         return players;
     }
 

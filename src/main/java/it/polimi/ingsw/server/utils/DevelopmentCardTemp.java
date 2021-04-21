@@ -4,6 +4,9 @@ import it.polimi.ingsw.server.model.resources.ResourceType;
 
 import java.util.Map;
 
+/**
+ * Temporary class used to store the content read from the json file
+ */
 public class DevelopmentCardTemp {
     private final Integer id;
     private final Map<ResourceType,Integer> cost;

@@ -6,14 +6,14 @@ import java.util.List;
 public class PersonalBoard {
     private WareHouseDepot wareHouseDepot;
     private StrongBoxDepot strongBoxDepot;
-    private DevelopmentBoard developmentBoard;
+    private PersonalDevelopmentBoard personalDevelopmentBoard;
     private InHandLeaderCard inHandLeaderCard;
     private List<ProductionPower> productionPower;
 
-    public PersonalBoard(WareHouseDepot wareHouseDepot, StrongBoxDepot strongBoxDepot, DevelopmentBoard developmentBoard,InHandLeaderCard inHandLeaderCard, List<ProductionPower> productionPower){
+    public PersonalBoard(WareHouseDepot wareHouseDepot, StrongBoxDepot strongBoxDepot, PersonalDevelopmentBoard developmentBoard,InHandLeaderCard inHandLeaderCard, List<ProductionPower> productionPower){
         this.wareHouseDepot=wareHouseDepot;
         this.strongBoxDepot=strongBoxDepot;
-        this.developmentBoard= developmentBoard;
+        this.personalDevelopmentBoard= developmentBoard;
         this.inHandLeaderCard=inHandLeaderCard;
         this.productionPower=productionPower;
     }
@@ -27,8 +27,8 @@ public class PersonalBoard {
         return wareHouseDepot;
     }
 
-    public DevelopmentBoard getDevelopmentBoard() {
-        return developmentBoard;
+    public PersonalDevelopmentBoard getDevelopmentBoard() {
+        return personalDevelopmentBoard;
     }
 
     public InHandLeaderCard getInHandLeaderCard() {

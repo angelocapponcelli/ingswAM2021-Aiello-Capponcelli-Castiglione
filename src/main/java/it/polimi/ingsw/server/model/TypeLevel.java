@@ -1,9 +1,11 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.model.interfaces.Requirement;
+
 /**
  * Type and the level of development cards.
  */
-public class TypeLevel {
+public class TypeLevel implements Requirement {
     private final Colors type;
     private final int level;
 

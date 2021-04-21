@@ -3,7 +3,7 @@ package it.polimi.ingsw.server.model.resources;
 import it.polimi.ingsw.server.model.DepotException;
 import it.polimi.ingsw.server.model.RealPlayer;
 
-public class Coin extends Resource{
+public class Coin extends ConcreteResource{
     private static final Coin INSTANCE = new Coin();
     private static final ResourceType resourceType = ResourceType.COIN;
 

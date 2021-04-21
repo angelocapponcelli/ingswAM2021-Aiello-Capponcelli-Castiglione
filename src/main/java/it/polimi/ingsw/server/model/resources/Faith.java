@@ -5,7 +5,7 @@ import it.polimi.ingsw.server.model.RealPlayer;
 import it.polimi.ingsw.server.model.interfaces.Producible;
 import it.polimi.ingsw.server.model.interfaces.Takeable;
 
-public class Faith implements Takeable, Producible {
+public class Faith extends Resource {
     private static final Faith INSTANCE = new Faith();
     private static final ResourceType resourceType = ResourceType.FAITH;
 

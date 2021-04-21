@@ -1,16 +1,16 @@
 package it.polimi.ingsw.server.model;
 
-import it.polimi.ingsw.server.model.resources.Resource;
+import it.polimi.ingsw.server.model.resources.ResourceType;
 
-public class ExtraDepot extends SpecialAbility{
-    private Resource resource;
+public class ExtraDepot extends SpecialAbility {
+    private ResourceType resource;
 
-    public ExtraDepot(Resource resource){
-        this.resource=resource;
+    public ExtraDepot(ResourceType resource) {
+        this.resource = resource;
     }
 
     @Override
-    public void onActivation(Player player){
+    public void onActivation(RealPlayer player) {
         /** need to wait the finish of the depot to write this part*/
     }
 }

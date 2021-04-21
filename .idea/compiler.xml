@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="AM61" />
+        <module name="ingswAM2021-Aiello-Capponcelli-Castiglione" />
       </profile>
     </annotationProcessing>
   </component>

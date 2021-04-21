@@ -9,6 +9,7 @@ public class DevelopmentCard implements Takeable {
     private ProductionPower productionPower;
     private int victoryPoints;
 
+
     public DevelopmentCard(Integer id, Cost cost, TypeLevel typeLevel, ProductionPower productionPower, int victoryPoints) {
         this.id = id;
         this.cost = cost;

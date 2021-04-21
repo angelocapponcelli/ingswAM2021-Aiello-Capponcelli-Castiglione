@@ -1,6 +1,9 @@
 package it.polimi.ingsw.server.model;
-/** to do */
-public class FinalCell extends PopeSpaceCell{
+
+/**
+ * to do
+ */
+public class FinalCell extends PopeSpaceCell {
     /**
      * optional vaticanreportsection has to be put
      *

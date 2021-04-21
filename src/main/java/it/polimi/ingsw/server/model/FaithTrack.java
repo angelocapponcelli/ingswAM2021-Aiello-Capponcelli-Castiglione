@@ -7,13 +7,17 @@ public class FaithTrack {
     private List<Cell> track;
     private List<VaticanReportSection> vaticanReportSectionList;
 
-    /** check if this constructor is okay*/
-    public FaithTrack(List<Cell> track, List<VaticanReportSection> vaticanReportSectionList){
+    /**
+     * check if this constructor is okay
+     */
+    public FaithTrack(List<Cell> track, List<VaticanReportSection> vaticanReportSectionList) {
         this.track = track;
         this.vaticanReportSectionList = vaticanReportSectionList;
     }
 
-    /** methods**/
+    /**
+     * methods
+     **/
 
     public List<Cell> getTrack() {
         return track;

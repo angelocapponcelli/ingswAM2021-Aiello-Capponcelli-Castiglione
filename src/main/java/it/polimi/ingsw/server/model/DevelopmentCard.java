@@ -45,6 +45,8 @@ public class DevelopmentCard implements Takeable {
      */
     @Override
     public void onTaking(RealPlayer realPlayer) {
-
+        int tmpDeck=0;
+        /** asks the player which deck and set that value*/
+        realPlayer.getPersonalBoard().getPersonalDevelopmentBoard().addCard(tmpDeck,this);
     }
 }

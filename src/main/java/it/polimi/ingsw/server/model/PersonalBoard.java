@@ -4,16 +4,16 @@ import java.util.List;
 
 /** HAS TO BE MODIFIED BECAUSE THERE ARE NO DEPOT FOR MARKET*/
 public class PersonalBoard {
-    private WareHouseDepot wareHouseDepot;
+    private List<Depot> depotForMarket;
     private StrongBoxDepot strongBoxDepot;
     private PersonalDevelopmentBoard personalDevelopmentBoard;
     private InHandLeaderCard inHandLeaderCard;
     private List<ProductionPower> productionPower;
 
-    public PersonalBoard(WareHouseDepot wareHouseDepot, StrongBoxDepot strongBoxDepot, PersonalDevelopmentBoard developmentBoard,InHandLeaderCard inHandLeaderCard, List<ProductionPower> productionPower){
-        this.wareHouseDepot=wareHouseDepot;
+    public PersonalBoard(List<Depot> depotForMarket, StrongBoxDepot strongBoxDepot, PersonalDevelopmentBoard personalDevelopmentBoard,InHandLeaderCard inHandLeaderCard, List<ProductionPower> productionPower){
+        this.depotForMarket=depotForMarket;
         this.strongBoxDepot=strongBoxDepot;
-        this.personalDevelopmentBoard= developmentBoard;
+        this.personalDevelopmentBoard= personalDevelopmentBoard;
         this.inHandLeaderCard=inHandLeaderCard;
         this.productionPower=productionPower;
     }
@@ -23,11 +23,11 @@ public class PersonalBoard {
         this.productionPower.add(productionPower1);
     }
 
-    public WareHouseDepot getWareHouseDepot(){
-        return wareHouseDepot;
+    public List<Depot> getDepotForMarket(){
+        return depotForMarket;
     }
 
-    public PersonalDevelopmentBoard getDevelopmentBoard() {
+    public PersonalDevelopmentBoard getPersonalDevelopmentBoard() {
         return personalDevelopmentBoard;
     }
 

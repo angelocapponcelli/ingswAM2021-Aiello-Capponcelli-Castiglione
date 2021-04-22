@@ -1,7 +1,5 @@
 package it.polimi.ingsw.server.model;
 
-import it.polimi.ingsw.server.model.resources.Faith;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,4 +36,14 @@ public class InHandLeaderCard {
         }
         return enabledAbilities;
     }
+    public Integer getVictoryPoint(){
+        int sum=0;
+        for(LeaderCard leaderCard: cards ){
+            if(leaderCard.isPlayed()){
+                sum=sum+ leaderCard.getVictoryPoint();
+            }
+        }
+        return sum;
+    }
 }
+

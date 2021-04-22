@@ -23,5 +23,9 @@ public class LeaderCard {
     /** to do
      *
      */
-    public void playCard(){/**to do*/;}
+    public void playCard(RealPlayer realPlayer){
+        if(this.requirements.check(realPlayer)){
+            this.played= true;
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model;
 
 import it.polimi.ingsw.server.model.resources.ResourceType;
+import it.polimi.ingsw.server.model.resources.Servant;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,7 +25,7 @@ class SpecialDepotTest {
         specialDepot.addContainer(ResourceType.SERVANT);
         specialDepot.add(ResourceType.SERVANT,1);
         assertEquals(3, specialDepot.getResourceCount());
-        assertThrows(DepotException.class, () -> specialDepot.remove(ResourceType.SERVANT,2));
+        assertThrows(DepotException.class, () -> specialDepot.remove(Servant.getInstance(),2));
 
     }
 

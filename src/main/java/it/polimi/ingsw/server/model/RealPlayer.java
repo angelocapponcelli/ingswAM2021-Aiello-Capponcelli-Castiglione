@@ -7,6 +7,7 @@ public class RealPlayer extends Player{
 
     private Integer victoryPoint;
 
+
     public RealPlayer (String name, Integer faithPosition, VaticanReportStatus vaticanReportStatus,PersonalBoard personalBoard, Boolean first, Integer victoryPoint) {
         super(name,faithPosition,vaticanReportStatus);
         this.personalBoard = personalBoard;

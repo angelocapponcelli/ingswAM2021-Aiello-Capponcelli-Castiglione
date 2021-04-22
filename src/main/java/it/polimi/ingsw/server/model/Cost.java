@@ -26,15 +26,75 @@ public class Cost implements Checkable, Payable {
         cost.put(ResourceType.getResourceClass(resourceType), multiplicity);
     }
 
+    /**
+     * This method check if a RealPlayer has enough resources in his depots
+     * For every cost entry check if is higher or lower than the amount of same resource type in the depots
+     *
+     * @return true if RealPlayer has enough resources in his depots otherwise false
+     * @parameter player whose depots are checked
+     */
     @Override
     public boolean check(RealPlayer realPlayer) {
-        // TODO: check if player owns the necessary resources
+        int count = 0;
+        for (Map.Entry<Resource, Integer> entry : cost.entrySet()) {
+            for (Depot depotForMarket : realPlayer.getPersonalBoard().getDepotForMarket()) {
+                count = count + depotForMarket.getResourceCount(entry.getKey());
+            }
+            count = count + realPlayer.getPersonalBoard().getStrongBoxDepot().getResourceCount(entry.getKey());
+            if (entry.getValue() > count)
+                return false;
+        }
         return true;
     }
 
+    /**
+     * This method remove resources from RealPlayer Depot
+     *
+     * @parameter player which resources are removed from
+     */
     @Override
-    public void pay(RealPlayer realPlayer) {
-        // TODO: TODO if (this.check(player) == true) Remove resources from player
+    public void pay(RealPlayer realPlayer) throws DepotException {
+        int count;
+        if (this.check(realPlayer)) {
+            for (Map.Entry<Resource, Integer> entry : cost.entrySet()) {
+                count = entry.getValue();
+                for (SpecialDepot specialDepot : realPlayer.getPersonalBoard().getSpecialDepot()) { //Special depot loop, in case there was more than one
+                    if (specialDepot.getResourceCount(entry.getKey()) != 0) {
+                        if (count <= specialDepot.getResourceCount(entry.getKey())) {
+                            specialDepot.remove(entry.getKey(), count);
+                            count = 0;
+                            break;
+                        } else {
+                            count = count - specialDepot.getResourceCount(entry.getKey());
+                            specialDepot.remove(entry.getKey(), specialDepot.getResourceCount(entry.getKey()));
+                        }
+                    }
+                }
+                if (count > 0) { // in case there are still resource to pay
+                    for (WareHouseDepot wareHouseDepot : realPlayer.getPersonalBoard().getWarehouseDepot()) { //WareHouse depot loop, in case there was more than one
+                        if (wareHouseDepot.getResourceCount(entry.getKey()) != 0) {
+                            if (count <= wareHouseDepot.getResourceCount(entry.getKey())) {
+                                wareHouseDepot.remove(entry.getKey(), count);
+                                count = 0;
+                                break;
+                            } else {
+                                count = count - wareHouseDepot.getResourceCount(entry.getKey());
+                                wareHouseDepot.remove(entry.getKey(), wareHouseDepot.getResourceCount(entry.getKey()));
+                            }
+                        }
+                    }
+                    if (count > 0) { //StrongBox remove part, in case there are still resource to pay
+                        realPlayer.getPersonalBoard().getStrongBoxDepot().remove(entry.getKey(), count);
+                    }
+                }
+
+
+            }
+        }
+        /**
+         * todo:
+         * else launch an exception
+         */
     }
 
 }

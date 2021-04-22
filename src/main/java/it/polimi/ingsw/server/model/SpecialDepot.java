@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.model.resources.Resource;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 
 import java.util.ArrayList;
@@ -32,10 +33,10 @@ public class SpecialDepot extends Depot{
     }
 
     @Override
-    public void remove(ResourceType resource, int numResource) throws DepotException {
+    public void remove(Resource resource, int numResource) throws DepotException {
         boolean notExist = true;
         for (SpecialContainer selectedContainer: containers) {
-            if (selectedContainer.getType() == resource) {
+            if (ResourceType.getResourceClass(selectedContainer.getType()) == resource) {
                 selectedContainer.remove(numResource);
                 notExist = false;
             }
@@ -48,6 +49,15 @@ public class SpecialDepot extends Depot{
         int count = 0;
         for (SpecialContainer tmpContainer: containers) {
             count = count + tmpContainer.getCount();
+        }
+        return count;
+    }
+
+    @Override
+    public int getResourceCount(Resource resource) {
+        int count = 0;
+        for (SpecialContainer tmpContainer: containers) {
+            if (ResourceType.getResourceClass(tmpContainer.getType()) == resource) count = count + tmpContainer.getCount();
         }
         return count;
     }

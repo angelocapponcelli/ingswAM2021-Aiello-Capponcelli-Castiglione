@@ -1,4 +1,5 @@
 package it.polimi.ingsw.server.model.resources;
+
 /**
  * The enum ResourceType.
  */
@@ -22,6 +23,8 @@ public enum ResourceType {
                 return Servant.getInstance();
             case "FAITH":
                 return Faith.getInstance();
+            case "ANY":
+                return Any.getInstance();
             default:
                 return null;
         }

@@ -12,8 +12,8 @@ import java.util.List;
  * container has resources different from the other, it's possible to swap container
  */
 
-public class WareHouseDepot extends Depot{
-    private List<WareHouseContainer> containers;
+public class WareHouseDepot extends Depot {
+    private final List<WareHouseContainer> containers;
 
     public WareHouseDepot() {
         containers = new ArrayList<>();
@@ -26,7 +26,7 @@ public class WareHouseDepot extends Depot{
         if (containers.get(indexShelf).getType() == resource)
             containers.get(indexShelf).add(numResource);
         else if (containers.get(indexShelf).getType() == null) {
-            for (WareHouseContainer selectedContainer: containers) {
+            for (WareHouseContainer selectedContainer : containers) {
                 if (selectedContainer.getType() == resource)
                     throw new DepotException("Not possible to add resources to this shelf: another shelf have same resource type");
             }
@@ -43,19 +43,19 @@ public class WareHouseDepot extends Depot{
     @Override
     public void remove(Resource resource, int numResource) throws DepotException {
         boolean notExist = true;
-        for (WareHouseContainer selectedContainer: containers) {
+        for (WareHouseContainer selectedContainer : containers) {
             if (selectedContainer.getType() != null && ResourceType.getResourceClass(selectedContainer.getType()) == resource) {
                 selectedContainer.remove(numResource);
                 if (selectedContainer.getCount() == 0) selectedContainer.setResourceType(null);
                 notExist = false;
             }
         }
-        if(notExist) throw new DepotException("Impossible to remove resources, resource type not available");
+        if (notExist) throw new DepotException("Impossible to remove resources, resource type not available");
     }
 
-    public void swap (int shelf1, int shelf2) throws DepotException {
+    public void swap(int shelf1, int shelf2) throws DepotException {
         int tmpCapacity;
-        if (shelf1 > shelf2){
+        if (shelf1 > shelf2) {
             tmpCapacity = containers.get(shelf1).getCapacity();
             containers.get(shelf1).setCapacity(containers.get(shelf2).getCapacity());
             containers.get(shelf2).setCapacity(tmpCapacity);
@@ -64,22 +64,24 @@ public class WareHouseDepot extends Depot{
             containers.get(shelf2).setCapacity(containers.get(shelf1).getCapacity());
             containers.get(shelf1).setCapacity(tmpCapacity);
         }
-        Collections.swap(containers,shelf1,shelf2);
+        Collections.swap(containers, shelf1, shelf2);
     }
+
     @Override
     public int getResourceCount() {
         int count = 0;
-        for (WareHouseContainer tmpContainer: containers) {
+        for (WareHouseContainer tmpContainer : containers) {
             count = count + tmpContainer.getCount();
         }
         return count;
     }
 
     @Override
-    public int getResourceCount(Resource resource){
+    public int getResourceCount(Resource resource) {
         int count = 0;
-        for (WareHouseContainer tmpContainer: containers) {
-            if (tmpContainer.getType() != null && ResourceType.getResourceClass(tmpContainer.getType()) == resource) count = count + tmpContainer.getCount();
+        for (WareHouseContainer tmpContainer : containers) {
+            if (tmpContainer.getType() != null && ResourceType.getResourceClass(tmpContainer.getType()) == resource)
+                count = count + tmpContainer.getCount();
         }
         return count;
     }

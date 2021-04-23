@@ -1,16 +1,25 @@
 package it.polimi.ingsw.server.model;
 
-import java.util.List;
+import java.io.FileNotFoundException;
 
-public class SinglePlayerGame extends Game{
-    public SinglePlayerGame(Integer id, List<Player> players, GlobalBoard globalBoard, Player currentPlayer, Player winner) {
-        super(id, players, globalBoard, currentPlayer, winner);
+/**
+ * The type Single player game.
+ */
+public class SinglePlayerGame extends Game {
+    /**
+     * Instantiates a new Single player game.
+     *
+     * @param id the id of the game
+     */
+    public SinglePlayerGame(Integer id){
+        super(id);
     }
 
-    /** needs to be controlled this last method*/
 
-    public void endGame(Player player){
+    /**
+     * @param player the player who performs the action that causes the end of the game
+     */
+    public void endGame(Player player) {
         setWinner(player);
-        /** need to control if it is a realplayer or it is lorenzo*/
     }
 }

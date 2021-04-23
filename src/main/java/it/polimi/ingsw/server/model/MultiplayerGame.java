@@ -1,13 +1,13 @@
 package it.polimi.ingsw.server.model;
 
-import java.util.List;
+import java.io.FileNotFoundException;
 
-public class MultiplayerGame extends Game{
+public class MultiplayerGame extends Game {
 
-    public MultiplayerGame(Integer id, List<Player> players, GlobalBoard globalBoard, Player currentPlayer, Player winner) {
-        super(id, players, globalBoard, currentPlayer, winner);
+    public MultiplayerGame(Integer id) {
+        super(id);
     }
 
 
-    /**to do the doLastTurn method*/
+    /*to do the doLastTurn method*/
 }

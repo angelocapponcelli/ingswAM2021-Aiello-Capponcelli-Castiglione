@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProductionPowerOutput implements Activable {
-    private Map<Producible, Integer> productionPowerOutput;
+    private final Map<Producible, Integer> productionPowerOutput;
 
     public ProductionPowerOutput() {
         this.productionPowerOutput = new HashMap<>();
@@ -35,8 +35,9 @@ public class ProductionPowerOutput implements Activable {
         }
 
     }
+
     @Override
     public void onActivation(RealPlayer realPlayer) {
-    /** asks what it does*/
+        /*asks what it does*/
     }
 }

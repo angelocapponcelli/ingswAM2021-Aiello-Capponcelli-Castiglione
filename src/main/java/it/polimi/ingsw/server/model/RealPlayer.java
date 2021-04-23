@@ -1,47 +1,47 @@
 package it.polimi.ingsw.server.model;
 
-public class RealPlayer extends Player{
-    private PersonalBoard personalBoard;
+public class RealPlayer extends Player {
+    private final PersonalBoard personalBoard;
 
-    private Boolean first;
+    private final Boolean first;
 
-    private Integer victoryPoint;
+    private final Integer victoryPoint;
 
 
-    public RealPlayer (String name, Integer faithPosition, VaticanReportStatus vaticanReportStatus,PersonalBoard personalBoard, Boolean first, Integer victoryPoint) {
-        super(name,faithPosition,vaticanReportStatus);
+    public RealPlayer(String name, PersonalBoard personalBoard, Boolean first) {
+        super(name);
         this.personalBoard = personalBoard;
         this.first = first;
-        this.victoryPoint = victoryPoint;
+        this.victoryPoint = 0;
     }
 
     //da completare
-    public Integer getVictoryPoint(FaithTrack faithTrack){
-        int sum=0;
-        int tmpResourceCount=0;
+    public Integer getVictoryPoint(FaithTrack faithTrack) {
+        int sum = 0;
+        int tmpResourceCount = 0;
         /* points from leadercard*/
-        sum= sum+ this.getPersonalBoard().getInHandLeaderCard().getVictoryPoint();
+        sum = sum + this.getPersonalBoard().getInHandLeaderCard().getVictoryPoint();
         /*points from developmentcards*/
-        sum= sum+ this.getPersonalBoard().getPersonalDevelopmentBoard().getVictoryPoint();
+        sum = sum + this.getPersonalBoard().getPersonalDevelopmentBoard().getVictoryPoint();
         /*sum of the resource then divided by 5. every 5 resources the player is given 1 victory point*/
-        for(Depot depot: this.getPersonalBoard().getDepotForMarket()){
-            tmpResourceCount= tmpResourceCount+ depot.getResourceCount();
+        for (Depot depot : this.getPersonalBoard().getDepotForMarket()) {
+            tmpResourceCount = tmpResourceCount + depot.getResourceCount();
         }
-        tmpResourceCount= tmpResourceCount+ this.getPersonalBoard().getStrongBoxDepot().getResourceCount();
+        tmpResourceCount = tmpResourceCount + this.getPersonalBoard().getStrongBoxDepot().getResourceCount();
         sum = sum + (tmpResourceCount / 5);
 
         /* points from vaticanreportstatus*/
-        sum=sum+this.vaticanReportStatus.getVictoryPoint();
+        sum = sum + this.vaticanReportStatus.getVictoryPoint();
         /* points from the faithposition*/
-        sum= sum+ faithTrack.getTrack().get(faithPosition).getVictoryPoint();
+        sum = sum + faithTrack.getTrack().get(faithPosition).getVictoryPoints();
         return sum;
     }
 
-    public Boolean isFirst(){
+    public Boolean isFirst() {
         return this.first;
     }
 
-    public PersonalBoard getPersonalBoard(){
+    public PersonalBoard getPersonalBoard() {
         return this.personalBoard;
     }
 }

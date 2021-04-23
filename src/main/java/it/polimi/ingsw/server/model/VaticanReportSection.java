@@ -4,10 +4,10 @@ package it.polimi.ingsw.server.model;
 import java.util.List;
 
 public class VaticanReportSection {
-    private List<Cell> cells;
-    private Integer victoryPoints;
+    private final List<Cell> cells;
+    private final Integer victoryPoints;
 
-    public VaticanReportSection(List<Cell> cells, Integer victoryPoints){
+    public VaticanReportSection(List<Cell> cells, Integer victoryPoints) {
         this.cells = cells;
         this.victoryPoints = victoryPoints;
     }

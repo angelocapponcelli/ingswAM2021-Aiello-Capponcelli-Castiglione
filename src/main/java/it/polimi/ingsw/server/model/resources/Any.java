@@ -6,13 +6,14 @@ import it.polimi.ingsw.server.model.RealPlayer;
 /**
  * The Any resource. Represents a resource that can be chosen by a player.
  */
-public class Any extends Resource{
+public class Any extends Resource {
     private static final Any INSTANCE = new Any();
     private static final ResourceType resourceType = ResourceType.ANY;
 
-    private Any() {}
+    private Any() {
+    }
 
-    public static Any getInstance(){
+    public static Any getInstance() {
         return INSTANCE;
     }
 

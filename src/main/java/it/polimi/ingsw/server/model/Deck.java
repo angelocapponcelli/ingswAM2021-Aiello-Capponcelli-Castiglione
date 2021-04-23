@@ -1,13 +1,11 @@
 package it.polimi.ingsw.server.model;
 
-import it.polimi.ingsw.server.model.DevelopmentCard;
-
 import java.util.List;
 
 public class Deck {
 
 
-    private List<DevelopmentCard> deck;
+    private final List<DevelopmentCard> deck;
 
     public Deck(List<DevelopmentCard> deck) {
         this.deck = deck;
@@ -16,11 +14,12 @@ public class Deck {
     public List<DevelopmentCard> getDeck() {
         return deck;
     }
+
     /**
      * has to be check
      */
-    public Integer getVictoryPoint() {
-        Integer sum = 0;
+    public int getVictoryPoint() {
+        int sum = 0;
         for (DevelopmentCard developmentCard : deck) {
             sum = sum + developmentCard.getVictoryPoints();
         }

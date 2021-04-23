@@ -1,16 +1,25 @@
 package it.polimi.ingsw.server.model;
 
+
+import it.polimi.ingsw.server.Server;
+
 /**
- * to do
+ * The type Final cell.
  */
 public class FinalCell extends PopeSpaceCell {
     /**
-     * optional vaticanreportsection has to be put
+     * Instantiates a new Final cell.
      *
-     * @param victoryPoint
-     * @param alreadyOccupied
+     * @param victoryPoints the victory points of the cell.
      */
-    public FinalCell(Integer victoryPoint, Boolean alreadyOccupied) {
-        super(victoryPoint);
+    public FinalCell(Integer victoryPoints) {
+        super(victoryPoints);
     }
+
+    @Override
+    public void onOccupy(Player player) {
+        super.onOccupy(player);
+        Server.getOnGoingGame().endGame(player);
+    }
+
 }

@@ -3,45 +3,50 @@ package it.polimi.ingsw.server.model;
 import java.util.ArrayList;
 import java.util.List;
 
-/** HAS TO BE MODIFIED BECAUSE THERE ARE NO DEPOT FOR MARKET*/
+/**
+ * HAS TO BE MODIFIED BECAUSE THERE ARE NO DEPOT FOR MARKET
+ */
 public class PersonalBoard {
-    private List<Depot> depotForMarket;
-    private StrongBoxDepot strongBoxDepot;
-    private PersonalDevelopmentBoard personalDevelopmentBoard;
-    private InHandLeaderCard inHandLeaderCard;
-    private List<ProductionPower> productionPower;
+    private final List<Depot> depotForMarket;
+    private final StrongBoxDepot strongBoxDepot;
+    private final PersonalDevelopmentBoard personalDevelopmentBoard;
+    private final InHandLeaderCard inHandLeaderCard;
+    private final List<ProductionPower> productionPower;
 
-    public PersonalBoard(List<Depot> depotForMarket, StrongBoxDepot strongBoxDepot, PersonalDevelopmentBoard personalDevelopmentBoard,InHandLeaderCard inHandLeaderCard, List<ProductionPower> productionPower){
-        this.depotForMarket=depotForMarket;
-        this.strongBoxDepot=strongBoxDepot;
-        this.personalDevelopmentBoard= personalDevelopmentBoard;
-        this.inHandLeaderCard=inHandLeaderCard;
-        this.productionPower=productionPower;
+    public PersonalBoard(List<Depot> depotForMarket, StrongBoxDepot strongBoxDepot, PersonalDevelopmentBoard personalDevelopmentBoard, InHandLeaderCard inHandLeaderCard, List<ProductionPower> productionPower) {
+        this.depotForMarket = depotForMarket;
+        this.strongBoxDepot = strongBoxDepot;
+        this.personalDevelopmentBoard = personalDevelopmentBoard;
+        this.inHandLeaderCard = inHandLeaderCard;
+        this.productionPower = productionPower;
     }
-    /**to do verify resources(?)*/
 
-    public void addProductionPower(ProductionPower productionPower1){
+    /**
+     * to do verify resources(?)
+     */
+
+    public void addProductionPower(ProductionPower productionPower1) {
         this.productionPower.add(productionPower1);
     }
 
-    public List<Depot> getDepotForMarket(){
+    public List<Depot> getDepotForMarket() {
         return depotForMarket;
     }
 
-    public List<SpecialDepot> getSpecialDepot () {
+    public List<SpecialDepot> getSpecialDepot() {
         List<SpecialDepot> specialDepots = new ArrayList<>();
         for (Depot tmp : depotForMarket) {
-            if(tmp.getClass() == SpecialDepot.class) specialDepots.add((SpecialDepot) tmp);
+            if (tmp.getClass() == SpecialDepot.class) specialDepots.add((SpecialDepot) tmp);
         }
-            return  specialDepots;
+        return specialDepots;
     }
 
-    public List<WareHouseDepot> getWarehouseDepot () {
+    public List<WareHouseDepot> getWarehouseDepot() {
         List<WareHouseDepot> wareHouseDepots = new ArrayList<>();
         for (Depot tmp : depotForMarket) {
-            if(tmp.getClass() == WareHouseDepot.class) wareHouseDepots.add((WareHouseDepot) tmp);
+            if (tmp.getClass() == WareHouseDepot.class) wareHouseDepots.add((WareHouseDepot) tmp);
         }
-        return  wareHouseDepots;
+        return wareHouseDepots;
     }
 
     public PersonalDevelopmentBoard getPersonalDevelopmentBoard() {

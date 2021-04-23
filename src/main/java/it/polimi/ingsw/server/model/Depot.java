@@ -19,5 +19,7 @@ public abstract class Depot {
         return 0;
     }
 
-    public int getResourceCount(Resource resource){ return  0;}
+    public int getResourceCount(Resource resource) {
+        return 0;
+    }
 }

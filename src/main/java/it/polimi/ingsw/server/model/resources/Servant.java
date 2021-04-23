@@ -3,13 +3,14 @@ package it.polimi.ingsw.server.model.resources;
 import it.polimi.ingsw.server.model.DepotException;
 import it.polimi.ingsw.server.model.RealPlayer;
 
-public class Servant extends ConcreteResource{
+public class Servant extends ConcreteResource {
     private static final Servant INSTANCE = new Servant();
     private static final ResourceType resourceType = ResourceType.SERVANT;
 
-    private Servant() {}
+    private Servant() {
+    }
 
-    public static Servant getInstance(){
+    public static Servant getInstance() {
         return INSTANCE;
     }
 

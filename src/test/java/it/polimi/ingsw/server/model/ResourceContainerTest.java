@@ -43,7 +43,7 @@ class ResourceContainerTest {
     @Test
     void WareHouseContainer() throws DepotException {
         WareHouseContainer wareHouseContainer = new WareHouseContainer(3);
-        assertEquals(null, wareHouseContainer.getType());
+        assertNull(wareHouseContainer.getType());
         assertThrows(DepotException.class, () -> wareHouseContainer.add(-1));
         assertThrows(DepotException.class, () -> wareHouseContainer.remove(1));
         assertThrows(DepotException.class, () -> wareHouseContainer.remove(-1));

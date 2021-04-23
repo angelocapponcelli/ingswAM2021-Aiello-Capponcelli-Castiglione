@@ -20,7 +20,7 @@ class ProductionPowerInputTest {
         depotForMarket.add(new WareHouseDepot());
         depotForMarket.add(new SpecialDepot());
         PersonalBoard personalBoard = new PersonalBoard(depotForMarket, new StrongBoxDepot(), new PersonalDevelopmentBoard(), new InHandLeaderCard(new ArrayList<>()), new ArrayList<>());
-        player = new RealPlayer("Player1", 0, new VaticanReportStatus(new HashMap<>()), personalBoard, true, 0);
+        player = new RealPlayer("Player1", personalBoard, true);
         player.getPersonalBoard().getWarehouseDepot().get(0).add(ResourceType.COIN, 2, 2);
         player.getPersonalBoard().getWarehouseDepot().get(0).add(ResourceType.SHIELD, 1, 1);
         player.getPersonalBoard().getWarehouseDepot().get(0).add(ResourceType.SERVANT, 1, 0);
@@ -30,19 +30,19 @@ class ProductionPowerInputTest {
     }
 
     @Test
-    void CheckTest(){
+    void CheckTest() {
         productionPowerInput = new ProductionPowerInput();
         productionPowerInput.add(ResourceType.COIN, 3);
-        assertEquals(true, productionPowerInput.check(player) );
+        assertTrue(productionPowerInput.check(player));
         productionPowerInput = new ProductionPowerInput();
         productionPowerInput.add(ResourceType.COIN, 0);
-        assertEquals(true, productionPowerInput.check(player) );
+        assertTrue(productionPowerInput.check(player));
         productionPowerInput = new ProductionPowerInput();
         productionPowerInput.add(ResourceType.COIN, 12);
-        assertEquals(true, productionPowerInput.check(player) );
+        assertTrue(productionPowerInput.check(player));
         productionPowerInput = new ProductionPowerInput();
         productionPowerInput.add(ResourceType.COIN, 13);
-        assertEquals(false, productionPowerInput.check(player) );
+        assertFalse(productionPowerInput.check(player));
     }
 
     @Test

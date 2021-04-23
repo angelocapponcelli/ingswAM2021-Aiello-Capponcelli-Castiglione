@@ -6,10 +6,10 @@ import it.polimi.ingsw.server.model.interfaces.Revealable;
 public class BlackCross2 implements Revealable {
 
     @Override
-    public void onReveal(Lorenzo lorenzo){
+    public void onReveal(Lorenzo lorenzo) {
         lorenzo.increaseFaithPosition();
         lorenzo.increaseFaithPosition();
-        /** it will be always lorenzo**/
+        /* it will be always lorenzo**/
     }
 
 }

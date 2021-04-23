@@ -1,10 +1,8 @@
 package it.polimi.ingsw.server.model;
 
 public class NormalCell extends Cell{
-    /**
-     * optional vaticanreportsection
-     *
-     * @param victoryPoint
+    /*
+     * @param victoryPoint The victory point
      */
     public NormalCell(Integer victoryPoint) {
         super(victoryPoint);

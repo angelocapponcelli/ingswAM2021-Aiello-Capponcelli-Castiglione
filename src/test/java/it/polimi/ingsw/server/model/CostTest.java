@@ -1,10 +1,14 @@
 package it.polimi.ingsw.server.model;
 
 import it.polimi.ingsw.server.model.resources.*;
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class CostTest {
     RealPlayer player;
@@ -16,7 +20,7 @@ class CostTest {
         depotForMarket.add(new WareHouseDepot());
         depotForMarket.add(new SpecialDepot());
         PersonalBoard personalBoard = new PersonalBoard(depotForMarket, new StrongBoxDepot(), new PersonalDevelopmentBoard(), new InHandLeaderCard(new ArrayList<>()), new ArrayList<>());
-        player = new RealPlayer("Player1", 0, new VaticanReportStatus(new HashMap<>()), personalBoard, true, 0);
+        player = new RealPlayer("Player1", personalBoard, true);
         player.getPersonalBoard().getWarehouseDepot().get(0).add(ResourceType.COIN, 2, 2);
         player.getPersonalBoard().getWarehouseDepot().get(0).add(ResourceType.SHIELD, 1, 1);
         player.getPersonalBoard().getWarehouseDepot().get(0).add(ResourceType.SERVANT, 1, 0);
@@ -26,19 +30,19 @@ class CostTest {
     }
 
     @Test
-    void CheckTest(){
+    void CheckTest() {
         cost = new Cost();
         cost.add(ResourceType.COIN, 3);
-        assertEquals(true, cost.check(player) );
+        assertTrue(cost.check(player));
         cost = new Cost();
         cost.add(ResourceType.COIN, 0);
-        assertEquals(true, cost.check(player) );
+        assertTrue(cost.check(player));
         cost = new Cost();
         cost.add(ResourceType.COIN, 12);
-        assertEquals(true, cost.check(player) );
+        assertTrue(cost.check(player));
         cost = new Cost();
         cost.add(ResourceType.COIN, 13);
-        assertEquals(false, cost.check(player) );
+        assertFalse(cost.check(player));
     }
 
     @Test

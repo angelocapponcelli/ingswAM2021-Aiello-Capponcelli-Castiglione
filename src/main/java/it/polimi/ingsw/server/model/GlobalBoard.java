@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.model;
 
+import java.io.FileNotFoundException;
+
 public class GlobalBoard {
 
     private MarketTray marketTray;
@@ -13,6 +15,16 @@ public class GlobalBoard {
         this.faithTrack = faithTrack;
         this.basicProductionPower = basicProductionPower;
     }
+
+    public GlobalBoard() {
+        try {
+            this.marketTray = new MarketTray();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     public MarketTray getMarketTray() {
         return marketTray;

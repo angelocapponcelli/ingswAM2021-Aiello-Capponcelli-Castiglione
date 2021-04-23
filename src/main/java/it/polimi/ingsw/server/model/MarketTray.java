@@ -1,8 +1,11 @@
 package it.polimi.ingsw.server.model;
 
 import it.polimi.ingsw.server.model.interfaces.Takeable;
+import it.polimi.ingsw.server.utils.MarketTrayParser;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -10,13 +13,21 @@ import java.util.List;
  */
 
 public class MarketTray {
-    private Takeable[][] marketTray;
+    private final Takeable[][] marketTray;
     private Takeable slide;
 
-    public MarketTray(Takeable[][] marketTray, Takeable slide){
+    public MarketTray(Takeable[][] marketTray, Takeable slide) {
         this.marketTray = marketTray;
         this.slide = slide;
     }
+
+    public MarketTray() throws FileNotFoundException {
+        MarketTray temp = MarketTrayParser.getMarketTray();
+        this.marketTray = temp.getMarketTray();
+        this.slide = temp.getSlide();
+
+    }
+
 
     /**
      * @return The entire marketTray
@@ -31,10 +42,8 @@ public class MarketTray {
      */
     public List<Takeable> getRow(Integer row) {
         List<Takeable> rowList = new ArrayList<>();
-        for (int i=0; i<marketTray[row].length; i++) {
-            rowList.add(marketTray[row][i]);
-        }
-        return  rowList;
+        Collections.addAll(rowList, marketTray[row]);
+        return rowList;
     }
 
     /**
@@ -43,10 +52,10 @@ public class MarketTray {
      */
     public List<Takeable> getColumn(Integer column) {
         List<Takeable> columnList = new ArrayList<>();
-        for (int i=0; i<marketTray.length; i++) {
-            columnList.add(marketTray[i][column]);
+        for (Takeable[] takeables : marketTray) {
+            columnList.add(takeables[column]);
         }
-        return  columnList;
+        return columnList;
     }
 
     /**
@@ -61,7 +70,7 @@ public class MarketTray {
      * @return The content of the selected row, consisting of takeable items.
      * @throws ArrayIndexOutOfBoundsException
      */
-    public List<Takeable> selectRow (int row)  throws ArrayIndexOutOfBoundsException{
+    public List<Takeable> selectRow(int row) throws ArrayIndexOutOfBoundsException {
         List<Takeable> rowList = getRow(row);
         shiftRow(row);
         return rowList;
@@ -69,12 +78,10 @@ public class MarketTray {
 
     /**
      * @param column The selected column.
-     *
      * @return The content of the selected column, consisting of takeable items.
-     *
      * @throws ArrayIndexOutOfBoundsException
      */
-    public List<Takeable> selectColumn (int column)  throws ArrayIndexOutOfBoundsException{
+    public List<Takeable> selectColumn(int column) throws ArrayIndexOutOfBoundsException {
         List<Takeable> columnList = getColumn(column);
         shiftColumn(column);
         return columnList;
@@ -85,12 +92,12 @@ public class MarketTray {
      *
      * @param row The row that must be shifted.
      */
-    private void shiftRow (int row){
+    private void shiftRow(int row) {
         Takeable toSlide = marketTray[row][0];
-        for (int i=0; i<marketTray[row].length-1; i++){
-            marketTray[row][i] = marketTray[row][i+1];
+        for (int i = 0; i < marketTray[row].length - 1; i++) {
+            marketTray[row][i] = marketTray[row][i + 1];
         }
-        marketTray[row][marketTray[row].length-1] = slide;
+        marketTray[row][marketTray[row].length - 1] = slide;
         updateSlide(toSlide);
     }
 
@@ -101,10 +108,10 @@ public class MarketTray {
      */
     private void shiftColumn(int column) {
         Takeable toSlide = marketTray[0][column];
-        for (int i=0; i<marketTray.length-1; i++){
-            marketTray[i][column] = marketTray[i+1][column];
+        for (int i = 0; i < marketTray.length - 1; i++) {
+            marketTray[i][column] = marketTray[i + 1][column];
         }
-        marketTray[marketTray.length-1][column] = slide;
+        marketTray[marketTray.length - 1][column] = slide;
         updateSlide(toSlide);
     }
 
@@ -113,7 +120,7 @@ public class MarketTray {
      *
      * @param toSlide The marble that must be put in the slide.
      */
-    private void updateSlide(Takeable toSlide){
+    private void updateSlide(Takeable toSlide) {
         slide = toSlide;
     }
 

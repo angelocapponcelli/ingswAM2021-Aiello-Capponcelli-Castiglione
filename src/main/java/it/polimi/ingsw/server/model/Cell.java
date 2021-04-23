@@ -1,29 +1,35 @@
 package it.polimi.ingsw.server.model;
 
+/**
+ * The type Cell.
+ */
 abstract class Cell {
-    private Integer victoryPoint;
+    private final Integer victoryPoints;
 
     /**
-     * optional vaticanreportsection
+     * Instantiates a new Cell.
+     *
+     * @param victoryPoints the victory points of the cell
      */
-
-
-    public Cell(Integer victoryPoint /*optional vaticanreportsection*/) {
-        this.victoryPoint = victoryPoint;
-        /*optional victoryreportsection*/
-    }
-
-    public Integer getVictoryPoint() {
-        return victoryPoint;
+    public Cell(Integer victoryPoints) {
+        this.victoryPoints = victoryPoints;
     }
 
     /**
-     * to do get vaticanreportsection
+     * Gets victory points.
+     *
+     * @return the victory points of the cell
      */
+    public Integer getVictoryPoints() {
+        return victoryPoints;
+    }
 
+    /**
+     * On occupy.
+     *
+     * @param player the player who steps into the cell.
+     */
     public void onOccupy(Player player) {
         /* it can be used to notify and update the view*/
     }
-
-
 }

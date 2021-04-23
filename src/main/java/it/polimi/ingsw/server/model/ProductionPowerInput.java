@@ -2,7 +2,8 @@ package it.polimi.ingsw.server.model;
 
 import it.polimi.ingsw.server.model.interfaces.Checkable;
 import it.polimi.ingsw.server.model.interfaces.Payable;
-import it.polimi.ingsw.server.model.resources.*;
+import it.polimi.ingsw.server.model.resources.Resource;
+import it.polimi.ingsw.server.model.resources.ResourceType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,14 +11,14 @@ import java.util.Map;
 /**
  * The input of productionPower, it's useful in production process to check and pay resources needed by the production
  */
-public class    ProductionPowerInput implements Checkable, Payable {
-    private Map<Resource, Integer> productionPowerInput;
+public class ProductionPowerInput implements Checkable, Payable {
+    private final Map<Resource, Integer> productionPowerInput;
 
     public ProductionPowerInput() {
         this.productionPowerInput = new HashMap<>();
     }
 
-    public void add(ResourceType resourceType, Integer multiplicity){
+    public void add(ResourceType resourceType, Integer multiplicity) {
         productionPowerInput.put(ResourceType.getResourceClass(resourceType), multiplicity);
 
     }
@@ -25,8 +26,9 @@ public class    ProductionPowerInput implements Checkable, Payable {
     /**
      * This method check if a RealPlayer has enough resources in his depots
      * For every productionPowerInput entry check if is higher or lower than the amount of same resource type in the depots
-     * @parameter player whose depots are checked
+     *
      * @return true if RealPlayer has enough resources in his depots otherwise false
+     * @parameter realPlayer whose depots are checked
      */
     @Override
     public boolean check(RealPlayer realPlayer) {
@@ -86,9 +88,5 @@ public class    ProductionPowerInput implements Checkable, Payable {
 
             }
         }
-        /**
-         * todo:
-         * else launch an exception
-         */
     }
 }

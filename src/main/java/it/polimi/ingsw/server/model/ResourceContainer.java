@@ -14,13 +14,13 @@ public abstract class ResourceContainer {
 
     public ResourceContainer(ResourceType resource, int capacity) {
         this.resource = resource;
-        if ( capacity < -1 ) capacity = -1;
+        if (capacity < -1) capacity = -1;
         else this.capacity = capacity;
         count = 0;
     }
 
     public ResourceContainer(int capacity) {
-        if ( capacity < -1 ) capacity = -1;
+        if (capacity < -1) capacity = -1;
         else this.capacity = capacity;
         count = 0;
     }
@@ -37,14 +37,14 @@ public abstract class ResourceContainer {
         return count;
     }
 
-    public void add (int numResource) throws DepotException {
+    public void add(int numResource) throws DepotException {
         if (numResource < 0) throw new DepotException("Invalid negative parameter");
         if (capacity >= count + numResource || capacity == -1) {
             count = count + numResource;
         } else throw new DepotException("Out of resource container bound");
     }
 
-    public void remove (int numResource) throws DepotException {
+    public void remove(int numResource) throws DepotException {
         if (numResource < 0) throw new DepotException("Invalid negative parameter");
         if (count >= numResource) {
             count = count - numResource;

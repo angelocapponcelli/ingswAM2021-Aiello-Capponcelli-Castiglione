@@ -5,12 +5,13 @@ import it.polimi.ingsw.server.model.resources.ResourceType;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Depot that include a series of SpecialContainers, make possible add new containers
  */
 
-public class SpecialDepot extends Depot{
-    private List<SpecialContainer> containers;
+public class SpecialDepot extends Depot {
+    private final List<SpecialContainer> containers;
 
     public SpecialDepot() {
         containers = new ArrayList<>();
@@ -23,31 +24,31 @@ public class SpecialDepot extends Depot{
     @Override
     public void add(ResourceType resource, int numResource) throws DepotException {
         boolean notExist = true;
-        for (SpecialContainer selectedContainer: containers) {
+        for (SpecialContainer selectedContainer : containers) {
             if (selectedContainer.getType() == resource) {
                 selectedContainer.add(numResource);
                 notExist = false;
             }
         }
-        if(notExist) throw new DepotException("Impossible to add resources, SpecialDepot not active");
+        if (notExist) throw new DepotException("Impossible to add resources, SpecialDepot not active");
     }
 
     @Override
     public void remove(Resource resource, int numResource) throws DepotException {
         boolean notExist = true;
-        for (SpecialContainer selectedContainer: containers) {
+        for (SpecialContainer selectedContainer : containers) {
             if (ResourceType.getResourceClass(selectedContainer.getType()) == resource) {
                 selectedContainer.remove(numResource);
                 notExist = false;
             }
         }
-        if(notExist) throw new DepotException("Impossible to remove resources, SpecialDepot not active");
+        if (notExist) throw new DepotException("Impossible to remove resources, SpecialDepot not active");
     }
 
     @Override
     public int getResourceCount() {
         int count = 0;
-        for (SpecialContainer tmpContainer: containers) {
+        for (SpecialContainer tmpContainer : containers) {
             count = count + tmpContainer.getCount();
         }
         return count;
@@ -56,8 +57,9 @@ public class SpecialDepot extends Depot{
     @Override
     public int getResourceCount(Resource resource) {
         int count = 0;
-        for (SpecialContainer tmpContainer: containers) {
-            if (ResourceType.getResourceClass(tmpContainer.getType()) == resource) count = count + tmpContainer.getCount();
+        for (SpecialContainer tmpContainer : containers) {
+            if (ResourceType.getResourceClass(tmpContainer.getType()) == resource)
+                count = count + tmpContainer.getCount();
         }
         return count;
     }

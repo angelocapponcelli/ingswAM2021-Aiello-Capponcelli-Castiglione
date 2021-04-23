@@ -1,34 +1,44 @@
 package it.polimi.ingsw.server.model;
 
-//TODO: all of the class
 
 abstract class Player {
     protected String name;
     protected Integer faithPosition;
     protected VaticanReportStatus vaticanReportStatus;
 
-    public Player (String name, Integer faithPosition, VaticanReportStatus vaticanReportStatus){
+    public Player (String name){
         this.name = name;
-        this.faithPosition= faithPosition;
-        this.vaticanReportStatus= vaticanReportStatus;
+        this.faithPosition= 0;
+        this.vaticanReportStatus= new VaticanReportStatus();
     }
     public String getName() { return name; }
 
+    /**
+     * Gets faith position.
+     *
+     * @return the faith position
+     */
     public Integer getFaithPosition() {
         return faithPosition;
     }
 
-    /** public VaticanReportStatus getVaticanReportStatus(VaticanReportSection vaticanReportSection) {
-        search in this.vaticanStatus vaticanreportsection and return its boolean value
-
-    }*/
-
-    public void doVaticanReportUpdate (VaticanReportSection vaticanReportSection){
-        /** to do*/
+    /**
+     * Increase player's faith position by one and calls the onOccupy method
+     */
+    public void increaseFaithPosition(){
+        this.faithPosition++;
+        FaithTrack.getINSTANCE().getTrack().get(faithPosition).onOccupy(this);
     }
 
-    public void increaseFaithPosition(){
-        this.faithPosition= this.faithPosition+1;
+    /**
+     * Performs the vatican report
+     *
+     * @param vaticanReportSection The vatican report section to check
+     */
+    public void doVaticanReportUpdate (VaticanReportSection vaticanReportSection){
+        if ( vaticanReportSection.getCells().contains( FaithTrack.getINSTANCE().getTrack().get(faithPosition) ) ){
+            vaticanReportStatus.flip(vaticanReportSection);
+        }
     }
 
 }

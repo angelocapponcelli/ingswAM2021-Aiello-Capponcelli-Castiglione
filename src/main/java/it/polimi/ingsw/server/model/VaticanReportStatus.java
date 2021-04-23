@@ -1,34 +1,34 @@
 package it.polimi.ingsw.server.model;
 
-import java.util.Map;
-
-/**
- * to do
- */
+import java.util.ArrayList;
+import java.util.List;
 
 public class VaticanReportStatus {
-    private Map<VaticanReportSection, Boolean> vaticanReportStatus;
+    private List<VaticanReportSection> flippedVaticanReportSections;
 
-    public VaticanReportStatus(Map<VaticanReportSection, Boolean> vaticanReportStatus){
-        this.vaticanReportStatus = vaticanReportStatus;
+    public VaticanReportStatus() {
+        this.flippedVaticanReportSections = new ArrayList<>();
     }
 
-    public Integer getVictoryPoint(){
-        int tmpvictoryPoints=0;
-        for (VaticanReportSection vaticanReportSection: vaticanReportStatus.keySet()){
-            if (vaticanReportStatus.get(vaticanReportSection)==true) {
-                tmpvictoryPoints= tmpvictoryPoints + vaticanReportSection.getVictoryPoints();
-            }
+    /**
+     * Performs the flipping of the Pope's favor tile by adding the Vatican Report section in the flippedVaticanReportSections list.
+     *
+     * @param vaticanReportSection The Vatican Report Section involved in the flipping of the Pope's favor tile
+     */
+    public void flip(VaticanReportSection vaticanReportSection) {
+        flippedVaticanReportSections.add(vaticanReportSection);
+    }
 
+    /**
+     * @return The sum of the victory points of all the flipped Vatican Report Sections.
+     */
+    public Integer getVictoryPoint() {
+        Integer tmpvictoryPoints = 0;
+        for (VaticanReportSection vaticanReportSection : flippedVaticanReportSections) {
+            tmpvictoryPoints += vaticanReportSection.getVictoryPoints();
         }
         return tmpvictoryPoints;
+
     }
 
-    public void flip(VaticanReportSection vaticanReportSection){
-        /** search victorysection and set true*/
-    }
-
-    public void remove(VaticanReportSection vaticanReportSection){
-        /** search VaticanSection and delete it from the map*/
-    }
 }

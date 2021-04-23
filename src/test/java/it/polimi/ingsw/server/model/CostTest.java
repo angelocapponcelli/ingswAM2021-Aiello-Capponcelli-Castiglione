@@ -13,9 +13,7 @@ class CostTest {
     @BeforeEach
     void init() throws DepotException {
         List<Depot> depotForMarket = new ArrayList<>();
-        depotForMarket.add(new WareHouseDepot());
-        depotForMarket.add(new SpecialDepot());
-        PersonalBoard personalBoard = new PersonalBoard(depotForMarket, new StrongBoxDepot(), new PersonalDevelopmentBoard(), new InHandLeaderCard(new ArrayList<>()), new ArrayList<>());
+        PersonalBoard personalBoard = new PersonalBoard( new PersonalDevelopmentBoard(), new InHandLeaderCard(new ArrayList<>()), new ArrayList<>());
         player = new RealPlayer("Player1", 0, new VaticanReportStatus(new HashMap<>()), personalBoard, true, 0);
         player.getPersonalBoard().getWarehouseDepot().get(0).add(ResourceType.COIN, 2, 2);
         player.getPersonalBoard().getWarehouseDepot().get(0).add(ResourceType.SHIELD, 1, 1);

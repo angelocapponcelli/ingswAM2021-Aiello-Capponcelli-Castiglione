@@ -13,4 +13,8 @@ public class Discount extends SpecialAbility {
     public void onActivation(RealPlayer player) {
         /**to do*/
     }
+
+    public Resource getResource() {
+        return resource;
+    }
 }

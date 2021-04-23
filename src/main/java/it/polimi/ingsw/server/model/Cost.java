@@ -41,6 +41,12 @@ public class Cost implements Checkable, Payable {
                 count = count + depotForMarket.getResourceCount(entry.getKey());
             }
             count = count + realPlayer.getPersonalBoard().getStrongBoxDepot().getResourceCount(entry.getKey());
+            for (SpecialAbility specialAbility : realPlayer.getPersonalBoard().getInHandLeaderCard().getEnabledAbilities()) { //Calculating discount TODO Test
+                if (specialAbility.getClass() == Discount.class && entry.getKey() == ((Discount) specialAbility).getResource()) {
+                    count++;
+                    break;
+                }
+            }
             if (entry.getValue() > count)
                 return false;
         }
@@ -58,6 +64,14 @@ public class Cost implements Checkable, Payable {
         if (this.check(realPlayer)) {
             for (Map.Entry<Resource, Integer> entry : cost.entrySet()) {
                 count = entry.getValue();
+
+                for (SpecialAbility specialAbility : realPlayer.getPersonalBoard().getInHandLeaderCard().getEnabledAbilities()) { //Calculating discount TODO Test
+                    if (specialAbility.getClass() == Discount.class && entry.getKey() == ((Discount) specialAbility).getResource()) {
+                        count--;
+                        break;
+                    }
+                }
+
                 for (SpecialDepot specialDepot : realPlayer.getPersonalBoard().getSpecialDepot()) { //Special depot loop, in case there was more than one
                     if (specialDepot.getResourceCount(entry.getKey()) != 0) {
                         if (count <= specialDepot.getResourceCount(entry.getKey())) {

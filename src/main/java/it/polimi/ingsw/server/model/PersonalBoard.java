@@ -11,9 +11,11 @@ public class PersonalBoard {
     private InHandLeaderCard inHandLeaderCard;
     private List<ProductionPower> productionPower;
 
-    public PersonalBoard(List<Depot> depotForMarket, StrongBoxDepot strongBoxDepot, PersonalDevelopmentBoard personalDevelopmentBoard,InHandLeaderCard inHandLeaderCard, List<ProductionPower> productionPower){
-        this.depotForMarket=depotForMarket;
-        this.strongBoxDepot=strongBoxDepot;
+    public PersonalBoard(PersonalDevelopmentBoard personalDevelopmentBoard,InHandLeaderCard inHandLeaderCard, List<ProductionPower> productionPower){
+        depotForMarket = new ArrayList<>();
+        depotForMarket.add(new WareHouseDepot());
+        depotForMarket.add(new SpecialDepot());
+        strongBoxDepot = new StrongBoxDepot();
         this.personalDevelopmentBoard= personalDevelopmentBoard;
         this.inHandLeaderCard=inHandLeaderCard;
         this.productionPower=productionPower;

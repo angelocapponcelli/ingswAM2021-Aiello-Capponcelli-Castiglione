@@ -10,7 +10,10 @@ public class InHandLeaderCard {
         this.cards = cards;
     }
 
-    //public LeaderCard getcard(int)
+    public LeaderCard getCard(int index) {
+        return cards.get(index);
+    }
+
     public static void remove(LeaderCard leaderCard) {
         /* to do*/
     }

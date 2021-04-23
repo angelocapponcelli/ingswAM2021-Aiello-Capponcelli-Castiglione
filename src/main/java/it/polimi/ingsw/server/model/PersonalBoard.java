@@ -13,17 +13,16 @@ public class PersonalBoard {
     private final InHandLeaderCard inHandLeaderCard;
     private final List<ProductionPower> productionPower;
 
-    public PersonalBoard(List<Depot> depotForMarket, StrongBoxDepot strongBoxDepot, PersonalDevelopmentBoard personalDevelopmentBoard, InHandLeaderCard inHandLeaderCard, List<ProductionPower> productionPower) {
-        this.depotForMarket = depotForMarket;
-        this.strongBoxDepot = strongBoxDepot;
-        this.personalDevelopmentBoard = personalDevelopmentBoard;
-        this.inHandLeaderCard = inHandLeaderCard;
-        this.productionPower = productionPower;
+    public PersonalBoard(){
+        depotForMarket = new ArrayList<>();
+        depotForMarket.add(new WareHouseDepot());
+        depotForMarket.add(new SpecialDepot());
+        strongBoxDepot = new StrongBoxDepot();
+        this.personalDevelopmentBoard= new PersonalDevelopmentBoard();
+        this.inHandLeaderCard= new InHandLeaderCard();
+        this.productionPower= new ArrayList<>();
     }
 
-    /**
-     * to do verify resources(?)
-     */
 
     public void addProductionPower(ProductionPower productionPower1) {
         this.productionPower.add(productionPower1);
@@ -41,7 +40,7 @@ public class PersonalBoard {
         return specialDepots;
     }
 
-    public List<WareHouseDepot> getWarehouseDepot() {
+    public List<WareHouseDepot> getWareHouseDepot() {
         List<WareHouseDepot> wareHouseDepots = new ArrayList<>();
         for (Depot tmp : depotForMarket) {
             if (tmp.getClass() == WareHouseDepot.class) wareHouseDepots.add((WareHouseDepot) tmp);

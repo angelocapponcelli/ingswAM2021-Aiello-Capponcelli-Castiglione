@@ -1,13 +1,14 @@
 package it.polimi.ingsw.server.model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class InHandLeaderCard {
     List<LeaderCard> cards;
 
-    public InHandLeaderCard(List<LeaderCard> cards) {
-        this.cards = cards;
+    public InHandLeaderCard() {
+        this.cards = new ArrayList<>();
     }
 
     public LeaderCard getCard(int index) {

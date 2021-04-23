@@ -8,9 +8,9 @@ public class RealPlayer extends Player {
     private final Integer victoryPoint;
 
 
-    public RealPlayer(String name, PersonalBoard personalBoard, Boolean first) {
+    public RealPlayer(String name, Boolean first) {
         super(name);
-        this.personalBoard = personalBoard;
+        this.personalBoard = new PersonalBoard();
         this.first = first;
         this.victoryPoint = 0;
     }

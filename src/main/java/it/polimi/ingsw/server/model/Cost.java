@@ -86,7 +86,7 @@ public class Cost implements Checkable, Payable {
                     }
                 }
                 if (count > 0) { // in case there are still resource to pay
-                    for (WareHouseDepot wareHouseDepot : realPlayer.getPersonalBoard().getWarehouseDepot()) { //WareHouse depot loop, in case there was more than one
+                    for (WareHouseDepot wareHouseDepot : realPlayer.getPersonalBoard().getWareHouseDepot()) { //WareHouse depot loop, in case there was more than one
                         if (wareHouseDepot.getResourceCount(entry.getKey()) != 0) {
                             if (count <= wareHouseDepot.getResourceCount(entry.getKey())) {
                                 wareHouseDepot.remove(entry.getKey(), count);

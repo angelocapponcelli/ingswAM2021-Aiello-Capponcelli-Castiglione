@@ -2,10 +2,10 @@ package it.polimi.ingsw.server.model;
 
 import it.polimi.ingsw.server.model.resources.Resource;
 
-public class Discount extends SpecialAbility {
+public class SpecialDiscount extends SpecialAbility {
     private final Resource resource;
 
-    public Discount(Resource resource) {
+    public SpecialDiscount(Resource resource) {
         this.resource = resource;
     }
 

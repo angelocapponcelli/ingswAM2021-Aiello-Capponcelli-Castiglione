@@ -21,8 +21,7 @@ public class DevelopmentCardParser {
     public static List<DevelopmentCard> getCards() throws FileNotFoundException {
         List<DevelopmentCardTemp> tempDeck;
         List<DevelopmentCard> deck = new ArrayList<>();
-        Type listOfMyClassObject = new TypeToken<ArrayList<DevelopmentCardTemp>>() {
-        }.getType();
+        Type listOfMyClassObject = new TypeToken<ArrayList<DevelopmentCardTemp>>() {}.getType();
 
         Gson gson = new Gson();
         tempDeck = gson.fromJson(new FileReader("src/main/resources/DevelopmentCard.json"), listOfMyClassObject);
@@ -37,7 +36,7 @@ public class DevelopmentCardParser {
             }
 
             for (Map.Entry<ResourceType, Integer> entry : developmentCardTemp.getProductionPower().getProductionPowerInput().entrySet()) {
-                productionPowerInput.add(entry.getKey(), entry.getValue());
+                productionPowerInput.add(ResourceType.getResourceClass(entry.getKey()), entry.getValue());
             }
             for (Map.Entry<ResourceType, Integer> entry : developmentCardTemp.getProductionPower().getProductionPowerOutput().entrySet()) {
                 productionPowerOutput.add(entry.getKey(), entry.getValue());

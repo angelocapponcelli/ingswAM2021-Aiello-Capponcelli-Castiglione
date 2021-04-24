@@ -43,7 +43,7 @@ public class Cost implements Checkable, Payable {
             }
             count = count + realPlayer.getPersonalBoard().getStrongBoxDepot().getResourceCount(entry.getKey());
             for (SpecialAbility specialAbility : realPlayer.getPersonalBoard().getInHandLeaderCard().getEnabledAbilities()) { //Calculating discount TODO Test
-                if (specialAbility.getClass() == Discount.class && entry.getKey() == ((Discount) specialAbility).getResource()) {
+                if (specialAbility.getClass() == SpecialDiscount.class && entry.getKey() == ((SpecialDiscount) specialAbility).getResource()) {
                     count++;
                     break;
                 }
@@ -67,7 +67,7 @@ public class Cost implements Checkable, Payable {
                 count = entry.getValue();
 
                 for (SpecialAbility specialAbility : realPlayer.getPersonalBoard().getInHandLeaderCard().getEnabledAbilities()) { //Calculating discount TODO Test
-                    if (specialAbility.getClass() == Discount.class && entry.getKey() == ((Discount) specialAbility).getResource()) {
+                    if (specialAbility.getClass() == SpecialDiscount.class && entry.getKey() == ((SpecialDiscount) specialAbility).getResource()) {
                         count--;
                         break;
                     }

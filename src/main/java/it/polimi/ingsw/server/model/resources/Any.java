@@ -32,7 +32,7 @@ public class Any extends Resource {
     @Override
     public void onTaking(RealPlayer realPlayer) {
         //check if any whitemarble's special ability is activated
-        //if so then ask for a resource
+        //if so then ask for a resource if any->discard
         //resource.onTaking
         //if no whitemarble's special ability is activated the ignore
     }

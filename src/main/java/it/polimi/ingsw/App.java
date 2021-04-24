@@ -1,24 +1,25 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.server.model.MarketTray;
-import it.polimi.ingsw.server.model.interfaces.Takeable;
-import it.polimi.ingsw.server.utils.DevelopmentCardParser;
+import com.google.gson.Gson;
+import it.polimi.ingsw.server.model.*;
+import it.polimi.ingsw.server.model.resources.ResourceType;
+import it.polimi.ingsw.server.utils.LeaderCardParser;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
 
 public class App {
-    public static void main(String[] args) throws FileNotFoundException {
 
-        DevelopmentCardParser.getCards();
-
-        MarketTray marketTray = new MarketTray();
-        Takeable[][] tray = marketTray.getMarketTray();
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 4; j++) {
-                System.out.printf("%s ", tray[i][j]);
-            }
+    public static void main(String[] args){
+        List<LeaderCard> leaderDeck;
+        try {
+            leaderDeck = LeaderCardParser.getLeaderCards();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
+
+
 
     }
 }

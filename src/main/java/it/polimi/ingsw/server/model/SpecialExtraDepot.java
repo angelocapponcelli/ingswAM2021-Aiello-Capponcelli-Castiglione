@@ -1,11 +1,11 @@
 package it.polimi.ingsw.server.model;
 
-import it.polimi.ingsw.server.model.resources.ResourceType;
+import it.polimi.ingsw.server.model.resources.Resource;
 
-public class ExtraDepot extends SpecialAbility {
-    private final ResourceType resource;
+public class SpecialExtraDepot extends SpecialAbility {
+    private final Resource resource;
 
-    public ExtraDepot(ResourceType resource) {
+    public SpecialExtraDepot(Resource resource) {
         this.resource = resource;
     }
 

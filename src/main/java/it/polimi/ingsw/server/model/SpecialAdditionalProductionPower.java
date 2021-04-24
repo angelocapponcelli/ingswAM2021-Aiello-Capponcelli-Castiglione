@@ -1,23 +1,24 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.model.resources.Resource;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 
 
-public class AdditionalProductionPower extends SpecialAbility {
-    ResourceType resourceType;
+public class SpecialAdditionalProductionPower extends SpecialAbility {
+    Resource resource;
     ProductionPower productionPower;
 
-    public AdditionalProductionPower(ResourceType resourceType) {
-        this.resourceType = resourceType;
+    public SpecialAdditionalProductionPower(Resource resource) {
+        this.resource = resource;
         ProductionPowerInput productionPowerInput = new ProductionPowerInput();
-        productionPowerInput.add(resourceType, 1);
+        productionPowerInput.add(resource, 1);
         ProductionPowerOutput productionPowerOutput = new ProductionPowerOutput();
         productionPowerOutput.add(ResourceType.ANY, 1);
         productionPowerOutput.add(ResourceType.FAITH, 1);
 
     }
 
-    public AdditionalProductionPower(ProductionPower productionPower) {
+    public SpecialAdditionalProductionPower(ProductionPower productionPower) {
         this.productionPower = productionPower;
     }
 

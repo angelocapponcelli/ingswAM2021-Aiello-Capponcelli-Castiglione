@@ -30,23 +30,23 @@ class ProductionPowerInputTest {
     @Test
     void CheckTest() {
         productionPowerInput = new ProductionPowerInput();
-        productionPowerInput.add(ResourceType.COIN, 3);
+        productionPowerInput.add(ResourceType.getResourceClass(ResourceType.COIN), 3);
         assertTrue(productionPowerInput.check(player));
         productionPowerInput = new ProductionPowerInput();
-        productionPowerInput.add(ResourceType.COIN, 0);
+        productionPowerInput.add(ResourceType.getResourceClass(ResourceType.COIN), 0);
         assertTrue(productionPowerInput.check(player));
         productionPowerInput = new ProductionPowerInput();
-        productionPowerInput.add(ResourceType.COIN, 12);
+        productionPowerInput.add(ResourceType.getResourceClass(ResourceType.COIN), 12);
         assertTrue(productionPowerInput.check(player));
         productionPowerInput = new ProductionPowerInput();
-        productionPowerInput.add(ResourceType.COIN, 13);
+        productionPowerInput.add(ResourceType.getResourceClass(ResourceType.COIN), 13);
         assertFalse(productionPowerInput.check(player));
     }
 
     @Test
     void PayTestOneWareHouseElement() throws DepotException {
         productionPowerInput = new ProductionPowerInput();
-        productionPowerInput.add(ResourceType.COIN, 1);
+        productionPowerInput.add(ResourceType.getResourceClass(ResourceType.COIN), 1);
         assertEquals(0, player.getPersonalBoard().getSpecialDepot().get(0).getResourceCount(Coin.getInstance()));
         productionPowerInput.pay(player);
         assertEquals(1, player.getPersonalBoard().getWareHouseDepot().get(0).getResourceCount(Coin.getInstance()));
@@ -56,9 +56,9 @@ class ProductionPowerInputTest {
     @Test
     void PayTestMultipleElement() throws DepotException {
         productionPowerInput = new ProductionPowerInput();
-        productionPowerInput.add(ResourceType.COIN, 5);
-        productionPowerInput.add(ResourceType.SHIELD, 1);
-        productionPowerInput.add(ResourceType.SERVANT, 1);
+        productionPowerInput.add(ResourceType.getResourceClass(ResourceType.COIN), 5);
+        productionPowerInput.add(ResourceType.getResourceClass(ResourceType.SHIELD), 1);
+        productionPowerInput.add(ResourceType.getResourceClass(ResourceType.SERVANT), 1);
         productionPowerInput.pay(player);
         //Check right Coin number in each depots
         assertEquals(0, player.getPersonalBoard().getSpecialDepot().get(0).getResourceCount(Coin.getInstance()));

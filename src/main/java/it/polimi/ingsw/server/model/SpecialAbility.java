@@ -3,7 +3,7 @@ package it.polimi.ingsw.server.model;
 /**
  * to do
  **/
-abstract class SpecialAbility {
+public abstract class SpecialAbility {
 
     void onActivation(RealPlayer player) {
 

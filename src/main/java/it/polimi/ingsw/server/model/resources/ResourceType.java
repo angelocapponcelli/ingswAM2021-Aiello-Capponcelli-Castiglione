@@ -29,4 +29,15 @@ public enum ResourceType {
                 return null;
         }
     }
+
+    public static boolean contains(String test) {
+
+        for (ResourceType resourceType : ResourceType.values()) {
+            if (resourceType.name().equals(test)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

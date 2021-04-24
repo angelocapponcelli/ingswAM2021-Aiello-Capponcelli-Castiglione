@@ -18,8 +18,8 @@ public class ProductionPowerInput implements Checkable, Payable {
         this.productionPowerInput = new HashMap<>();
     }
 
-    public void add(ResourceType resourceType, Integer multiplicity) {
-        productionPowerInput.put(ResourceType.getResourceClass(resourceType), multiplicity);
+    public void add(Resource resource, Integer multiplicity) {
+        productionPowerInput.put(resource, multiplicity);
 
     }
 

@@ -1,17 +1,17 @@
 package it.polimi.ingsw.server.model;
 
 
-abstract class Player {
-    protected String name;
+public abstract class Player {
+    protected String nickName;
     protected Integer faithPosition;
     protected VaticanReportStatus vaticanReportStatus;
 
-    public Player (String name){
-        this.name = name;
+    public Player (String nickName){
+        this.nickName = nickName;
         this.faithPosition= 0;
         this.vaticanReportStatus= new VaticanReportStatus();
     }
-    public String getName() { return name; }
+    public String getNickName() { return nickName; }
 
     /**
      * Gets faith position.

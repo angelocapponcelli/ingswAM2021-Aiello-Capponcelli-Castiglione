@@ -1,9 +1,9 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.model.exceptions.DepotException;
 import it.polimi.ingsw.server.model.interfaces.Checkable;
 import it.polimi.ingsw.server.model.interfaces.Payable;
 import it.polimi.ingsw.server.model.resources.Resource;
-import it.polimi.ingsw.server.model.resources.ResourceType;
 
 import java.util.HashMap;
 import java.util.Map;

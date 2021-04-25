@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.resources;
 
-import it.polimi.ingsw.server.model.DepotException;
+import it.polimi.ingsw.server.model.exceptions.DepotException;
 import it.polimi.ingsw.server.model.RealPlayer;
 
 /**

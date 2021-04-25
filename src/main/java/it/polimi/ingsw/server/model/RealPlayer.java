@@ -3,16 +3,20 @@ package it.polimi.ingsw.server.model;
 public class RealPlayer extends Player {
     private final PersonalBoard personalBoard;
 
-    private final Boolean first;
+    private Boolean first;
 
     private final Integer victoryPoint;
 
 
-    public RealPlayer(String name, Boolean first) {
-        super(name);
+    public RealPlayer(String nickName) {
+        super(nickName);
         this.personalBoard = new PersonalBoard();
-        this.first = first;
+        this.first = false;
         this.victoryPoint = 0;
+    }
+
+    public void setFirst(){
+        this.first = true;
     }
 
     //da completare

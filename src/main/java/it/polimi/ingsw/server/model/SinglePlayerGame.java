@@ -12,7 +12,7 @@ public class SinglePlayerGame extends Game {
      * @param id the id of the game
      */
     public SinglePlayerGame(Integer id){
-        super(id);
+        super(id,2);
     }
 
 

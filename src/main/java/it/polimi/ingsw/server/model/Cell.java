@@ -1,9 +1,9 @@
 package it.polimi.ingsw.server.model;
 
 /**
- * The type Cell.
+ * The type Cell. Basic cell.
  */
-abstract class Cell {
+public class Cell {
     private final Integer victoryPoints;
 
     /**

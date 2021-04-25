@@ -1,25 +1,18 @@
 package it.polimi.ingsw;
 
-import com.google.gson.Gson;
-import it.polimi.ingsw.server.model.*;
-import it.polimi.ingsw.server.model.resources.ResourceType;
-import it.polimi.ingsw.server.utils.LeaderCardParser;
 
-import java.io.FileNotFoundException;
+import it.polimi.ingsw.server.model.Game;
+import it.polimi.ingsw.server.model.MultiplayerGame;
+import it.polimi.ingsw.server.model.Player;
+import it.polimi.ingsw.server.model.RealPlayer;
+
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 public class App {
 
-    public static void main(String[] args){
-        List<LeaderCard> leaderDeck;
-        try {
-            leaderDeck = LeaderCardParser.getLeaderCards();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
-
+    public static void main(String[] args) {
     }
+
 }
+

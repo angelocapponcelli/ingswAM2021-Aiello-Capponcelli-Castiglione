@@ -4,27 +4,50 @@ package it.polimi.ingsw.server.model;
  * has to be finished
  */
 
-import java.io.FileNotFoundException;
+import it.polimi.ingsw.server.model.exceptions.PlayerWithSameNameException;
+import it.polimi.ingsw.server.model.exceptions.ReachedMaxNumberOfPlayersException;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class Game {
-    private static Integer id;
-    private static List<Player> players;
-    private static GlobalBoard globalBoard;
-    private static Player currentPlayer;
-    private static Player winner;
+    private final Integer id;
+    private final Integer maxPlayerNumber;
+    private final List<Player> players;
+    private final GlobalBoard globalBoard;
+    private Player currentPlayer;
+    private final Player winner;
 
-    public Game(Integer id) {
-        Game.id = id;
+    public Game(Integer id, Integer maxPlayerNumber) {
+        this.id = id;
+        this.maxPlayerNumber=maxPlayerNumber;
         players = new ArrayList<>();
         globalBoard = new GlobalBoard();
         currentPlayer = null;
         winner = null;
     }
 
-    public static List<Player> getPlayers() {
-        return players;
+
+    /**
+     * Add a player to the game.
+     *
+     * @param player the player to be added
+     * @throws ReachedMaxNumberOfPlayersException when a player tries to be added to an already full game.
+     * @throws PlayerWithSameNameException when a player with the same nickname already is in the game.
+     */
+    public void addPlayer(Player player) throws Exception{
+        if(players.size() == maxPlayerNumber) {
+            throw new ReachedMaxNumberOfPlayersException();
+        }
+        if ( players.stream().map(Player::getNickName).collect(Collectors.toList()).contains(player.nickName)){
+            throw new PlayerWithSameNameException();
+        }
+        players.add(player);
+    }
+
+    public List<Player> getPlayers() {
+        return this.players;
     }
 
     public Integer getId() {
@@ -47,7 +70,7 @@ public abstract class Game {
         return winner;
     }
 
-    public static void setWinner(Player player) {
+    public  void setWinner(Player player) {
 
     }
 

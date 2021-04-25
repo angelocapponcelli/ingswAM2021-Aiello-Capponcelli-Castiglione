@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.model.exceptions.DepotException;
 import it.polimi.ingsw.server.model.resources.Coin;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.server.model.resources.Servant;

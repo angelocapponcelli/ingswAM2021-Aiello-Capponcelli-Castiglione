@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.model.exceptions.DepotException;
 import it.polimi.ingsw.server.model.resources.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ class ProductionPowerInputTest {
         List<Depot> depotForMarket = new ArrayList<>();
         depotForMarket.add(new WareHouseDepot());
         depotForMarket.add(new SpecialDepot());
-        player = new RealPlayer("Player1",true);
+        player = new RealPlayer("Player1");
         player.getPersonalBoard().getWareHouseDepot().get(0).add(ResourceType.COIN, 2, 2);
         player.getPersonalBoard().getWareHouseDepot().get(0).add(ResourceType.SHIELD, 1, 1);
         player.getPersonalBoard().getWareHouseDepot().get(0).add(ResourceType.SERVANT, 1, 0);

@@ -37,6 +37,14 @@ public class PersonalDevelopmentBoard {
         return sum;
     }
 
+    public List<DevelopmentCard> getALlCards() {
+        List<DevelopmentCard> allCards = new ArrayList<>();
+        for (Deck deck : board) {
+            allCards.addAll(deck.getDeck());
+        }
+        return allCards;
+    }
+
     /** public DevelopmentCard getCard(Deck){
      return deck.getTopCard;
      }*/

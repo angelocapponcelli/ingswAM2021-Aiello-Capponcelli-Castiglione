@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.model.resources.Resource;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +64,24 @@ public class PersonalBoard {
 
     public StrongBoxDepot getStrongBoxDepot() {
         return strongBoxDepot;
+    }
+
+    public int getResourceCount (Resource resource){
+        int count = 0;
+        for (Depot depot : depotForMarket) {
+            count = count + depot.getResourceCount(resource);
+        }
+        count = count + strongBoxDepot.getResourceCount(resource);
+        return count;
+    }
+
+    public int getResourceCount (){
+        int count = 0;
+        for (Depot depot : depotForMarket) {
+            count = count + depot.getResourceCount();
+        }
+        count = count + strongBoxDepot.getResourceCount();
+        return count;
     }
 
 }

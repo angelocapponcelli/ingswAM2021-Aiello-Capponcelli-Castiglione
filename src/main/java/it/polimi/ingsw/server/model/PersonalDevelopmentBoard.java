@@ -11,7 +11,10 @@ public class PersonalDevelopmentBoard {
     private Integer cardsCount;
 
     public PersonalDevelopmentBoard() {
-        this.board = new ArrayList<>(3);
+        this.board = new ArrayList<>();
+        board.add(new Deck()); //Deck 0
+        board.add(new Deck()); //Deck 1
+        board.add(new Deck()); //Deck 2
         this.cardsCount = 0;
     }
 

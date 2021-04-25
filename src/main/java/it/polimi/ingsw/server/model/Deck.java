@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Deck {
@@ -7,8 +8,8 @@ public class Deck {
 
     private final List<DevelopmentCard> deck;
 
-    public Deck(List<DevelopmentCard> deck) {
-        this.deck = deck;
+    public Deck() {
+        deck = new ArrayList<>();
     }
 
     public List<DevelopmentCard> getDeck() {

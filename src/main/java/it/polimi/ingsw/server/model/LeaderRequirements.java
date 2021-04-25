@@ -8,6 +8,10 @@ import it.polimi.ingsw.server.model.resources.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class useful to check if a player has LeaderRequirement
+ * This class define them and provide a check method
+ */
 public class LeaderRequirements implements Checkable {
     private final Map<Requirement, Integer> leaderRequirements;
 
@@ -16,12 +20,13 @@ public class LeaderRequirements implements Checkable {
     }
 
     public void add(Requirement requirement, Integer multiplicity) {
-        this.leaderRequirements.put(requirement,multiplicity);
+        if (multiplicity > 0)
+            this.leaderRequirements.put(requirement,multiplicity);
+        else ;//Need to launch exception (?) or we can simply ignore add request
     }
 
 
     /**
-     * todo test if run correctly !
      * Check if realPlayer has requirements
      * @param realPlayer The player on which perform the checking.
      * @return true if realPlayer has requirements otherwise false

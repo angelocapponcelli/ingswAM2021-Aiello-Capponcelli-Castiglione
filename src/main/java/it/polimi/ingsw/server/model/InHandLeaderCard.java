@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.model.resources.Faith;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,22 +17,17 @@ public class InHandLeaderCard {
         return cards.get(index);
     }
 
-    public static void remove(LeaderCard leaderCard) {
-        /* to do*/
+    public void remove(LeaderCard leaderCard) {
+        this.cards.remove(leaderCard);
     }
 
     /*
      * has to be checked
      */
     public void discard(LeaderCard leaderCard, RealPlayer realPlayer) {
-        List<LeaderCard> tmpCards = cards;
-        for (LeaderCard leaderCard1 : tmpCards) {
-            if (leaderCard1.equals(leaderCard)) {
-                InHandLeaderCard.remove(leaderCard);
-                //Faith faith= new Faith(Colors.RED);
-                //faith.onTaking(realPlayer);
-            }
-        }
+        this.cards.remove(leaderCard);
+        Faith faith= Faith.getInstance();
+        faith.onTaking(realPlayer);
     }
 
     public List<SpecialAbility> getEnabledAbilities() {

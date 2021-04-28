@@ -30,7 +30,7 @@ public class GlobalBoard {
         return marketTray;
     }
 
-    public DevelopmentCardGrid getDevelpmentCardGrid() {
+    public DevelopmentCardGrid getDevelopmentCardGrid() {
         return developmentCardGrid;
     }
 

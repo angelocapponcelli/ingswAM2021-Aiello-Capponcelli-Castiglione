@@ -23,7 +23,7 @@ public class PersonalDevelopmentBoard {
     }
 
     // maybe notify when they are seven
-    private Integer getCardsCount() {
+    public Integer getCardsCount() {
         return cardsCount;
     }
 

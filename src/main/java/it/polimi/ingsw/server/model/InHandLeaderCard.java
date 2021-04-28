@@ -50,5 +50,13 @@ public class InHandLeaderCard {
         }
         return sum;
     }
+
+    public Integer getCardsCount(){
+        int tmp=0;
+        for (LeaderCard leaderCard: this.cards){
+            tmp++;
+        }
+        return tmp;
+    }
 }
 

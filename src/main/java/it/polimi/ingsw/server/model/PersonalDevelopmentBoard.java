@@ -48,7 +48,14 @@ public class PersonalDevelopmentBoard {
         return allCards;
     }
 
-    /** public DevelopmentCard getCard(Deck){
-     return deck.getTopCard;
-     }*/
+    public DevelopmentCard getTopCard(Deck deck){
+        int tmp;
+        for (tmp=0; tmp<3; tmp++){
+            if(deck.equals(this.board.get(tmp))){
+                return this.board.get(tmp).getDeck().get(0);
+            }
+        }
+        return null;
+    }
+
 }

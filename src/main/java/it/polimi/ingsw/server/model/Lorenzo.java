@@ -12,9 +12,9 @@ public class Lorenzo extends Player {
 
     private ArrayList<Revealable> soloTokenDeck;
 
-    public Lorenzo(String name, Integer faithPosition, VaticanReportStatus vaticanReportStatus, ArrayList<Revealable> soloTokenDeck) {
+    public Lorenzo(String name) {
         super(name);
-        this.soloTokenDeck = soloTokenDeck;
+        this.soloTokenDeck= new ArrayList<>();
     }
 
     public Revealable reveal() {
@@ -22,7 +22,7 @@ public class Lorenzo extends Player {
         return this.soloTokenDeck.get(random.nextInt(this.soloTokenDeck.size()));
     }
 
-    // don't know if it is unnecessary
+    // don't know if it is unnecessary*/
     public void removeFromSoloTokenDeck(Revealable revealable) {
         this.soloTokenDeck.remove(revealable);
     }
@@ -46,4 +46,7 @@ public class Lorenzo extends Player {
         this.soloTokenDeck = soloToken;
     }
 
+    public ArrayList<Revealable> getSoloTokenDeck(){
+        return this.soloTokenDeck;
+    }
 }

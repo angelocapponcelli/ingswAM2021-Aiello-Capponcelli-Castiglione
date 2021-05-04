@@ -28,12 +28,13 @@ public class Any extends Resource {
         //resource.onProduction
 
     }
-
     @Override
     public void onTaking(RealPlayer realPlayer) {
-        //check if any whitemarble's special ability is activated
-        //if so then ask for a resource if any->discard
-        //resource.onTaking
-        //if no whitemarble's special ability is activated the ignore
+        realPlayer.getPersonalBoard().getTemporaryDepotForMarket().addResource(resourceType);
     }
+    @Override
+    public ResourceType getResourceType() {
+        return resourceType;
+    }
+
 }

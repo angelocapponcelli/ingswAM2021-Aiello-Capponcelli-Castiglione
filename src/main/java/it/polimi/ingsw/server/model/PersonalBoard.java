@@ -1,87 +1,88 @@
 package it.polimi.ingsw.server.model;
 
-import it.polimi.ingsw.server.model.resources.Resource;
+import it.polimi.ingsw.server.model.resources.ResourceType;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * HAS TO BE MODIFIED BECAUSE THERE ARE NO DEPOT FOR MARKET
- */
+
 public class PersonalBoard {
-    private final List<Depot> depotForMarket;
+    private final TemporaryDepotForMarket temporaryDepotForMarket;
+    private final WareHouseDepot wareHouseDepot;
+    private final SpecialDepot specialDepot;
     private final StrongBoxDepot strongBoxDepot;
     private final PersonalDevelopmentBoard personalDevelopmentBoard;
-    private final InHandLeaderCard inHandLeaderCard;
-    private final List<ProductionPower> productionPower;
+    private final InHandLeaderCard inHandLeaderCards;
+    private final List<ProductionPower> productionPowers;
 
     public PersonalBoard(){
-        depotForMarket = new ArrayList<>();
-        depotForMarket.add(new WareHouseDepot());
-        depotForMarket.add(new SpecialDepot());
+        wareHouseDepot = new WareHouseDepot();
+        specialDepot = new SpecialDepot();
+        temporaryDepotForMarket = new TemporaryDepotForMarket();
         strongBoxDepot = new StrongBoxDepot();
-        this.personalDevelopmentBoard= new PersonalDevelopmentBoard();
-        this.inHandLeaderCard= new InHandLeaderCard();
-        this.productionPower= new ArrayList<>();
+        personalDevelopmentBoard= new PersonalDevelopmentBoard();
+        inHandLeaderCards = new InHandLeaderCard();
+        productionPowers = new ArrayList<>();
     }
 
 
-    public void addProductionPower(ProductionPower productionPower1) {
-        this.productionPower.add(productionPower1);
+    /**
+     * Add a production power to the personalBoard.
+     *
+     * @param productionPower the production power to be added.
+     */
+    public void addProductionPower(ProductionPower productionPower) {
+        this.productionPowers.add(productionPower);
     }
 
-    public List<Depot> getDepotForMarket() {
-        return depotForMarket;
+    /**
+     * Gets depot for market.
+     *
+     * @return the temporary depot used to store resources took from market.
+     */
+    public TemporaryDepotForMarket getTemporaryDepotForMarket() {
+        return temporaryDepotForMarket;
     }
 
-    public List<SpecialDepot> getSpecialDepot() {
-        List<SpecialDepot> specialDepots = new ArrayList<>();
-        for (Depot tmp : depotForMarket) {
-            if (tmp.getClass() == SpecialDepot.class) specialDepots.add((SpecialDepot) tmp);
-        }
-        return specialDepots;
+    public SpecialDepot getSpecialDepots() {
+        return specialDepot;
     }
 
-    public List<WareHouseDepot> getWareHouseDepot() {
-        List<WareHouseDepot> wareHouseDepots = new ArrayList<>();
-        for (Depot tmp : depotForMarket) {
-            if (tmp.getClass() == WareHouseDepot.class) wareHouseDepots.add((WareHouseDepot) tmp);
-        }
-        return wareHouseDepots;
+    public WareHouseDepot getWareHouseDepot() {
+        return wareHouseDepot;
     }
 
     public PersonalDevelopmentBoard getPersonalDevelopmentBoard() {
         return personalDevelopmentBoard;
     }
 
-    public InHandLeaderCard getInHandLeaderCard() {
-        return inHandLeaderCard;
+    public InHandLeaderCard getInHandLeaderCards() {
+        return inHandLeaderCards;
     }
 
-    public List<ProductionPower> getProductionPower() {
-        return productionPower;
+    public List<ProductionPower> getProductionPowers() {
+        return productionPowers;
     }
 
     public StrongBoxDepot getStrongBoxDepot() {
         return strongBoxDepot;
     }
 
-    public int getResourceCount (Resource resource){
-        int count = 0;
-        for (Depot depot : depotForMarket) {
-            count = count + depot.getResourceCount(resource);
-        }
-        count = count + strongBoxDepot.getResourceCount(resource);
-        return count;
+    /**
+     * @param resourceType The resource's type of which the count is requested
+     * @return the resource's count of the specified type.
+     */
+    public int getSpecificResourceCount(ResourceType resourceType){
+        return wareHouseDepot.getSpecificResourceCount(resourceType) + specialDepot.getSpecificResourceCount(resourceType) + strongBoxDepot.getSpecificResourceCount(resourceType);
     }
 
-    public int getResourceCount (){
-        int count = 0;
-        for (Depot depot : depotForMarket) {
-            count = count + depot.getResourceCount();
-        }
-        count = count + strongBoxDepot.getResourceCount();
-        return count;
+    /**
+     * Get the count of all the resources, stored inside the depots, regardless of the type.
+     * Used at the end of the game to calculate the victory points.
+     * @return the int
+     */
+    public int getAllResourceCount(){
+        return wareHouseDepot.getAllResourceCount() + specialDepot.getAllResourceCount() + strongBoxDepot.getAllResourceCount();
     }
 
 }

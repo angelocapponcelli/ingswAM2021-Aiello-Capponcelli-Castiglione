@@ -7,52 +7,55 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Depot that include four StrongBoxContainers: one for each resource
+ * Depot where resources are temporary stored after being took from the market.
  */
-public class StrongBoxDepot extends Depot {
-    protected final List<StrongBoxContainer> containers;
+public class TemporaryDepotForMarket extends StrongBoxDepot {
+    private final List<StrongBoxContainer> containers;
 
-    public StrongBoxDepot() {
+    public TemporaryDepotForMarket() {
         containers = new ArrayList<>();
+        containers.add(new StrongBoxContainer(ResourceType.ANY));
         containers.add(new StrongBoxContainer(ResourceType.COIN));
         containers.add(new StrongBoxContainer(ResourceType.STONE));
         containers.add(new StrongBoxContainer(ResourceType.SERVANT));
         containers.add(new StrongBoxContainer(ResourceType.SHIELD));
     }
 
-    @Override
-    public void addResources(ResourceType resourceType, int numResource) throws DepotException {
+    public void addResource(ResourceType resourceType){
         for (StrongBoxContainer selectedContainer : containers) {
             if (selectedContainer.getType() == resourceType) {
-                selectedContainer.addResource(numResource);
+                try {
+                    selectedContainer.addResource(1);
+                } catch (DepotException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
+
     @Override
     public void removeResources(ResourceType resourceType, int numResource) throws DepotException {
-        for (StrongBoxContainer selectedContainer : containers) {
-            if (selectedContainer.getType() == resourceType)
-                selectedContainer.remove(numResource);
-        }
+
     }
 
     @Override
     public int getAllResourceCount() {
-        int count = 0;
-        for (StrongBoxContainer tmpContainer : containers) {
-            count = count + tmpContainer.getCount();
-        }
-        return count;
+        return 0;
     }
 
     @Override
     public int getSpecificResourceCount(ResourceType resourceType) {
-        int count = 0;
-        for (StrongBoxContainer tmpContainer : containers) {
-            if (tmpContainer.getType() == resourceType)
-                count = count + tmpContainer.getCount();
+        return 0;
+    }
+
+    /**
+     * Clear. Re-initializes the depot for market by removing all the resources stored in.
+     */
+    public void clear(){
+        for(StrongBoxContainer strongBoxContainer: containers ){
+            strongBoxContainer.clear();
         }
-        return count;
+
     }
 }

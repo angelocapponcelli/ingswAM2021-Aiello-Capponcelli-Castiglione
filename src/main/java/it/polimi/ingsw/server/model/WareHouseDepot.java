@@ -1,7 +1,6 @@
 package it.polimi.ingsw.server.model;
 
 import it.polimi.ingsw.server.model.exceptions.DepotException;
-import it.polimi.ingsw.server.model.resources.Resource;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 
 import java.util.ArrayList;
@@ -14,39 +13,39 @@ import java.util.List;
  */
 
 public class WareHouseDepot extends Depot {
-    private final List<WareHouseContainer> containers;
+    private final List<WareHouseContainer> wareHouseContainers;
 
     public WareHouseDepot() {
-        containers = new ArrayList<>();
-        containers.add(new WareHouseContainer(1));
-        containers.add(new WareHouseContainer(2));
-        containers.add(new WareHouseContainer(3));
+        wareHouseContainers = new ArrayList<>();
+        wareHouseContainers.add(new WareHouseContainer(1));
+        wareHouseContainers.add(new WareHouseContainer(2));
+        wareHouseContainers.add(new WareHouseContainer(3));
     }
 
-    public void add(ResourceType resource, int numResource, int indexShelf) throws DepotException {
-        if (containers.get(indexShelf).getType() == resource)
-            containers.get(indexShelf).add(numResource);
-        else if (containers.get(indexShelf).getType() == null) {
-            for (WareHouseContainer selectedContainer : containers) {
+    public void addResource(ResourceType resource, int numResource, int indexShelf) throws DepotException {
+        if (wareHouseContainers.get(indexShelf).getType() == resource)
+            wareHouseContainers.get(indexShelf).addResource(numResource);
+        else if (wareHouseContainers.get(indexShelf).getType() == null) {
+            for (WareHouseContainer selectedContainer : wareHouseContainers) {
                 if (selectedContainer.getType() == resource)
                     throw new DepotException("Not possible to add resources to this shelf: another shelf have same resource type");
             }
-            containers.get(indexShelf).setResourceType(resource);
+            wareHouseContainers.get(indexShelf).setResourceType(resource);
             try {
-                containers.get(indexShelf).add(numResource);
+                wareHouseContainers.get(indexShelf).addResource(numResource);
             } catch (DepotException e) {
-                containers.get(indexShelf).setResourceType(null);
+                wareHouseContainers.get(indexShelf).setResourceType(null);
                 throw e;
             }
         } else throw new DepotException("Not possible to add resources to this shelf: shelf not Empty");
     }
 
     @Override
-    public void remove(Resource resource, int numResource) throws DepotException {
+    public void removeResources(ResourceType resourceType, int numResources) throws DepotException {
         boolean notExist = true;
-        for (WareHouseContainer selectedContainer : containers) {
-            if (selectedContainer.getType() != null && ResourceType.getResourceClass(selectedContainer.getType()) == resource) {
-                selectedContainer.remove(numResource);
+        for (WareHouseContainer selectedContainer : wareHouseContainers) {
+            if (selectedContainer.getType() != null && selectedContainer.getType() == resourceType) {
+                selectedContainer.remove(numResources);
                 if (selectedContainer.getCount() == 0) selectedContainer.setResourceType(null);
                 notExist = false;
             }
@@ -57,31 +56,31 @@ public class WareHouseDepot extends Depot {
     public void swap(int shelf1, int shelf2) throws DepotException {
         int tmpCapacity;
         if (shelf1 > shelf2) {
-            tmpCapacity = containers.get(shelf1).getCapacity();
-            containers.get(shelf1).setCapacity(containers.get(shelf2).getCapacity());
-            containers.get(shelf2).setCapacity(tmpCapacity);
+            tmpCapacity = wareHouseContainers.get(shelf1).getCapacity();
+            wareHouseContainers.get(shelf1).setCapacity(wareHouseContainers.get(shelf2).getCapacity());
+            wareHouseContainers.get(shelf2).setCapacity(tmpCapacity);
         } else {
-            tmpCapacity = containers.get(shelf2).getCapacity();
-            containers.get(shelf2).setCapacity(containers.get(shelf1).getCapacity());
-            containers.get(shelf1).setCapacity(tmpCapacity);
+            tmpCapacity = wareHouseContainers.get(shelf2).getCapacity();
+            wareHouseContainers.get(shelf2).setCapacity(wareHouseContainers.get(shelf1).getCapacity());
+            wareHouseContainers.get(shelf1).setCapacity(tmpCapacity);
         }
-        Collections.swap(containers, shelf1, shelf2);
+        Collections.swap(wareHouseContainers, shelf1, shelf2);
     }
 
     @Override
-    public int getResourceCount() {
+    public int getAllResourceCount() {
         int count = 0;
-        for (WareHouseContainer tmpContainer : containers) {
+        for (WareHouseContainer tmpContainer : wareHouseContainers) {
             count = count + tmpContainer.getCount();
         }
         return count;
     }
 
     @Override
-    public int getResourceCount(Resource resource) {
+    public int getSpecificResourceCount(ResourceType resourceType) {
         int count = 0;
-        for (WareHouseContainer tmpContainer : containers) {
-            if (tmpContainer.getType() != null && ResourceType.getResourceClass(tmpContainer.getType()) == resource)
+        for (WareHouseContainer tmpContainer : wareHouseContainers) {
+            if (tmpContainer.getType() == resourceType)
                 count = count + tmpContainer.getCount();
         }
         return count;

@@ -1,33 +1,38 @@
 package it.polimi.ingsw.server.model;
 
 import it.polimi.ingsw.server.model.exceptions.DepotException;
-import it.polimi.ingsw.server.model.resources.Resource;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Depot that include a series of SpecialContainers, make possible add new containers
+ * Special Depot. Consists of a list of SpecialContainers for a specific resource
  */
 
 public class SpecialDepot extends Depot {
-    private final List<SpecialContainer> containers;
+    private final List<SpecialContainer> specialContainers;
 
     public SpecialDepot() {
-        containers = new ArrayList<>();
+        specialContainers = new ArrayList<>();
     }
 
-    public void addContainer(ResourceType resource) {
-        containers.add(new SpecialContainer(resource));
+    /**
+     * Add a resource container for a specific resource.
+     *
+     * @param resourceType the only resource type that the container can store.
+     */
+    public void addSpecialContainer(ResourceType resourceType) {
+        specialContainers.add(new SpecialContainer(resourceType));
     }
+
 
     @Override
-    public void add(ResourceType resource, int numResource) throws DepotException {
+    public void addResources(ResourceType resourceType, int numResources) throws DepotException {
         boolean notExist = true;
-        for (SpecialContainer selectedContainer : containers) {
-            if (selectedContainer.getType() == resource) {
-                selectedContainer.add(numResource);
+        for (SpecialContainer selectedContainer : specialContainers) {
+            if (selectedContainer.getType() == resourceType) {
+                selectedContainer.addResource(numResources);
                 notExist = false;
             }
         }
@@ -35,10 +40,10 @@ public class SpecialDepot extends Depot {
     }
 
     @Override
-    public void remove(Resource resource, int numResource) throws DepotException {
+    public void removeResources(ResourceType resourceType, int numResource) throws DepotException {
         boolean notExist = true;
-        for (SpecialContainer selectedContainer : containers) {
-            if (ResourceType.getResourceClass(selectedContainer.getType()) == resource) {
+        for (SpecialContainer selectedContainer : specialContainers) {
+            if (selectedContainer.getType() == resourceType) {
                 selectedContainer.remove(numResource);
                 notExist = false;
             }
@@ -46,20 +51,22 @@ public class SpecialDepot extends Depot {
         if (notExist) throw new DepotException("Impossible to remove resources, SpecialDepot not active");
     }
 
+
+
     @Override
-    public int getResourceCount() {
+    public int getAllResourceCount() {
         int count = 0;
-        for (SpecialContainer tmpContainer : containers) {
+        for (SpecialContainer tmpContainer : specialContainers) {
             count = count + tmpContainer.getCount();
         }
         return count;
     }
 
     @Override
-    public int getResourceCount(Resource resource) {
+    public int getSpecificResourceCount(ResourceType resourceType) {
         int count = 0;
-        for (SpecialContainer tmpContainer : containers) {
-            if (ResourceType.getResourceClass(tmpContainer.getType()) == resource)
+        for (SpecialContainer tmpContainer : specialContainers) {
+            if (tmpContainer.getType() == resourceType)
                 count = count + tmpContainer.getCount();
         }
         return count;

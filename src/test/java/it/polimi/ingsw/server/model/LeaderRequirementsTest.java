@@ -20,10 +20,10 @@ class LeaderRequirementsTest {
 
     @Test
     void resourceStrongboxRequirement() throws DepotException {
-        player.getPersonalBoard().getStrongBoxDepot().add(ResourceType.COIN, 20);
-        player.getPersonalBoard().getStrongBoxDepot().add(ResourceType.SHIELD, 10);
-        player.getPersonalBoard().getStrongBoxDepot().add(ResourceType.SERVANT, 5);
-        player.getPersonalBoard().getStrongBoxDepot().add(ResourceType.STONE, 2);
+        player.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.COIN, 20);
+        player.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.SHIELD, 10);
+        player.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.SERVANT, 5);
+        player.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.STONE, 2);
 
         leaderRequirements.add(Coin.getInstance(), 10);
         assertTrue(leaderRequirements.check(player));
@@ -37,9 +37,9 @@ class LeaderRequirementsTest {
 
     @Test
     void resourceWareHouseDepotRequirement() throws DepotException {
-        player.getPersonalBoard().getWareHouseDepot().get(0).add(ResourceType.COIN, 3, 2);
-        player.getPersonalBoard().getWareHouseDepot().get(0).add(ResourceType.SHIELD, 1, 1);
-        player.getPersonalBoard().getWareHouseDepot().get(0).add(ResourceType.SERVANT, 1, 0);
+        player.getPersonalBoard().getWareHouseDepot().addResource(ResourceType.COIN, 3, 2);
+        player.getPersonalBoard().getWareHouseDepot().addResource(ResourceType.SHIELD, 1, 1);
+        player.getPersonalBoard().getWareHouseDepot().addResource(ResourceType.SERVANT, 1, 0);
 
         leaderRequirements.add(Coin.getInstance(), 2);
         assertTrue(leaderRequirements.check(player));
@@ -53,13 +53,13 @@ class LeaderRequirementsTest {
 
     @Test
     void resourceSpecialDepotRequirement() throws DepotException {
-        player.getPersonalBoard().getSpecialDepot().get(0).addContainer(ResourceType.COIN);
-        player.getPersonalBoard().getSpecialDepot().get(0).addContainer(ResourceType.SHIELD);
-        player.getPersonalBoard().getSpecialDepot().get(0).addContainer(ResourceType.SERVANT);
-        player.getPersonalBoard().getSpecialDepot().get(0).addContainer(ResourceType.STONE);
-        player.getPersonalBoard().getSpecialDepot().get(0).add(ResourceType.COIN, 2);
-        player.getPersonalBoard().getSpecialDepot().get(0).add(ResourceType.SHIELD, 2);
-        player.getPersonalBoard().getSpecialDepot().get(0).add(ResourceType.SERVANT, 1);
+        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.COIN);
+        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.SHIELD);
+        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.SERVANT);
+        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.STONE);
+        player.getPersonalBoard().getSpecialDepots().addResources(ResourceType.COIN, 2);
+        player.getPersonalBoard().getSpecialDepots().addResources(ResourceType.SHIELD, 2);
+        player.getPersonalBoard().getSpecialDepots().addResources(ResourceType.SERVANT, 1);
 
         leaderRequirements.add(Coin.getInstance(), 2);
         assertTrue(leaderRequirements.check(player));
@@ -73,20 +73,20 @@ class LeaderRequirementsTest {
 
     @Test
     void resourceRequirement() throws DepotException {
-        player.getPersonalBoard().getSpecialDepot().get(0).addContainer(ResourceType.COIN);
-        player.getPersonalBoard().getSpecialDepot().get(0).addContainer(ResourceType.SHIELD);
-        player.getPersonalBoard().getSpecialDepot().get(0).addContainer(ResourceType.SERVANT);
-        player.getPersonalBoard().getSpecialDepot().get(0).addContainer(ResourceType.STONE);
-        player.getPersonalBoard().getSpecialDepot().get(0).add(ResourceType.COIN, 2);
-        player.getPersonalBoard().getSpecialDepot().get(0).add(ResourceType.SHIELD, 2);
-        player.getPersonalBoard().getSpecialDepot().get(0).add(ResourceType.SERVANT, 1);
-        player.getPersonalBoard().getWareHouseDepot().get(0).add(ResourceType.COIN, 3, 2);
-        player.getPersonalBoard().getWareHouseDepot().get(0).add(ResourceType.SHIELD, 1, 1);
-        player.getPersonalBoard().getWareHouseDepot().get(0).add(ResourceType.SERVANT, 1, 0);
-        player.getPersonalBoard().getStrongBoxDepot().add(ResourceType.COIN, 20);
-        player.getPersonalBoard().getStrongBoxDepot().add(ResourceType.SHIELD, 10);
-        player.getPersonalBoard().getStrongBoxDepot().add(ResourceType.SERVANT, 5);
-        player.getPersonalBoard().getStrongBoxDepot().add(ResourceType.STONE, 2);
+        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.COIN);
+        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.SHIELD);
+        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.SERVANT);
+        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.STONE);
+        player.getPersonalBoard().getSpecialDepots().addResources(ResourceType.COIN, 2);
+        player.getPersonalBoard().getSpecialDepots().addResources(ResourceType.SHIELD, 2);
+        player.getPersonalBoard().getSpecialDepots().addResources(ResourceType.SERVANT, 1);
+        player.getPersonalBoard().getWareHouseDepot().addResource(ResourceType.COIN, 3, 2);
+        player.getPersonalBoard().getWareHouseDepot().addResource(ResourceType.SHIELD, 1, 1);
+        player.getPersonalBoard().getWareHouseDepot().addResource(ResourceType.SERVANT, 1, 0);
+        player.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.COIN, 20);
+        player.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.SHIELD, 10);
+        player.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.SERVANT, 5);
+        player.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.STONE, 2);
 
         leaderRequirements.add(Coin.getInstance(), 25);
         assertTrue(leaderRequirements.check(player));

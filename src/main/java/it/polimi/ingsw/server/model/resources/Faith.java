@@ -31,4 +31,9 @@ public class Faith extends Resource {
         realPlayer.increaseFaithPosition();
     }
 
+    @Override
+    public ResourceType getResourceType() {
+        return resourceType;
+    }
+
 }

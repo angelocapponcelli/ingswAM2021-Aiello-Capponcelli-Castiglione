@@ -3,7 +3,6 @@ package it.polimi.ingsw.server.model;
 import it.polimi.ingsw.server.model.interfaces.Checkable;
 import it.polimi.ingsw.server.model.interfaces.Requirement;
 import it.polimi.ingsw.server.model.resources.ConcreteResource;
-import it.polimi.ingsw.server.model.resources.Resource;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +21,7 @@ public class LeaderRequirements implements Checkable {
     public void add(Requirement requirement, Integer multiplicity) {
         if (multiplicity > 0)
             this.leaderRequirements.put(requirement,multiplicity);
-        else ;//Need to launch exception (?) or we can simply ignore add request
+        //else ;//Need to launch exception (?) or we can simply ignore add request
     }
 
 
@@ -37,7 +36,7 @@ public class LeaderRequirements implements Checkable {
         int countCard;
         for (Map.Entry<Requirement, Integer> entry : leaderRequirements.entrySet()) {
             if (entry.getKey() instanceof ConcreteResource) {
-                if (entry.getValue() > realPlayer.getPersonalBoard().getResourceCount((Resource) entry.getKey()))
+                if (entry.getValue() > realPlayer.getPersonalBoard().getSpecificResourceCount(((ConcreteResource) entry.getKey()).getResourceType()))
                     return false;
             }
             if (entry.getKey() instanceof TypeLevel) {
@@ -46,7 +45,7 @@ public class LeaderRequirements implements Checkable {
                     if (developmentCard.getTypeLevel().getType() == ((TypeLevel) entry.getKey()).getType() &&
                             ((((TypeLevel) entry.getKey()).getLevel() == 0) ||
                                     ((TypeLevel) entry.getKey()).getLevel() == developmentCard.getTypeLevel().getLevel()))
-                    countCard--;
+                        countCard--;
                     if (countCard == 0) break;
                 }
                 if  (countCard > 0) return false;

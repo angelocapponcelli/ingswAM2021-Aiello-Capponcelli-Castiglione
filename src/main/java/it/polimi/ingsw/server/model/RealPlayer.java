@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.Server;
+
 public class RealPlayer extends Player {
     private final PersonalBoard personalBoard;
 
@@ -19,25 +21,22 @@ public class RealPlayer extends Player {
         this.first = true;
     }
 
-    //da completare
-    public Integer getVictoryPoint(FaithTrack faithTrack) {
+
+    public Integer getVictoryPoint() {
         int sum = 0;
         int tmpResourceCount = 0;
         /* points from leadercard*/
-        sum = sum + this.getPersonalBoard().getInHandLeaderCard().getVictoryPoint();
+        sum = sum + this.getPersonalBoard().getInHandLeaderCards().getVictoryPoint();
         /*points from developmentcards*/
         sum = sum + this.getPersonalBoard().getPersonalDevelopmentBoard().getVictoryPoint();
         /*sum of the resource then divided by 5. every 5 resources the player is given 1 victory point*/
-        for (Depot depot : this.getPersonalBoard().getDepotForMarket()) {
-            tmpResourceCount = tmpResourceCount + depot.getResourceCount();
-        }
-        tmpResourceCount = tmpResourceCount + this.getPersonalBoard().getStrongBoxDepot().getResourceCount();
-        sum = sum + (tmpResourceCount / 5);
 
-        /* points from vaticanreportstatus*/
+        sum = sum + (getPersonalBoard().getAllResourceCount() / 5);
+
+        /* points from vaticanReportStatus*/
         sum = sum + this.vaticanReportStatus.getVictoryPoint();
-        /* points from the faithposition*/
-        sum = sum + faithTrack.getTrack().get(faithPosition).getVictoryPoints();
+        /* points from the faithPosition*/
+        sum = sum + Server.getOnGoingGame().getGlobalBoard().getFaithTrack().getTrack().get(faithPosition).getVictoryPoints();
         return sum;
     }
 

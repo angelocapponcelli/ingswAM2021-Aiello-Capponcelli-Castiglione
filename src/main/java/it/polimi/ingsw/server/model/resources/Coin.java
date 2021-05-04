@@ -26,7 +26,12 @@ public class Coin extends ConcreteResource {
 
     @Override
     public void onTaking(RealPlayer realPlayer) {
-        // TODO: ask for shelf; notifica al controller
-        //TODO: realPlayer.getPersonalBoard.getDepotForMarket().add(this.type, shelf);
+        realPlayer.getPersonalBoard().getTemporaryDepotForMarket().addResource(resourceType);
+    }
+
+
+    @Override
+    public ResourceType getResourceType() {
+        return resourceType;
     }
 }

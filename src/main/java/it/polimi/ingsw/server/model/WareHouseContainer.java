@@ -15,7 +15,7 @@ public class WareHouseContainer extends ResourceContainer {
 
     public void setResourceType(ResourceType resource) throws DepotException {
         if (count > 0) throw new DepotException("Depot not empty, impossible to change resource type");
-        this.resource = resource;
+        this.resourceType = resource;
     }
 
     public void setCapacity(int capacity) throws DepotException {

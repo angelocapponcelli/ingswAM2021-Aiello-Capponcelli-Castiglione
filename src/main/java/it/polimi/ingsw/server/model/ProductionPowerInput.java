@@ -32,13 +32,8 @@ public class ProductionPowerInput implements Checkable, Payable {
      */
     @Override
     public boolean check(RealPlayer realPlayer) {
-        int count = 0;
         for (Map.Entry<Resource, Integer> entry : productionPowerInput.entrySet()) {
-            for (Depot depotForMarket : realPlayer.getPersonalBoard().getDepotForMarket()) {
-                count = count + depotForMarket.getResourceCount(entry.getKey());
-            }
-            count = count + realPlayer.getPersonalBoard().getStrongBoxDepot().getResourceCount(entry.getKey());
-            if (entry.getValue() > count)
+            if ( entry.getValue() > realPlayer.getPersonalBoard().getSpecificResourceCount(entry.getKey().getResourceType()) )
                 return false;
         }
         return true;
@@ -51,42 +46,28 @@ public class ProductionPowerInput implements Checkable, Payable {
      */
     @Override
     public void pay(RealPlayer realPlayer) throws DepotException {
-        int count;
-        if (this.check(realPlayer)) {
-            for (Map.Entry<Resource, Integer> entry : productionPowerInput.entrySet()) {
-                count = entry.getValue();
-                for (SpecialDepot specialDepot : realPlayer.getPersonalBoard().getSpecialDepot()) { //Special depot loop, in case there was more than one
-                    if (specialDepot.getResourceCount(entry.getKey()) != 0) {
-                        if (count <= specialDepot.getResourceCount(entry.getKey())) {
-                            specialDepot.remove(entry.getKey(), count);
-                            count = 0;
-                            break;
-                        } else {
-                            count = count - specialDepot.getResourceCount(entry.getKey());
-                            specialDepot.remove(entry.getKey(), specialDepot.getResourceCount(entry.getKey()));
-                        }
-                    }
-                }
-                if (count > 0) { // in case there are still resource to pay
-                    for (WareHouseDepot wareHouseDepot : realPlayer.getPersonalBoard().getWareHouseDepot()) { //WareHouse depot loop, in case there was more than one
-                        if (wareHouseDepot.getResourceCount(entry.getKey()) != 0) {
-                            if (count <= wareHouseDepot.getResourceCount(entry.getKey())) {
-                                wareHouseDepot.remove(entry.getKey(), count);
-                                count = 0;
-                                break;
-                            } else {
-                                count = count - wareHouseDepot.getResourceCount(entry.getKey());
-                                wareHouseDepot.remove(entry.getKey(), wareHouseDepot.getResourceCount(entry.getKey()));
-                            }
-                        }
-                    }
-                    if (count > 0) { //StrongBox remove part, in case there are still resource to pay
-                        realPlayer.getPersonalBoard().getStrongBoxDepot().remove(entry.getKey(), count);
-                    }
-                }
+        if(check(realPlayer)) {
+            for (Map.Entry<Resource, Integer> entry : productionPowerInput.entrySet()){
+                int count = entry.getValue();
 
 
+                while(count > 0 && realPlayer.getPersonalBoard().getWareHouseDepot().getSpecificResourceCount(entry.getKey().getResourceType()) > 0  ){
+                    realPlayer.getPersonalBoard().getWareHouseDepot().removeResources(entry.getKey().getResourceType(),1);
+                    count--;
+                }
+                while(count > 0 && realPlayer.getPersonalBoard().getSpecialDepots().getSpecificResourceCount(entry.getKey().getResourceType()) > 0  ){
+                    realPlayer.getPersonalBoard().getSpecialDepots().removeResources(entry.getKey().getResourceType(),1);
+                    count--;
+                }
+                while(count > 0 && realPlayer.getPersonalBoard().getStrongBoxDepot().getSpecificResourceCount(entry.getKey().getResourceType()) > 0  ){
+                    realPlayer.getPersonalBoard().getStrongBoxDepot().removeResources(entry.getKey().getResourceType(),1);
+                    count--;
+                }
             }
         }
     }
+
+
+
+
 }

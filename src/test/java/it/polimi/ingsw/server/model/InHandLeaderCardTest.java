@@ -24,7 +24,7 @@ class InHandLeaderCardTest {
         LeaderCard leaderCard2= new LeaderCard(2, new LeaderRequirements(),3, new SpecialWhiteMarble(Servant.getInstance()));
         inHandLeaderCard.cards.add(leaderCard1);
         inHandLeaderCard.cards.add(leaderCard2);
-        realPlayer.getPersonalBoard().getStrongBoxDepot().add(ResourceType.COIN,3);
+        realPlayer.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.COIN,3);
         leaderCard1.playCard(realPlayer);
     }
 

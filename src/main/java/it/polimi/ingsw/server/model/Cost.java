@@ -24,7 +24,6 @@ public class Cost implements Checkable, Payable {
     }
 
     public void add(ResourceType resourceType, Integer multiplicity) {
-
         cost.put(ResourceType.getResourceClass(resourceType), multiplicity);
     }
 
@@ -37,19 +36,18 @@ public class Cost implements Checkable, Payable {
      */
     @Override
     public boolean check(RealPlayer realPlayer) {
-        int count = 0;
+        int requiredCount;
         for (Map.Entry<Resource, Integer> entry : cost.entrySet()) {
-            for (Depot depotForMarket : realPlayer.getPersonalBoard().getDepotForMarket()) {
-                count = count + depotForMarket.getResourceCount(entry.getKey());
-            }
-            count = count + realPlayer.getPersonalBoard().getStrongBoxDepot().getResourceCount(entry.getKey());
-            for (SpecialAbility specialAbility : realPlayer.getPersonalBoard().getInHandLeaderCard().getEnabledAbilities()) { //Calculating discount TODO Test
+            requiredCount = entry.getValue();
+
+            for (SpecialAbility specialAbility : realPlayer.getPersonalBoard().getInHandLeaderCards().getEnabledAbilities()) {
                 if (specialAbility.getClass() == SpecialDiscount.class && entry.getKey() == ((SpecialDiscount) specialAbility).getResource()) {
-                    count++;
+                    requiredCount--;
                     break;
                 }
             }
-            if (entry.getValue() > count)
+
+            if ( requiredCount > realPlayer.getPersonalBoard().getSpecificResourceCount(entry.getKey().getResourceType()) )
                 return false;
         }
         return true;
@@ -67,46 +65,33 @@ public class Cost implements Checkable, Payable {
             for (Map.Entry<Resource, Integer> entry : cost.entrySet()) {
                 count = entry.getValue();
 
-                for (SpecialAbility specialAbility : realPlayer.getPersonalBoard().getInHandLeaderCard().getEnabledAbilities()) { //Calculating discount TODO Test
+                for (SpecialAbility specialAbility : realPlayer.getPersonalBoard().getInHandLeaderCards().getEnabledAbilities()) {
                     if (specialAbility.getClass() == SpecialDiscount.class && entry.getKey() == ((SpecialDiscount) specialAbility).getResource()) {
                         count--;
                         break;
                     }
                 }
 
-                for (SpecialDepot specialDepot : realPlayer.getPersonalBoard().getSpecialDepot()) { //Special depot loop, in case there was more than one
-                    if (specialDepot.getResourceCount(entry.getKey()) != 0) {
-                        if (count <= specialDepot.getResourceCount(entry.getKey())) {
-                            specialDepot.remove(entry.getKey(), count);
-                            count = 0;
-                            break;
-                        } else {
-                            count = count - specialDepot.getResourceCount(entry.getKey());
-                            specialDepot.remove(entry.getKey(), specialDepot.getResourceCount(entry.getKey()));
-                        }
-                    }
+                while( count > 0 && realPlayer.getPersonalBoard().getWareHouseDepot().getSpecificResourceCount(entry.getKey().getResourceType()) > 0  ){
+                    realPlayer.getPersonalBoard().getWareHouseDepot().removeResources(entry.getKey().getResourceType(),1);
+                    count--;
                 }
-                if (count > 0) { // in case there are still resource to pay
-                    for (WareHouseDepot wareHouseDepot : realPlayer.getPersonalBoard().getWareHouseDepot()) { //WareHouse depot loop, in case there was more than one
-                        if (wareHouseDepot.getResourceCount(entry.getKey()) != 0) {
-                            if (count <= wareHouseDepot.getResourceCount(entry.getKey())) {
-                                wareHouseDepot.remove(entry.getKey(), count);
-                                count = 0;
-                                break;
-                            } else {
-                                count = count - wareHouseDepot.getResourceCount(entry.getKey());
-                                wareHouseDepot.remove(entry.getKey(), wareHouseDepot.getResourceCount(entry.getKey()));
-                            }
-                        }
-                    }
-                    if (count > 0) { //StrongBox remove part, in case there are still resource to pay
-                        realPlayer.getPersonalBoard().getStrongBoxDepot().remove(entry.getKey(), count);
-                    }
+                while( count > 0 && realPlayer.getPersonalBoard().getSpecialDepots().getSpecificResourceCount(entry.getKey().getResourceType()) > 0  ){
+                    realPlayer.getPersonalBoard().getSpecialDepots().removeResources(entry.getKey().getResourceType(),1);
+                    count--;
+                }
+                while( count > 0 && realPlayer.getPersonalBoard().getStrongBoxDepot().getSpecificResourceCount(entry.getKey().getResourceType()) > 0  ){
+                    realPlayer.getPersonalBoard().getStrongBoxDepot().removeResources(entry.getKey().getResourceType(),1);
+                    count--;
                 }
 
 
             }
         }
     }
+
+
+
+
 
 }

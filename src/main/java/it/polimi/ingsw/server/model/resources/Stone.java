@@ -26,6 +26,11 @@ public class Stone extends ConcreteResource {
 
     @Override
     public void onTaking(RealPlayer realPlayer) {
+        realPlayer.getPersonalBoard().getTemporaryDepotForMarket().addResource(resourceType);
+    }
 
+    @Override
+    public ResourceType getResourceType() {
+        return resourceType;
     }
 }

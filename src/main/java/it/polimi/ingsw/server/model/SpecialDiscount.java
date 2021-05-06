@@ -9,6 +9,9 @@ public class SpecialDiscount extends SpecialAbility {
         this.resource = resource;
     }
 
+    /**
+     * It's a passive ability, should consider It in the pay transaction
+     */
     @Override
     public void onActivation(RealPlayer player) {
         /*to do*/

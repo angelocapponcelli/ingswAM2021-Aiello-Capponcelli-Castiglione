@@ -13,6 +13,11 @@ public class WareHouseContainer extends ResourceContainer {
         super(capacity);
     }
 
+    /**
+     * set resource type of container
+     * @param resource type of resource to setting
+     * @throws DepotException if is not possible to set new resource type
+     */
     public void setResourceType(ResourceType resource) throws DepotException {
         if (count > 0) throw new DepotException("Depot not empty, impossible to change resource type");
         this.resourceType = resource;

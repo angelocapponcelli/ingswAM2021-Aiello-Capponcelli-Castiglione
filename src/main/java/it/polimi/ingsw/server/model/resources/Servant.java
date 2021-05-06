@@ -20,8 +20,8 @@ public class Servant extends ConcreteResource {
     }
 
     @Override
-    public void onProduction(RealPlayer realPlayer, Integer multiplicity) throws DepotException {
-
+    public void onProduction(RealPlayer realPlayer, Integer multiplicity){
+        realPlayer.getPersonalBoard().getStrongBoxDepot().addResources(resourceType, multiplicity);
     }
 
     @Override

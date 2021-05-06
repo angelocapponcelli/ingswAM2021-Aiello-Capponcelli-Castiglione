@@ -21,10 +21,14 @@ public class StrongBoxDepot extends Depot {
     }
 
     @Override
-    public void addResources(ResourceType resourceType, int numResource) throws DepotException {
+    public void addResources(ResourceType resourceType, int numResource){
         for (StrongBoxContainer selectedContainer : containers) {
             if (selectedContainer.getType() == resourceType) {
-                selectedContainer.addResource(numResource);
+                try {
+                    selectedContainer.addResource(numResource);
+                } catch (DepotException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

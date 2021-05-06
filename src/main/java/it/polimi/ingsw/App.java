@@ -1,17 +1,16 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.server.utils.FaithTrackParser;
 
-import it.polimi.ingsw.server.model.Game;
-import it.polimi.ingsw.server.model.MultiplayerGame;
-import it.polimi.ingsw.server.model.Player;
-import it.polimi.ingsw.server.model.RealPlayer;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import java.io.FileNotFoundException;
 
 public class App {
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
+
+        //System.out.println(FaithTrackParser.getINSTANCE().getTrack().get(12).getVictoryPoints());
+
+
     }
 
 }

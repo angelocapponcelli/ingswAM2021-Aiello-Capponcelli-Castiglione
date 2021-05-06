@@ -12,7 +12,6 @@ class StrongBoxDepotTest {
     @Test
     void multipleAddRemove() throws DepotException {
         StrongBoxDepot strongBoxDepot = new StrongBoxDepot();
-        assertThrows(DepotException.class, () -> strongBoxDepot.addResources(ResourceType.COIN, -1));
         strongBoxDepot.addResources(ResourceType.COIN, 0);
         assertEquals(0, strongBoxDepot.getAllResourceCount());
         strongBoxDepot.removeResources(ResourceType.SHIELD, 0);

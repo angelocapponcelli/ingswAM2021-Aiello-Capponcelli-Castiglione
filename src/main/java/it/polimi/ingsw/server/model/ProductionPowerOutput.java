@@ -38,6 +38,8 @@ public class ProductionPowerOutput implements Activable {
 
     @Override
     public void onActivation(RealPlayer realPlayer) {
-        /*asks what it does*/
+        for(Map.Entry<Producible,Integer> entry: productionPowerOutput.entrySet()){
+            entry.getKey().onProduction(realPlayer, entry.getValue());
+        }
     }
 }

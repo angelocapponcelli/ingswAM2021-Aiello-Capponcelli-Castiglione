@@ -11,7 +11,7 @@ public class Cell {
      *
      * @param victoryPoints the victory points of the cell
      */
-    public Cell(Integer victoryPoints) {
+    public Cell(Integer victoryPoints){
         this.victoryPoints = victoryPoints;
     }
 

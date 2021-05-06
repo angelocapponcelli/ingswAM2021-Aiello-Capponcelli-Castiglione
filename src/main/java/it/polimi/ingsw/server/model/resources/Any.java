@@ -23,11 +23,12 @@ public class Any extends Resource {
     }
 
     @Override
-    public void onProduction(RealPlayer realPlayer, Integer multiplicity) throws DepotException {
+    public void onProduction(RealPlayer realPlayer, Integer multiplicity){
         // ask for a resource
         //resource.onProduction
 
     }
+
     @Override
     public void onTaking(RealPlayer realPlayer) {
         realPlayer.getPersonalBoard().getTemporaryDepotForMarket().addResource(resourceType);

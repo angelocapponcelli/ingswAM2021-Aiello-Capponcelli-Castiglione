@@ -18,12 +18,10 @@ public class Faith extends Resource {
         return "Faith";
     }
 
+
     @Override
     public void onProduction(RealPlayer realPlayer, Integer multiplicity) {
-        int loop;
-        for (loop = 0; loop >= multiplicity; loop++) {
-            realPlayer.increaseFaithPosition();
-        }
+        for (int i = 0; i < multiplicity; i++) realPlayer.increaseFaithPosition();
     }
 
     @Override

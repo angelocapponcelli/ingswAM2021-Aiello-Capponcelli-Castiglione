@@ -1,20 +1,20 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.utils.FaithTrackParser;
+
 import java.util.List;
 
 
 public class FaithTrack {
 
     private static final FaithTrack INSTANCE = new FaithTrack();
-    private List<Cell> track;
-    private List<VaticanReportSection> vaticanReportSectionList;
+    private final List<Cell> track;
+    private final List<VaticanReportSection> vaticanReportSectionList;
+
 
     private FaithTrack() {
-    }
-
-    private FaithTrack(List<Cell> track, List<VaticanReportSection> vaticanReportSectionList) {
-        this.track = track;
-        this.vaticanReportSectionList = vaticanReportSectionList;
+        this.track = FaithTrackParser.getINSTANCE().getTrack();
+        this.vaticanReportSectionList = FaithTrackParser.getINSTANCE().getReportSections();
     }
 
     public static FaithTrack getINSTANCE() {

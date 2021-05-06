@@ -15,5 +15,5 @@ public interface Producible {
      * @param multiplicity The multiplicity of the produced resource.
      * @throws DepotException
      */
-    void onProduction(RealPlayer realPlayer, Integer multiplicity) throws DepotException;
+    void onProduction(RealPlayer realPlayer, Integer multiplicity);
 }

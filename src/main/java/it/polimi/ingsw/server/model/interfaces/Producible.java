@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.interfaces;
 
 import it.polimi.ingsw.server.model.exceptions.DepotException;
-import it.polimi.ingsw.server.model.RealPlayer;
+import it.polimi.ingsw.server.model.player.RealPlayer;
 
 /**
  * The interface Producible.

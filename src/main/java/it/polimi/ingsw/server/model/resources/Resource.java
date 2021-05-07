@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server.model.resources;
 
-import it.polimi.ingsw.server.model.RealPlayer;
 import it.polimi.ingsw.server.model.interfaces.Producible;
 import it.polimi.ingsw.server.model.interfaces.Takeable;
 

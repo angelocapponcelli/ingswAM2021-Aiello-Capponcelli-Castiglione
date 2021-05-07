@@ -1,7 +1,9 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.model.cards.Cost;
 import it.polimi.ingsw.server.model.exceptions.DepotException;
-import it.polimi.ingsw.server.model.resources.*;
+import it.polimi.ingsw.server.model.player.RealPlayer;
+import it.polimi.ingsw.server.model.resources.ResourceType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +20,7 @@ class CostTest {
         player.getPersonalBoard().getWareHouseDepot().addResource(ResourceType.SHIELD, 1, 1);
         player.getPersonalBoard().getWareHouseDepot().addResource(ResourceType.SERVANT, 1, 0);
         player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.SHIELD);
-        player.getPersonalBoard().getSpecialDepots().addResources(ResourceType.SHIELD,1);
+        player.getPersonalBoard().getSpecialDepots().addResources(ResourceType.SHIELD, 1);
         player.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.COIN, 10);
     }
 

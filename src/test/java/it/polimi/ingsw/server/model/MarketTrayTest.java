@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.model.globalBoard.MarketTray;
 import it.polimi.ingsw.server.model.interfaces.Takeable;
 import it.polimi.ingsw.server.model.resources.*;
 import org.junit.jupiter.api.BeforeEach;

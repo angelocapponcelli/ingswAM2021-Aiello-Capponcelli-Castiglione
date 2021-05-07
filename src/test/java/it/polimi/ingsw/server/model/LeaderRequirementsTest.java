@@ -1,11 +1,17 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.model.cards.DevelopmentCard;
+import it.polimi.ingsw.server.model.cards.LeaderRequirements;
+import it.polimi.ingsw.server.model.cards.TypeLevel;
 import it.polimi.ingsw.server.model.exceptions.DepotException;
+import it.polimi.ingsw.server.model.misc.Colors;
+import it.polimi.ingsw.server.model.player.RealPlayer;
 import it.polimi.ingsw.server.model.resources.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class LeaderRequirementsTest {
 
@@ -13,13 +19,13 @@ class LeaderRequirementsTest {
     RealPlayer player;
 
     @BeforeEach
-    void init(){
+    void init() {
         player = new RealPlayer("player1");
         leaderRequirements = new LeaderRequirements();
     }
 
     @Test
-    void resourceStrongboxRequirement() throws DepotException {
+    void resourceStrongboxRequirement() {
         player.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.COIN, 20);
         player.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.SHIELD, 10);
         player.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.SERVANT, 5);
@@ -108,13 +114,13 @@ class LeaderRequirementsTest {
         player.getPersonalBoard().getPersonalDevelopmentBoard().addCard(2, new DevelopmentCard(1, null, new TypeLevel(Colors.PURPLE, 2), null, 1));
         player.getPersonalBoard().getPersonalDevelopmentBoard().addCard(0, new DevelopmentCard(1, null, new TypeLevel(Colors.PURPLE, 3), null, 1));
 
-        leaderRequirements.add(new TypeLevel(Colors.GREEN,0), 2);
+        leaderRequirements.add(new TypeLevel(Colors.GREEN, 0), 2);
         assertTrue(leaderRequirements.check(player));
-        leaderRequirements.add(new TypeLevel(Colors.YELLOW,0), 1);
+        leaderRequirements.add(new TypeLevel(Colors.YELLOW, 0), 1);
         assertTrue(leaderRequirements.check(player));
-        leaderRequirements.add(new TypeLevel(Colors.PURPLE,0), 1);
+        leaderRequirements.add(new TypeLevel(Colors.PURPLE, 0), 1);
         assertTrue(leaderRequirements.check(player));
-        leaderRequirements.add(new TypeLevel(Colors.BLUE,0), 1);
+        leaderRequirements.add(new TypeLevel(Colors.BLUE, 0), 1);
         assertFalse(leaderRequirements.check(player));
     }
 
@@ -129,13 +135,13 @@ class LeaderRequirementsTest {
         player.getPersonalBoard().getPersonalDevelopmentBoard().addCard(2, new DevelopmentCard(1, null, new TypeLevel(Colors.PURPLE, 2), null, 1));
         player.getPersonalBoard().getPersonalDevelopmentBoard().addCard(0, new DevelopmentCard(1, null, new TypeLevel(Colors.PURPLE, 3), null, 1));
 
-        leaderRequirements.add(new TypeLevel(Colors.GREEN,1), 2);
+        leaderRequirements.add(new TypeLevel(Colors.GREEN, 1), 2);
         assertTrue(leaderRequirements.check(player));
-        leaderRequirements.add(new TypeLevel(Colors.YELLOW,3), 1);
+        leaderRequirements.add(new TypeLevel(Colors.YELLOW, 3), 1);
         assertTrue(leaderRequirements.check(player));
-        leaderRequirements.add(new TypeLevel(Colors.PURPLE,1), 2);
+        leaderRequirements.add(new TypeLevel(Colors.PURPLE, 1), 2);
         assertFalse(leaderRequirements.check(player));
-        leaderRequirements.add(new TypeLevel(Colors.BLUE,1), 1);
+        leaderRequirements.add(new TypeLevel(Colors.BLUE, 1), 1);
         assertFalse(leaderRequirements.check(player));
     }
 

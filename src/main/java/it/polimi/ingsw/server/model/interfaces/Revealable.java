@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.interfaces;
 
-import it.polimi.ingsw.server.model.Lorenzo;
+import it.polimi.ingsw.server.model.player.Lorenzo;
 
 /**
  * The Revealable interface.
@@ -10,7 +10,7 @@ public interface Revealable {
     /**
      * Performs the actions after revealing the solo token.
      *
-     * @param lorenzo
+     * @param lorenzo The "AI" player.
      */
     void onReveal(Lorenzo lorenzo);
 }

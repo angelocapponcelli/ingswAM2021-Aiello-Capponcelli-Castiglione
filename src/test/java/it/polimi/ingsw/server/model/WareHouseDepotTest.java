@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model;
 
 import it.polimi.ingsw.server.model.exceptions.DepotException;
+import it.polimi.ingsw.server.model.personalBoard.depots.WareHouseDepot;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 import org.junit.jupiter.api.Test;
 

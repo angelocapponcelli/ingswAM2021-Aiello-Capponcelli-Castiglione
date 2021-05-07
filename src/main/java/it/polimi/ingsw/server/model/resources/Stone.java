@@ -1,7 +1,6 @@
 package it.polimi.ingsw.server.model.resources;
 
-import it.polimi.ingsw.server.model.exceptions.DepotException;
-import it.polimi.ingsw.server.model.RealPlayer;
+import it.polimi.ingsw.server.model.player.RealPlayer;
 
 public class Stone extends ConcreteResource {
     private static final Stone INSTANCE = new Stone();
@@ -20,7 +19,7 @@ public class Stone extends ConcreteResource {
     }
 
     @Override
-    public void onProduction(RealPlayer realPlayer, Integer multiplicity){
+    public void onProduction(RealPlayer realPlayer, Integer multiplicity) {
         realPlayer.getPersonalBoard().getStrongBoxDepot().addResources(resourceType, multiplicity);
     }
 

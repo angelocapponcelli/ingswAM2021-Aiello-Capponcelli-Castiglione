@@ -1,7 +1,6 @@
 package it.polimi.ingsw.server.model.resources;
 
-import it.polimi.ingsw.server.model.exceptions.DepotException;
-import it.polimi.ingsw.server.model.RealPlayer;
+import it.polimi.ingsw.server.model.player.RealPlayer;
 
 /**
  * The Any resource. Represents a resource that can be chosen by a player.
@@ -23,7 +22,7 @@ public class Any extends Resource {
     }
 
     @Override
-    public void onProduction(RealPlayer realPlayer, Integer multiplicity){
+    public void onProduction(RealPlayer realPlayer, Integer multiplicity) {
         // ask for a resource
         //resource.onProduction
 
@@ -33,6 +32,7 @@ public class Any extends Resource {
     public void onTaking(RealPlayer realPlayer) {
         realPlayer.getPersonalBoard().getTemporaryDepotForMarket().addResource(resourceType);
     }
+
     @Override
     public ResourceType getResourceType() {
         return resourceType;

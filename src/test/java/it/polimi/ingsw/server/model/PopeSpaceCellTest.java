@@ -1,13 +1,12 @@
 package it.polimi.ingsw.server.model;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-
-import it.polimi.ingsw.server.Server;
+import it.polimi.ingsw.server.model.globalBoard.faithTrack.PopeSpaceCell;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PopeSpaceCellTest {
 
@@ -16,23 +15,17 @@ class PopeSpaceCellTest {
     int victoryPoints;
 
     @BeforeEach
-    void setPopeSpaceCellInitialization(){
-        Game game = new MultiplayerGame(1,4);
+    void setPopeSpaceCellInitialization() {
+        Game game = new MultiplayerGame(1, 4);
         Random r = new Random();
         victoryPoints = r.nextInt(20);
         popeSpaceCell = new PopeSpaceCell(victoryPoints);
     }
 
     @Test
-    void getVictoryPointsTest(){
+    void getVictoryPointsTest() {
         assertEquals(victoryPoints, popeSpaceCell.getVictoryPoints());
     }
-
-
-
-
-
-
 
 
 }

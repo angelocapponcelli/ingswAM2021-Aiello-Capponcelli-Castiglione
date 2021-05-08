@@ -1,7 +1,9 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.model.cards.Cost;
 import it.polimi.ingsw.server.model.exceptions.DepotException;
-import it.polimi.ingsw.server.model.resources.*;
+import it.polimi.ingsw.server.model.player.RealPlayer;
+import it.polimi.ingsw.server.model.resources.ResourceType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,13 +15,13 @@ class CostTest {
 
     @BeforeEach
     void init() throws DepotException {
-        player = new RealPlayer("Player1");
-        player.getPersonalBoard().getWareHouseDepot().get(0).add(ResourceType.COIN, 2, 2);
-        player.getPersonalBoard().getWareHouseDepot().get(0).add(ResourceType.SHIELD, 1, 1);
-        player.getPersonalBoard().getWareHouseDepot().get(0).add(ResourceType.SERVANT, 1, 0);
-        player.getPersonalBoard().getSpecialDepot().get(0).addContainer(ResourceType.SHIELD);
-        player.getPersonalBoard().getSpecialDepot().get(0).add(ResourceType.SHIELD, 1);
-        player.getPersonalBoard().getStrongBoxDepot().add(ResourceType.COIN, 10);
+        player = new RealPlayer("Fredo");
+        player.getPersonalBoard().getWareHouseDepot().addResource(ResourceType.COIN, 2, 2);
+        player.getPersonalBoard().getWareHouseDepot().addResource(ResourceType.SHIELD, 1, 1);
+        player.getPersonalBoard().getWareHouseDepot().addResource(ResourceType.SERVANT, 1, 0);
+        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.SHIELD);
+        player.getPersonalBoard().getSpecialDepots().addResources(ResourceType.SHIELD, 1);
+        player.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.COIN, 10);
     }
 
     @Test
@@ -42,10 +44,10 @@ class CostTest {
     void PayTestOneWareHouseElement() throws DepotException {
         cost = new Cost();
         cost.add(ResourceType.COIN, 1);
-        assertEquals(0, player.getPersonalBoard().getSpecialDepot().get(0).getResourceCount(Coin.getInstance()));
+        assertEquals(0, player.getPersonalBoard().getSpecialDepots().getSpecificResourceCount(ResourceType.COIN));
         cost.pay(player);
-        assertEquals(1, player.getPersonalBoard().getWareHouseDepot().get(0).getResourceCount(Coin.getInstance()));
-        assertEquals(10, player.getPersonalBoard().getStrongBoxDepot().getResourceCount(Coin.getInstance()));
+        assertEquals(1, player.getPersonalBoard().getWareHouseDepot().getSpecificResourceCount(ResourceType.COIN));
+        assertEquals(10, player.getPersonalBoard().getStrongBoxDepot().getSpecificResourceCount(ResourceType.COIN));
     }
 
     @Test
@@ -56,20 +58,20 @@ class CostTest {
         cost.add(ResourceType.SERVANT, 1);
         cost.pay(player);
         //Check right Coin number in each depots
-        assertEquals(0, player.getPersonalBoard().getSpecialDepot().get(0).getResourceCount(Coin.getInstance()));
-        assertEquals(0, player.getPersonalBoard().getWareHouseDepot().get(0).getResourceCount(Coin.getInstance()));
-        assertEquals(7, player.getPersonalBoard().getStrongBoxDepot().getResourceCount(Coin.getInstance()));
-        //Check right Coin number in each depots
-        assertEquals(0, player.getPersonalBoard().getSpecialDepot().get(0).getResourceCount(Shield.getInstance()));
-        assertEquals(1, player.getPersonalBoard().getWareHouseDepot().get(0).getResourceCount(Shield.getInstance()));
-        assertEquals(0, player.getPersonalBoard().getStrongBoxDepot().getResourceCount(Shield.getInstance()));
-        //Check right Coin number in each depots
-        assertEquals(0, player.getPersonalBoard().getSpecialDepot().get(0).getResourceCount(Servant.getInstance()));
-        assertEquals(0, player.getPersonalBoard().getWareHouseDepot().get(0).getResourceCount(Servant.getInstance()));
-        assertEquals(0, player.getPersonalBoard().getStrongBoxDepot().getResourceCount(Servant.getInstance()));
-        //Check right Coin number in each depots
-        assertEquals(0, player.getPersonalBoard().getSpecialDepot().get(0).getResourceCount(Stone.getInstance()));
-        assertEquals(0, player.getPersonalBoard().getWareHouseDepot().get(0).getResourceCount(Stone.getInstance()));
-        assertEquals(0, player.getPersonalBoard().getStrongBoxDepot().getResourceCount(Stone.getInstance()));
+        assertEquals(0, player.getPersonalBoard().getWareHouseDepot().getSpecificResourceCount(ResourceType.COIN));
+        assertEquals(0, player.getPersonalBoard().getSpecialDepots().getSpecificResourceCount(ResourceType.COIN));
+        assertEquals(7, player.getPersonalBoard().getStrongBoxDepot().getSpecificResourceCount(ResourceType.COIN));
+        //Check right Shield number in each depots
+        assertEquals(0, player.getPersonalBoard().getWareHouseDepot().getSpecificResourceCount(ResourceType.SHIELD));
+        assertEquals(1, player.getPersonalBoard().getSpecialDepots().getSpecificResourceCount(ResourceType.SHIELD));
+        assertEquals(0, player.getPersonalBoard().getStrongBoxDepot().getSpecificResourceCount(ResourceType.SHIELD));
+        //Check right Servant number in each depots
+        assertEquals(0, player.getPersonalBoard().getWareHouseDepot().getSpecificResourceCount(ResourceType.SERVANT));
+        assertEquals(0, player.getPersonalBoard().getSpecialDepots().getSpecificResourceCount(ResourceType.SERVANT));
+        assertEquals(0, player.getPersonalBoard().getStrongBoxDepot().getSpecificResourceCount(ResourceType.SERVANT));
+        //Check right Stone number in each depots
+        assertEquals(0, player.getPersonalBoard().getWareHouseDepot().getSpecificResourceCount(ResourceType.STONE));
+        assertEquals(0, player.getPersonalBoard().getSpecialDepots().getSpecificResourceCount(ResourceType.STONE));
+        assertEquals(0, player.getPersonalBoard().getStrongBoxDepot().getSpecificResourceCount(ResourceType.STONE));
     }
 }

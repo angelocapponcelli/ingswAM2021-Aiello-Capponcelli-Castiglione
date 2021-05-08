@@ -2,6 +2,8 @@ package it.polimi.ingsw.server.model;
 
 import it.polimi.ingsw.server.model.exceptions.PlayerWithSameNameException;
 import it.polimi.ingsw.server.model.exceptions.ReachedMaxNumberOfPlayersException;
+import it.polimi.ingsw.server.model.player.Player;
+import it.polimi.ingsw.server.model.player.RealPlayer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,15 +12,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class GameAddPlayerTest {
 
     Game game;
 
     @BeforeEach
-    void initializeGamePlayers(){
-        game = new MultiplayerGame(1,4);
+    void initializeGamePlayers() {
+        game = new MultiplayerGame(1, 4);
 
         Player player1 = new RealPlayer("Vincent");
         Player player2 = new RealPlayer("Jules");
@@ -35,13 +38,13 @@ class GameAddPlayerTest {
     }
 
     @Test
-    void checkPlayersList(){
-        List<String> playersName = new ArrayList<>(Arrays.asList("Vincent","Jules","Mia"));
+    void checkPlayersList() {
+        List<String> playersName = new ArrayList<>(Arrays.asList("Vincent", "Jules", "Mia"));
         assertEquals(game.getPlayers().stream().map(Player::getNickName).collect(Collectors.toList()), playersName);
     }
 
     @Test
-    void maxNumberOfPlayerReached(){
+    void maxNumberOfPlayerReached() {
         try {
             game.addPlayer(new RealPlayer("Marcellus"));
         } catch (Exception e) {
@@ -49,8 +52,9 @@ class GameAddPlayerTest {
         }
         assertThrows(ReachedMaxNumberOfPlayersException.class, () -> game.addPlayer(new RealPlayer("Butch")));
     }
+
     @Test
-    void sameNameTest(){
+    void sameNameTest() {
 
         assertThrows(PlayerWithSameNameException.class, () -> game.addPlayer(new RealPlayer("Vincent")));
 

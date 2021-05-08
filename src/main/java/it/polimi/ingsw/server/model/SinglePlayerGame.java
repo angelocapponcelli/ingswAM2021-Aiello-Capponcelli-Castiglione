@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model;
 
-import java.io.FileNotFoundException;
+import it.polimi.ingsw.server.model.player.Player;
 
 /**
  * The type Single player game.
@@ -11,8 +11,8 @@ public class SinglePlayerGame extends Game {
      *
      * @param id the id of the game
      */
-    public SinglePlayerGame(Integer id){
-        super(id,2);
+    public SinglePlayerGame(Integer id) {
+        super(id, 2);
     }
 
 

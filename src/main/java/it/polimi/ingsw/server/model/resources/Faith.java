@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.resources;
 
-import it.polimi.ingsw.server.model.RealPlayer;
+import it.polimi.ingsw.server.model.player.RealPlayer;
 
 public class Faith extends Resource {
     private static final Faith INSTANCE = new Faith();
@@ -18,17 +18,20 @@ public class Faith extends Resource {
         return "Faith";
     }
 
+
     @Override
     public void onProduction(RealPlayer realPlayer, Integer multiplicity) {
-        int loop;
-        for (loop = 0; loop >= multiplicity; loop++) {
-            realPlayer.increaseFaithPosition();
-        }
+        for (int i = 0; i < multiplicity; i++) realPlayer.increaseFaithPosition();
     }
 
     @Override
     public void onTaking(RealPlayer realPlayer) {
         realPlayer.increaseFaithPosition();
+    }
+
+    @Override
+    public ResourceType getResourceType() {
+        return resourceType;
     }
 
 }

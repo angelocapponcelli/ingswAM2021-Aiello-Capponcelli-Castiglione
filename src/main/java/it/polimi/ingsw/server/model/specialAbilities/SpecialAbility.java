@@ -7,9 +7,9 @@ import it.polimi.ingsw.server.model.player.RealPlayer;
  **/
 public abstract class SpecialAbility {
 
-    void onActivation(RealPlayer player) {
+    public void onActivation(RealPlayer player) {
 
     }
-    /* check if we have to put isActivated method*/
+
 
 }

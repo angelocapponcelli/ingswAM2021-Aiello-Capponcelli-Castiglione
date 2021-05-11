@@ -11,7 +11,7 @@ public class SpecialWhiteMarble extends SpecialAbility {
     }
 
     @Override
-    void onActivation(RealPlayer player) {
+    public void onActivation(RealPlayer player) {
         super.onActivation(player);
     }
 }

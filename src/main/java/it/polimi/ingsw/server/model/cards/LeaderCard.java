@@ -43,6 +43,7 @@ public class LeaderCard {
      */
     public void playCard(RealPlayer realPlayer) {
         if (this.requirements.check(realPlayer)) {
+            this.specialAbility.onActivation(realPlayer);
             this.played = true;
         }
     }

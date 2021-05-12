@@ -16,4 +16,8 @@ public class InsertNicknameMessage extends BeforeGameMessage{
         else
             return true;
     }
+
+    public String getNickname() {
+        return nickname;
+    }
 }

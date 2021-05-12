@@ -2,10 +2,10 @@ package it.polimi.ingsw.networking;
 
 import it.polimi.ingsw.server.model.player.RealPlayer;
 
-public class SelectCardIDMessage extends Message{
+public class SelectCardIDClientMessage extends ClientMessage {
     protected Integer id; /** o posizione*/
 
-    public SelectCardIDMessage(RealPlayer realPlayer, Integer id){
+    public SelectCardIDClientMessage(RealPlayer realPlayer, Integer id){
         super(realPlayer);
         this.id= id;
     }

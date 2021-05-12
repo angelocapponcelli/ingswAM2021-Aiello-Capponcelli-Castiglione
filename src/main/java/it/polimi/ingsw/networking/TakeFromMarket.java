@@ -2,7 +2,7 @@ package it.polimi.ingsw.networking;
 
 import it.polimi.ingsw.server.model.player.RealPlayer;
 
-public class TakeFromMarket extends Message{
+public class TakeFromMarket extends ClientMessage {
 
     private String rowOrColumn;
     private Integer number;

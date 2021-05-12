@@ -1,18 +1,22 @@
 package it.polimi.ingsw.networking;
 
 public class PlayersNumberMessage extends BeforeGameMessage {
-    private Integer number;
+    private final int playerNumber;
 
-    public PlayersNumberMessage(Integer number){
-        this.number=number;
+    public PlayersNumberMessage(Integer playerNumber){
+        this.playerNumber=playerNumber;
     }
 
     @Override
     public Boolean check(){
-        if(this.number>4 || this.number<1){
+        if(this.playerNumber>4 || this.playerNumber<1){
             return false;
         }
         else
             return true;
+    }
+
+    public int getPlayerNumber(){
+        return playerNumber;
     }
 }

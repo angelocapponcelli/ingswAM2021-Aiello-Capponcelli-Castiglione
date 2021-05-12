@@ -2,11 +2,11 @@ package it.polimi.ingsw.networking;
 
 import it.polimi.ingsw.server.model.player.RealPlayer;
 
-public class ChooseMainActionMessage extends Message{
+public class ChooseMainActionClientMessage extends ClientMessage {
 
     private String string;
 
-    public ChooseMainActionMessage(RealPlayer realPlayer1, String s) {
+    public ChooseMainActionClientMessage(RealPlayer realPlayer1, String s) {
         super(realPlayer1);
         this.string=s;
     }

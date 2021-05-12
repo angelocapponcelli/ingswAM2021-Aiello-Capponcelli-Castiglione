@@ -2,12 +2,12 @@ package it.polimi.ingsw.networking;
 
 import it.polimi.ingsw.server.model.player.RealPlayer;
 
-public class SwapShelvesMessage extends Message{
+public class SwapShelvesClientMessage extends ClientMessage {
     private Integer shelves1;
     private Integer shelves2;
 
 
-    public SwapShelvesMessage(RealPlayer realPlayer1,Integer shelves1,Integer shelves2) {
+    public SwapShelvesClientMessage(RealPlayer realPlayer1, Integer shelves1, Integer shelves2) {
         super(realPlayer1);
         this.shelves1=shelves1;
         this.shelves2=shelves2;

@@ -2,11 +2,11 @@ package it.polimi.ingsw.networking;
 
 import it.polimi.ingsw.server.model.player.RealPlayer;
 
-public class SelectDeckFromGridMessage extends Message{
+public class SelectDeckFromGridClientMessage extends ClientMessage {
     private Integer row;
     private Integer column;
 
-    public SelectDeckFromGridMessage(RealPlayer realPlayer1, Integer row, Integer column) {
+    public SelectDeckFromGridClientMessage(RealPlayer realPlayer1, Integer row, Integer column) {
         super(realPlayer1);
         this.row=row;
         this.column=column;

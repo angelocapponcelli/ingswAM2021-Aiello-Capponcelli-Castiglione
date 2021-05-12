@@ -2,10 +2,10 @@ package it.polimi.ingsw.networking;
 
 import it.polimi.ingsw.server.model.player.RealPlayer;
 
-public class SelectDeckFromPersonalBoardMessage extends Message{
+public class SelectDeckFromPersonalBoardClientMessage extends ClientMessage {
     private Integer numberOfDeck;
 
-    public SelectDeckFromPersonalBoardMessage(RealPlayer realPlayer) {
+    public SelectDeckFromPersonalBoardClientMessage(RealPlayer realPlayer) {
         super(realPlayer);
     }
 

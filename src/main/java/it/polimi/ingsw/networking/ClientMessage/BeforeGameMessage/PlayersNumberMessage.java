@@ -1,4 +1,4 @@
-package it.polimi.ingsw.networking;
+package it.polimi.ingsw.networking.ClientMessage.BeforeGameMessage;
 
 public class PlayersNumberMessage extends BeforeGameMessage {
     private final int playerNumber;

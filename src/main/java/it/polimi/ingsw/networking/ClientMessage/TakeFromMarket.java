@@ -1,16 +1,14 @@
-package it.polimi.ingsw.networking;
-
-import it.polimi.ingsw.server.model.player.RealPlayer;
+package it.polimi.ingsw.networking.ClientMessage;
 
 public class TakeFromMarket extends ClientMessage {
 
     private String rowOrColumn;
     private Integer number;
 
-    public TakeFromMarket(RealPlayer realPlayer1, String rowOrColumn, Integer number) {
-        super(realPlayer1);
-        this.rowOrColumn=rowOrColumn;
-        this.number=number;
+    public TakeFromMarket(String nickname, String rowOrColumn, Integer number) {
+        super(nickname);
+        this.rowOrColumn = rowOrColumn;
+        this.number = number;
     }
 
     @Override

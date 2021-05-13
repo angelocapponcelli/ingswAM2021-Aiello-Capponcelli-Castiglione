@@ -1,11 +1,9 @@
-package it.polimi.ingsw.networking;
+package it.polimi.ingsw.networking.ClientMessage;
 
-public class InsertNicknameMessage extends BeforeGameMessage{
-
-    private String nickname;
+public class InsertNicknameMessage extends ClientMessage{
 
     public InsertNicknameMessage(String nickname) {
-        this.nickname=nickname;
+        super(nickname);
     }
 
     @Override

@@ -1,13 +1,13 @@
-package it.polimi.ingsw.networking;
+package it.polimi.ingsw.networking.ClientMessage;
 
 import it.polimi.ingsw.server.model.player.RealPlayer;
 
 import java.io.Serializable;
 
 public abstract class ClientMessage implements Serializable {
-    protected RealPlayer realPlayer;
-    public ClientMessage(RealPlayer realPlayer){
-        this.realPlayer=realPlayer;
+    protected String nickname;
+    public ClientMessage(String nickname){
+        this.nickname=nickname;
     }
     public Boolean check(){
         return true;

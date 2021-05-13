@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.networking.BeforeGameMessage;
-import it.polimi.ingsw.networking.ClientMessage;
+import it.polimi.ingsw.networking.ClientMessage.BeforeGameMessage.BeforeGameMessage;
+import it.polimi.ingsw.networking.ClientMessage.ClientMessage;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -49,7 +49,7 @@ public class SocketServer implements Runnable {
         server.prepareGame(message);
     }
 
-    public void onReceiveMessage(ClientMessage message){
+    public void onReceiveMessage(ClientMessage message) throws Exception {
         server.onReceiveMessage(message);
     }
 }

@@ -1,8 +1,8 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.networking.InsertNicknameMessage;
-import it.polimi.ingsw.networking.PlayersNumberMessage;
+import it.polimi.ingsw.networking.ClientMessage.InsertNicknameMessage;
+import it.polimi.ingsw.networking.ClientMessage.BeforeGameMessage.PlayersNumberMessage;
 
 import java.io.IOException;
 
@@ -22,6 +22,11 @@ public class ClientMain {
         c.sendMessage(new InsertNicknameMessage("Player 2"));
         System.out.println("Invio il terzo nickname");
         c.sendMessage(new InsertNicknameMessage("Player 3"));
+        try {
+            System.in.read(); //to close
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

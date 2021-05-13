@@ -10,4 +10,8 @@ public class UpdatePersonalBoardServerMessage extends ServerMessage{
     public UpdatePersonalBoardServerMessage(ArrayList<DevelopmentCard> developmentCards){
         this.developmentCards=developmentCards;
     }
+
+    public ArrayList<DevelopmentCard> getDevelopmentCards() {
+        return developmentCards;
+    }
 }

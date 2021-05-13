@@ -8,4 +8,8 @@ public class SoloTokenRevealedServerMessage extends ServerMessage{
     public SoloTokenRevealedServerMessage(Revealable revealable){
         this.revealable=revealable;
     }
+
+    public Revealable getRevealable() {
+        return revealable;
+    }
 }

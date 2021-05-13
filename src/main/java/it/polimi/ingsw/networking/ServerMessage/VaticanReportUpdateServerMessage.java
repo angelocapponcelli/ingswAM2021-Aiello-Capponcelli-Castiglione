@@ -8,4 +8,8 @@ public class VaticanReportUpdateServerMessage extends ServerMessage{
     public VaticanReportUpdateServerMessage(HashMap<Integer,Boolean> vaticanReportUpdate){
         this.vaticanReportUpdate=vaticanReportUpdate;
     }
+
+    public HashMap<Integer, Boolean> getVaticanReportUpdate() {
+        return vaticanReportUpdate;
+    }
 }

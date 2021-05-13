@@ -16,4 +16,7 @@ public class ChooseMainActionClientMessage extends ClientMessage {
         }
         return true;
     }
+    public String getString(){
+        return this.string;
+    }
 }

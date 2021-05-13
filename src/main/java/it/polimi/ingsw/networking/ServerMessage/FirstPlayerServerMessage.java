@@ -6,4 +6,8 @@ public class FirstPlayerServerMessage extends ServerMessage{
     public FirstPlayerServerMessage(String nickname){
         this.nickname=nickname;
     }
+
+    public String getNickname() {
+        return nickname;
+    }
 }

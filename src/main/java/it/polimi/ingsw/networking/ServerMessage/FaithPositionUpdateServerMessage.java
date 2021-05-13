@@ -9,4 +9,11 @@ public class FaithPositionUpdateServerMessage extends ServerMessage{
         this.nickname=nickname;
     }
 
+    public Integer getFaithPosition() {
+        return faithPosition;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
 }

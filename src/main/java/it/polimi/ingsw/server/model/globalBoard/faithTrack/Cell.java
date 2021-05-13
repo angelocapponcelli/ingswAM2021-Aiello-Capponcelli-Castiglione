@@ -32,6 +32,5 @@ public class Cell {
      * @param player the player who steps into the cell.
      */
     public void onOccupy(Player player) {
-        /* it can be used to notify and update the view*/
     }
 }

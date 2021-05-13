@@ -9,4 +9,7 @@ public class FaithTrackServerMessage extends ServerMessage{
         this.faithTrack= faithTrack;
     }
 
+    public FaithTrack getFaithTrack() {
+        return faithTrack;
+    }
 }

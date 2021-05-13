@@ -14,4 +14,8 @@ public class SelectDeckFromPersonalBoardClientMessage extends ClientMessage {
         }
         return true;
     }
+
+    public Integer getNumberOfDeck() {
+        return numberOfDeck;
+    }
 }

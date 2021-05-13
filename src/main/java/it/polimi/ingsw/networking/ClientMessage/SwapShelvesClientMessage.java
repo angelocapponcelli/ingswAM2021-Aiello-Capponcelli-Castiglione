@@ -25,4 +25,12 @@ public class SwapShelvesClientMessage extends ClientMessage {
         } else
             return true;
     }
+
+    public Integer getShelves1() {
+        return shelves1;
+    }
+
+    public Integer getShelves2() {
+        return shelves2;
+    }
 }

@@ -31,9 +31,7 @@ public class InHandLeaderCard {
         this.cards.remove(leaderCard);
     }
 
-    /*
-     * has to be checked
-     */
+
     public void discard(LeaderCard leaderCard, RealPlayer realPlayer) {
         this.cards.remove(leaderCard);
         Faith faith = Faith.getInstance();

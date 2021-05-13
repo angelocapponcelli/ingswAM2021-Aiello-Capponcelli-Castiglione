@@ -29,7 +29,6 @@ public class PersonalDevelopmentBoard {
         board.get(deck).getDeck().add(developmentCard);
     }
 
-    // maybe notify when they are seven
     public Integer getCardsCount() {
         return cardsCount;
     }

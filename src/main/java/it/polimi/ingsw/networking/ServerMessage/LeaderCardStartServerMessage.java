@@ -10,4 +10,8 @@ public class LeaderCardStartServerMessage extends ServerMessage{
     public LeaderCardStartServerMessage(LinkedList<LeaderCard> list){
         this.fourListLeaderCard= list;
     }
+
+    public LinkedList<LeaderCard> getFourListLeaderCard() {
+        return fourListLeaderCard;
+    }
 }

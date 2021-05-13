@@ -28,4 +28,12 @@ public class TakeFromMarket extends ClientMessage {
         }
         return true;
     }
+
+    public String getRowOrColumn() {
+        return rowOrColumn;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
 }

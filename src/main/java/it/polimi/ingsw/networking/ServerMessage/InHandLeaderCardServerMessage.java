@@ -9,4 +9,8 @@ public class InHandLeaderCardServerMessage extends ServerMessage{
     public InHandLeaderCardServerMessage(ArrayList<LeaderCard> inHandLeaderCard){
         this.inHandLeaderCard=inHandLeaderCard;
     }
+
+    public ArrayList<LeaderCard> getInHandLeaderCard() {
+        return inHandLeaderCard;
+    }
 }

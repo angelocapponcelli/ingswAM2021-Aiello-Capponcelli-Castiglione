@@ -20,4 +20,12 @@ public class SelectDeckFromGridClientMessage extends ClientMessage {
         } else
             return true;
     }
+
+    public Integer getColumn() {
+        return column;
+    }
+
+    public Integer getRow() {
+        return row;
+    }
 }

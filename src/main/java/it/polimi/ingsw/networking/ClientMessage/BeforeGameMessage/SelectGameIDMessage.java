@@ -14,4 +14,7 @@ public class SelectGameIDMessage extends BeforeGameMessage{
         else
             return true;
     }
+    public Integer getId(){
+        return this.id;
+    }
 }

@@ -15,7 +15,6 @@ public class SpecialDiscount extends SpecialAbility {
      */
     @Override
     public void onActivation(RealPlayer player) {
-        /*to do*/
     }
 
     public Resource getResource() {

@@ -11,4 +11,12 @@ public class MarketTrayServerMessage extends ServerMessage{
         this.slide= slide;
         this.marketTray= marketTray;
     }
+
+    public Colors getSlide() {
+        return slide;
+    }
+
+    public MarketTray getMarketTray() {
+        return marketTray;
+    }
 }

@@ -11,4 +11,8 @@ public class SelectCardIDClientMessage extends ClientMessage {
     public Boolean check(){
         return true;
     }
+
+    public Integer getId() {
+        return id;
+    }
 }

@@ -10,4 +10,8 @@ public class DevelopmentCardGridServerMessage extends ServerMessage{
     public DevelopmentCardGridServerMessage(DevelopmentCard developmentCard[][]){
         this.developmentCards= developmentCard;
     }
+
+    public DevelopmentCard[][] getDevelopmentCards() {
+        return developmentCards;
+    }
 }

@@ -12,4 +12,7 @@ public abstract class ClientMessage implements Serializable {
     public Boolean check(){
         return true;
     }
+    public String getNickname(){
+        return this.nickname;
+    }
 }

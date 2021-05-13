@@ -10,4 +10,12 @@ public class UpdateActivatedLeaderCardServerMessage extends ServerMessage {
         this.nickname=nickname;
         this.specialAbility=specialAbility;
     }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public SpecialAbility getSpecialAbility() {
+        return specialAbility;
+    }
 }

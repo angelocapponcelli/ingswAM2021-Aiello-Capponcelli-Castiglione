@@ -4,10 +4,10 @@ import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 
 
 
-public class DevelopmentCardGridServerMessage extends ServerMessage{
+public class UpdateDevelopmentCardGridMessage extends ServerMessage{
     private DevelopmentCard developmentCards[][]= new DevelopmentCard[4][3];
 
-    public DevelopmentCardGridServerMessage(DevelopmentCard developmentCard[][]){
+    public UpdateDevelopmentCardGridMessage(DevelopmentCard developmentCard[][]){
         this.developmentCards= developmentCard;
     }
 

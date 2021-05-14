@@ -1,9 +1,9 @@
 package it.polimi.ingsw.networking.ServerMessage;
 
-public class FirstPlayerServerMessage extends ServerMessage{
+public class SetUpFirstPlayerMessage extends ServerMessage{
     private String nickname;
 
-    public FirstPlayerServerMessage(String nickname){
+    public SetUpFirstPlayerMessage(String nickname){
         this.nickname=nickname;
     }
 

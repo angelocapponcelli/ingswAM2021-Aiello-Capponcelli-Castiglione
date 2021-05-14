@@ -1,9 +1,9 @@
 package it.polimi.ingsw.networking.ServerMessage;
 
-public class WinnerServerMessage extends ServerMessage{
+public class SetWinnerMessage extends ServerMessage{
     private String nickname;
 
-    public WinnerServerMessage(String nickname){
+    public SetWinnerMessage(String nickname){
         this.nickname=nickname;
     }
 

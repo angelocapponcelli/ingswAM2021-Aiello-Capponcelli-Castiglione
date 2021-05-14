@@ -1,9 +1,9 @@
 package it.polimi.ingsw.networking.ServerMessage;
 
-public class PlayerThatActivateLastTurnServerMessage extends ServerMessage{
+public class UpdatePlayerThatActivateLastTurnMessage extends ServerMessage{
     private String nickName;
 
-    public PlayerThatActivateLastTurnServerMessage(String nickName){
+    public UpdatePlayerThatActivateLastTurnMessage(String nickName){
         this.nickName=nickName;
     }
 

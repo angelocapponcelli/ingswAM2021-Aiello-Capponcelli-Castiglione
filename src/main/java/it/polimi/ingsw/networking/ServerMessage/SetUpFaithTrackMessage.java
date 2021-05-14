@@ -2,10 +2,10 @@ package it.polimi.ingsw.networking.ServerMessage;
 
 import it.polimi.ingsw.server.model.globalBoard.faithTrack.FaithTrack;
 
-public class FaithTrackServerMessage extends ServerMessage{
+public class SetUpFaithTrackMessage extends ServerMessage{
     private FaithTrack faithTrack;
 
-    public FaithTrackServerMessage(FaithTrack faithTrack){
+    public SetUpFaithTrackMessage(FaithTrack faithTrack){
         this.faithTrack= faithTrack;
     }
 

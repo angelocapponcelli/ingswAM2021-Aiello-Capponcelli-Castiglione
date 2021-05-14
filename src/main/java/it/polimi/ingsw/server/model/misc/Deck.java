@@ -28,4 +28,10 @@ public class Deck {
         }
         return sum;
     }
+
+    public DevelopmentCard getTopCard() {
+        if (deck.size() > 0)
+            return deck.get(0);
+        else return null;
+    }
 }

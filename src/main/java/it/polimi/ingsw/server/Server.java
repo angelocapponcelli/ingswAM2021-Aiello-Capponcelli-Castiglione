@@ -1,46 +1,81 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.networking.ClientMessage.BeforeGameMessage.BeforeGameMessage;
-import it.polimi.ingsw.networking.ClientMessage.ClientMessage;
-import it.polimi.ingsw.networking.ClientMessage.BeforeGameMessage.PlayersNumberMessage;
+import it.polimi.ingsw.networking.connection.ServerConnectionHandler;
 import it.polimi.ingsw.server.controller.GameController;
-import it.polimi.ingsw.server.model.Game;
 
-/**
- * Draft of the server class
- */
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+
 public class Server {
 
-    //private final ServerSocket serverSocket;
+    /**
+     * Games that are currently on
+     */
+    private static List<GameController> onGoingGames = new ArrayList<>();
 
-    //private static List<Game> onGoingGames;
-    private static Game onGoingGame;
+    /**
+     * Starts the Server creating a pool of threads and waiting for the clients to connect
+     *
+     * @param portNumber the port on which the server will listen
+     */
+    public static void start(int portNumber){
 
-    private GameController gameController;
+        ExecutorService executor = Executors.newCachedThreadPool();
 
-    private SocketServer socketServer = new SocketServer(this, 16847);
-
-    public static Game getOnGoingGame() {
-        return onGoingGame;
-    }
-
-    public void start(){
-        Thread thread = new Thread(socketServer, "socketserver_"); //socketServer si occupa di 'accogliere' le connessioni (.accept)
-        thread.start();
-    }
-
-    public void onReceiveMessage(ClientMessage message) throws Exception {
-        gameController.receiveMessage(message);
-    }
-
-    public void prepareGame(BeforeGameMessage beforeGameMessage) throws Exception {
-        if (beforeGameMessage.check()) {
-            //Create game controller, and the game with player number specified
-            if (beforeGameMessage instanceof PlayersNumberMessage) {
-                gameController = new GameController(0, ((PlayersNumberMessage) beforeGameMessage).getPlayerNumber());
-            }
-        } else {
-            System.out.println("Throw exception"); //todo Se i check dei messaggi falliscono
+        ServerSocket serverSocket = null;
+        try {
+            serverSocket = new ServerSocket(portNumber);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        System.out.println("Server started!");
+
+        while(true) {
+            try {
+                System.out.println("Accepting...");
+                Socket clientSocket = serverSocket.accept();
+                executor.submit(new ServerConnectionHandler(clientSocket));
+                System.out.println("Client Accepted");
+            } catch (IOException e) {
+                e.printStackTrace();
+                break;
+            }
+        }
+        executor.shutdown();
+
     }
+
+    /**
+     * Create a new game.
+     *
+     * @return the new game.
+     */
+    public static GameController newGame(){
+        GameController gameController = new GameController();
+        onGoingGames.add(gameController);
+        return gameController;
+
+    }
+
+    /**
+     * Find a game by its ID number.
+     *
+     * @param gameID The ID of the requested game.
+     * @return the requested game.
+     */
+    public static GameController findGame(int gameID){
+        return onGoingGames.stream().filter(x -> x.getGameID() == gameID).findFirst().orElseThrow(NoSuchElementException::new);
+    }
+
+
 }
+
+

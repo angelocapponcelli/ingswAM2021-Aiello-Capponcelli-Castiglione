@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.server.model.player.Lorenzo;
 import it.polimi.ingsw.server.model.soloToken.BlackCross1;
 import it.polimi.ingsw.server.model.soloToken.BlackCross2;

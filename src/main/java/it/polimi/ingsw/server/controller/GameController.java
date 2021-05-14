@@ -1,57 +1,46 @@
 package it.polimi.ingsw.server.controller;
 
-import it.polimi.ingsw.networking.ClientMessage.ClientMessage;
-import it.polimi.ingsw.networking.ClientMessage.InsertNicknameMessage;
+import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.networking.connection.ServerConnectionHandler;
 import it.polimi.ingsw.server.controller.gameStates.GameState;
 import it.polimi.ingsw.server.model.Game;
-import it.polimi.ingsw.server.model.MultiplayerGame;
-import it.polimi.ingsw.server.model.SinglePlayerGame;
-import it.polimi.ingsw.server.model.player.RealPlayer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameController {
 
-    Game game;
-    GameState currentGameState;
-    GameTurn currentTurn;
+    private Integer gameID;
+    private Game game;
+    private Integer maxPlayersNumber;
+    private GameState currentGameState;
+    private List<Client> clientList = new ArrayList<>();
+    private List<ServerConnectionHandler> connectionHandlers = new ArrayList<>();
 
-    public GameController(int id, int playerNumber) {
-        if (playerNumber == 1) game = new SinglePlayerGame(id);
-        else game = new MultiplayerGame(id, playerNumber);
+    public Integer getGameID(){
+        return gameID;
+    }
+
+    public GameController(){
         currentGameState = GameState.LOGIN;
     }
 
-    public void receiveMessage(ClientMessage message) throws Exception {
-        switch (currentGameState) {
-            case LOGIN:
-                loginState(message);
-                break;
-            case INIT:
-                initState(message);
-                break;
-            case IN_GAME:
-                inGameState(message);
-                break;
-        }
+    public void setMaxPlayersNumber(int maxPlayersNumber){
+        this.maxPlayersNumber = maxPlayersNumber;
     }
 
-    private void loginState(ClientMessage message) throws Exception {
-        if (message instanceof InsertNicknameMessage) {
-            addPlayer(((InsertNicknameMessage) message).getNickname());
-        }
+    public void addClient(Client client){
+        clientList.add(client);
     }
 
-    private void initState(ClientMessage message) {
+    public Game getGame(){
+        return game;
     }
 
-    private void inGameState(ClientMessage message) {
-    }
-
-    private void updateGameState(GameState nextState) {
+    private void updateGameState(GameState nextState){
         currentGameState = nextState;
     }
 
-    private void addPlayer(String nickname) throws Exception {
-        System.out.println("Crea giocatore " + nickname);
-        game.addPlayer(new RealPlayer(nickname));
-    }
+
+
 }

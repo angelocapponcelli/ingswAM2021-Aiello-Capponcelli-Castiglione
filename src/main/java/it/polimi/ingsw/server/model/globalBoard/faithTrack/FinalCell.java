@@ -20,7 +20,7 @@ public class FinalCell extends PopeSpaceCell {
     @Override
     public void onOccupy(Player player) {
         super.onOccupy(player);
-        Server.getOnGoingGame().endGame(player);
+        player.getGameController().getGame().endGame(player);
     }
 
 }

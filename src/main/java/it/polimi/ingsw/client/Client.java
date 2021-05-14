@@ -1,34 +1,39 @@
 package it.polimi.ingsw.client;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.net.InetSocketAddress;
-import java.net.Socket;
+import it.polimi.ingsw.networking.connection.ClientConnectionHandler;
 
-/**
- * This class represents a socket client implementation.
- */
+import java.io.IOException;
+import java.net.Socket;
+import java.util.concurrent.TimeUnit;
+
 public class Client {
 
-    private final Socket socket;
+    private Socket clientSocket;
 
-    private final ObjectOutputStream outputStm;
-
-    private static final int SOCKET_TIMEOUT = 10000;
-
-    public Client(String address, int port) throws IOException {
-        this.socket = new Socket();
-        this.socket.connect(new InetSocketAddress(address, port), SOCKET_TIMEOUT);
-        this.outputStm = new ObjectOutputStream(socket.getOutputStream());
+    public Socket getClientSocket() {
+        return clientSocket;
     }
 
-    public void sendMessage(Serializable message) {
-        try {
-            outputStm.writeObject(message);
-            outputStm.reset();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+
+
+
+    public void start(String hostName, int portNumber){
+
+        boolean connected = false;
+        while (!connected) {
+            try {
+                clientSocket = new Socket(hostName, portNumber);
+                System.out.println("Client connected!");
+                new ClientConnectionHandler(clientSocket).run();
+                connected = true;
+            } catch (IOException e) {
+                System.out.println("Waiting for the Server");
+                try {
+                    TimeUnit.SECONDS.sleep(2);
+                } catch (InterruptedException interruptedException) {
+                    interruptedException.printStackTrace();
+                }
+            }
         }
     }
 }

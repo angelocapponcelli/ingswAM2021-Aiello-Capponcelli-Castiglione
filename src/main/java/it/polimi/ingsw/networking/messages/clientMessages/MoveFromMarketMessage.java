@@ -1,4 +1,4 @@
-package it.polimi.ingsw.networking.ClientMessage;
+package it.polimi.ingsw.networking.messages.clientMessages;
 
 
 import it.polimi.ingsw.server.model.resources.Any;

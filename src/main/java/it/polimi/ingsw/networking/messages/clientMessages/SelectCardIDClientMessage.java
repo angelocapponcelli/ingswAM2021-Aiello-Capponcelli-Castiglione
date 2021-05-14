@@ -1,4 +1,4 @@
-package it.polimi.ingsw.networking.ClientMessage;
+package it.polimi.ingsw.networking.messages.clientMessages;
 
 public class SelectCardIDClientMessage extends ClientMessage {
     protected Integer id; /** o posizione*/

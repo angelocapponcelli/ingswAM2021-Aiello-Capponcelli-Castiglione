@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model.player;
 
 import it.polimi.ingsw.server.Server;
+import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.server.model.personalBoard.PersonalBoard;
 
 public class RealPlayer extends Player {
@@ -8,6 +9,13 @@ public class RealPlayer extends Player {
     private final Integer victoryPoint;
     private Boolean first;
 
+
+    public RealPlayer(String nickName, GameController gameController) {
+        super(nickName,gameController);
+        this.personalBoard = new PersonalBoard();
+        this.first = false;
+        this.victoryPoint = 0;
+    }
 
     public RealPlayer(String nickName) {
         super(nickName);
@@ -35,7 +43,7 @@ public class RealPlayer extends Player {
         /* points from vaticanReportStatus*/
         sum = sum + this.vaticanReportStatus.getVictoryPoint();
         /* points from the faithPosition*/
-        sum = sum + Server.getOnGoingGame().getGlobalBoard().getFaithTrack().getTrack().get(faithPosition).getVictoryPoints();
+        sum = sum + gameController.getGame().getGlobalBoard().getFaithTrack().getTrack().get(faithPosition).getVictoryPoints();
         return sum;
     }
 

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.networking.ClientMessage;
+package it.polimi.ingsw.networking.messages.clientMessages;
 
 public class SelectDeckFromGridClientMessage extends ClientMessage {
     private Integer row;
@@ -15,10 +15,7 @@ public class SelectDeckFromGridClientMessage extends ClientMessage {
         if (this.column < 0 || this.column > 3) {
             return false;
         }
-        if (this.row < 0 || this.row > 2) {
-            return false;
-        } else
-            return true;
+        return this.row >= 0 && this.row <= 2;
     }
 
     public Integer getColumn() {

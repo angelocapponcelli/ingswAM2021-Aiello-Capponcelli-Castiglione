@@ -21,7 +21,7 @@ class GameAddPlayerTest {
 
     @BeforeEach
     void initializeGamePlayers() {
-        game = new MultiplayerGame(1, 4);
+        game = new MultiplayerGame(4);
 
         Player player1 = new RealPlayer("Vincent");
         Player player2 = new RealPlayer("Jules");

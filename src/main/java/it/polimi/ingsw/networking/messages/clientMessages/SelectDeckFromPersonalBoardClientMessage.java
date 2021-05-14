@@ -1,4 +1,4 @@
-package it.polimi.ingsw.networking.ClientMessage;
+package it.polimi.ingsw.networking.messages.clientMessages;
 
 public class SelectDeckFromPersonalBoardClientMessage extends ClientMessage {
     private Integer numberOfDeck;
@@ -9,10 +9,7 @@ public class SelectDeckFromPersonalBoardClientMessage extends ClientMessage {
 
     @Override
     public Boolean check() {
-        if (this.numberOfDeck > 2 || this.numberOfDeck < 0) {
-            return false;
-        }
-        return true;
+        return this.numberOfDeck <= 2 && this.numberOfDeck >= 0;
     }
 
     public Integer getNumberOfDeck() {

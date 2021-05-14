@@ -1,4 +1,4 @@
-package it.polimi.ingsw.networking.ClientMessage;
+package it.polimi.ingsw.networking.messages.clientMessages;
 
 import it.polimi.ingsw.server.model.resources.Any;
 import it.polimi.ingsw.server.model.resources.ResourceType;
@@ -12,10 +12,7 @@ public class SelectResourceTypeClientMessage extends ClientMessage {
     }
     @Override
     public Boolean check(){
-        if (ResourceType.getResourceClass(this.resourceType) != Any.getInstance()){
-            return false;
-        }
-        return true;
+        return ResourceType.getResourceClass(this.resourceType) == Any.getInstance();
     }
 
     public ResourceType getResourceType() {

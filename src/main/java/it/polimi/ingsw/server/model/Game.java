@@ -14,15 +14,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class Game {
-    private final Integer id;
     private final Integer maxPlayerNumber;
     private final List<Player> players;
     private final GlobalBoard globalBoard;
-    private final Player winner;
+    private Player winner;
     private Player currentPlayer;
 
-    public Game(Integer id, Integer maxPlayerNumber) {
-        this.id = id;
+    public Game(Integer maxPlayerNumber) {
         this.maxPlayerNumber = maxPlayerNumber;
         players = new ArrayList<>();
         globalBoard = new GlobalBoard();
@@ -52,10 +50,6 @@ public abstract class Game {
         return this.players;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
@@ -72,10 +66,9 @@ public abstract class Game {
         return winner;
     }
 
-    public void setWinner(Player player) {
+    public void setWinner(Player player){
+        winner = player;
+    };
 
-    }
-
-    public void endGame(Player player) {
-    }
+    public abstract void endGame(Player player);
 }

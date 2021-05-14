@@ -1,4 +1,4 @@
-package it.polimi.ingsw.networking.ClientMessage;
+package it.polimi.ingsw.networking.messages.clientMessages;
 
 public class InsertNicknameMessage extends ClientMessage{
 
@@ -8,11 +8,7 @@ public class InsertNicknameMessage extends ClientMessage{
 
     @Override
     public Boolean check(){
-        if(this.nickname.length()>15){
-            return false;
-        }
-        else
-            return true;
+        return this.nickname.length() <= 15;
     }
 
     public String getNickname() {

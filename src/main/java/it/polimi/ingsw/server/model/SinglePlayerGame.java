@@ -8,11 +8,9 @@ import it.polimi.ingsw.server.model.player.Player;
 public class SinglePlayerGame extends Game {
     /**
      * Instantiates a new Single player game.
-     *
-     * @param id the id of the game
      */
-    public SinglePlayerGame(Integer id) {
-        super(id, 2);
+    public SinglePlayerGame() {
+        super(2);
     }
 
 

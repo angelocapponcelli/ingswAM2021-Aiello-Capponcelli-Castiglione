@@ -1,12 +1,15 @@
-package it.polimi.ingsw.networking.ClientMessage;
+package it.polimi.ingsw.networking.messages.clientMessages;
 
-public class TakeFromMarket extends ClientMessage {
+import it.polimi.ingsw.networking.messages.MessageType;
+
+public class TakeFromMarketMessage extends ClientMessage {
 
     private String rowOrColumn;
     private Integer number;
 
-    public TakeFromMarket(String nickname, String rowOrColumn, Integer number) {
+    public TakeFromMarketMessage(String nickname, String rowOrColumn, Integer number) {
         super(nickname);
+        messageType= MessageType.TAKE_FROM_MARKET;
         this.rowOrColumn = rowOrColumn;
         this.number = number;
     }
@@ -22,9 +25,7 @@ public class TakeFromMarket extends ClientMessage {
             }
         }
         if (this.rowOrColumn == "column") {
-            if (this.number < 0 || this.number > 3) {
-                return false;
-            }
+            return this.number >= 0 && this.number <= 3;
         }
         return true;
     }

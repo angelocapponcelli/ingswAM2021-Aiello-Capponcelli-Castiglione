@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.player;
 
+import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.server.model.interfaces.Revealable;
 import it.polimi.ingsw.server.model.misc.Colors;
 import it.polimi.ingsw.server.model.soloToken.BlackCross1;
@@ -13,6 +14,10 @@ public class Lorenzo extends Player {
 
     private ArrayList<Revealable> soloTokenDeck;
 
+    public Lorenzo(String name, GameController gameController) {
+        super(name, gameController);
+        this.soloTokenDeck = new ArrayList<>();
+    }
     public Lorenzo(String name) {
         super(name);
         this.soloTokenDeck = new ArrayList<>();

@@ -35,7 +35,7 @@ public class PopeSpaceCell extends Cell {
     public void onOccupy(Player player) {
         super.onOccupy(player);
         if (!alreadyOccupied) {
-            for (Player player1 : Server.getOnGoingGame().getPlayers()) {
+            for (Player player1 : player.getGameController().getGame().getPlayers()) {
                 player1.doVaticanReportUpdate(FaithTrack.getINSTANCE().getVaticanReportSectionFromCell(this));
             }
             setAlreadyOccupied();

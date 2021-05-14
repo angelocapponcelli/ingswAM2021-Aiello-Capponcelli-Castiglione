@@ -1,18 +1,33 @@
 package it.polimi.ingsw.server.model.player;
 
 
+import it.polimi.ingsw.server.controller.GameController;
+import it.polimi.ingsw.server.model.Game;
 import it.polimi.ingsw.server.model.globalBoard.faithTrack.FaithTrack;
 import it.polimi.ingsw.server.model.globalBoard.faithTrack.VaticanReportSection;
 
 public abstract class Player {
+
+    protected GameController gameController;
     protected String nickName;
     protected Integer faithPosition;
     protected VaticanReportStatus vaticanReportStatus;
+
+    public Player(String nickName, GameController gameController) {
+        this.nickName = nickName;
+        this.faithPosition = 0;
+        this.vaticanReportStatus = new VaticanReportStatus();
+        this.gameController = gameController;
+    }
 
     public Player(String nickName) {
         this.nickName = nickName;
         this.faithPosition = 0;
         this.vaticanReportStatus = new VaticanReportStatus();
+    }
+
+    public GameController getGameController() {
+        return gameController;
     }
 
     public String getNickName() {

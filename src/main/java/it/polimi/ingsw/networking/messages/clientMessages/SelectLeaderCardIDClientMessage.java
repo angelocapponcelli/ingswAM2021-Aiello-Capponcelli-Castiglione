@@ -1,4 +1,4 @@
-package it.polimi.ingsw.networking.ClientMessage;
+package it.polimi.ingsw.networking.messages.clientMessages;
 
 public class SelectLeaderCardIDClientMessage extends SelectCardIDClientMessage {
     public SelectLeaderCardIDClientMessage(String nickname, Integer id) {
@@ -7,9 +7,6 @@ public class SelectLeaderCardIDClientMessage extends SelectCardIDClientMessage {
 
     @Override
     public Boolean check() {
-        if (this.id < 0) {
-            return false;
-        }
-        return true;
+        return this.id >= 0;
     }
 }

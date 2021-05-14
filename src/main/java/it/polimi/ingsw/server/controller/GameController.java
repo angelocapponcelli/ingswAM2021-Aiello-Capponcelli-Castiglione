@@ -7,6 +7,7 @@ import it.polimi.ingsw.server.model.Game;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
 import it.polimi.ingsw.server.model.exceptions.DepotException;
+import it.polimi.ingsw.server.model.interfaces.Takeable;
 import it.polimi.ingsw.server.model.player.RealPlayer;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 
@@ -113,6 +114,50 @@ public class GameController {
     private void updateGameState(GameState nextState){
         currentGameState = nextState;
     }
+
+    public void swapShelves(Integer number1, Integer number2){
+        RealPlayer realPlayer;
+        realPlayer= (RealPlayer) game.getCurrentPlayer();
+        try {
+            realPlayer.getPersonalBoard().getWareHouseDepot().swap(number1,number2);
+        } catch (DepotException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Takeable> takeFromMarket(String rOrC, Integer number){
+        List<Takeable> tmpDepotForMarket= new ArrayList<>();
+        if (rOrC.equals("row")){
+            tmpDepotForMarket= game.getGlobalBoard().getMarketTray().selectRow(number);
+            return tmpDepotForMarket;
+        }
+        else{
+            game.getGlobalBoard().getMarketTray().selectColumn(number);
+            return tmpDepotForMarket;
+        }
+    }
+
+    public void playLeaderCard(Integer id){
+        RealPlayer realPlayer;
+        realPlayer= (RealPlayer) game.getCurrentPlayer();
+        for(LeaderCard leaderCard: realPlayer.getPersonalBoard().getInHandLeaderCards().getCards()){
+            if (leaderCard.getId().equals(id)){
+                leaderCard.playCard(realPlayer);
+            }
+        }
+    }
+
+    public void discardLeaderCard(Integer id){
+        RealPlayer realPlayer;
+        realPlayer= (RealPlayer) game.getCurrentPlayer();
+        for (LeaderCard leaderCard: realPlayer.getPersonalBoard().getInHandLeaderCards().getCards()){
+            if (leaderCard.getId().equals(id)){
+                realPlayer.getPersonalBoard().getInHandLeaderCards().discard(leaderCard,realPlayer);
+            }
+        }
+    }
+
+
 
 
 }

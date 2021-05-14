@@ -1,6 +1,8 @@
 package it.polimi.ingsw.networking.messages.clientMessages;
 
 
+import it.polimi.ingsw.networking.messages.MessageType;
+
 public class SwapShelvesClientMessage extends ClientMessage {
     private Integer shelves1;
     private Integer shelves2;
@@ -10,6 +12,7 @@ public class SwapShelvesClientMessage extends ClientMessage {
         super(nickname);
         this.shelves1 = shelves1;
         this.shelves2 = shelves2;
+        this.messageType= MessageType.SWAP_SHELVES;
     }
 
     @Override

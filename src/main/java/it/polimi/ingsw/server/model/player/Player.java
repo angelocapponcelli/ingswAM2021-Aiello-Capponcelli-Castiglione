@@ -2,7 +2,6 @@ package it.polimi.ingsw.server.model.player;
 
 
 import it.polimi.ingsw.server.controller.GameController;
-import it.polimi.ingsw.server.model.Game;
 import it.polimi.ingsw.server.model.globalBoard.faithTrack.FaithTrack;
 import it.polimi.ingsw.server.model.globalBoard.faithTrack.VaticanReportSection;
 

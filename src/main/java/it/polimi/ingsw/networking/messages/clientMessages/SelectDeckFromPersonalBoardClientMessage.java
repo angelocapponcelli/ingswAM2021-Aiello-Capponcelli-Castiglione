@@ -7,7 +7,7 @@ public class SelectDeckFromPersonalBoardClientMessage extends ClientMessage {
 
     public SelectDeckFromPersonalBoardClientMessage(String nickname) {
         super(nickname);
-        this.messageType= MessageType.SELECT_DECK_FROM_PERSONAL;
+        this.messageType = MessageType.SELECT_DECK_FROM_PERSONAL;
     }
 
     @Override

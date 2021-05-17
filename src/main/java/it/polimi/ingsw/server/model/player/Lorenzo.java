@@ -18,6 +18,7 @@ public class Lorenzo extends Player {
         super(name, gameController);
         this.soloTokenDeck = new ArrayList<>();
     }
+
     public Lorenzo(String name) {
         super(name);
         this.soloTokenDeck = new ArrayList<>();

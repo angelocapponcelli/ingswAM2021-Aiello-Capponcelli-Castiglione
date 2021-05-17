@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server.model.player;
 
-import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.server.model.personalBoard.PersonalBoard;
 
@@ -11,7 +10,7 @@ public class RealPlayer extends Player {
 
 
     public RealPlayer(String nickName, GameController gameController) {
-        super(nickName,gameController);
+        super(nickName, gameController);
         this.personalBoard = new PersonalBoard();
         this.first = false;
         this.victoryPoint = 0;

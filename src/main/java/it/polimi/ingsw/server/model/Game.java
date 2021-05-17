@@ -66,9 +66,9 @@ public abstract class Game {
         return winner;
     }
 
-    public void setWinner(Player player){
+    public void setWinner(Player player) {
         winner = player;
-    };
+    }
 
     public abstract void endGame(Player player);
 }

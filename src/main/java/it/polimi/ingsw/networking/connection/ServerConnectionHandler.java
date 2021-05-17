@@ -1,10 +1,13 @@
 package it.polimi.ingsw.networking.connection;
 
-import it.polimi.ingsw.networking.messages.*;
+import it.polimi.ingsw.networking.messages.GenericTextMessage;
+import it.polimi.ingsw.networking.messages.Message;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.JoinGameMessage;
 import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.controller.GameController;
+import it.polimi.ingsw.utils.CLIColors;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Locale;
@@ -14,14 +17,14 @@ import java.util.Locale;
  */
 public class ServerConnectionHandler extends ConnectionHandler {
 
-    public GameController getGameController() {
-        return gameController;
-    }
-
     private GameController gameController;
 
     public ServerConnectionHandler(Socket socket) throws IOException {
         super(socket);
+    }
+
+    public GameController getGameController() {
+        return gameController;
     }
 
     @Override
@@ -31,9 +34,11 @@ public class ServerConnectionHandler extends ConnectionHandler {
             while (true) {
                 Message receivedMessage = null;
                 while (!(socket.isClosed())) {
-                    manageReceivedMessages((Message)socketIn.readObject());
+                    manageReceivedMessages((Message) socketIn.readObject());
                 }
             }
+        } catch (EOFException e) {
+            System.out.println(CLIColors.getAnsiRed() + "Client disconnected" + CLIColors.getAnsiReset());
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -50,9 +55,9 @@ public class ServerConnectionHandler extends ConnectionHandler {
 
     @Override
     protected void manageReceivedMessages(Message receivedMessage) throws IOException {
-        switch (receivedMessage.getMessageType()){
+        switch (receivedMessage.getMessageType()) {
             case TEXT:
-                GenericTextMessage genericTextMessage = (GenericTextMessage)receivedMessage;
+                GenericTextMessage genericTextMessage = (GenericTextMessage) receivedMessage;
                 System.out.println("Server received \"" + genericTextMessage.getText() + "\"");
                 sendMessage(new GenericTextMessage(genericTextMessage.getText().toUpperCase(Locale.ROOT)));
                 break;
@@ -63,9 +68,9 @@ public class ServerConnectionHandler extends ConnectionHandler {
                 JoinGameMessage joinGameMessage = (JoinGameMessage) receivedMessage;
                 gameController = Server.findGame(joinGameMessage.getGameId());
                 break;
+
         }
     }
-
 
 
 }

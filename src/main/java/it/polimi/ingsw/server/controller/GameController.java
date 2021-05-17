@@ -20,31 +20,31 @@ public class GameController {
     private Game game;
     private Integer maxPlayersNumber;
     private GameState currentGameState;
-    private List<Client> clientList = new ArrayList<>();
-    private List<ServerConnectionHandler> connectionHandlers = new ArrayList<>();
+    private final List<Client> clientList = new ArrayList<>();
+    private final List<ServerConnectionHandler> connectionHandlers = new ArrayList<>();
 
-    public Integer getGameID(){
-        return gameID;
-    }
-
-    public GameController(){
+    public GameController() {
         currentGameState = GameState.LOGIN;
     }
 
-    public void setMaxPlayersNumber(int maxPlayersNumber){
+    public Integer getGameID() {
+        return gameID;
+    }
+
+    public void setMaxPlayersNumber(int maxPlayersNumber) {
         this.maxPlayersNumber = maxPlayersNumber;
     }
 
-    public void addClient(Client client){
+    public void addClient(Client client) {
         clientList.add(client);
     }
 
-    public Game getGame(){
+    public Game getGame() {
         return game;
     }
 
     public void insertNickname(String nickname) throws Exception {
-        game.addPlayer( new RealPlayer(nickname));
+        game.addPlayer(new RealPlayer(nickname));
     }
 
     public void moveFromMarket(ResourceType resourceType, Integer numberOfContainer, String depot) throws DepotException {
@@ -61,7 +61,7 @@ public class GameController {
         }
         try {
             realPlayer.getPersonalBoard().getTemporaryDepotForMarket().removeResources(resourceType, 1);
-        } catch (DepotException e){
+        } catch (DepotException e) {
             //before throw exception reset depots
             if (depot.equals("Warehouse")) {
                 realPlayer.getPersonalBoard().getWareHouseDepot().removeResources(resourceType, 1);
@@ -74,24 +74,24 @@ public class GameController {
 
     }
 
-    public void reallocadeResourceMessage (ResourceType resourceType, Integer numberOfContainer, String depotSource, String depotDestination) throws DepotException {
+    public void reallocateResourceMessage(ResourceType resourceType, Integer numberOfContainer, String depotSource, String depotDestination) throws DepotException {
         RealPlayer realPlayer = (RealPlayer) game.getCurrentPlayer();
-        if (depotSource.equals("Warehouse")){
+        if (depotSource.equals("Warehouse")) {
             int resourceCount = realPlayer.getPersonalBoard().getWareHouseDepot().getSpecificResourceCount(resourceType);
-            if (resourceCount!=0) {
+            if (resourceCount != 0) {
                 realPlayer.getPersonalBoard().getSpecialDepots().addResources(resourceType, resourceCount);
                 realPlayer.getPersonalBoard().getWareHouseDepot().removeResources(resourceType, resourceCount);
             }
-        }  else if (depotSource.equals("Special")){
+        } else if (depotSource.equals("Special")) {
             int resourceCount = realPlayer.getPersonalBoard().getSpecialDepots().getSpecificResourceCount(resourceType);
-            if (resourceCount!=0) {
+            if (resourceCount != 0) {
                 realPlayer.getPersonalBoard().getWareHouseDepot().addResource(resourceType, resourceCount, numberOfContainer);
                 realPlayer.getPersonalBoard().getSpecialDepots().removeResources(resourceType, resourceCount);
             }
         }
     }
 
-    public DevelopmentCard selectDeckFromGrid(int row, int column){
+    public DevelopmentCard selectDeckFromGrid(int row, int column) {
         return game.getGlobalBoard().getDevelopmentCardGrid().getDeck(row, column).getTopCard();
     }
 
@@ -111,53 +111,50 @@ public class GameController {
         return null;
     }
 
-    private void updateGameState(GameState nextState){
+    private void updateGameState(GameState nextState) {
         currentGameState = nextState;
     }
 
-    public void swapShelves(Integer number1, Integer number2){
+    public void swapShelves(Integer number1, Integer number2) {
         RealPlayer realPlayer;
-        realPlayer= (RealPlayer) game.getCurrentPlayer();
+        realPlayer = (RealPlayer) game.getCurrentPlayer();
         try {
-            realPlayer.getPersonalBoard().getWareHouseDepot().swap(number1,number2);
+            realPlayer.getPersonalBoard().getWareHouseDepot().swap(number1, number2);
         } catch (DepotException e) {
             e.printStackTrace();
         }
     }
 
-    public List<Takeable> takeFromMarket(String rOrC, Integer number){
-        List<Takeable> tmpDepotForMarket= new ArrayList<>();
-        if (rOrC.equals("row")){
-            tmpDepotForMarket= game.getGlobalBoard().getMarketTray().selectRow(number);
+    public List<Takeable> takeFromMarket(String rOrC, Integer number) {
+        List<Takeable> tmpDepotForMarket = new ArrayList<>();
+        if (rOrC.equals("row")) {
+            tmpDepotForMarket = game.getGlobalBoard().getMarketTray().selectRow(number);
             return tmpDepotForMarket;
-        }
-        else{
+        } else {
             game.getGlobalBoard().getMarketTray().selectColumn(number);
             return tmpDepotForMarket;
         }
     }
 
-    public void playLeaderCard(Integer id){
+    public void playLeaderCard(Integer id) {
         RealPlayer realPlayer;
-        realPlayer= (RealPlayer) game.getCurrentPlayer();
-        for(LeaderCard leaderCard: realPlayer.getPersonalBoard().getInHandLeaderCards().getCards()){
-            if (leaderCard.getId().equals(id)){
+        realPlayer = (RealPlayer) game.getCurrentPlayer();
+        for (LeaderCard leaderCard : realPlayer.getPersonalBoard().getInHandLeaderCards().getCards()) {
+            if (leaderCard.getId().equals(id)) {
                 leaderCard.playCard(realPlayer);
             }
         }
     }
 
-    public void discardLeaderCard(Integer id){
+    public void discardLeaderCard(Integer id) {
         RealPlayer realPlayer;
-        realPlayer= (RealPlayer) game.getCurrentPlayer();
-        for (LeaderCard leaderCard: realPlayer.getPersonalBoard().getInHandLeaderCards().getCards()){
-            if (leaderCard.getId().equals(id)){
-                realPlayer.getPersonalBoard().getInHandLeaderCards().discard(leaderCard,realPlayer);
+        realPlayer = (RealPlayer) game.getCurrentPlayer();
+        for (LeaderCard leaderCard : realPlayer.getPersonalBoard().getInHandLeaderCards().getCards()) {
+            if (leaderCard.getId().equals(id)) {
+                realPlayer.getPersonalBoard().getInHandLeaderCards().discard(leaderCard, realPlayer);
             }
         }
     }
-
-
 
 
 }

@@ -18,14 +18,14 @@ public class Server {
     /**
      * Games that are currently on
      */
-    private static List<GameController> onGoingGames = new ArrayList<>();
+    private static final List<GameController> onGoingGames = new ArrayList<>();
 
     /**
      * Starts the Server creating a pool of threads and waiting for the clients to connect
      *
      * @param portNumber the port on which the server will listen
      */
-    public static void start(int portNumber){
+    public static void start(int portNumber) {
 
         ExecutorService executor = Executors.newCachedThreadPool();
 
@@ -38,7 +38,7 @@ public class Server {
 
         System.out.println("Server started!");
 
-        while(true) {
+        while (true) {
             try {
                 System.out.println("Accepting...");
                 Socket clientSocket = serverSocket.accept();
@@ -58,7 +58,7 @@ public class Server {
      *
      * @return the new game.
      */
-    public static GameController newGame(){
+    public static GameController newGame() {
         GameController gameController = new GameController();
         onGoingGames.add(gameController);
         return gameController;
@@ -71,7 +71,7 @@ public class Server {
      * @param gameID The ID of the requested game.
      * @return the requested game.
      */
-    public static GameController findGame(int gameID){
+    public static GameController findGame(int gameID) {
         return onGoingGames.stream().filter(x -> x.getGameID() == gameID).findFirst().orElseThrow(NoSuchElementException::new);
     }
 

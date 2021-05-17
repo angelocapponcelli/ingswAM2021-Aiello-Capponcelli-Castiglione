@@ -1,7 +1,7 @@
 package it.polimi.ingsw.networking.messages;
 
-public class GenericTextMessage extends Message{
-    private String text;
+public class GenericTextMessage extends Message {
+    private final String text;
 
     public GenericTextMessage(String text) {
         messageType = MessageType.TEXT;

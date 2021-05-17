@@ -1,14 +1,19 @@
 package it.polimi.ingsw.networking.messages.clientMessages;
 
 public class SelectCardIDClientMessage extends ClientMessage {
-    protected Integer id; /** o posizione*/
+    protected Integer id;
 
-    public SelectCardIDClientMessage(String nickname, Integer id){
+    /**
+     * o posizione
+     */
+
+    public SelectCardIDClientMessage(String nickname, Integer id) {
         super(nickname);
-        this.id= id;
+        this.id = id;
     }
+
     @Override
-    public Boolean check(){
+    public Boolean check() {
         return true;
     }
 

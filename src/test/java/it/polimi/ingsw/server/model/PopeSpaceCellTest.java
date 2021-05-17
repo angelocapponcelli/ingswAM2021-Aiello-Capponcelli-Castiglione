@@ -16,7 +16,7 @@ class PopeSpaceCellTest {
 
     @BeforeEach
     void setPopeSpaceCellInitialization() {
-        Game game = new MultiplayerGame( 4);
+        Game game = new MultiplayerGame(4);
         Random r = new Random();
         victoryPoints = r.nextInt(20);
         popeSpaceCell = new PopeSpaceCell(victoryPoints);

@@ -5,6 +5,6 @@ import it.polimi.ingsw.networking.messages.MessageType;
 
 public class NewGameMessage extends Message {
     public NewGameMessage() {
-        messageType= MessageType.NEW_GAME;
+        messageType = MessageType.NEW_GAME;
     }
 }

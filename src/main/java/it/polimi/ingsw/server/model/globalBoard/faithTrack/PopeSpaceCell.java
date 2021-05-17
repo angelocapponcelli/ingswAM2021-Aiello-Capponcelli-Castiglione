@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server.model.globalBoard.faithTrack;
 
-import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.model.player.Player;
 
 /**

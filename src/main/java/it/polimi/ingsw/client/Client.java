@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.networking.connection.ClientConnectionHandler;
 
 import java.io.IOException;
@@ -8,16 +9,19 @@ import java.util.concurrent.TimeUnit;
 
 public class Client {
 
+    private final View view;
+
     private Socket clientSocket;
+
+    public Client(View view) {
+        this.view = view;
+    }
 
     public Socket getClientSocket() {
         return clientSocket;
     }
 
-
-
-
-    public void start(String hostName, int portNumber){
+    public void start(String hostName, int portNumber) {
 
         boolean connected = false;
         while (!connected) {

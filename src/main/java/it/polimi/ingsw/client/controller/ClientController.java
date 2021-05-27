@@ -5,7 +5,8 @@ import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.networking.messages.ErrorMessage;
 import it.polimi.ingsw.networking.messages.Message;
 import it.polimi.ingsw.networking.messages.serverMessage.ServerText;
-import it.polimi.ingsw.networking.messages.serverMessage.UpdatedMarketTray;
+import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedInHandLeaderCardMessage;
+import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedMarketTrayMessage;
 import it.polimi.ingsw.utils.CLIColors;
 
 public class ClientController{
@@ -16,6 +17,8 @@ public class ClientController{
         this.view = view;
         currentState = ClientState.START_SCREEN;
     }
+
+
 
     public void manageReceivedMessage(Message message) {
         switch (message.getMessageType()){
@@ -28,10 +31,16 @@ public class ClientController{
                 System.out.println(CLIColors.getAnsiRed() + errorMessage.getErrorMessage() + CLIColors.getAnsiReset());
                 break;
             case UPDATED_MARKET_TRAY:
-                UpdatedMarketTray updatedMarketTray = (UpdatedMarketTray) message;
-                view.getReducedGameModel().setMarketTray(updatedMarketTray.getMarketTray());
-                view.getReducedGameModel().setSlide(updatedMarketTray.getSlide());
-                view.refresh();
+                UpdatedMarketTrayMessage updatedMarketTray = (UpdatedMarketTrayMessage) message;
+                view.getReducedGameModel().getReducedMarketTray().setMarketTray(updatedMarketTray.getMarketTray());
+                view.getReducedGameModel().getReducedMarketTray().setSlide(updatedMarketTray.getSlide());
+                view.marketTrayDraw();
+                break;
+            case UPDATED_IN_HAND_LEADER_CARD:
+                UpdatedInHandLeaderCardMessage updatedInHandLeaderCardMessage = (UpdatedInHandLeaderCardMessage) message;
+                view.getReducedGameModel().getReducedInHandLeaderCards().update(updatedInHandLeaderCardMessage.getInHandLeaderCard());
+                view.inHandLeaderCardsDraw();
+                break;
 
         }
     }

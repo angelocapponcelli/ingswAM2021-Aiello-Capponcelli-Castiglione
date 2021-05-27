@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.model.player;
 
 import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.server.model.personalBoard.PersonalBoard;
+import it.polimi.ingsw.utils.observer.Observer;
 
 public class RealPlayer extends Player {
     private final PersonalBoard personalBoard;
@@ -52,5 +53,17 @@ public class RealPlayer extends Player {
 
     public PersonalBoard getPersonalBoard() {
         return this.personalBoard;
+    }
+
+    @Override
+    public void addObserver(Observer obs) {
+        super.addObserver(obs);
+        personalBoard.addObserver(obs);
+    }
+
+    @Override
+    public void removeObserver(Observer obs) {
+        super.removeObserver(obs);
+        personalBoard.addObserver(obs);
     }
 }

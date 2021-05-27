@@ -15,20 +15,25 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 public class LeaderCardParser {
 
-    public static List<LeaderCard> getLeaderCards() throws FileNotFoundException {
-        List<LeaderCardTemp> leaderCardTempList;
+    public static List<LeaderCard> getLeaderCards(){
+        List<LeaderCardTemp> leaderCardTempList = null;
         List<LeaderCard> leaderCardList = new ArrayList<>();
         Type listOfMyClassObject = new TypeToken<ArrayList<LeaderCardTemp>>() {
         }.getType();
 
         Gson gson = new Gson();
 
-        leaderCardTempList = gson.fromJson(new FileReader("src/main/resources/LeaderCard.json"), listOfMyClassObject);
+        try {
+            leaderCardTempList = gson.fromJson(new FileReader("src/main/resources/LeaderCard.json"), listOfMyClassObject);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         for (LeaderCardTemp leaderCardTemp : leaderCardTempList) {
 
@@ -64,9 +69,9 @@ public class LeaderCardParser {
 
 
             leaderCardList.add(new LeaderCard(leaderCardTemp.id, leaderRequirements, leaderCardTemp.victoryPoints, specialAbility));
-
-
         }
+
+        Collections.shuffle(leaderCardList);
 
         return leaderCardList;
     }

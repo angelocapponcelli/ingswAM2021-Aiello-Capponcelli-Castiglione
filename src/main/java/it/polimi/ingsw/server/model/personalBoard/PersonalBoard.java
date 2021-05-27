@@ -6,6 +6,8 @@ import it.polimi.ingsw.server.model.personalBoard.depots.TemporaryDepotForMarket
 import it.polimi.ingsw.server.model.personalBoard.depots.WareHouseDepot;
 import it.polimi.ingsw.server.model.productionPower.ProductionPower;
 import it.polimi.ingsw.server.model.resources.ResourceType;
+import it.polimi.ingsw.utils.observer.Observable;
+import it.polimi.ingsw.utils.observer.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +16,7 @@ import java.util.List;
 /**
  * Real Player's personal board
  */
-public class PersonalBoard {
+public class PersonalBoard extends Observable {
     private final TemporaryDepotForMarket temporaryDepotForMarket;
     private final WareHouseDepot wareHouseDepot;
     private final SpecialDepot specialDepot;
@@ -94,4 +96,15 @@ public class PersonalBoard {
         return wareHouseDepot.getAllResourceCount() + specialDepot.getAllResourceCount() + strongBoxDepot.getAllResourceCount();
     }
 
+    @Override
+    public void addObserver(Observer obs) {
+        super.addObserver(obs);
+        inHandLeaderCards.addObserver(obs);
+    }
+
+    @Override
+    public void removeObserver(Observer obs) {
+        super.removeObserver(obs);
+        inHandLeaderCards.removeObserver(obs);
+    }
 }

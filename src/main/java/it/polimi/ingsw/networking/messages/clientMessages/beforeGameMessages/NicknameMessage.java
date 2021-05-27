@@ -1,4 +1,7 @@
-package it.polimi.ingsw.networking.messages;
+package it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages;
+
+import it.polimi.ingsw.networking.messages.Message;
+import it.polimi.ingsw.networking.messages.MessageType;
 
 public class NicknameMessage extends Message {
     private final String nickname;

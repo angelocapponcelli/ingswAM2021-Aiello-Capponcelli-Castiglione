@@ -9,25 +9,19 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
 public class Server {
 
-    /**
-     * Games that are currently on
-     */
     private static final List<GameController> onGoingGames = new ArrayList<>();
-    private static final Map<String, ServerClientHandler> nicknameWithConnection = new ConcurrentHashMap<>();
     private static final List<ServerClientHandler> connectedClient = new ArrayList<>();
     private static Integer nextGameID = 1;
 
 
     /**
-     * Starts the Server creating a pool of threads and waiting for the clients to connect
+     * Starts the Server by creating a pool of threads and waiting for the clients to connect
      *
      * @param portNumber the port on which the server will listen
      */
@@ -85,7 +79,6 @@ public class Server {
             GameController gameController = new GameController(maxPlayersNumber, nextGameID );
             onGoingGames.add(gameController);
             nextGameID++;
-            System.out.println("Created new Game. ID: " + gameController.getGameID() );
             return gameController;
         }
     }

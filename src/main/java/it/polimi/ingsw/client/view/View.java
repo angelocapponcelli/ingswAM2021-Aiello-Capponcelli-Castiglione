@@ -22,4 +22,6 @@ public abstract class View {
     public abstract void refresh();
 
     public abstract void marketTrayDraw();
+
+    public abstract void inHandLeaderCardsDraw();
 }

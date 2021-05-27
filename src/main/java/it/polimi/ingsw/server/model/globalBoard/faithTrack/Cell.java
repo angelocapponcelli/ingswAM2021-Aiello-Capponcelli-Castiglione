@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.globalBoard.faithTrack;
 
-import it.polimi.ingsw.networking.messages.serverMessage.UpdatedFaithPositionMessage;
+import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedFaithPositionMessage;
 import it.polimi.ingsw.server.model.player.Player;
 
 /**

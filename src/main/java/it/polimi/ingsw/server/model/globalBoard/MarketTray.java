@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.globalBoard;
 
-import it.polimi.ingsw.networking.messages.serverMessage.ServerText;
+import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedMarketTrayMessage;
 import it.polimi.ingsw.server.model.resources.Resource;
 import it.polimi.ingsw.utils.observer.Observable;
 import it.polimi.ingsw.utils.parsers.MarketTrayParser;
@@ -22,7 +22,7 @@ public class MarketTray extends Observable {
      * This constructor is use by the MarketTrayParser to create a new market tray.
      *
      * @param marketTray the marble in the marketTray grid.
-     * @param slide the marble in the slide.
+     * @param slide      the marble in the slide.
      */
     public MarketTray(Resource[][] marketTray, Resource slide) {
         this.marketTray = marketTray;
@@ -82,7 +82,7 @@ public class MarketTray extends Observable {
     public List<Resource> selectRow(int row) throws ArrayIndexOutOfBoundsException {
         List<Resource> rowList = getRow(row);
         shiftRow(row);
-        notifyObserver(new ServerText("select row"));
+        notifyObserver(new UpdatedMarketTrayMessage(this));
         return rowList;
     }
 
@@ -96,6 +96,7 @@ public class MarketTray extends Observable {
     public List<Resource> selectColumn(int column) throws ArrayIndexOutOfBoundsException {
         List<Resource> columnList = getColumn(column);
         shiftColumn(column);
+        notifyObserver(new UpdatedMarketTrayMessage(this));
         return columnList;
     }
 
@@ -106,8 +107,9 @@ public class MarketTray extends Observable {
      */
     private void shiftRow(int row) {
         Resource toSlide = marketTray[row][0];
-        if (marketTray[row].length - 1 >= 0)
+        if (marketTray[row].length - 1 >= 0) {
             System.arraycopy(marketTray[row], 1, marketTray[row], 0, marketTray[row].length - 1);
+        }
         marketTray[row][marketTray[row].length - 1] = slide;
         updateSlide(toSlide);
     }

@@ -2,12 +2,10 @@ package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.networking.connection.InGameConnectedClient;
 import it.polimi.ingsw.networking.connection.ServerClientHandler;
-import it.polimi.ingsw.networking.messages.clientMessages.ActivateProductionMessage;
-import it.polimi.ingsw.networking.messages.clientMessages.BuyDevCardMessage;
-import it.polimi.ingsw.networking.messages.clientMessages.ClientText;
-import it.polimi.ingsw.networking.messages.clientMessages.TakeFromMarketMessage;
-import it.polimi.ingsw.networking.messages.serverMessage.ServerText;
+import it.polimi.ingsw.networking.messages.clientMessages.*;
 import it.polimi.ingsw.networking.messages.Message;
+import it.polimi.ingsw.networking.messages.serverMessage.ServerText;
+import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedMarketTrayMessage;
 import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.controller.gameStates.GameState;
 import it.polimi.ingsw.server.model.game.Game;
@@ -18,6 +16,7 @@ import it.polimi.ingsw.server.model.cards.LeaderCard;
 import it.polimi.ingsw.utils.exceptions.DepotException;
 import it.polimi.ingsw.server.model.player.RealPlayer;
 import it.polimi.ingsw.server.model.resources.ResourceType;
+import it.polimi.ingsw.utils.parsers.LeaderCardParser;
 
 import java.io.IOException;
 import java.util.*;
@@ -25,10 +24,11 @@ import java.util.*;
 public class GameController{
 
     private final Integer gameID;
-    private final Game gameModel;
+    private /*final*/ Game gameModel;
     private final Integer maxPlayersNumber;
     private GameState currentGameState;
     private final List<InGameConnectedClient> inGameConnectedClients = new ArrayList<>();
+    private final List<RealPlayer> playerList = new ArrayList<>();
     private RealPlayer currentPlayer;
 
     public GameController(Integer maxPlayersNumber, Integer gameID) {
@@ -36,61 +36,87 @@ public class GameController{
         currentGameState = GameState.LOGIN;
         this.maxPlayersNumber = maxPlayersNumber;
         gameModel = maxPlayersNumber == 1? new SinglePlayerGame(): new MultiplayerGame(maxPlayersNumber);
-        if(maxPlayersNumber == 1) currentGameState = GameState.INIT ;
     }
 
     //+++++++ Getter +++++++
     public Integer getGameID() {
         return gameID;
     }
-
     public Integer getMaxPlayersNumber() {
         return maxPlayersNumber;
     }
-
     public List<InGameConnectedClient> getInGameConnectedClients() {
         return inGameConnectedClients;
     }
-
     public Game getGameModel() {
         return gameModel;
     }
     //+++++++++++++++++++++
 
 
-    public void addConnectedClient(InGameConnectedClient inGameConnectedClient){
+    public synchronized void addConnectedClient(InGameConnectedClient inGameConnectedClient){
         inGameConnectedClients.add(inGameConnectedClient);
+        RealPlayer realPlayer = new RealPlayer(inGameConnectedClient.getNickName(), this);
+        realPlayer.addObserver(inGameConnectedClient);
+        playerList.add(realPlayer);
         gameModel.addObserver(inGameConnectedClient);
-        if(inGameConnectedClients.size() == maxPlayersNumber){
-            currentGameState = GameState.INIT;
+        if(inGameConnectedClients.size() == maxPlayersNumber) {
+            updateGameState(GameState.IN_GAME);
+            initializeGame();
+
         }
     }
 
-    public void removeConnectedClient(InGameConnectedClient inGameConnectedClient){
+    public synchronized void removeConnectedClient(InGameConnectedClient inGameConnectedClient){
         gameModel.removeObserver(inGameConnectedClient);
+        playerList.remove(playerList.stream().filter(x -> x.getNickName().equals(inGameConnectedClient.getNickName())).findFirst().orElse(null));
         inGameConnectedClients.remove(inGameConnectedClient);
     }
 
-    public void manageReceivedMessage(Message receivedMessage){
 
-        switch (receivedMessage.getMessageType()){
+    private void initializeGame(){
+        sendBroadCastMessage(new UpdatedMarketTrayMessage(gameModel.getGlobalBoard().getMarketTray()));
+        List<LeaderCard> leaderCardsDeck = LeaderCardParser.getLeaderCards();
+        for(int i = 0; i < playerList.size(); i++){
+            playerList.get(i).getPersonalBoard().getInHandLeaderCards().addLeaderCard(leaderCardsDeck.subList(i*4, i*4 + 4));
+        }
+    }
 
-            case TEXT:
-                ClientText clientText = (ClientText) receivedMessage;
+
+    public void manageReceivedMessage(Message message){
+
+        switch (currentGameState){
+            case LOGIN:
+                System.out.println("loginState");
+                break;
+            case INIT:
+                InitState(message);
+                break;
+            case IN_GAME:
+                break;
+            default:
+                System.out.println("ERORR!");
+                break;
+        }
+
+        switch (message.getMessageType()){
+
+            /*case TEXT:
+                ClientText clientText = (ClientText) message;
                 System.out.println("Server (controller) received \"" + clientText.getText() + "\"");
                 sendPrivateMessage(clientText.getNickname(), new ServerText(clientText.getText().toUpperCase(Locale.ROOT)));
                 sendBroadCastMessage(new ServerText("il server ha inviato un messaggio"));
-                break;
+                break;*/
             case TAKE_FROM_MARKET:
-                TakeFromMarketMessage takeFromMarketMessage = (TakeFromMarketMessage) receivedMessage;
+                TakeFromMarketMessage takeFromMarketMessage = (TakeFromMarketMessage) message;
                 takeFromMarket(takeFromMarketMessage);
                 break;
             case BUY_DEV_CARD:
-                BuyDevCardMessage buyDevCardMessage = (BuyDevCardMessage) receivedMessage;
+                BuyDevCardMessage buyDevCardMessage = (BuyDevCardMessage) message;
                 buyDevCard(buyDevCardMessage);
                 break;
             case ACTIVATE_PRODUCTION:
-                ActivateProductionMessage activateProductionMessage = (ActivateProductionMessage) receivedMessage;
+                ActivateProductionMessage activateProductionMessage = (ActivateProductionMessage) message;
                 activateProduction(activateProductionMessage);
 
 
@@ -100,6 +126,33 @@ public class GameController{
 
     }
 
+
+
+    private void InitState(Message message){
+
+        switch (message.getMessageType()){
+            case SELECT_LEADER_CARD_TO_DISCARD:
+                DiscardLeaderCardsMessage discardLeaderCardsMessage = (DiscardLeaderCardsMessage) message;
+                discardInitialLeaderCards(discardLeaderCardsMessage);
+                break;
+        }
+    }
+
+
+
+
+
+    private void discardInitialLeaderCards(DiscardLeaderCardsMessage discardLeaderCardsMessage){
+        RealPlayer realPlayer = playerList.stream()
+                .filter(player -> player
+                        .getNickName()
+                        .equals(discardLeaderCardsMessage.getNickname()))
+                .findFirst().orElse(null);
+        for(Integer id: discardLeaderCardsMessage.getIDsToDiscard()) {
+            realPlayer.getPersonalBoard().getInHandLeaderCards().remove(id);
+        }
+
+    }
 
     //****** MAIN ACTION ***********
     private void buyDevCard(BuyDevCardMessage buyDevCardMessage){
@@ -209,7 +262,7 @@ public class GameController{
 
     public LeaderCard selectLeaderCardByCardId(int id) {
         RealPlayer realPlayer = (RealPlayer) gameModel.getCurrentPlayer();
-        for (LeaderCard leaderCard : realPlayer.getPersonalBoard().getInHandLeaderCards().getCards()) {
+        for (LeaderCard leaderCard : realPlayer.getPersonalBoard().getInHandLeaderCards().getInHandLeaderCards()) {
             if (leaderCard.getId() == id) return leaderCard;
         }
         return null;
@@ -241,7 +294,7 @@ public class GameController{
     public void playLeaderCard(Integer id) {
         RealPlayer realPlayer;
         realPlayer = (RealPlayer) gameModel.getCurrentPlayer();
-        for (LeaderCard leaderCard : realPlayer.getPersonalBoard().getInHandLeaderCards().getCards()) {
+        for (LeaderCard leaderCard : realPlayer.getPersonalBoard().getInHandLeaderCards().getInHandLeaderCards()) {
             if (leaderCard.getId().equals(id)) {
                 leaderCard.playCard(realPlayer);
             }
@@ -251,9 +304,9 @@ public class GameController{
     public void discardLeaderCard(Integer id) {
         RealPlayer realPlayer;
         realPlayer = (RealPlayer) gameModel.getCurrentPlayer();
-        for (LeaderCard leaderCard : realPlayer.getPersonalBoard().getInHandLeaderCards().getCards()) {
+        for (LeaderCard leaderCard : realPlayer.getPersonalBoard().getInHandLeaderCards().getInHandLeaderCards()) {
             if (leaderCard.getId().equals(id)) {
-                realPlayer.getPersonalBoard().getInHandLeaderCards().discard(leaderCard, realPlayer);
+                realPlayer.getPersonalBoard().getInHandLeaderCards().inGameDiscard(id, realPlayer);
             }
         }
     }

@@ -28,4 +28,9 @@ public class GUI extends View {
     public void marketTrayDraw() {
 
     }
+
+    @Override
+    public void inHandLeaderCardsDraw() {
+
+    }
 }

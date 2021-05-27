@@ -2,11 +2,9 @@ package it.polimi.ingsw.networking.connection;
 
 import it.polimi.ingsw.networking.messages.ErrorMessage;
 import it.polimi.ingsw.networking.messages.Message;
-import it.polimi.ingsw.networking.messages.NicknameMessage;
-import it.polimi.ingsw.networking.messages.clientMessages.ClientText;
+import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NicknameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.JoinGameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NewGameMessage;
-import it.polimi.ingsw.networking.messages.serverMessage.ServerText;
 import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.utils.CLIColors;
@@ -15,7 +13,7 @@ import it.polimi.ingsw.utils.exceptions.GameIsFullException;
 import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Locale;
+import java.net.SocketException;
 
 /**
  * Handles the interactions from the Server to a single Client
@@ -41,7 +39,7 @@ public class ServerClientHandler implements Runnable{
             while (!(socket.isClosed())) {
                 manageReceivedMessage(connectionIO.receiveMessage());
             }
-        } catch (EOFException e) {
+        } catch (EOFException |SocketException e) {
             System.out.println(CLIColors.getAnsiRed() + "Client disconnected" + CLIColors.getAnsiReset());
             if (gameController != null) {
                 gameController.removeConnectedClient(gameController.getInGameConnectedClients().stream()
@@ -69,35 +67,38 @@ public class ServerClientHandler implements Runnable{
 
         if (gameController == null) {
             switch (receivedMessage.getMessageType()) {
-                case TEXT:
+                /*case TEXT:
                     ClientText clientText = (ClientText) receivedMessage;
                     System.out.println("Server received \"" + clientText.getText() + "\"");
                     sendMessage(new ServerText(clientText.getText().toUpperCase(Locale.ROOT)));
-                    break;
-                case NEW_GAME:
-                    System.out.println("Received newGame");
-                    NewGameMessage newGameMessage = (NewGameMessage) receivedMessage;
-                    gameController = Server.newGame(newGameMessage.getPlayersNumber());
-                    gameController.addConnectedClient(new InGameConnectedClient(nickName, connectionIO));
-                    System.out.println("New Game");
-                    break;
-                case JOIN_GAME:
-                    JoinGameMessage joinGameMessage = (JoinGameMessage) receivedMessage;
-                    try {
-                        gameController = Server.findGame(joinGameMessage.getGameId());
-                        gameController.addConnectedClient(new InGameConnectedClient(nickName, connectionIO));
-                        System.out.println("Client is joining a Game");
-                    } catch (GameIsFullException e) {
-                        sendMessage(new ErrorMessage("This game is full"));
-                    } catch (ClassNotFoundException e) {
-                        sendMessage(new ErrorMessage("The Specified Game does not exists"));
-                    }
-                    break;
+                    break;*/
 
                 case NICKNAME:
                     NicknameMessage nicknameMessage = (NicknameMessage) receivedMessage;
                     nickName = nicknameMessage.getNickname();
                     Server.getConnectedClient().add(this);
+                    System.out.println("Added new Connected Client: " + nickName );
+                    break;
+
+                case NEW_GAME:
+                    System.out.println("Received newGame");
+                    NewGameMessage newGameMessage = (NewGameMessage) receivedMessage;
+                    gameController = Server.newGame(newGameMessage.getPlayersNumber());
+                    gameController.addConnectedClient(new InGameConnectedClient(nickName, connectionIO));
+                    System.out.println(nickName + " created new Game. ID:" + gameController.getGameID() + " Players number:" + newGameMessage.getPlayersNumber());
+                    break;
+
+                case JOIN_GAME:
+                    JoinGameMessage joinGameMessage = (JoinGameMessage) receivedMessage;
+                    try {
+                        gameController = Server.findGame(joinGameMessage.getGameId());
+                        gameController.addConnectedClient(new InGameConnectedClient(nickName, connectionIO));
+                        System.out.println("Client " + nickName + " joined game: " + gameController.getGameID());
+                    } catch (GameIsFullException e) {
+                        sendMessage(new ErrorMessage("This game is full"));
+                    } catch (ClassNotFoundException e) {
+                        sendMessage(new ErrorMessage("The Specified Game does not exists"));
+                    }
                     break;
 
 

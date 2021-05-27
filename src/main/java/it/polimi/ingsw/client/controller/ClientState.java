@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.controller;
 public enum ClientState {
     START_SCREEN,
     NICK_NAME,
+    WAIT_FOR_OTHER_PLAYERS,
     GAME_ENTRANCE,
     CHOOSE_MAIN_ACTION,
     TAKE_FROM_MARKET,

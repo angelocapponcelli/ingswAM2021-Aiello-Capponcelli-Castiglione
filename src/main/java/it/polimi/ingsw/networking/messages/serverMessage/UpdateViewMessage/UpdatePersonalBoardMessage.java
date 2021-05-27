@@ -1,5 +1,6 @@
-package it.polimi.ingsw.networking.messages.serverMessage;
+package it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage;
 
+import it.polimi.ingsw.networking.messages.serverMessage.ServerMessage;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 
 import java.util.ArrayList;

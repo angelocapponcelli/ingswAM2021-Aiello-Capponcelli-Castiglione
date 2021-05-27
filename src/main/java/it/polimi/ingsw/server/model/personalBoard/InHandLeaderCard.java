@@ -1,46 +1,56 @@
 package it.polimi.ingsw.server.model.personalBoard;
 
+import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedInHandLeaderCardMessage;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
 import it.polimi.ingsw.server.model.player.RealPlayer;
 import it.polimi.ingsw.server.model.resources.Faith;
 import it.polimi.ingsw.server.model.specialAbilities.SpecialAbility;
+import it.polimi.ingsw.utils.observer.Observable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Player's in hand leader cards
  */
-public class InHandLeaderCard {
-    List<LeaderCard> cards;
+public class InHandLeaderCard extends Observable{
+    List<LeaderCard> inHandLeaderCards;
 
     public InHandLeaderCard() {
-        this.cards = new ArrayList<>();
+        this.inHandLeaderCards = new ArrayList<>();
     }
 
-    public List<LeaderCard> getCards() {
-        return cards;
+    public List<LeaderCard> getInHandLeaderCards() {
+        return inHandLeaderCards;
     }
 
     public LeaderCard getCard(int index) {
-        return cards.get(index);
+        return inHandLeaderCards.get(index);
     }
 
-    public void remove(LeaderCard leaderCard) {
-        this.cards.remove(leaderCard);
+    public void remove(Integer leaderCardID) {
+        LeaderCard leaderCard = inHandLeaderCards.stream().filter(card -> card.getId().equals(leaderCardID)).findFirst().orElse(null);
+        this.inHandLeaderCards.remove(leaderCard);
+        notifyObserver(new UpdatedInHandLeaderCardMessage( inHandLeaderCards.stream().map(LeaderCard::getId).collect(Collectors.toList()) ) );
     }
 
+    public void addLeaderCard(List<LeaderCard> leaderCards){
+        inHandLeaderCards = leaderCards;
+        notifyObserver(new UpdatedInHandLeaderCardMessage(  inHandLeaderCards.stream().map(LeaderCard::getId).collect(Collectors.toList()) ) );
+    }
 
-    public void discard(LeaderCard leaderCard, RealPlayer realPlayer) {
-        this.cards.remove(leaderCard);
+    public void inGameDiscard(Integer leaderCardID, RealPlayer realPlayer) {
+        remove(leaderCardID);
         Faith faith = Faith.getInstance();
         faith.onTaking(realPlayer);
     }
 
     public List<SpecialAbility> getEnabledAbilities() {
         List<SpecialAbility> enabledAbilities = new LinkedList<>();
-        List<LeaderCard> tmpCards = cards;
+        List<LeaderCard> tmpCards = inHandLeaderCards;
         for (LeaderCard leaderCard : tmpCards) {
             if (leaderCard.isPlayed()) {
                 enabledAbilities.add(leaderCard.getSpecialAbility());
@@ -51,7 +61,7 @@ public class InHandLeaderCard {
 
     public Integer getVictoryPoint() {
         int sum = 0;
-        for (LeaderCard leaderCard : cards) {
+        for (LeaderCard leaderCard : inHandLeaderCards) {
             if (leaderCard.isPlayed()) {
                 sum = sum + leaderCard.getVictoryPoint();
             }
@@ -61,7 +71,7 @@ public class InHandLeaderCard {
 
     public Integer getCardsCount() {
         int tmp = 0;
-        for (LeaderCard leaderCard : this.cards) {
+        for (LeaderCard leaderCard : this.inHandLeaderCards) {
             tmp++;
         }
         return tmp;

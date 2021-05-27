@@ -28,8 +28,8 @@ class InHandLeaderCardTest {
         leaderRequirements.add(Coin.getInstance(), 1);
         LeaderCard leaderCard1 = new LeaderCard(1, leaderRequirements, 1, new SpecialDiscount(Coin.getInstance()));
         LeaderCard leaderCard2 = new LeaderCard(2, new LeaderRequirements(), 3, new SpecialWhiteMarble(Servant.getInstance()));
-        inHandLeaderCard.getCards().add(leaderCard1);
-        inHandLeaderCard.getCards().add(leaderCard2);
+        inHandLeaderCard.getInHandLeaderCards().add(leaderCard1);
+        inHandLeaderCard.getInHandLeaderCards().add(leaderCard2);
         realPlayer.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.COIN, 3);
         leaderCard1.playCard(realPlayer);
     }
@@ -39,8 +39,8 @@ class InHandLeaderCardTest {
     void getEnabledAbilities() {
         int tmp = 0;
         int tmp1 = 0;
-        for (LeaderCard leaderCard : inHandLeaderCard.getCards()) {
-            if (inHandLeaderCard.getCards().get(tmp1).isPlayed()) {
+        for (LeaderCard leaderCard : inHandLeaderCard.getInHandLeaderCards()) {
+            if (inHandLeaderCard.getInHandLeaderCards().get(tmp1).isPlayed()) {
                 tmp++;
             }
             tmp1++;
@@ -52,9 +52,9 @@ class InHandLeaderCardTest {
     void getVictoryPoint() {
         int tmp = 0;
         int tmp1 = 0;
-        for (LeaderCard leaderCard : inHandLeaderCard.getCards()) {
-            if (inHandLeaderCard.getCards().get(tmp1).isPlayed()) {
-                tmp = tmp + inHandLeaderCard.getCards().get(tmp1).getVictoryPoint();
+        for (LeaderCard leaderCard : inHandLeaderCard.getInHandLeaderCards()) {
+            if (inHandLeaderCard.getInHandLeaderCards().get(tmp1).isPlayed()) {
+                tmp = tmp + inHandLeaderCard.getInHandLeaderCards().get(tmp1).getVictoryPoint();
             }
             tmp1++;
         }

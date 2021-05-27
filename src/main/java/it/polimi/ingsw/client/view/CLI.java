@@ -1,9 +1,10 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.view.reducedGameModel.ReducedGameModel;
 import it.polimi.ingsw.networking.messages.clientMessages.ClientText;
 import it.polimi.ingsw.networking.messages.Message;
-import it.polimi.ingsw.networking.messages.NicknameMessage;
+import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NicknameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.TakeFromMarketMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.JoinGameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NewGameMessage;
@@ -33,7 +34,6 @@ public class CLI extends View {
         clear();
 
 
-
         new Thread( () ->{
             stdIn = new BufferedReader(new InputStreamReader(System.in));
             String userInput;
@@ -45,8 +45,8 @@ public class CLI extends View {
                         case "newGame": {
                             System.out.println("Insert players number");
                             String tmp = stdIn.readLine();
-
                             message = new NewGameMessage(Integer.parseInt(tmp));
+                            clear();
                             break;
                         }
                         case "selectRow":
@@ -60,6 +60,7 @@ public class CLI extends View {
                             System.out.println("Insert GameID");
                             String tmp = stdIn.readLine();
                             message = new JoinGameMessage(Integer.parseInt(tmp));
+                            clear();
                             break;
                         }
                         default:
@@ -86,23 +87,35 @@ public class CLI extends View {
         }
         client.setNickName(tmp);
         client.sendMessage(new NicknameMessage(tmp));
+        clear();
 
     }
 
     @Override
     public void refresh() {
+        clear();
+        marketTrayDraw();
+        inHandLeaderCardsDraw();
+
 
     }
 
     @Override
     public void marketTrayDraw() {
-        System.out.print(ResourceType.getColor(reducedGameModel.getSlide()) + "[●]\n"+ CLIColors.getAnsiReset());
-        for(int i = 0; i< reducedGameModel.getMarketTray().length; i++){
-            for(int j = 0; j < reducedGameModel.getMarketTray()[i].length; j++){
-                System.out.print(ResourceType.getColor(reducedGameModel.getMarketTray()[i][j]) + "%5●\t|  ");
+        System.out.print(ResourceType.getColor(reducedGameModel.getReducedMarketTray().getSlide()) + "●\n" + CLIColors.getAnsiReset());
+        for (int i = 0; i < reducedGameModel.getReducedMarketTray().getMarketTray().length; i++) {
+            for (int j = 0; j < reducedGameModel.getReducedMarketTray().getMarketTray()[i].length; j++) {
+                System.out.print(ResourceType.getColor(reducedGameModel.getReducedMarketTray().getMarketTray()[i][j]) + "● "  + CLIColors.getAnsiReset() );
+
             }
             System.out.print("\n");
         }
+    }
+
+    @Override
+    public void inHandLeaderCardsDraw() {
+        System.out.println("LeaderCard:");
+        reducedGameModel.getReducedInHandLeaderCards().getInHandLeaderCards().forEach(System.out::println);
     }
 
 

@@ -31,6 +31,10 @@ public class ServerClientHandler implements Runnable{
         connectionIO = new ConnectionIO(socket);
     }
 
+    public String getNickName() {
+        return nickName;
+    }
+
     @Override
     public void run() {
         try {
@@ -93,8 +97,7 @@ public class ServerClientHandler implements Runnable{
                 case NICKNAME:
                     NicknameMessage nicknameMessage = (NicknameMessage) receivedMessage;
                     nickName = nicknameMessage.getNickname();
-                    Server.getNicknameWithConnection().put(nickName, this);
-                    Server.getNicknameWithConnection().forEach((key, value) -> System.out.println(key));
+                    Server.getConnectedClient().add(this);
                     break;
 
 

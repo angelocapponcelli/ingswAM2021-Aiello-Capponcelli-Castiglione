@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class Client {
-    String nickName;
+    private String nickName;
 
     private View view;
 

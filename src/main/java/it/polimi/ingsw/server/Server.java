@@ -22,6 +22,7 @@ public class Server {
      */
     private static final List<GameController> onGoingGames = new ArrayList<>();
     private static final Map<String, ServerClientHandler> nicknameWithConnection = new ConcurrentHashMap<>();
+    private static final List<ServerClientHandler> connectedClient = new ArrayList<>();
     private static Integer nextGameID = 1;
 
 
@@ -59,12 +60,11 @@ public class Server {
 
 
     /**
-     * @return A map of nickname with his connection
+     * @return the list of connected clients
      */
-    public static Map<String, ServerClientHandler> getNicknameWithConnection() {
-        return nicknameWithConnection;
+    public static List<ServerClientHandler> getConnectedClient() {
+        return connectedClient;
     }
-
 
 
     /**

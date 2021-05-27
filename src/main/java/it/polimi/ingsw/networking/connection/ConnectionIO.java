@@ -6,17 +6,15 @@ import java.io.*;
 import java.net.Socket;
 
 /**
- * Handles the Input/Output's streams
+ * Handles the Input/Output's streams of a socket.
  */
 public class ConnectionIO{
     protected final Socket socket;
     protected final ObjectInputStream socketIn;
     protected final ObjectOutputStream socketOut;
-    protected BufferedReader stdIn;
 
     public ConnectionIO(Socket socket) throws IOException {
         this.socket = socket;
-        stdIn = new BufferedReader(new InputStreamReader(System.in));
         socketOut = new ObjectOutputStream(socket.getOutputStream());
         socketIn = new ObjectInputStream(socket.getInputStream());
     }

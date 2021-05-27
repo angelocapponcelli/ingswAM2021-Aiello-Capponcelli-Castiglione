@@ -281,7 +281,8 @@ public class GameController{
      * @param message The message to be sent.
      */
     public void sendPrivateMessage(String nickName, Message message){
-        ServerClientHandler serverClientHandler = Server.getNicknameWithConnection().entrySet().stream().filter(x-> x.getKey().equals(nickName)).map(Map.Entry::getValue).findFirst().orElse(null);
+        ServerClientHandler serverClientHandler = Server.getConnectedClient().stream().filter(x -> x.getNickName().equals(nickName)).findFirst().orElse(null);
+        //ServerClientHandler serverClientHandler = Server.getNicknameWithConnection().entrySet().stream().filter(x-> x.getKey().equals(nickName)).map(Map.Entry::getValue).findFirst().orElse(null);
         assert serverClientHandler != null;
         serverClientHandler.sendMessage(message);
     }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.interfaces;
 
+import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.utils.exceptions.DepotException;
 import it.polimi.ingsw.server.model.player.RealPlayer;
 
@@ -15,4 +16,6 @@ public interface Producible {
      * @param multiplicity The multiplicity of the produced resource.
      */
     void onProduction(RealPlayer realPlayer, Integer multiplicity);
+
+    ResourceType getResourceType();
 }

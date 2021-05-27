@@ -4,7 +4,6 @@ import it.polimi.ingsw.server.model.player.RealPlayer;
 import it.polimi.ingsw.server.model.resources.Resource;
 
 public class SpecialDiscount extends SpecialAbility {
-    private final Resource resource;
 
     public SpecialDiscount(Resource resource) {
         this.resource = resource;

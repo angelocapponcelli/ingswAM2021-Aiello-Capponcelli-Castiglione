@@ -15,6 +15,9 @@ public class ProductionPowerOutput implements Activable {
         this.productionPowerOutput = new HashMap<>();
     }
 
+    public Map<Producible, Integer> getProductionPowerOutput() {
+        return productionPowerOutput;
+    }
 
     public void add(ResourceType resourceType, Integer multiplicity) {
         switch (resourceType.toString()) {

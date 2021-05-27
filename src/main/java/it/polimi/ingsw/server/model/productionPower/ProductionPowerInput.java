@@ -19,9 +19,12 @@ public class ProductionPowerInput implements Checkable, Payable {
         this.productionPowerInput = new HashMap<>();
     }
 
+    public Map<Resource, Integer> getProductionPowerInput() {
+        return productionPowerInput;
+    }
+
     public void add(Resource resource, Integer multiplicity) {
         productionPowerInput.put(resource, multiplicity);
-
     }
 
     /**

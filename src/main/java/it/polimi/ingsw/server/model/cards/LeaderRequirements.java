@@ -19,6 +19,10 @@ public class LeaderRequirements implements Checkable {
         this.leaderRequirements = new HashMap<>();
     }
 
+    public Map<Requirement, Integer> getLeaderRequirements() {
+        return leaderRequirements;
+    }
+
     public void add(Requirement requirement, Integer multiplicity) {
         if (multiplicity > 0)
             this.leaderRequirements.put(requirement, multiplicity);

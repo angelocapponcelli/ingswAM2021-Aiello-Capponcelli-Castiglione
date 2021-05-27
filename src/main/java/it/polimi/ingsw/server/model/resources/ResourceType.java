@@ -1,11 +1,12 @@
 package it.polimi.ingsw.server.model.resources;
 
+import it.polimi.ingsw.client.view.reducedGameModel.ReducedRequirement;
 import it.polimi.ingsw.utils.CLIColors;
 
 /**
  * The enum ResourceType.
  */
-public enum ResourceType {
+public enum ResourceType implements ReducedRequirement {
     COIN,
     STONE,
     SERVANT,
@@ -32,8 +33,8 @@ public enum ResourceType {
         }
     }
 
-    public static String getColor(ResourceType resourceType) {
-        switch (resourceType.toString()) {
+    public String getColor() {
+        switch (this.toString()) {
             case "COIN":
                 return CLIColors.getAnsiYellow();
             case "STONE":

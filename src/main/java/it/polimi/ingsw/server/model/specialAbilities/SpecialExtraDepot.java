@@ -8,7 +8,6 @@ import it.polimi.ingsw.server.model.resources.Resource;
  * It allow to have an extra depot that contain resources of the same type
  */
 public class SpecialExtraDepot extends SpecialAbility {
-    private final Resource resource;
 
     /**
      * @param resource Specify the special resource type

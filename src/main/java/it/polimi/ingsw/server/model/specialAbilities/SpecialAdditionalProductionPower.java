@@ -9,7 +9,6 @@ import it.polimi.ingsw.server.model.resources.ResourceType;
 
 
 public class SpecialAdditionalProductionPower extends SpecialAbility {
-    Resource resource;
     ProductionPower productionPower;
 
     public SpecialAdditionalProductionPower(Resource resource) {

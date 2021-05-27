@@ -1,12 +1,13 @@
 package it.polimi.ingsw.server.model.cards;
 
+import it.polimi.ingsw.client.view.reducedGameModel.ReducedRequirement;
 import it.polimi.ingsw.server.model.interfaces.Requirement;
 import it.polimi.ingsw.server.model.misc.Colors;
 
 /**
  * Type and the level of development cards.
  */
-public class TypeLevel implements Requirement {
+public class TypeLevel implements Requirement, ReducedRequirement {
     private final Colors type;
     private final int level;
 

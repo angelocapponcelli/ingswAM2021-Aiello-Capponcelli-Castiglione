@@ -10,6 +10,7 @@ public class CLIColors {
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
+    public static final String ANSI_BRIGHT_BLACK  = "\u001B[90m";
 
     public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
     public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
@@ -86,5 +87,9 @@ public class CLIColors {
 
     public static String getAnsiWhiteBackground() {
         return ANSI_WHITE_BACKGROUND;
+    }
+
+    public static String getAnsiBrightBlack() {
+        return ANSI_BRIGHT_BLACK;
     }
 }

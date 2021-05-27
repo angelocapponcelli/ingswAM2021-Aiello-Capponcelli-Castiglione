@@ -1,7 +1,9 @@
 package it.polimi.ingsw.server.model;
 
-import it.polimi.ingsw.server.model.exceptions.PlayerWithSameNameException;
-import it.polimi.ingsw.server.model.exceptions.ReachedMaxNumberOfPlayersException;
+import it.polimi.ingsw.server.model.game.Game;
+import it.polimi.ingsw.server.model.game.MultiplayerGame;
+import it.polimi.ingsw.utils.exceptions.PlayerWithSameNameException;
+import it.polimi.ingsw.utils.exceptions.ReachedMaxNumberOfPlayersException;
 import it.polimi.ingsw.server.model.player.Player;
 import it.polimi.ingsw.server.model.player.RealPlayer;
 import org.junit.jupiter.api.BeforeEach;

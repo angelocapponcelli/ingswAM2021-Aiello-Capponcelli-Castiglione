@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.globalBoard.faithTrack;
 
+import it.polimi.ingsw.networking.messages.serverMessage.UpdatedFaithPositionMessage;
 import it.polimi.ingsw.server.model.player.Player;
 
 /**
@@ -32,5 +33,6 @@ public class Cell {
      * @param player the player who steps into the cell.
      */
     public void onOccupy(Player player) {
+        player.getGameController().sendBroadCastMessage(new UpdatedFaithPositionMessage(player.getNickName(), player.getFaithPosition()));
     }
 }

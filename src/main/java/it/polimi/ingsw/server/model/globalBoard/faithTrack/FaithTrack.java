@@ -1,25 +1,34 @@
 package it.polimi.ingsw.server.model.globalBoard.faithTrack;
 
-import it.polimi.ingsw.server.utils.parsers.FaithTrackParser;
+import it.polimi.ingsw.utils.observer.Observable;
+import it.polimi.ingsw.utils.parsers.FaithTrackParser;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 
-public class FaithTrack {
-
-    private static final FaithTrack INSTANCE = new FaithTrack();
+public class FaithTrack  extends Observable {
     private final List<Cell> track;
     private final List<VaticanReportSection> vaticanReportSectionList;
 
 
-    private FaithTrack() {
-        this.track = FaithTrackParser.getINSTANCE().getTrack();
-        this.vaticanReportSectionList = FaithTrackParser.getINSTANCE().getReportSections();
+    public FaithTrack() throws FileNotFoundException {
+        FaithTrack temp = FaithTrackParser.getFaithTrack();
+        this.track = temp.getTrack();
+        this.vaticanReportSectionList = temp.getVaticanReportSectionList();
     }
 
-    public static FaithTrack getINSTANCE() {
-        return INSTANCE;
+    /**
+     * This constructor is use by the FaithTrackParser to create a new faithTrack.
+     *
+     * @param track the list of cells.
+     * @param vaticanReportSectionList the list of vatican report sections.
+     */
+    public FaithTrack(List<Cell> track, List<VaticanReportSection> vaticanReportSectionList){
+        this.track = track;
+        this.vaticanReportSectionList = vaticanReportSectionList;
     }
+
 
     /**
      * @param cell The cell contained in the VaticanReportSection.

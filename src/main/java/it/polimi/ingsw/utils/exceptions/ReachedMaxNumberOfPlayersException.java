@@ -1,4 +1,4 @@
-package it.polimi.ingsw.server.model.exceptions;
+package it.polimi.ingsw.utils.exceptions;
 
 public class ReachedMaxNumberOfPlayersException extends Exception {
     public ReachedMaxNumberOfPlayersException() {

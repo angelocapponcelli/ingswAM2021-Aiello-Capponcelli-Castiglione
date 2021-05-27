@@ -2,10 +2,13 @@ package it.polimi.ingsw.server.model.globalBoard;
 
 import it.polimi.ingsw.server.model.globalBoard.faithTrack.FaithTrack;
 import it.polimi.ingsw.server.model.productionPower.ProductionPower;
+import it.polimi.ingsw.utils.observer.Observable;
+import it.polimi.ingsw.utils.observer.Observer;
+import it.polimi.ingsw.utils.parsers.BasicProductionPowerParser;
 
 import java.io.FileNotFoundException;
 
-public class GlobalBoard {
+public class GlobalBoard extends Observable {
 
     private MarketTray marketTray;
     private DevelopmentCardGrid developmentCardGrid;
@@ -21,7 +24,10 @@ public class GlobalBoard {
 
     public GlobalBoard() {
         try {
-            this.marketTray = new MarketTray();
+            marketTray = new MarketTray();
+            faithTrack = new FaithTrack();
+            developmentCardGrid = new DevelopmentCardGrid();
+            basicProductionPower = BasicProductionPowerParser.getBasicProductionPower();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -46,4 +52,19 @@ public class GlobalBoard {
     }
 
 
+    @Override
+    public void addObserver(Observer obs) {
+        super.addObserver(obs);
+        marketTray.addObserver(obs);
+        developmentCardGrid.addObserver(obs);
+        faithTrack.addObserver(obs);
+    }
+
+    @Override
+    public void removeObserver(Observer obs) {
+        super.removeObserver(obs);
+        marketTray.removeObserver(obs);
+        developmentCardGrid.removeObserver(obs);
+        faithTrack.removeObserver(obs);
+    }
 }

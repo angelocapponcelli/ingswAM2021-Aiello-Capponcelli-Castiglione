@@ -1,8 +1,8 @@
-package it.polimi.ingsw.server.utils.parsers;
+package it.polimi.ingsw.utils.parsers;
 
 import com.google.gson.Gson;
 import it.polimi.ingsw.server.model.globalBoard.MarketTray;
-import it.polimi.ingsw.server.model.interfaces.Takeable;
+import it.polimi.ingsw.server.model.resources.Resource;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 
 import java.io.FileNotFoundException;
@@ -30,7 +30,7 @@ public class MarketTrayParser {
         Collections.shuffle(marblesList);
 
 
-        Takeable[][] tmpMarketTray = new Takeable[tmp.nRows][tmp.nCols];
+        Resource[][] tmpMarketTray = new Resource[tmp.nRows][tmp.nCols];
         for (int i = 0; i < tmp.nRows; i++) {
             for (int j = 0; j < tmp.nCols; j++) {
                 tmpMarketTray[i][j] = ResourceType.getResourceClass(marblesList.get(i + j + ((tmp.nCols - 1) * i)));

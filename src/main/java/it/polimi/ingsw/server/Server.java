@@ -1,14 +1,16 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.networking.connection.ServerConnectionHandler;
+import it.polimi.ingsw.networking.connection.ServerClientHandler;
 import it.polimi.ingsw.server.controller.GameController;
+import it.polimi.ingsw.utils.exceptions.GameIsFullException;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -19,6 +21,9 @@ public class Server {
      * Games that are currently on
      */
     private static final List<GameController> onGoingGames = new ArrayList<>();
+    private static final Map<String, ServerClientHandler> nicknameWithConnection = new ConcurrentHashMap<>();
+    private static Integer nextGameID = 1;
+
 
     /**
      * Starts the Server creating a pool of threads and waiting for the clients to connect
@@ -42,7 +47,7 @@ public class Server {
             try {
                 System.out.println("Accepting...");
                 Socket clientSocket = serverSocket.accept();
-                executor.submit(new ServerConnectionHandler(clientSocket));
+                executor.submit(new ServerClientHandler(clientSocket));
                 System.out.println("Client Accepted");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -50,31 +55,60 @@ public class Server {
             }
         }
         executor.shutdown();
-
     }
+
+
+    /**
+     * @return A map of nickname with his connection
+     */
+    public static Map<String, ServerClientHandler> getNicknameWithConnection() {
+        return nicknameWithConnection;
+    }
+
+
+
+    /**
+     * @return The games that are currently on.
+     */
+    public static List<GameController> getOnGoingGames() {
+        return onGoingGames;
+    }
+
 
     /**
      * Create a new game.
      *
      * @return the new game.
      */
-    public static GameController newGame() {
-        GameController gameController = new GameController();
-        onGoingGames.add(gameController);
-        return gameController;
-
+    public static GameController newGame(Integer maxPlayersNumber) {
+        synchronized (onGoingGames) {
+            GameController gameController = new GameController(maxPlayersNumber, nextGameID );
+            onGoingGames.add(gameController);
+            nextGameID++;
+            System.out.println("Created new Game. ID: " + gameController.getGameID() );
+            return gameController;
+        }
     }
 
+
     /**
-     * Find a game by its ID number.
+     * Find a game by its ID.
      *
      * @param gameID The ID of the requested game.
      * @return the requested game.
+     * @throws GameIsFullException when the game is full
      */
-    public static GameController findGame(int gameID) {
-        return onGoingGames.stream().filter(x -> x.getGameID() == gameID).findFirst().orElseThrow(NoSuchElementException::new);
-    }
+    public static GameController findGame(int gameID) throws GameIsFullException, ClassNotFoundException {
+        synchronized (onGoingGames) {
+            GameController found = onGoingGames.stream().filter(x -> x.getGameID() == gameID).findFirst().orElseThrow(ClassNotFoundException::new);
+            if (found.getInGameConnectedClients().size() == found.getMaxPlayersNumber()) {
+                throw new GameIsFullException();
+            } else {
+                return found;
 
+            }
+        }
+    }
 
 }
 

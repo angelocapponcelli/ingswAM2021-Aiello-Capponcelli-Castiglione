@@ -1,7 +1,9 @@
 package it.polimi.ingsw.server.model.globalBoard;
 
-import it.polimi.ingsw.server.model.interfaces.Takeable;
-import it.polimi.ingsw.server.utils.parsers.MarketTrayParser;
+import it.polimi.ingsw.networking.messages.serverMessage.ServerText;
+import it.polimi.ingsw.server.model.resources.Resource;
+import it.polimi.ingsw.utils.observer.Observable;
+import it.polimi.ingsw.utils.parsers.MarketTrayParser;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -12,11 +14,17 @@ import java.util.List;
  * The marketTray of the board.
  */
 
-public class MarketTray {
-    private final Takeable[][] marketTray;
-    private Takeable slide;
+public class MarketTray extends Observable {
+    private final Resource[][] marketTray;
+    private Resource slide;
 
-    public MarketTray(Takeable[][] marketTray, Takeable slide) {
+    /**
+     * This constructor is use by the MarketTrayParser to create a new market tray.
+     *
+     * @param marketTray the marble in the marketTray grid.
+     * @param slide the marble in the slide.
+     */
+    public MarketTray(Resource[][] marketTray, Resource slide) {
         this.marketTray = marketTray;
         this.slide = slide;
     }
@@ -25,14 +33,13 @@ public class MarketTray {
         MarketTray temp = MarketTrayParser.getMarketTray();
         this.marketTray = temp.getMarketTray();
         this.slide = temp.getSlide();
-
     }
 
 
     /**
      * @return The entire marketTray
      */
-    public Takeable[][] getMarketTray() {
+    public Resource[][] getMarketTray() {
         return marketTray;
     }
 
@@ -40,8 +47,8 @@ public class MarketTray {
      * @param row The row to return
      * @return The selected row
      */
-    public List<Takeable> getRow(Integer row) {
-        List<Takeable> rowList = new ArrayList<>();
+    public List<Resource> getRow(Integer row) {
+        List<Resource> rowList = new ArrayList<>();
         Collections.addAll(rowList, marketTray[row]);
         return rowList;
     }
@@ -50,10 +57,10 @@ public class MarketTray {
      * @param column The column to return
      * @return The selected column
      */
-    public List<Takeable> getColumn(Integer column) {
-        List<Takeable> columnList = new ArrayList<>();
-        for (Takeable[] takeables : marketTray) {
-            columnList.add(takeables[column]);
+    public List<Resource> getColumn(Integer column) {
+        List<Resource> columnList = new ArrayList<>();
+        for (Resource[] resources : marketTray) {
+            columnList.add(resources[column]);
         }
         return columnList;
     }
@@ -61,28 +68,33 @@ public class MarketTray {
     /**
      * @return The current marble in the slide.
      */
-    public Takeable getSlide() {
+    public Resource getSlide() {
         return slide;
     }
 
     /**
+     * Performs the main action of selecting a row and notify the observers about the new market situation
+     *
      * @param row The selected row
      * @return The content of the selected row, consisting of takeable items.
      * @throws ArrayIndexOutOfBoundsException Row not exists.
      */
-    public List<Takeable> selectRow(int row) throws ArrayIndexOutOfBoundsException {
-        List<Takeable> rowList = getRow(row);
+    public List<Resource> selectRow(int row) throws ArrayIndexOutOfBoundsException {
+        List<Resource> rowList = getRow(row);
         shiftRow(row);
+        notifyObserver(new ServerText("select row"));
         return rowList;
     }
 
     /**
+     * Performs the main action of selecting a column and notify the observers about the new market situation
+     *
      * @param column The selected column.
      * @return The content of the selected column, consisting of takeable items.
      * @throws ArrayIndexOutOfBoundsException Column not exists.
      */
-    public List<Takeable> selectColumn(int column) throws ArrayIndexOutOfBoundsException {
-        List<Takeable> columnList = getColumn(column);
+    public List<Resource> selectColumn(int column) throws ArrayIndexOutOfBoundsException {
+        List<Resource> columnList = getColumn(column);
         shiftColumn(column);
         return columnList;
     }
@@ -93,7 +105,7 @@ public class MarketTray {
      * @param row The row that must be shifted.
      */
     private void shiftRow(int row) {
-        Takeable toSlide = marketTray[row][0];
+        Resource toSlide = marketTray[row][0];
         if (marketTray[row].length - 1 >= 0)
             System.arraycopy(marketTray[row], 1, marketTray[row], 0, marketTray[row].length - 1);
         marketTray[row][marketTray[row].length - 1] = slide;
@@ -106,7 +118,7 @@ public class MarketTray {
      * @param column The column that must be shifted.
      */
     private void shiftColumn(int column) {
-        Takeable toSlide = marketTray[0][column];
+        Resource toSlide = marketTray[0][column];
         for (int i = 0; i < marketTray.length - 1; i++) {
             marketTray[i][column] = marketTray[i + 1][column];
         }
@@ -119,8 +131,9 @@ public class MarketTray {
      *
      * @param toSlide The marble that must be put in the slide.
      */
-    private void updateSlide(Takeable toSlide) {
+    private void updateSlide(Resource toSlide) {
         slide = toSlide;
     }
+
 
 }

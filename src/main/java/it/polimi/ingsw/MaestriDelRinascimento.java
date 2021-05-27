@@ -1,9 +1,6 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.view.CLI;
-import it.polimi.ingsw.client.view.GUI;
-import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.utils.CLIColors;
 
@@ -13,26 +10,34 @@ public class MaestriDelRinascimento {
         String hostName = "127.0.0.1";
         int portNumber = 1234;
 
-        if (args[0].equals("client")) {
-            View view = new GUI();
+
+        if (args[0].equals("--client")) {
+            Client client = null;
             if (args.length == 2) {
                 if (args[1].equals("cli")) {
                     System.out.println("Starting Client in CLI mode...");
-                    view = new CLI();
+                    client = new Client(false);
                 }
                 if (args[1].equals("gui")) {
                     System.out.println("Starting Client in GUI mode...");
-                    view = new GUI();
+                    client = new Client(true);
                 }
+            }else {
+                client = new Client(true);
             }
-            Client client = new Client(view);
+
             client.start(hostName, portNumber);
 
-        } else if (args[0].equals("server")) {
+        } else if (args[0].equals("--server")) {
             System.out.println("Starting server on port " + portNumber);
             Server.start(portNumber);
         } else {
             System.out.println(CLIColors.getAnsiRed() + "INVALID ARGUMENTS" + CLIColors.getAnsiReset());
+            System.out.println("[--client] to start client(default in gui mode)\n" +
+                    "\t[cli] to start client in CLI mode\n" +
+                    "\t[gui] to start client in GUI mode");
+            System.out.println("[--server] to start server");
+
         }
 
 

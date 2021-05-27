@@ -18,6 +18,9 @@ public class ProductionPowerOutput implements Activable {
 
     public void add(ResourceType resourceType, Integer multiplicity) {
         switch (resourceType.toString()) {
+            case "ANY":
+                productionPowerOutput.put(Any.getInstance(), multiplicity);
+                break;
             case "COIN":
                 productionPowerOutput.put(Coin.getInstance(), multiplicity);
                 break;

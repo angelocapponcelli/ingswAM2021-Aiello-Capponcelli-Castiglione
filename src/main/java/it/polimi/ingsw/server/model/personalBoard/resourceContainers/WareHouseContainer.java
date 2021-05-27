@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.personalBoard.resourceContainers;
 
-import it.polimi.ingsw.server.model.exceptions.DepotException;
+import it.polimi.ingsw.utils.exceptions.DepotException;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 
 /**

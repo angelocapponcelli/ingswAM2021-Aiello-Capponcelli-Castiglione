@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model;
 
-import it.polimi.ingsw.server.model.exceptions.DepotException;
+import it.polimi.ingsw.utils.exceptions.DepotException;
 import it.polimi.ingsw.server.model.personalBoard.resourceContainers.SpecialContainer;
 import it.polimi.ingsw.server.model.personalBoard.resourceContainers.StrongBoxContainer;
 import it.polimi.ingsw.server.model.personalBoard.resourceContainers.WareHouseContainer;

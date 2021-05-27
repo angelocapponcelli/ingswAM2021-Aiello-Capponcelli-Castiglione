@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.model.resources;
 
+import it.polimi.ingsw.utils.CLIColors;
+
 /**
  * The enum ResourceType.
  */
@@ -25,6 +27,25 @@ public enum ResourceType {
                 return Faith.getInstance();
             case "ANY":
                 return Any.getInstance();
+            default:
+                return null;
+        }
+    }
+
+    public static String getColor(ResourceType resourceType) {
+        switch (resourceType.toString()) {
+            case "COIN":
+                return CLIColors.getAnsiYellow();
+            case "STONE":
+                return CLIColors.getAnsiBrightBlack();
+            case "SHIELD":
+                return CLIColors.getAnsiBlue();
+            case "SERVANT":
+                return CLIColors.getAnsiPurple();
+            case "FAITH":
+                return CLIColors.getAnsiRed();
+            case "ANY":
+                return CLIColors.getAnsiWhite();
             default:
                 return null;
         }

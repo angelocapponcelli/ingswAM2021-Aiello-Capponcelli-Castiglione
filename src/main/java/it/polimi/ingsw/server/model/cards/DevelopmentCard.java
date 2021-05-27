@@ -46,7 +46,7 @@ public class DevelopmentCard implements Takeable {
      * @param realPlayer The player who performs the card's taking.
      */
     @Override
-    public void onTaking(RealPlayer realPlayer) {
+    public void onTaking(RealPlayer realPlayer){
         realPlayer.getPersonalBoard().getPersonalDevelopmentBoard().addCard(0, this);
     }
 }

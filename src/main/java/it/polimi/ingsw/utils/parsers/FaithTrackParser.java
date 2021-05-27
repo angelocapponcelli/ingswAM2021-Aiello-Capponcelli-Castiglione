@@ -1,12 +1,9 @@
-package it.polimi.ingsw.server.utils.parsers;
+package it.polimi.ingsw.utils.parsers;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import it.polimi.ingsw.server.model.globalBoard.faithTrack.Cell;
-import it.polimi.ingsw.server.model.globalBoard.faithTrack.FinalCell;
-import it.polimi.ingsw.server.model.globalBoard.faithTrack.PopeSpaceCell;
-import it.polimi.ingsw.server.model.globalBoard.faithTrack.VaticanReportSection;
+import it.polimi.ingsw.server.model.globalBoard.faithTrack.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -14,25 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FaithTrackParser {
-    private static final FaithTrackParser INSTANCE = new FaithTrackParser();
-    private final List<Cell> track = new ArrayList<>();
-    private final List<VaticanReportSection> reportSections = new ArrayList<>();
 
-    private FaithTrackParser() {
-        try {
-            parser();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+    public static FaithTrack getFaithTrack() throws FileNotFoundException {
+        List<Cell> track = new ArrayList<>();
+        List<VaticanReportSection> reportSections = new ArrayList<>();
 
-    public static FaithTrackParser getINSTANCE() {
-        return INSTANCE;
-    }
-
-    private void parser() throws FileNotFoundException {
         JsonObject jsonObject = JsonParser.parseReader(new FileReader("src/main/resources/FaithTrack.json")).getAsJsonObject();
-
         JsonArray tmpTrack = jsonObject.getAsJsonArray("track");
         JsonArray tmpReport = jsonObject.getAsJsonArray("vaticanReportSections");
 
@@ -59,13 +43,8 @@ public class FaithTrackParser {
             }
             reportSections.add(new VaticanReportSection(tempCells, tmpReport.get(i).getAsJsonObject().get("victoryPoints").getAsInt()));
         }
-    }
 
-    public List<Cell> getTrack() {
-        return track;
-    }
+        return new FaithTrack(track, reportSections);
 
-    public List<VaticanReportSection> getReportSections() {
-        return reportSections;
     }
 }

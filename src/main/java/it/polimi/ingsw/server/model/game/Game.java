@@ -1,19 +1,21 @@
-package it.polimi.ingsw.server.model;
+package it.polimi.ingsw.server.model.game;
 
 /*
  * has to be finished
  */
 
-import it.polimi.ingsw.server.model.exceptions.PlayerWithSameNameException;
-import it.polimi.ingsw.server.model.exceptions.ReachedMaxNumberOfPlayersException;
+import it.polimi.ingsw.utils.exceptions.PlayerWithSameNameException;
+import it.polimi.ingsw.utils.exceptions.ReachedMaxNumberOfPlayersException;
 import it.polimi.ingsw.server.model.globalBoard.GlobalBoard;
 import it.polimi.ingsw.server.model.player.Player;
+import it.polimi.ingsw.utils.observer.Observable;
+import it.polimi.ingsw.utils.observer.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class Game {
+public abstract class Game extends Observable {
     private final Integer maxPlayerNumber;
     private final List<Player> players;
     private final GlobalBoard globalBoard;
@@ -71,4 +73,16 @@ public abstract class Game {
     }
 
     public abstract void endGame(Player player);
+
+    @Override
+    public void addObserver(Observer obs) {
+        super.addObserver(obs);
+        globalBoard.addObserver(obs);
+    }
+
+    @Override
+    public void removeObserver(Observer obs) {
+        super.removeObserver(obs);
+        globalBoard.removeObserver(obs);
+    }
 }

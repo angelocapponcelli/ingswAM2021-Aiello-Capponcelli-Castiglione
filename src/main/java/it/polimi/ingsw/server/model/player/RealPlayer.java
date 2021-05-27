@@ -42,7 +42,7 @@ public class RealPlayer extends Player {
         /* points from vaticanReportStatus*/
         sum = sum + this.vaticanReportStatus.getVictoryPoint();
         /* points from the faithPosition*/
-        sum = sum + gameController.getGame().getGlobalBoard().getFaithTrack().getTrack().get(faithPosition).getVictoryPoints();
+        sum = sum + gameController.getGameModel().getGlobalBoard().getFaithTrack().getTrack().get(faithPosition).getVictoryPoints();
         return sum;
     }
 

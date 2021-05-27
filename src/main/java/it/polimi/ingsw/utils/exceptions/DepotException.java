@@ -1,4 +1,4 @@
-package it.polimi.ingsw.server.model.exceptions;
+package it.polimi.ingsw.utils.exceptions;
 
 /**
  * Exception launched by depots during add, remove, swap operations

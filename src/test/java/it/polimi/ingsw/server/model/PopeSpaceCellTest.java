@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.model;
 
+import it.polimi.ingsw.server.model.game.Game;
+import it.polimi.ingsw.server.model.game.MultiplayerGame;
 import it.polimi.ingsw.server.model.globalBoard.faithTrack.PopeSpaceCell;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

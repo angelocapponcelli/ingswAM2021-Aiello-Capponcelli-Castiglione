@@ -1,0 +1,14 @@
+{
+  "productionPowerInput": [
+    {
+      "resourceType": "ANY",
+      "multiplicity": 2
+    }
+  ],
+  "productionPowerOutput": [
+    {
+      "resourceType": "ANY",
+      "multiplicity": 1
+    }
+  ]
+}

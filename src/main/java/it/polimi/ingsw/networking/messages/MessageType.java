@@ -2,10 +2,9 @@ package it.polimi.ingsw.networking.messages;
 
 public enum MessageType {
     NEW_GAME,
+    UPDATED_MARKET_TRAY,
     JOIN_GAME,
-    GAME_ID,
     NICKNAME,
-    CHOOSE_PLAYERS_NUMBER,
     SELECT_CARD,
     REALLOCADE_RESOURCE,
     SELECT_DECK_FROM_GRID,
@@ -18,6 +17,9 @@ public enum MessageType {
     SELECT_RESOURCE,
     TEXT,
     ERROR,
+    BUY_DEV_CARD,
+    ACTIVATE_PRODUCTION,
+    UPDATED_PERSONAL_DEVELOPMENT_BOARD
 
 
 }

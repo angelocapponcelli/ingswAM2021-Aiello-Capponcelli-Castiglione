@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.interfaces;
 
-import it.polimi.ingsw.server.model.exceptions.DepotException;
+import it.polimi.ingsw.utils.exceptions.DepotException;
 import it.polimi.ingsw.server.model.player.RealPlayer;
 
 /**
@@ -13,7 +13,6 @@ public interface Producible {
      *
      * @param realPlayer   The Player who performs the production.
      * @param multiplicity The multiplicity of the produced resource.
-     * @throws DepotException
      */
     void onProduction(RealPlayer realPlayer, Integer multiplicity);
 }

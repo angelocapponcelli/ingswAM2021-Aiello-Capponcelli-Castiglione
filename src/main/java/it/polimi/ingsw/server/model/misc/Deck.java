@@ -3,10 +3,11 @@ package it.polimi.ingsw.server.model.misc;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
-public class Deck {
-
+public class Deck{
 
     private final List<DevelopmentCard> deck;
 
@@ -29,9 +30,42 @@ public class Deck {
         return sum;
     }
 
-    public DevelopmentCard getTopCard() {
-        if (deck.size() > 0)
-            return deck.get(0);
-        else return null;
+    /**
+     * Returns the card on top of the deck and removes it from the deck
+     *
+     * @return the card on top of the deck.
+     */
+    public DevelopmentCard pop() {
+
+        if (deck.size() > 0) {
+            DevelopmentCard temp = deck.get(deck.size() - 1);
+            deck.remove(deck.size() - 1);
+            return temp;
+        }
+        return null;
     }
+
+    /**
+     * Adds a development card to the deck.
+     *
+     * @param developmentCard the card to be added.
+     */
+    public void push(DevelopmentCard developmentCard){
+        deck.add(developmentCard);
+    }
+
+    /**
+     * Returns the card on top of the deck without removes it
+     *
+     * @return the the card on top of the deck
+     */
+    public DevelopmentCard peek(){
+        return deck.get(deck.size() - 1);
+    }
+
+    public void shuffle(){
+        Collections.shuffle(deck);
+    }
+
+
 }

@@ -1,43 +1,109 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.client.controller.ClientController;
+import it.polimi.ingsw.client.view.CLI;
+import it.polimi.ingsw.client.view.GUI;
 import it.polimi.ingsw.client.view.View;
-import it.polimi.ingsw.networking.connection.ClientConnectionHandler;
+import it.polimi.ingsw.networking.connection.ConnectionIO;
+import it.polimi.ingsw.networking.messages.Message;
+import it.polimi.ingsw.utils.CLIColors;
+
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.concurrent.TimeUnit;
 
 public class Client {
+    String nickName;
 
-    private final View view;
+    private View view;
+
+    private ConnectionIO connectionIO;
 
     private Socket clientSocket;
 
-    public Client(View view) {
-        this.view = view;
+    private ClientController clientController;
+
+    public Client(boolean GUI) {
+        if(GUI){
+            view = new GUI(this);
+        }
+        else {
+            view = new CLI(this);
+        }
+        clientController = new ClientController(view);
     }
 
     public Socket getClientSocket() {
         return clientSocket;
     }
 
+    public View getView() {
+        return view;
+    }
+
+    public ConnectionIO getConnectionIO() {
+        return connectionIO;
+    }
+
+    public ClientController getClientController() {
+        return clientController;
+    }
+
+
     public void start(String hostName, int portNumber) {
 
-        boolean connected = false;
-        while (!connected) {
             try {
                 clientSocket = new Socket(hostName, portNumber);
                 System.out.println("Client connected!");
-                new ClientConnectionHandler(clientSocket).run();
-                connected = true;
+                connectionIO = new ConnectionIO(clientSocket);
+                receiveMessage();
+                view.start();
             } catch (IOException e) {
-                System.out.println("Waiting for the Server");
+                System.out.println(CLIColors.getAnsiRed() + "Unable to connect to the server." + CLIColors.getAnsiReset());
+            }
+    }
+
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    /**
+     * Start a new Thread to handle the reception of messages
+     */
+    private void receiveMessage() {
+        new Thread(() -> {
+            while (true) {
                 try {
-                    TimeUnit.SECONDS.sleep(2);
-                } catch (InterruptedException interruptedException) {
-                    interruptedException.printStackTrace();
+                    Message receivedMessage = connectionIO.receiveMessage();
+                    clientController.manageReceivedMessage(receivedMessage);
+                } catch (IOException | ClassNotFoundException e) {
+                    System.out.println("Server closed!");
+                    System.exit(-1);
                 }
             }
         }
+        ).start();
     }
+
+    /**
+     * Sent a message to the server
+     *
+     * @param message the message to be sent
+     */
+    public void sendMessage(Message message){
+        try {
+            connectionIO.sendMessage(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
 }

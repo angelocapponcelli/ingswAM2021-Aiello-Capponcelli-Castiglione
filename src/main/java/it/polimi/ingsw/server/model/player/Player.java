@@ -47,7 +47,7 @@ public abstract class Player {
      */
     public void increaseFaithPosition() {
         this.faithPosition++;
-        FaithTrack.getINSTANCE().getTrack().get(faithPosition).onOccupy(this);
+        gameController.getGameModel().getGlobalBoard().getFaithTrack().getTrack().get(faithPosition).onOccupy(this);
     }
 
     /**
@@ -56,7 +56,7 @@ public abstract class Player {
      * @param vaticanReportSection The vatican report section to check
      */
     public void doVaticanReportUpdate(VaticanReportSection vaticanReportSection) {
-        if (vaticanReportSection.getCells().contains(FaithTrack.getINSTANCE().getTrack().get(faithPosition))) {
+        if (vaticanReportSection.getCells().contains(gameController.getGameModel().getGlobalBoard().getFaithTrack().getTrack().get(faithPosition))) {
             vaticanReportStatus.flip(vaticanReportSection);
         }
     }

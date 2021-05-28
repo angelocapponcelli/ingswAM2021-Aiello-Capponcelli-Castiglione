@@ -5,6 +5,7 @@ import it.polimi.ingsw.server.model.cards.TypeLevel;
 import it.polimi.ingsw.server.model.interfaces.Requirement;
 import it.polimi.ingsw.server.model.resources.*;
 import it.polimi.ingsw.server.model.specialAbilities.*;
+import it.polimi.ingsw.utils.parsers.LeaderCardParser;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +18,8 @@ public class ReducedLeaderCard {
     private final ResourceType specialResourceType;
     private Boolean played;
 
-    public ReducedLeaderCard(LeaderCard leaderCard) {
+    public ReducedLeaderCard(int i) {
+        LeaderCard leaderCard = LeaderCardParser.getLeaderCards().get(i);
         this.id = leaderCard.getId();
         this.victoryPoints = leaderCard.getVictoryPoint();
         Map<ReducedRequirement, Integer> tmp = new HashMap<>();

@@ -13,7 +13,7 @@ public abstract class View {
     }
     public abstract void start();
 
-    public abstract void AskForNickName();
+    public abstract void askForNickName();
 
     public ReducedGameModel getReducedGameModel() {
         return reducedGameModel;

@@ -7,6 +7,7 @@ import it.polimi.ingsw.networking.messages.clientMessages.ClientText;
 import it.polimi.ingsw.networking.messages.clientMessages.TakeFromMarketMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.JoinGameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NewGameMessage;
+import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NicknameMessage;
 import it.polimi.ingsw.server.model.cards.TypeLevel;
 import it.polimi.ingsw.server.model.misc.Colors;
 import it.polimi.ingsw.server.model.resources.*;
@@ -39,27 +40,21 @@ public class CLI extends View {
     @Override
     public void start() { //TODO
 
-        clear();
-        System.out.println("Welcome to Maestri del Rinascimento");
-
-        waitMilliseconds(1000);
+        init();
+        waitMilliseconds(100);
         clear();
 
 
-
-        new Thread( () ->{
+        new Thread(() -> {
             stdIn = new BufferedReader(new InputStreamReader(System.in));
             String userInput;
             Message message;
             try {
-                AskForNickName();
+                askForNickName();
                 while (!((userInput = stdIn.readLine()).equals("quit"))) {
                     switch (userInput) {
                         case "newGame": {
-                            System.out.println("Insert players number");
-                            String tmp = stdIn.readLine();
-
-                            message = new NewGameMessage(Integer.parseInt(tmp));
+                            message = playersNumberChoice();
                             break;
                         }
                         case "selectRow":
@@ -70,9 +65,7 @@ public class CLI extends View {
                             message = new TakeFromMarketMessage(client.getNickName(), rowOrColumn, Integer.parseInt(number));
                             break;
                         case "joinGame": {
-                            System.out.println("Insert GameID");
-                            String tmp = stdIn.readLine();
-                            message = new JoinGameMessage(Integer.parseInt(tmp));
+                            message = gameIDChoice();
                             break;
                         }
                         default:
@@ -89,8 +82,24 @@ public class CLI extends View {
     }
 
     @Override
-    public void AskForNickName() { //TODO
-
+    public void askForNickName() {
+        boolean inputValidity = false;
+        String nickname = null;
+        while (!inputValidity) {
+            System.out.println(COLOR_TEXT_PRIMARY + "*********************** NICKNAME *************************" + CLIColors.getAnsiReset());
+            System.out.println(COLOR_TEXT_PRIMARY + "Insert your nickname" + CLIColors.getAnsiReset());
+            System.out.print(COLOR_TEXT_PRIMARY + "> " + CLIColors.getAnsiReset());
+            try {
+                nickname = stdIn.readLine();
+            } catch (IOException e) {
+                System.out.println(COLOR_TEXT_ERROR + "Input error!\n" + CLIColors.getAnsiReset());
+            }
+            if (nickname.length() <= 15) inputValidity = true;
+            else
+                System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a nickname maximum 15 characters\n" + CLIColors.getAnsiReset());
+        }
+        client.setNickName(nickname);
+        client.sendMessage(new NicknameMessage(nickname));
     }
 
     @Override
@@ -144,7 +153,6 @@ public class CLI extends View {
             System.out.print(COLOR_TEXT_HEADING + " ║");
             waitMilliseconds(1);
         }
-        waitMilliseconds(100);
         System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n" + CLIColors.getAnsiBlack() + ".");
 
     }
@@ -170,43 +178,48 @@ public class CLI extends View {
         /** clientController.gameModeChoice(gameMode); **/
     }
 
-    public void playersNumberChoice() {
+    public Message playersNumberChoice() {
         boolean inputValidity = false;
+        int playersNumber = 0;
         while (!inputValidity) {
             System.out.println(COLOR_TEXT_PRIMARY + "********************* PLAYER NUMBER *********************" + CLIColors.getAnsiReset());
             System.out.println(COLOR_TEXT_PRIMARY + "Choose players number (between 1 and 4)" + CLIColors.getAnsiReset());
             System.out.print(COLOR_TEXT_PRIMARY + "> " + CLIColors.getAnsiReset());
+            String tmp = null;
             try {
-                int playersNumber = input.nextInt();
+                tmp = stdIn.readLine();
+                playersNumber = Integer.parseInt(tmp);
                 if (playersNumber >= 1 && playersNumber <= 4) inputValidity = true;
                 else
                     System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number between 1 and 4\n" + CLIColors.getAnsiReset());
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number between 1 and 4\n" + CLIColors.getAnsiReset());
-                input.next();
+            } catch (IOException e) {
+                System.out.println(COLOR_TEXT_ERROR + "Input error!\n" + CLIColors.getAnsiReset());
             }
-
         }
-        /** clientController.playersNumberChoice(playersNumber); **/
+        return new NewGameMessage(playersNumber);
     }
 
-    public void gameIDChoice() {
+    public Message gameIDChoice() {
         boolean inputValidity = false;
+        int gameID = 0;
         while (!inputValidity) {
             System.out.println(COLOR_TEXT_PRIMARY + "************************ GAME ID ************************" + CLIColors.getAnsiReset());
             System.out.println(COLOR_TEXT_PRIMARY + "Insert gameID number you want join" + CLIColors.getAnsiReset());
             System.out.print(COLOR_TEXT_PRIMARY + "> " + CLIColors.getAnsiReset());
             try {
-                int gameID = input.nextInt();
+                String tmp = stdIn.readLine();
+                gameID =  Integer.parseInt(tmp);
                 System.out.println(COLOR_TEXT_PRIMARY + "Search game #" + gameID + "..." + CLIColors.getAnsiReset());
                 inputValidity = true;
-            } catch (InputMismatchException e) {
+            } catch (IOException e) {
                 System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert the gameID number\n" + CLIColors.getAnsiReset());
-                input.next();
+            } catch (NumberFormatException e){
+                System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number\n" + CLIColors.getAnsiReset());
             }
-
         }
-        /** clientController.gameIDChoice(gameID); **/
+        return new JoinGameMessage(gameID);
     }
 
     public void gameIDSuccess() {
@@ -217,21 +230,6 @@ public class CLI extends View {
         System.out.println(COLOR_TEXT_ERROR + "Game not found!\n" + CLIColors.getAnsiReset());
     }
 
-    public void nicknameChoice() {
-        boolean inputValidity = false;
-        while (!inputValidity) {
-            System.out.println(COLOR_TEXT_PRIMARY + "*********************** NICKNAME *************************" + CLIColors.getAnsiReset());
-            System.out.println(COLOR_TEXT_PRIMARY + "Choose your nickname" + CLIColors.getAnsiReset());
-            System.out.print(COLOR_TEXT_PRIMARY + "> " + CLIColors.getAnsiReset());
-
-            String nickname = input.nextLine();
-            if (nickname.length() <= 15) inputValidity = true;
-            else
-                System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a nickname maximum 15 characters\n" + CLIColors.getAnsiReset());
-        }
-        /** clientController.nicknameChoice(nickname); **/
-    }
-
     public void genericCommunication(String textToDisplay) {
         System.out.println(COLOR_TEXT_PRIMARY + textToDisplay + "\n" + CLIColors.getAnsiReset());
     }
@@ -239,14 +237,14 @@ public class CLI extends View {
     public void showBoard() {
         clear();
         List<ReducedDevelopmentCard> reducedDevelopmentCards = new ArrayList<>();
-        for (int i = 0; i < reducedGameModel.getDevelopmentCardsGrid().length; i++) {
-            for (int j = 0; j < reducedGameModel.getDevelopmentCardsGrid()[0].length; j++) {
-                reducedDevelopmentCards.add(reducedGameModel.getDevelopmentCardsGrid()[i][j]);
+        for (int i = 0; i < reducedGameModel.getReducedDevelopmentCardsGrid().length; i++) {
+            for (int j = 0; j < reducedGameModel.getReducedDevelopmentCardsGrid()[0].length; j++) {
+                reducedDevelopmentCards.add(reducedGameModel.getReducedDevelopmentCardsGrid()[i][j]);
             }
         }
         List<String> developmentCardGrid = getStringDevelopmentCardGrid(reducedDevelopmentCards);
-        List<String> warehouse = getStringRowsWarehouse(reducedGameModel.getWareHouseDepot());
-        List<String> strongBox = getStringRowsStrongBox(reducedGameModel.getStrongBoxDepot());
+        List<String> warehouse = getStringRowsWarehouse(reducedGameModel.getReducedWareHouseDepot());
+        List<String> strongBox = getStringRowsStrongBox(reducedGameModel.getReducedStrongBoxDepot());
         //List<String> special = getStringRowsSpecial(reducedGameModel.getSpecialDepot().get); //todo
         //List<String> leaderCardToDisplay = getStringRowsLeaderCard(leaderCard);
         //List<String> marketTrayToDisplay = getStringRowsMarketTray(reducedGameModel.getMarketTray(), reducedGameModel.getSlide());
@@ -267,15 +265,15 @@ public class CLI extends View {
             if (i < strongBox.size()) System.out.print("   " + strongBox.get(i));
             else if (i >= strongBox.size() && i < strongBox.size()) ;
             else if (i < warehouse.size()) {
-              //  System.out.print("   " + special.get(j));
+                //  System.out.print("   " + special.get(j));
                 j++;
             } //else if (j < special.size()) {
-                //System.out.print("   " + special.get(j));
-                //j++;
-          //  }
+            //System.out.print("   " + special.get(j));
+            //j++;
+            //  }
             if (i > 22 && i < 33)
-           //     System.out.print("   " + leaderCardToDisplay.get(i - 23) + "    " + leaderCardToDisplay.get(i - 23));
-            System.out.print("\n");
+                //     System.out.print("   " + leaderCardToDisplay.get(i - 23) + "    " + leaderCardToDisplay.get(i - 23));
+                System.out.print("\n");
         }
     }
 
@@ -392,14 +390,14 @@ public class CLI extends View {
             if (reducedLeaderCard.getSpecialResourceType() == ResourceType.COIN) {
                 rows.add(COLOR_CARD + "║│ $ DICOUNT  " + reducedLeaderCard.getSpecialResourceType().getColor() + "coin" + COLOR_CARD + " $ │║" + CLIColors.getAnsiReset());
             }
-            if (reducedLeaderCard.getSpecialResourceType()== ResourceType.SERVANT) {
+            if (reducedLeaderCard.getSpecialResourceType() == ResourceType.SERVANT) {
                 rows.add(COLOR_CARD + "║│$ DICOUNT " + reducedLeaderCard.getSpecialResourceType().getColor() + "servant" + COLOR_CARD + " $ │║" + CLIColors.getAnsiReset());
             }
-            if (reducedLeaderCard.getSpecialResourceType()== ResourceType.SHIELD) {
+            if (reducedLeaderCard.getSpecialResourceType() == ResourceType.SHIELD) {
                 rows.add(COLOR_CARD + "║│$ DICOUNT  " + reducedLeaderCard.getSpecialResourceType().getColor() + "shield" + COLOR_CARD + " $│║" + CLIColors.getAnsiReset());
             }
-            if (reducedLeaderCard.getSpecialResourceType()== ResourceType.STONE) {
-                rows.add(COLOR_CARD + "║│ $ DICOUNT " + reducedLeaderCard.getSpecialResourceType().getColor()+ "stone" + COLOR_CARD + " $ │║" + CLIColors.getAnsiReset());
+            if (reducedLeaderCard.getSpecialResourceType() == ResourceType.STONE) {
+                rows.add(COLOR_CARD + "║│ $ DICOUNT " + reducedLeaderCard.getSpecialResourceType().getColor() + "stone" + COLOR_CARD + " $ │║" + CLIColors.getAnsiReset());
             }
         }
         if (reducedLeaderCard.getSpecialAbility() == SpecialAbilityType.PRODUCTION_POWER) {
@@ -410,28 +408,28 @@ public class CLI extends View {
             if (reducedLeaderCard.getSpecialResourceType() == ResourceType.COIN) {
                 rows.add(COLOR_CARD + "║│ * WHITE = " + reducedLeaderCard.getSpecialResourceType().getColor() + "coin" + COLOR_CARD + " *  │║" + CLIColors.getAnsiReset());
             }
-            if (reducedLeaderCard.getSpecialResourceType()  == ResourceType.SERVANT) {
+            if (reducedLeaderCard.getSpecialResourceType() == ResourceType.SERVANT) {
                 rows.add(COLOR_CARD + "║│* WHITE = " + reducedLeaderCard.getSpecialResourceType().getColor() + "servant" + COLOR_CARD + " *│║" + CLIColors.getAnsiReset());
             }
-            if (reducedLeaderCard.getSpecialResourceType()  == ResourceType.SHIELD) {
+            if (reducedLeaderCard.getSpecialResourceType() == ResourceType.SHIELD) {
                 rows.add(COLOR_CARD + "║│* WHITE = " + reducedLeaderCard.getSpecialResourceType().getColor() + "shield" + COLOR_CARD + " * │║" + CLIColors.getAnsiReset());
             }
-            if (reducedLeaderCard.getSpecialResourceType()  == ResourceType.STONE) {
+            if (reducedLeaderCard.getSpecialResourceType() == ResourceType.STONE) {
                 rows.add(COLOR_CARD + "║│ * WHITE = " + reducedLeaderCard.getSpecialResourceType().getColor() + "stone" + COLOR_CARD + " * │║" + CLIColors.getAnsiReset());
             }
         }
         if (reducedLeaderCard.getSpecialAbility() == SpecialAbilityType.EXTRADEPOT) {
             rows.add(COLOR_CARD + "║│  EXTRA  DEPOT of  │║" + CLIColors.getAnsiReset());
-            if (reducedLeaderCard.getSpecialResourceType()  == ResourceType.COIN) {
+            if (reducedLeaderCard.getSpecialResourceType() == ResourceType.COIN) {
                 rows.add(COLOR_CARD + "║│  @     " + reducedLeaderCard.getSpecialResourceType().getColor() + "coin" + COLOR_CARD + "    @  │║" + CLIColors.getAnsiReset());
             }
-            if (reducedLeaderCard.getSpecialResourceType()  == ResourceType.SERVANT) {
+            if (reducedLeaderCard.getSpecialResourceType() == ResourceType.SERVANT) {
                 rows.add(COLOR_CARD + "║│  @   " + reducedLeaderCard.getSpecialResourceType().getColor() + "servant" + COLOR_CARD + "   @  │║" + CLIColors.getAnsiReset());
             }
-            if (reducedLeaderCard.getSpecialResourceType()  == ResourceType.SHIELD) {
+            if (reducedLeaderCard.getSpecialResourceType() == ResourceType.SHIELD) {
                 rows.add(COLOR_CARD + "║│  @   " + reducedLeaderCard.getSpecialResourceType().getColor() + "shield" + COLOR_CARD + "    @  │║" + CLIColors.getAnsiReset());
             }
-            if (reducedLeaderCard.getSpecialResourceType()  == ResourceType.STONE) {
+            if (reducedLeaderCard.getSpecialResourceType() == ResourceType.STONE) {
                 rows.add(COLOR_CARD + "║│  @    " + reducedLeaderCard.getSpecialResourceType().getColor() + "stone" + COLOR_CARD + "    @  │║" + CLIColors.getAnsiReset());
             }
         }
@@ -461,7 +459,7 @@ public class CLI extends View {
     private List<String> getStringRowsCoin() {
         List<String> rows = new ArrayList<>();
         rows.add(ResourceType.COIN.getColor() + " ▒███ " + CLIColors.getAnsiReset());
-        rows.add(ResourceType.COIN.getColor()+  "▒█████" + CLIColors.getAnsiReset());
+        rows.add(ResourceType.COIN.getColor() + "▒█████" + CLIColors.getAnsiReset());
         rows.add(ResourceType.COIN.getColor() + "▒█████" + CLIColors.getAnsiReset());
         rows.add(ResourceType.COIN.getColor() + " ▒███ " + CLIColors.getAnsiReset());
         return rows;
@@ -1119,7 +1117,7 @@ public class CLI extends View {
         }
 
         for (int j = 0; j < 2; j++) {
-            rows.add(COLOR_FAITH_TRACK + "║" );
+            rows.add(COLOR_FAITH_TRACK + "║");
             for (int i = 0; i < 18; i++) {
                 if (i == 3) {
                     rows.set(rows.size() - 1, rows.get(rows.size() - 1) + COLOR_FAITH_TRACK + "                                   ║");
@@ -1144,7 +1142,7 @@ public class CLI extends View {
 
                     switch (i) {
                         case 0:
-                            rows.set(rows.size() - 1, rows.get(rows.size() - 1) + COLOR_FAITH_TRACK +  "██");
+                            rows.set(rows.size() - 1, rows.get(rows.size() - 1) + COLOR_FAITH_TRACK + "██");
                             break;
                         case 12:
                             if (j == 0) rows.set(rows.size() - 1, rows.get(rows.size() - 1) + COLOR_FAITH_TRACK + "▀▀");
@@ -1226,7 +1224,7 @@ public class CLI extends View {
 
     public void showSpecial() {
         List<List<String>> specialRows = new ArrayList<>();
-        for (Map.Entry<ResourceType, Integer> entry : reducedGameModel.getSpecialDepot().entrySet()) {
+        for (Map.Entry<ResourceType, Integer> entry : reducedGameModel.getReducedSpecialDepot().entrySet()) {
             specialRows.add(getStringRowsSpecial(entry.getKey(), entry.getValue()));
         }
         for (int i = 0; i < 8; i++) {
@@ -1238,13 +1236,13 @@ public class CLI extends View {
     }
 
     public void showWarehouse() {
-        for (String row : getStringRowsWarehouse(reducedGameModel.getWareHouseDepot())) {
+        for (String row : getStringRowsWarehouse(reducedGameModel.getReducedWareHouseDepot())) {
             System.out.println(row);
         }
     }
 
     public void showStrongBox() {
-        for (String row : getStringRowsStrongBox(reducedGameModel.getStrongBoxDepot())) {
+        for (String row : getStringRowsStrongBox(reducedGameModel.getReducedStrongBoxDepot())) {
             System.out.println(row);
         }
     }
@@ -1255,7 +1253,7 @@ public class CLI extends View {
         if (typeLevel.getType() == Colors.GREEN) {
             output = output + "green";
         }
-        if (typeLevel.getType()== Colors.YELLOW) {
+        if (typeLevel.getType() == Colors.YELLOW) {
             output = output + "yellow";
         }
         if (typeLevel.getType() == Colors.PURPLE) {
@@ -1264,7 +1262,7 @@ public class CLI extends View {
         if (typeLevel.getType() == Colors.BLUE) {
             output = output + "blue";
         }
-        output = output  + CLIColors.getAnsiReset();
+        output = output + CLIColors.getAnsiReset();
         if (typeLevel.getLevel() > 0)
             output = output + COLOR_CARD + " - LV " + typeLevel.getLevel() + CLIColors.getAnsiReset();
         else output = output + "      ";
@@ -1292,7 +1290,7 @@ public class CLI extends View {
         if (color == Colors.BLUE) {
             output = output + "  BLUE";
         }
-        output = output  + CLIColors.getAnsiReset();
+        output = output + CLIColors.getAnsiReset();
         return output;
     }
 

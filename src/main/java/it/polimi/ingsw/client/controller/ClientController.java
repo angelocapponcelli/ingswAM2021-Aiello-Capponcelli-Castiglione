@@ -32,13 +32,13 @@ public class ClientController{
                 break;
             case UPDATED_MARKET_TRAY:
                 UpdatedMarketTrayMessage updatedMarketTray = (UpdatedMarketTrayMessage) message;
-                view.getReducedGameModel().getReducedMarketTray().setMarketTray(updatedMarketTray.getMarketTray());
-                view.getReducedGameModel().getReducedMarketTray().setSlide(updatedMarketTray.getSlide());
+                view.getReducedGameModel().setReducedMarketTray(updatedMarketTray.getMarketTray());
+                view.getReducedGameModel().setSlide(updatedMarketTray.getSlide());
                 view.marketTrayDraw();
                 break;
             case UPDATED_IN_HAND_LEADER_CARD:
                 UpdatedInHandLeaderCardMessage updatedInHandLeaderCardMessage = (UpdatedInHandLeaderCardMessage) message;
-                view.getReducedGameModel().getReducedInHandLeaderCards().update(updatedInHandLeaderCardMessage.getInHandLeaderCard());
+                view.getReducedGameModel().setReducedInHandLeaderCard(updatedInHandLeaderCardMessage.getInHandLeaderCard());
                 view.inHandLeaderCardsDraw();
                 break;
 

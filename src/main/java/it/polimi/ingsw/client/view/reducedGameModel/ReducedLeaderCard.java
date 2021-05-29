@@ -6,10 +6,11 @@ import it.polimi.ingsw.server.model.interfaces.Requirement;
 import it.polimi.ingsw.server.model.resources.*;
 import it.polimi.ingsw.server.model.specialAbilities.*;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ReducedLeaderCard {
+public class ReducedLeaderCard implements Serializable {
     private final int id;
     private final Map<ReducedRequirement, Integer> requirements;
     private final int victoryPoints;

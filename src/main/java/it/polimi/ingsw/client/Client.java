@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.client.controller.ClientController;
 import it.polimi.ingsw.client.view.CLI;
 import it.polimi.ingsw.client.view.GUI;
+import it.polimi.ingsw.client.view.SimpleCLI;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.networking.connection.ConnectionIO;
 import it.polimi.ingsw.networking.messages.Message;
@@ -15,20 +16,23 @@ import java.net.Socket;
 public class Client {
     private String nickName;
 
-    private View view;
+    private int playerPosition;
+
+    private final View view;
 
     private ConnectionIO connectionIO;
 
     private Socket clientSocket;
 
-    private ClientController clientController;
+    private final ClientController clientController;
 
     public Client(boolean GUI) {
+
         if(GUI){
             view = new GUI(this);
         }
         else {
-            view = new CLI(this);
+            view = new SimpleCLI(this);
         }
         clientController = new ClientController(view);
     }
@@ -51,7 +55,6 @@ public class Client {
 
 
     public void start(String hostName, int portNumber) {
-
             try {
                 clientSocket = new Socket(hostName, portNumber);
                 System.out.println("Client connected!");
@@ -63,6 +66,9 @@ public class Client {
             }
     }
 
+    public void setPlayerPosition(int playerPosition){
+        this.playerPosition = playerPosition;
+    }
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
@@ -79,9 +85,9 @@ public class Client {
         new Thread(() -> {
             while (true) {
                 try {
-                    Message receivedMessage = connectionIO.receiveMessage();
-                    clientController.manageReceivedMessage(receivedMessage);
+                    clientController.manageReceivedMessage(connectionIO.receiveMessage());
                 } catch (IOException | ClassNotFoundException e) {
+                    //e.printStackTrace();
                     System.out.println("Server closed!");
                     System.exit(-1);
                 }
@@ -89,6 +95,7 @@ public class Client {
         }
         ).start();
     }
+
 
     /**
      * Sent a message to the server

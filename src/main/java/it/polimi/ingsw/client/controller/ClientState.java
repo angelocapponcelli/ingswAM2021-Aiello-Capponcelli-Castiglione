@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.controller;
 
 public enum ClientState {
     START_SCREEN,
+    DISCARD_INITIAL_LEADER_CARDS,
     NICK_NAME,
     WAIT_FOR_OTHER_PLAYERS,
     GAME_ENTRANCE,

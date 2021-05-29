@@ -25,7 +25,7 @@ public class Shield extends ConcreteResource {
 
     @Override
     public void onTaking(RealPlayer realPlayer) {
-        realPlayer.getPersonalBoard().getTemporaryDepotForMarket().addResource(resourceType);
+        realPlayer.getPersonalBoard().getTemporaryDepot().addResource(resourceType);
     }
 
     @Override

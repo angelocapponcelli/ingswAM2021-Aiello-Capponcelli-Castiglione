@@ -1,19 +1,23 @@
 package it.polimi.ingsw.server.model.personalBoard.depots;
 
+import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedTemporaryDepotMessage;
 import it.polimi.ingsw.utils.exceptions.DepotException;
 import it.polimi.ingsw.server.model.personalBoard.resourceContainers.StrongBoxContainer;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Depot where resources are temporary stored after being took from the market.
  */
-public class TemporaryDepotForMarket extends StrongBoxDepot {
+public class TemporaryDepot extends StrongBoxDepot {
     private final List<StrongBoxContainer> containers;
 
-    public TemporaryDepotForMarket() {
+    public TemporaryDepot() {
         containers = new ArrayList<>();
         containers.add(new StrongBoxContainer(ResourceType.ANY));
         containers.add(new StrongBoxContainer(ResourceType.COIN));
@@ -24,9 +28,10 @@ public class TemporaryDepotForMarket extends StrongBoxDepot {
 
     public void addResource(ResourceType resourceType) {
         for (StrongBoxContainer selectedContainer : containers) {
-            if (selectedContainer.getType() == resourceType) {
+            if (selectedContainer.getType().equals(resourceType)) {
                 try {
                     selectedContainer.addResource(1);
+                    notifyObserver(new UpdatedTemporaryDepotMessage(toReduced()));
                 } catch (DepotException e) {
                     e.printStackTrace();
                 }
@@ -58,5 +63,9 @@ public class TemporaryDepotForMarket extends StrongBoxDepot {
             strongBoxContainer.clear();
         }
 
+    }
+
+    private Map<ResourceType, Integer> toReduced(){
+        return containers.stream().collect(Collectors.toMap(StrongBoxContainer::getType,StrongBoxContainer::getCount));
     }
 }

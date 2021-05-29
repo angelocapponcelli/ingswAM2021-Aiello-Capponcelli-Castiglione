@@ -59,22 +59,15 @@ public class ServerClientHandler implements Runnable{
      * If the received message is a "Pre-Game" then it will managed directly
      * else it will be managed by the game controller.
      *
-     * @param receivedMessage The message to be managed.
+     * @param message The message to be managed.
 
      */
-    public void manageReceivedMessage(Message receivedMessage) {
-
+    public void manageReceivedMessage(Message message) {
 
         if (gameController == null) {
-            switch (receivedMessage.getMessageType()) {
-                /*case TEXT:
-                    ClientText clientText = (ClientText) receivedMessage;
-                    System.out.println("Server received \"" + clientText.getText() + "\"");
-                    sendMessage(new ServerText(clientText.getText().toUpperCase(Locale.ROOT)));
-                    break;*/
-
+            switch (message.getMessageType()) {
                 case NICKNAME:
-                    NicknameMessage nicknameMessage = (NicknameMessage) receivedMessage;
+                    NicknameMessage nicknameMessage = (NicknameMessage) message;
                     nickName = nicknameMessage.getNickname();
                     Server.getConnectedClient().add(this);
                     System.out.println("Added new Connected Client: " + nickName );
@@ -82,14 +75,15 @@ public class ServerClientHandler implements Runnable{
 
                 case NEW_GAME:
                     System.out.println("Received newGame");
-                    NewGameMessage newGameMessage = (NewGameMessage) receivedMessage;
+                    NewGameMessage newGameMessage = (NewGameMessage) message;
                     gameController = Server.newGame(newGameMessage.getPlayersNumber());
                     gameController.addConnectedClient(new InGameConnectedClient(nickName, connectionIO));
+                    //new Thread(() -> gameController.run()).start();
                     System.out.println(nickName + " created new Game. ID:" + gameController.getGameID() + " Players number:" + newGameMessage.getPlayersNumber());
                     break;
 
                 case JOIN_GAME:
-                    JoinGameMessage joinGameMessage = (JoinGameMessage) receivedMessage;
+                    JoinGameMessage joinGameMessage = (JoinGameMessage) message;
                     try {
                         gameController = Server.findGame(joinGameMessage.getGameId());
                         gameController.addConnectedClient(new InGameConnectedClient(nickName, connectionIO));
@@ -103,7 +97,8 @@ public class ServerClientHandler implements Runnable{
 
 
             }
-        } else gameController.manageReceivedMessage(receivedMessage);
+        } else gameController.manageReceivedMessage(message);
+            /*gameController.onReceivedMessage(message);*/
 
     }
 

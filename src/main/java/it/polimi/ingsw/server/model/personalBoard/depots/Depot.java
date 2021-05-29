@@ -2,11 +2,12 @@ package it.polimi.ingsw.server.model.personalBoard.depots;
 
 import it.polimi.ingsw.utils.exceptions.DepotException;
 import it.polimi.ingsw.server.model.resources.ResourceType;
+import it.polimi.ingsw.utils.observer.Observable;
 
 /**
  * Generic Depot without any specialization
  */
-public abstract class Depot {
+public abstract class Depot extends Observable {
 
     /**
      * Add resources to the depot

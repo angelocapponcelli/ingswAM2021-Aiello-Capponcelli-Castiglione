@@ -3,7 +3,7 @@ package it.polimi.ingsw.networking.messages.clientMessages;
 import it.polimi.ingsw.networking.messages.Message;
 
 public abstract class ClientMessage extends Message {
-    protected String nickname;
+    protected final String nickname;
 
     public ClientMessage(String nickname) {
         this.nickname = nickname;

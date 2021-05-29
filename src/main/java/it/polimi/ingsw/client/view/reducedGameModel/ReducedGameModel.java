@@ -1,14 +1,11 @@
 package it.polimi.ingsw.client.view.reducedGameModel;
 
-import it.polimi.ingsw.server.model.misc.Colors;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 import java.util.*;
 
 public class ReducedGameModel {
-
-    private ResourceType[][] marketTray;
-    private ResourceType slide;
-    private List<ReducedLeaderCard> inHandLeaderCard;
+    private final ReducedMarketTray marketTray;
+    private final ReducedInHandLeaderCards inHandLeaderCards;
     private List<ReducedPlayer> players;
     private ReducedDevelopmentCard[][] developmentCardsGrid;
     private Boolean[] popeSpaceFlipped;
@@ -18,9 +15,12 @@ public class ReducedGameModel {
     private Map<ResourceType, Integer> specialDepot;
     private Map<ResourceType, Integer> productionPowerInputBoard;
     private Map<ResourceType, Integer> productionPowerOutputBoard;
+    private Map<ResourceType, Integer> temporaryDepot;
+    private Integer playerTurnPosition;
 
     public ReducedGameModel() {
-        marketTray = new ResourceType[3][4];
+        marketTray = new ReducedMarketTray();
+        inHandLeaderCards = new ReducedInHandLeaderCards();
         developmentCardsGrid = new ReducedDevelopmentCard[3][4];
         popeSpaceFlipped = new Boolean[]{false, false, false};
         personalDevelopmentBoard = new ReducedDevelopmentCard[3];
@@ -36,8 +36,25 @@ public class ReducedGameModel {
         specialDepot = new HashMap<>();
     }
 
-    public List<ReducedLeaderCard> getInHandLeaderCard() {
-        return inHandLeaderCard;
+
+    public Map<ResourceType, Integer> getTemporaryDepot() {
+        return temporaryDepot;
+    }
+
+    public void setTemporaryDepot(Map<ResourceType, Integer> temporaryDepot) {
+        this.temporaryDepot = temporaryDepot;
+    }
+
+    public Integer getPlayerTurnPosition() {
+        return playerTurnPosition;
+    }
+
+    public void setPlayerTurnPosition(Integer playerTurnPosition) {
+        this.playerTurnPosition = playerTurnPosition;
+    }
+
+    public ReducedInHandLeaderCards getReducedInHandLeaderCards() {
+        return inHandLeaderCards;
     }
 
     public List<ReducedPlayer> getPlayers() {
@@ -76,11 +93,9 @@ public class ReducedGameModel {
         return productionPowerOutputBoard;
     }
 
-    public ResourceType[][] getMarketTray() {
+    public ReducedMarketTray getMarketTray() {
         return marketTray;
     }
 
-    public ResourceType getSlide() {
-        return slide;
-    }
+
 }

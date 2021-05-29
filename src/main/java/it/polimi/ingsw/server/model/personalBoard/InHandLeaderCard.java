@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.personalBoard;
 
+import it.polimi.ingsw.client.view.reducedGameModel.ReducedLeaderCard;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedInHandLeaderCardMessage;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
 import it.polimi.ingsw.server.model.player.RealPlayer;
@@ -7,8 +8,8 @@ import it.polimi.ingsw.server.model.resources.Faith;
 import it.polimi.ingsw.server.model.specialAbilities.SpecialAbility;
 import it.polimi.ingsw.utils.observer.Observable;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,19 +32,22 @@ public class InHandLeaderCard extends Observable{
         return inHandLeaderCards.get(index);
     }
 
-    public void remove(Integer leaderCardID) {
-        LeaderCard leaderCard = inHandLeaderCards.stream().filter(card -> card.getId().equals(leaderCardID)).findFirst().orElse(null);
-        this.inHandLeaderCards.remove(leaderCard);
-        notifyObserver(new UpdatedInHandLeaderCardMessage( inHandLeaderCards.stream().map(LeaderCard::getId).collect(Collectors.toList()) ) );
+    public void remove(List<Integer> leaderCardID) {
+
+            inHandLeaderCards = inHandLeaderCards.stream()
+                    .filter(x -> !(leaderCardID.contains(x.getId())))
+                    .collect(Collectors.toList());
+
+        notifyObserver(new UpdatedInHandLeaderCardMessage( inHandLeaderCards.stream().map(ReducedLeaderCard::new).collect(Collectors.toList()) ) );
     }
 
     public void addLeaderCard(List<LeaderCard> leaderCards){
         inHandLeaderCards = leaderCards;
-        notifyObserver(new UpdatedInHandLeaderCardMessage(  inHandLeaderCards.stream().map(LeaderCard::getId).collect(Collectors.toList()) ) );
+        notifyObserver(new UpdatedInHandLeaderCardMessage(  inHandLeaderCards.stream().map(ReducedLeaderCard::new).collect(Collectors.toList()) ) );
     }
 
-    public void inGameDiscard(Integer leaderCardID, RealPlayer realPlayer) {
-        remove(leaderCardID);
+    public void inGameDiscard(List<Integer> leaderCardIDs, RealPlayer realPlayer) {
+        remove(leaderCardIDs);
         Faith faith = Faith.getInstance();
         faith.onTaking(realPlayer);
     }

@@ -52,7 +52,7 @@ public class CLI extends View {
             String userInput;
             Message message;
             try {
-                AskForNickName();
+                askForNickName();
                 while (!((userInput = stdIn.readLine()).equals("quit"))) {
                     switch (userInput) {
                         case "newGame": {
@@ -89,8 +89,7 @@ public class CLI extends View {
     }
 
     @Override
-    public void AskForNickName() { //TODO
-
+    public void askForNickName() {
     }
 
     @Override
@@ -105,6 +104,26 @@ public class CLI extends View {
 
     @Override
     public void inHandLeaderCardsDraw() { //TODO
+
+    }
+
+    @Override
+    public void askForLeaderCardsToDiscard() {
+
+    }
+
+    @Override
+    public void askForCreateOrJoinGame() {
+
+    }
+
+    @Override
+    public void temporaryDepotDraw() {
+
+    }
+
+    @Override
+    public void askForInitialResources() {
 
     }
 

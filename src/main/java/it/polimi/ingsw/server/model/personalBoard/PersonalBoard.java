@@ -2,7 +2,7 @@ package it.polimi.ingsw.server.model.personalBoard;
 
 import it.polimi.ingsw.server.model.personalBoard.depots.SpecialDepot;
 import it.polimi.ingsw.server.model.personalBoard.depots.StrongBoxDepot;
-import it.polimi.ingsw.server.model.personalBoard.depots.TemporaryDepotForMarket;
+import it.polimi.ingsw.server.model.personalBoard.depots.TemporaryDepot;
 import it.polimi.ingsw.server.model.personalBoard.depots.WareHouseDepot;
 import it.polimi.ingsw.server.model.productionPower.ProductionPower;
 import it.polimi.ingsw.server.model.resources.ResourceType;
@@ -17,7 +17,7 @@ import java.util.List;
  * Real Player's personal board
  */
 public class PersonalBoard extends Observable {
-    private final TemporaryDepotForMarket temporaryDepotForMarket;
+    private final TemporaryDepot temporaryDepot;
     private final WareHouseDepot wareHouseDepot;
     private final SpecialDepot specialDepot;
     private final StrongBoxDepot strongBoxDepot;
@@ -28,7 +28,7 @@ public class PersonalBoard extends Observable {
     public PersonalBoard() {
         wareHouseDepot = new WareHouseDepot();
         specialDepot = new SpecialDepot();
-        temporaryDepotForMarket = new TemporaryDepotForMarket();
+        temporaryDepot = new TemporaryDepot();
         strongBoxDepot = new StrongBoxDepot();
         personalDevelopmentBoard = new PersonalDevelopmentBoard();
         inHandLeaderCards = new InHandLeaderCard();
@@ -50,8 +50,8 @@ public class PersonalBoard extends Observable {
      *
      * @return the temporary depot used to store resources took from market.
      */
-    public TemporaryDepotForMarket getTemporaryDepotForMarket() {
-        return temporaryDepotForMarket;
+    public TemporaryDepot getTemporaryDepot() {
+        return temporaryDepot;
     }
 
     public SpecialDepot getSpecialDepots() {
@@ -100,11 +100,13 @@ public class PersonalBoard extends Observable {
     public void addObserver(Observer obs) {
         super.addObserver(obs);
         inHandLeaderCards.addObserver(obs);
+        temporaryDepot.addObserver(obs);
     }
 
     @Override
     public void removeObserver(Observer obs) {
         super.removeObserver(obs);
         inHandLeaderCards.removeObserver(obs);
+        temporaryDepot.removeObserver(obs);
     }
 }

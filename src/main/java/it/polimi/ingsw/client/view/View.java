@@ -13,7 +13,7 @@ public abstract class View {
     }
     public abstract void start();
 
-    public abstract void AskForNickName();
+    public abstract void askForNickName();
 
     public ReducedGameModel getReducedGameModel() {
         return reducedGameModel;
@@ -24,4 +24,11 @@ public abstract class View {
     public abstract void marketTrayDraw();
 
     public abstract void inHandLeaderCardsDraw();
+
+    public abstract void askForLeaderCardsToDiscard();
+
+    public abstract void askForCreateOrJoinGame();
+
+    public abstract void temporaryDepotDraw();
+    public abstract void askForInitialResources();
 }

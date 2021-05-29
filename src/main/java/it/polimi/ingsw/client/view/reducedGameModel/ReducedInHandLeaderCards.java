@@ -4,13 +4,13 @@ package it.polimi.ingsw.client.view.reducedGameModel;
 import java.util.List;
 
 public class ReducedInHandLeaderCards {
-    List<Integer> inHandLeaderCards;
+    List<ReducedLeaderCard> inHandLeaderCards;
 
-    public List<Integer> getInHandLeaderCards() {
-        return inHandLeaderCards;
+    public void update(List<ReducedLeaderCard> leaderCards){
+        inHandLeaderCards = leaderCards;
     }
 
-    public void update(List<Integer> leaderCardsIDs){
-        inHandLeaderCards = leaderCardsIDs;
+    public List<ReducedLeaderCard> getInHandLeaderCards() {
+        return inHandLeaderCards;
     }
 }

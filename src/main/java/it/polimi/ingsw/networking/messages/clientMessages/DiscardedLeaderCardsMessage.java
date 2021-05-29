@@ -5,12 +5,12 @@ import it.polimi.ingsw.networking.messages.MessageType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DiscardLeaderCardsMessage extends ClientMessage{
+public class DiscardedLeaderCardsMessage extends ClientMessage{
     List<Integer> IDsToDiscard = new ArrayList<>();
 
-    public DiscardLeaderCardsMessage(String nickname, int card1, int card2) {
+    public DiscardedLeaderCardsMessage(String nickname, int card1, int card2) {
         super(nickname);
-        messageType = MessageType.SELECT_LEADER_CARD_TO_DISCARD;
+        messageType = MessageType.DISCARDED_LEADER_CARD;
         IDsToDiscard.add(card1);
         IDsToDiscard.add(card2);
     }

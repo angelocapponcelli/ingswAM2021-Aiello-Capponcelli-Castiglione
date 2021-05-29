@@ -15,7 +15,7 @@ public class GUI extends View {
     }
 
     @Override
-    public void AskForNickName() {
+    public void askForNickName() {
 
     }
 
@@ -33,4 +33,26 @@ public class GUI extends View {
     public void inHandLeaderCardsDraw() {
 
     }
+
+
+    @Override
+    public void askForLeaderCardsToDiscard() {
+
+    }
+
+    @Override
+    public void askForCreateOrJoinGame() {
+
+    }
+
+    @Override
+    public void temporaryDepotDraw() {
+
+    }
+
+    @Override
+    public void askForInitialResources() {
+
+    }
+
 }

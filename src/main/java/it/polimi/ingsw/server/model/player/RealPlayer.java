@@ -7,34 +7,34 @@ import it.polimi.ingsw.utils.observer.Observer;
 public class RealPlayer extends Player {
     private final PersonalBoard personalBoard;
     private final Integer victoryPoint;
-    private Boolean first;
+    //private Boolean first;
 
 
     public RealPlayer(String nickName, GameController gameController) {
         super(nickName, gameController);
         this.personalBoard = new PersonalBoard();
-        this.first = false;
+        //this.first = false;
         this.victoryPoint = 0;
     }
 
     public RealPlayer(String nickName) {
         super(nickName);
         this.personalBoard = new PersonalBoard();
-        this.first = false;
+        //this.first = false;
         this.victoryPoint = 0;
     }
 
-    public void setFirst() {
+    /*public void setFirst() {
         this.first = true;
-    }
+    }*/
+
 
 
     public Integer getVictoryPoint() {
         int sum = 0;
-        int tmpResourceCount = 0;
-        /* points from leadercard*/
+        /* points from leaderCard*/
         sum = sum + this.getPersonalBoard().getInHandLeaderCards().getVictoryPoint();
-        /*points from developmentcards*/
+        /*points from developmentCards*/
         sum = sum + this.getPersonalBoard().getPersonalDevelopmentBoard().getVictoryPoint();
         /*sum of the resource then divided by 5. every 5 resources the player is given 1 victory point*/
 
@@ -47,9 +47,9 @@ public class RealPlayer extends Player {
         return sum;
     }
 
-    public Boolean isFirst() {
+    /*public Boolean isFirst() {
         return this.first;
-    }
+    }*/
 
     public PersonalBoard getPersonalBoard() {
         return this.personalBoard;

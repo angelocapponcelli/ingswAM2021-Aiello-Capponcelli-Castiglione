@@ -2,13 +2,13 @@ package it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages;
 
 import it.polimi.ingsw.networking.messages.Message;
 import it.polimi.ingsw.networking.messages.MessageType;
+import it.polimi.ingsw.networking.messages.clientMessages.ClientMessage;
 
-public class NicknameMessage extends Message {
-    private final String nickname;
+public class NicknameMessage extends ClientMessage {
 
     public NicknameMessage(String nickname) {
+        super(nickname);
         messageType = MessageType.NICKNAME;
-        this.nickname = nickname;
     }
 
     public String getNickname() {

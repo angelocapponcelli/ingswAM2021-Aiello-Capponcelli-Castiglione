@@ -1,10 +1,11 @@
 package it.polimi.ingsw.server.model.player;
 
 
+import it.polimi.ingsw.networking.messages.serverMessage.TurnPositionMessage;
 import it.polimi.ingsw.server.controller.GameController;
-import it.polimi.ingsw.server.model.globalBoard.faithTrack.FaithTrack;
 import it.polimi.ingsw.server.model.globalBoard.faithTrack.VaticanReportSection;
 import it.polimi.ingsw.utils.observer.Observable;
+import it.polimi.ingsw.utils.observer.Observer;
 
 public abstract class Player extends Observable {
 
@@ -12,6 +13,7 @@ public abstract class Player extends Observable {
     protected String nickName;
     protected Integer faithPosition;
     protected VaticanReportStatus vaticanReportStatus;
+    protected Integer turnPosition;
 
     public Player(String nickName, GameController gameController) {
         this.nickName = nickName;
@@ -60,6 +62,16 @@ public abstract class Player extends Observable {
         if (vaticanReportSection.getCells().contains(gameController.getGameModel().getGlobalBoard().getFaithTrack().getTrack().get(faithPosition))) {
             vaticanReportStatus.flip(vaticanReportSection);
         }
+    }
+
+
+    public void setTurnPosition(Integer turnPosition) {
+        this.turnPosition = turnPosition;
+        notifyObserver(new TurnPositionMessage(turnPosition));
+    }
+
+    public Integer getTurnPosition() {
+        return turnPosition;
     }
 
 }

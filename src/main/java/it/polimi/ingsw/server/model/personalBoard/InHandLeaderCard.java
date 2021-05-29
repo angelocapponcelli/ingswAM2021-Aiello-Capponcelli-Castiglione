@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 /**
  * Player's in hand leader cards
  */
-public class InHandLeaderCard extends Observable {
+public class InHandLeaderCard extends Observable{
     List<LeaderCard> inHandLeaderCards;
 
     public InHandLeaderCard() {
@@ -33,16 +33,18 @@ public class InHandLeaderCard extends Observable {
 
     public void remove(List<Integer> leaderCardID) {
 
-        inHandLeaderCards = inHandLeaderCards.stream()
-                .filter(x -> !(leaderCardID.contains(x.getId())))
-                .collect(Collectors.toList());
+            inHandLeaderCards = inHandLeaderCards.stream()
+                    .filter(x -> !(leaderCardID.contains(x.getId())))
+                    .collect(Collectors.toList());
 
         notifyObserver(new UpdatedInHandLeaderCardMessage(inHandLeaderCards.stream().map(ReducedLeaderCard::new).collect(Collectors.toList())));
     }
 
-    public void addLeaderCard(List<LeaderCard> leaderCards) {
+    public void addLeaderCard(List<LeaderCard> leaderCards){
         inHandLeaderCards = leaderCards;
         notifyObserver(new UpdatedInHandLeaderCardMessage(inHandLeaderCards.stream().map(ReducedLeaderCard::new).collect(Collectors.toList())));
+        System.out.println("ciao");
+
     }
 
     public void inGameDiscard(List<Integer> leaderCardIDs, RealPlayer realPlayer) {

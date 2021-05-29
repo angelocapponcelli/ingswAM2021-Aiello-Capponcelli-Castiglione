@@ -4,10 +4,7 @@ import it.polimi.ingsw.server.model.cards.LeaderCard;
 import it.polimi.ingsw.server.model.cards.TypeLevel;
 import it.polimi.ingsw.server.model.interfaces.Requirement;
 import it.polimi.ingsw.server.model.resources.*;
-import it.polimi.ingsw.server.model.specialAbilities.SpecialAdditionalProductionPower;
-import it.polimi.ingsw.server.model.specialAbilities.SpecialDiscount;
-import it.polimi.ingsw.server.model.specialAbilities.SpecialExtraDepot;
-import it.polimi.ingsw.utils.parsers.LeaderCardParser;
+import it.polimi.ingsw.server.model.specialAbilities.*;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -21,8 +18,7 @@ public class ReducedLeaderCard implements Serializable {
     private final ResourceType specialResourceType;
     private Boolean played;
 
-    public ReducedLeaderCard(int i) {
-        LeaderCard leaderCard = LeaderCardParser.getLeaderCards().get(i);
+    public ReducedLeaderCard(LeaderCard leaderCard) {
         this.id = leaderCard.getId();
         this.victoryPoints = leaderCard.getVictoryPoint();
         Map<ReducedRequirement, Integer> tmp = new HashMap<>();
@@ -34,12 +30,9 @@ public class ReducedLeaderCard implements Serializable {
             else tmp.put((TypeLevel) entry.getKey(), entry.getValue());
         }
         this.requirements = tmp;
-        if (leaderCard.getSpecialAbility() instanceof SpecialExtraDepot)
-            this.specialAbility = SpecialAbilityType.EXTRADEPOT;
-        else if (leaderCard.getSpecialAbility() instanceof SpecialDiscount)
-            this.specialAbility = SpecialAbilityType.DISCOUNT;
-        else if (leaderCard.getSpecialAbility() instanceof SpecialAdditionalProductionPower)
-            this.specialAbility = SpecialAbilityType.PRODUCTION_POWER;
+        if (leaderCard.getSpecialAbility() instanceof SpecialExtraDepot) this.specialAbility = SpecialAbilityType.EXTRADEPOT;
+        else if (leaderCard.getSpecialAbility() instanceof SpecialDiscount) this.specialAbility = SpecialAbilityType.DISCOUNT;
+        else if (leaderCard.getSpecialAbility() instanceof SpecialAdditionalProductionPower) this.specialAbility = SpecialAbilityType.PRODUCTION_POWER;
         else this.specialAbility = SpecialAbilityType.WHITE_MARBLE;
         this.played = leaderCard.isPlayed();
         this.specialResourceType = leaderCard.getSpecialAbility().getResource().getResourceType();

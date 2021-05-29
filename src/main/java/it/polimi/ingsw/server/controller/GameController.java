@@ -34,9 +34,7 @@ public class GameController /*implements Runnable*/ {
     private final List<InGameConnectedClient> inGameConnectedClients = new ArrayList<>();
     private final List<Player> playerList = new ArrayList<>();
     private GameState currentGameState;
-    //private final List<RealPlayer> playerList = new ArrayList<>();
     private RealPlayer currentPlayer;
-    //private final BlockingQueue<Message> messagesQueue = new LinkedBlockingQueue<>();
 
     public GameController(Integer maxPlayersNumber, Integer gameID) {
         this.gameID = gameID;
@@ -87,6 +85,7 @@ public class GameController /*implements Runnable*/ {
 
 
     private void initializeGame() {
+
         Collections.shuffle(playerList);
         IntStream.range(0, playerList.size()).forEach(i -> playerList.get(i).setTurnPosition(i + 1));
 
@@ -103,7 +102,7 @@ public class GameController /*implements Runnable*/ {
                             .addLeaderCard(leaderCardsDeck.subList(i * 4, i * 4 + 4));
                 });
 
-        //sendBroadCastMessage(new RequestMessage(MessageType.SELECT_INITIAL_RESOURCE_REQUEST));
+
 
     }
 

@@ -9,7 +9,6 @@ import it.polimi.ingsw.server.model.specialAbilities.SpecialAbility;
 import it.polimi.ingsw.utils.observer.Observable;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
 /**
  * Player's in hand leader cards
  */
-public class InHandLeaderCard extends Observable{
+public class InHandLeaderCard extends Observable {
     List<LeaderCard> inHandLeaderCards;
 
     public InHandLeaderCard() {
@@ -34,16 +33,16 @@ public class InHandLeaderCard extends Observable{
 
     public void remove(List<Integer> leaderCardID) {
 
-            inHandLeaderCards = inHandLeaderCards.stream()
-                    .filter(x -> !(leaderCardID.contains(x.getId())))
-                    .collect(Collectors.toList());
+        inHandLeaderCards = inHandLeaderCards.stream()
+                .filter(x -> !(leaderCardID.contains(x.getId())))
+                .collect(Collectors.toList());
 
-        notifyObserver(new UpdatedInHandLeaderCardMessage( inHandLeaderCards.stream().map(ReducedLeaderCard::new).collect(Collectors.toList()) ) );
+        notifyObserver(new UpdatedInHandLeaderCardMessage(inHandLeaderCards.stream().map(ReducedLeaderCard::new).collect(Collectors.toList())));
     }
 
-    public void addLeaderCard(List<LeaderCard> leaderCards){
+    public void addLeaderCard(List<LeaderCard> leaderCards) {
         inHandLeaderCards = leaderCards;
-        notifyObserver(new UpdatedInHandLeaderCardMessage(  inHandLeaderCards.stream().map(ReducedLeaderCard::new).collect(Collectors.toList()) ) );
+        notifyObserver(new UpdatedInHandLeaderCardMessage(inHandLeaderCards.stream().map(ReducedLeaderCard::new).collect(Collectors.toList())));
     }
 
     public void inGameDiscard(List<Integer> leaderCardIDs, RealPlayer realPlayer) {

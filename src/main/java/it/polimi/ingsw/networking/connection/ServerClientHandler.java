@@ -2,9 +2,9 @@ package it.polimi.ingsw.networking.connection;
 
 import it.polimi.ingsw.networking.messages.ErrorMessage;
 import it.polimi.ingsw.networking.messages.Message;
-import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NicknameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.JoinGameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NewGameMessage;
+import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NicknameMessage;
 import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.utils.CLIColors;
@@ -18,7 +18,7 @@ import java.net.SocketException;
 /**
  * Handles the interactions from the Server to a single Client
  */
-public class ServerClientHandler implements Runnable{
+public class ServerClientHandler implements Runnable {
     private String nickName;
     private GameController gameController;
     private ConnectionIO connectionIO;
@@ -39,7 +39,7 @@ public class ServerClientHandler implements Runnable{
             while (!(socket.isClosed())) {
                 manageReceivedMessage(connectionIO.receiveMessage());
             }
-        } catch (EOFException |SocketException e) {
+        } catch (EOFException | SocketException e) {
             System.out.println(CLIColors.getAnsiRed() + "Client disconnected" + CLIColors.getAnsiReset());
             if (gameController != null) {
                 gameController.removeConnectedClient(gameController.getInGameConnectedClients().stream()
@@ -60,7 +60,6 @@ public class ServerClientHandler implements Runnable{
      * else it will be managed by the game controller.
      *
      * @param message The message to be managed.
-
      */
     public void manageReceivedMessage(Message message) {
 
@@ -70,7 +69,7 @@ public class ServerClientHandler implements Runnable{
                     NicknameMessage nicknameMessage = (NicknameMessage) message;
                     nickName = nicknameMessage.getNickname();
                     Server.getConnectedClient().add(this);
-                    System.out.println("Added new Connected Client: " + nickName );
+                    System.out.println("Added new Connected Client: " + nickName);
                     break;
 
                 case NEW_GAME:
@@ -98,7 +97,7 @@ public class ServerClientHandler implements Runnable{
 
             }
         } else gameController.manageReceivedMessage(message);
-            /*gameController.onReceivedMessage(message);*/
+        /*gameController.onReceivedMessage(message);*/
 
     }
 

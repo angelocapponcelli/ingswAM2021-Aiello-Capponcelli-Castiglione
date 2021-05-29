@@ -2,7 +2,6 @@ package it.polimi.ingsw.utils.observer;
 
 import it.polimi.ingsw.networking.messages.Message;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class Observable {
         observers.remove(obs);
     }
 
-    protected void notifyObserver(Message message){
+    protected void notifyObserver(Message message) {
         for (Observer observer : observers) {
             observer.update(message);
         }

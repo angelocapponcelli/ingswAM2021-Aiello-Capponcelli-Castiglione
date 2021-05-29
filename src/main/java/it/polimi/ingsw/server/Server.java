@@ -76,7 +76,7 @@ public class Server {
      */
     public static GameController newGame(Integer maxPlayersNumber) {
         synchronized (onGoingGames) {
-            GameController gameController = new GameController(maxPlayersNumber, nextGameID );
+            GameController gameController = new GameController(maxPlayersNumber, nextGameID);
             onGoingGames.add(gameController);
             nextGameID++;
             return gameController;

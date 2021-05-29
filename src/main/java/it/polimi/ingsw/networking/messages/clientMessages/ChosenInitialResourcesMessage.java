@@ -5,7 +5,7 @@ import it.polimi.ingsw.server.model.resources.ResourceType;
 
 import java.util.List;
 
-public class ChosenInitialResourcesMessage extends ClientMessage{
+public class ChosenInitialResourcesMessage extends ClientMessage {
     List<ResourceType> chosenResource;
 
     public ChosenInitialResourcesMessage(String nickname, List<ResourceType> chosenResource) {

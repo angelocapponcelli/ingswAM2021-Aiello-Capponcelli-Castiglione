@@ -9,7 +9,7 @@ import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.Joi
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NewGameMessage;
 import it.polimi.ingsw.server.model.cards.TypeLevel;
 import it.polimi.ingsw.server.model.misc.Colors;
-import it.polimi.ingsw.server.model.resources.*;
+import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.utils.CLIColors;
 
 import java.io.BufferedReader;
@@ -46,8 +46,7 @@ public class CLI extends View {
         clear();
 
 
-
-        new Thread( () ->{
+        new Thread(() -> {
             stdIn = new BufferedReader(new InputStreamReader(System.in));
             String userInput;
             Message message;
@@ -286,15 +285,15 @@ public class CLI extends View {
             if (i < strongBox.size()) System.out.print("   " + strongBox.get(i));
             else if (i >= strongBox.size() && i < strongBox.size()) ;
             else if (i < warehouse.size()) {
-              //  System.out.print("   " + special.get(j));
+                //  System.out.print("   " + special.get(j));
                 j++;
             } //else if (j < special.size()) {
-                //System.out.print("   " + special.get(j));
-                //j++;
-          //  }
+            //System.out.print("   " + special.get(j));
+            //j++;
+            //  }
             if (i > 22 && i < 33)
-           //     System.out.print("   " + leaderCardToDisplay.get(i - 23) + "    " + leaderCardToDisplay.get(i - 23));
-            System.out.print("\n");
+                //     System.out.print("   " + leaderCardToDisplay.get(i - 23) + "    " + leaderCardToDisplay.get(i - 23));
+                System.out.print("\n");
         }
     }
 
@@ -411,14 +410,14 @@ public class CLI extends View {
             if (reducedLeaderCard.getSpecialResourceType() == ResourceType.COIN) {
                 rows.add(COLOR_CARD + "║│ $ DICOUNT  " + reducedLeaderCard.getSpecialResourceType().getColor() + "coin" + COLOR_CARD + " $ │║" + CLIColors.getAnsiReset());
             }
-            if (reducedLeaderCard.getSpecialResourceType()== ResourceType.SERVANT) {
+            if (reducedLeaderCard.getSpecialResourceType() == ResourceType.SERVANT) {
                 rows.add(COLOR_CARD + "║│$ DICOUNT " + reducedLeaderCard.getSpecialResourceType().getColor() + "servant" + COLOR_CARD + " $ │║" + CLIColors.getAnsiReset());
             }
-            if (reducedLeaderCard.getSpecialResourceType()== ResourceType.SHIELD) {
+            if (reducedLeaderCard.getSpecialResourceType() == ResourceType.SHIELD) {
                 rows.add(COLOR_CARD + "║│$ DICOUNT  " + reducedLeaderCard.getSpecialResourceType().getColor() + "shield" + COLOR_CARD + " $│║" + CLIColors.getAnsiReset());
             }
-            if (reducedLeaderCard.getSpecialResourceType()== ResourceType.STONE) {
-                rows.add(COLOR_CARD + "║│ $ DICOUNT " + reducedLeaderCard.getSpecialResourceType().getColor()+ "stone" + COLOR_CARD + " $ │║" + CLIColors.getAnsiReset());
+            if (reducedLeaderCard.getSpecialResourceType() == ResourceType.STONE) {
+                rows.add(COLOR_CARD + "║│ $ DICOUNT " + reducedLeaderCard.getSpecialResourceType().getColor() + "stone" + COLOR_CARD + " $ │║" + CLIColors.getAnsiReset());
             }
         }
         if (reducedLeaderCard.getSpecialAbility() == SpecialAbilityType.PRODUCTION_POWER) {
@@ -429,28 +428,28 @@ public class CLI extends View {
             if (reducedLeaderCard.getSpecialResourceType() == ResourceType.COIN) {
                 rows.add(COLOR_CARD + "║│ * WHITE = " + reducedLeaderCard.getSpecialResourceType().getColor() + "coin" + COLOR_CARD + " *  │║" + CLIColors.getAnsiReset());
             }
-            if (reducedLeaderCard.getSpecialResourceType()  == ResourceType.SERVANT) {
+            if (reducedLeaderCard.getSpecialResourceType() == ResourceType.SERVANT) {
                 rows.add(COLOR_CARD + "║│* WHITE = " + reducedLeaderCard.getSpecialResourceType().getColor() + "servant" + COLOR_CARD + " *│║" + CLIColors.getAnsiReset());
             }
-            if (reducedLeaderCard.getSpecialResourceType()  == ResourceType.SHIELD) {
+            if (reducedLeaderCard.getSpecialResourceType() == ResourceType.SHIELD) {
                 rows.add(COLOR_CARD + "║│* WHITE = " + reducedLeaderCard.getSpecialResourceType().getColor() + "shield" + COLOR_CARD + " * │║" + CLIColors.getAnsiReset());
             }
-            if (reducedLeaderCard.getSpecialResourceType()  == ResourceType.STONE) {
+            if (reducedLeaderCard.getSpecialResourceType() == ResourceType.STONE) {
                 rows.add(COLOR_CARD + "║│ * WHITE = " + reducedLeaderCard.getSpecialResourceType().getColor() + "stone" + COLOR_CARD + " * │║" + CLIColors.getAnsiReset());
             }
         }
         if (reducedLeaderCard.getSpecialAbility() == SpecialAbilityType.EXTRADEPOT) {
             rows.add(COLOR_CARD + "║│  EXTRA  DEPOT of  │║" + CLIColors.getAnsiReset());
-            if (reducedLeaderCard.getSpecialResourceType()  == ResourceType.COIN) {
+            if (reducedLeaderCard.getSpecialResourceType() == ResourceType.COIN) {
                 rows.add(COLOR_CARD + "║│  @     " + reducedLeaderCard.getSpecialResourceType().getColor() + "coin" + COLOR_CARD + "    @  │║" + CLIColors.getAnsiReset());
             }
-            if (reducedLeaderCard.getSpecialResourceType()  == ResourceType.SERVANT) {
+            if (reducedLeaderCard.getSpecialResourceType() == ResourceType.SERVANT) {
                 rows.add(COLOR_CARD + "║│  @   " + reducedLeaderCard.getSpecialResourceType().getColor() + "servant" + COLOR_CARD + "   @  │║" + CLIColors.getAnsiReset());
             }
-            if (reducedLeaderCard.getSpecialResourceType()  == ResourceType.SHIELD) {
+            if (reducedLeaderCard.getSpecialResourceType() == ResourceType.SHIELD) {
                 rows.add(COLOR_CARD + "║│  @   " + reducedLeaderCard.getSpecialResourceType().getColor() + "shield" + COLOR_CARD + "    @  │║" + CLIColors.getAnsiReset());
             }
-            if (reducedLeaderCard.getSpecialResourceType()  == ResourceType.STONE) {
+            if (reducedLeaderCard.getSpecialResourceType() == ResourceType.STONE) {
                 rows.add(COLOR_CARD + "║│  @    " + reducedLeaderCard.getSpecialResourceType().getColor() + "stone" + COLOR_CARD + "    @  │║" + CLIColors.getAnsiReset());
             }
         }
@@ -480,7 +479,7 @@ public class CLI extends View {
     private List<String> getStringRowsCoin() {
         List<String> rows = new ArrayList<>();
         rows.add(ResourceType.COIN.getColor() + " ▒███ " + CLIColors.getAnsiReset());
-        rows.add(ResourceType.COIN.getColor()+  "▒█████" + CLIColors.getAnsiReset());
+        rows.add(ResourceType.COIN.getColor() + "▒█████" + CLIColors.getAnsiReset());
         rows.add(ResourceType.COIN.getColor() + "▒█████" + CLIColors.getAnsiReset());
         rows.add(ResourceType.COIN.getColor() + " ▒███ " + CLIColors.getAnsiReset());
         return rows;
@@ -1138,7 +1137,7 @@ public class CLI extends View {
         }
 
         for (int j = 0; j < 2; j++) {
-            rows.add(COLOR_FAITH_TRACK + "║" );
+            rows.add(COLOR_FAITH_TRACK + "║");
             for (int i = 0; i < 18; i++) {
                 if (i == 3) {
                     rows.set(rows.size() - 1, rows.get(rows.size() - 1) + COLOR_FAITH_TRACK + "                                   ║");
@@ -1163,7 +1162,7 @@ public class CLI extends View {
 
                     switch (i) {
                         case 0:
-                            rows.set(rows.size() - 1, rows.get(rows.size() - 1) + COLOR_FAITH_TRACK +  "██");
+                            rows.set(rows.size() - 1, rows.get(rows.size() - 1) + COLOR_FAITH_TRACK + "██");
                             break;
                         case 12:
                             if (j == 0) rows.set(rows.size() - 1, rows.get(rows.size() - 1) + COLOR_FAITH_TRACK + "▀▀");
@@ -1274,7 +1273,7 @@ public class CLI extends View {
         if (typeLevel.getType() == Colors.GREEN) {
             output = output + "green";
         }
-        if (typeLevel.getType()== Colors.YELLOW) {
+        if (typeLevel.getType() == Colors.YELLOW) {
             output = output + "yellow";
         }
         if (typeLevel.getType() == Colors.PURPLE) {
@@ -1283,7 +1282,7 @@ public class CLI extends View {
         if (typeLevel.getType() == Colors.BLUE) {
             output = output + "blue";
         }
-        output = output  + CLIColors.getAnsiReset();
+        output = output + CLIColors.getAnsiReset();
         if (typeLevel.getLevel() > 0)
             output = output + COLOR_CARD + " - LV " + typeLevel.getLevel() + CLIColors.getAnsiReset();
         else output = output + "      ";
@@ -1311,7 +1310,7 @@ public class CLI extends View {
         if (color == Colors.BLUE) {
             output = output + "  BLUE";
         }
-        output = output  + CLIColors.getAnsiReset();
+        output = output + CLIColors.getAnsiReset();
         return output;
     }
 

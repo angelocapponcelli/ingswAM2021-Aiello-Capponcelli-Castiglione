@@ -1,11 +1,10 @@
 package it.polimi.ingsw.server.model.personalBoard.depots;
 
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedTemporaryDepotMessage;
-import it.polimi.ingsw.utils.exceptions.DepotException;
 import it.polimi.ingsw.server.model.personalBoard.resourceContainers.StrongBoxContainer;
 import it.polimi.ingsw.server.model.resources.ResourceType;
+import it.polimi.ingsw.utils.exceptions.DepotException;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +64,7 @@ public class TemporaryDepot extends StrongBoxDepot {
 
     }
 
-    private Map<ResourceType, Integer> toReduced(){
-        return containers.stream().collect(Collectors.toMap(StrongBoxContainer::getType,StrongBoxContainer::getCount));
+    private Map<ResourceType, Integer> toReduced() {
+        return containers.stream().collect(Collectors.toMap(StrongBoxContainer::getType, StrongBoxContainer::getCount));
     }
 }

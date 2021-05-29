@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 
-public class FaithTrack  extends Observable {
+public class FaithTrack extends Observable {
     private final List<Cell> track;
     private final List<VaticanReportSection> vaticanReportSectionList;
 
@@ -21,10 +21,10 @@ public class FaithTrack  extends Observable {
     /**
      * This constructor is use by the FaithTrackParser to create a new faithTrack.
      *
-     * @param track the list of cells.
+     * @param track                    the list of cells.
      * @param vaticanReportSectionList the list of vatican report sections.
      */
-    public FaithTrack(List<Cell> track, List<VaticanReportSection> vaticanReportSectionList){
+    public FaithTrack(List<Cell> track, List<VaticanReportSection> vaticanReportSectionList) {
         this.track = track;
         this.vaticanReportSectionList = vaticanReportSectionList;
     }

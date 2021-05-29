@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.interfaces;
 
-import it.polimi.ingsw.utils.exceptions.DepotException;
 import it.polimi.ingsw.server.model.player.RealPlayer;
+import it.polimi.ingsw.utils.exceptions.DepotException;
 
 /**
  * The interface Payable.

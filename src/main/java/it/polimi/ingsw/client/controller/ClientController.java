@@ -10,18 +10,18 @@ import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.Updat
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedTemporaryDepotMessage;
 import it.polimi.ingsw.utils.CLIColors;
 
-public class ClientController{
+public class ClientController {
     ClientState currentState;
     View view;
 
-    public ClientController(View view){
+    public ClientController(View view) {
         this.view = view;
         currentState = ClientState.START_SCREEN;
     }
 
 
     public void manageReceivedMessage(Message message) {
-        switch (message.getMessageType()){
+        switch (message.getMessageType()) {
             case ERROR:
                 ErrorMessage errorMessage = (ErrorMessage) message;
                 System.out.println(CLIColors.getAnsiRed() + errorMessage.getErrorMessage() + CLIColors.getAnsiReset());

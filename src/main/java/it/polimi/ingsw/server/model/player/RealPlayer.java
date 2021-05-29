@@ -29,7 +29,6 @@ public class RealPlayer extends Player {
     }*/
 
 
-
     public Integer getVictoryPoint() {
         int sum = 0;
         /* points from leaderCard*/

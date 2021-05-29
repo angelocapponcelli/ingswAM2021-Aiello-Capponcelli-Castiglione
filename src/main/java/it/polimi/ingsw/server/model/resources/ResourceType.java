@@ -33,6 +33,17 @@ public enum ResourceType implements ReducedRequirement {
         }
     }
 
+    public static boolean contains(String test) {
+
+        for (ResourceType resourceType : ResourceType.values()) {
+            if (resourceType.name().equals(test)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public String getColor() {
         switch (this.toString()) {
             case "COIN":
@@ -50,16 +61,5 @@ public enum ResourceType implements ReducedRequirement {
             default:
                 return null;
         }
-    }
-
-    public static boolean contains(String test) {
-
-        for (ResourceType resourceType : ResourceType.values()) {
-            if (resourceType.name().equals(test)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

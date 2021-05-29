@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.controller.ClientController;
-import it.polimi.ingsw.client.view.CLI;
 import it.polimi.ingsw.client.view.GUI;
 import it.polimi.ingsw.client.view.SimpleCLI;
 import it.polimi.ingsw.client.view.View;
@@ -9,29 +8,22 @@ import it.polimi.ingsw.networking.connection.ConnectionIO;
 import it.polimi.ingsw.networking.messages.Message;
 import it.polimi.ingsw.utils.CLIColors;
 
-
 import java.io.IOException;
 import java.net.Socket;
 
 public class Client {
-    private String nickName;
-
-    private int playerPosition;
-
     private final View view;
-
-    private ConnectionIO connectionIO;
-
-    private Socket clientSocket;
-
     private final ClientController clientController;
+    private String nickName;
+    private int playerPosition;
+    private ConnectionIO connectionIO;
+    private Socket clientSocket;
 
     public Client(boolean GUI) {
 
-        if(GUI){
+        if (GUI) {
             view = new GUI(this);
-        }
-        else {
+        } else {
             view = new SimpleCLI(this);
         }
         clientController = new ClientController(view);
@@ -55,27 +47,27 @@ public class Client {
 
 
     public void start(String hostName, int portNumber) {
-            try {
-                clientSocket = new Socket(hostName, portNumber);
-                System.out.println("Client connected!");
-                connectionIO = new ConnectionIO(clientSocket);
-                receiveMessage();
-                view.start();
-            } catch (IOException e) {
-                System.out.println(CLIColors.getAnsiRed() + "Unable to connect to the server." + CLIColors.getAnsiReset());
-            }
+        try {
+            clientSocket = new Socket(hostName, portNumber);
+            System.out.println("Client connected!");
+            connectionIO = new ConnectionIO(clientSocket);
+            receiveMessage();
+            view.start();
+        } catch (IOException e) {
+            System.out.println(CLIColors.getAnsiRed() + "Unable to connect to the server." + CLIColors.getAnsiReset());
+        }
     }
 
-    public void setPlayerPosition(int playerPosition){
+    public void setPlayerPosition(int playerPosition) {
         this.playerPosition = playerPosition;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
     }
 
     public String getNickName() {
         return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     /**
@@ -102,15 +94,13 @@ public class Client {
      *
      * @param message the message to be sent
      */
-    public void sendMessage(Message message){
+    public void sendMessage(Message message) {
         try {
             connectionIO.sendMessage(message);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
 
 
 }

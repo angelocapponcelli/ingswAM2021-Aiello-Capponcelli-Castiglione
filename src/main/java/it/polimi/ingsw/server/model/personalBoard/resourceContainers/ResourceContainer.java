@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.personalBoard.resourceContainers;
 
-import it.polimi.ingsw.utils.exceptions.DepotException;
 import it.polimi.ingsw.server.model.resources.ResourceType;
+import it.polimi.ingsw.utils.exceptions.DepotException;
 
 /**
  * Used by depots, can contain only one resource type and capacity is the maximum number of resources that can contain,

@@ -31,10 +31,9 @@ public class GameController /*implements Runnable*/ {
     private final Integer gameID;
     private final Game gameModel;
     private final Integer maxPlayersNumber;
-    private GameState currentGameState;
     private final List<InGameConnectedClient> inGameConnectedClients = new ArrayList<>();
-
     private final List<Player> playerList = new ArrayList<>();
+    private GameState currentGameState;
     //private final List<RealPlayer> playerList = new ArrayList<>();
     private RealPlayer currentPlayer;
     //private final BlockingQueue<Message> messagesQueue = new LinkedBlockingQueue<>();
@@ -45,7 +44,6 @@ public class GameController /*implements Runnable*/ {
         this.maxPlayersNumber = maxPlayersNumber;
         gameModel = maxPlayersNumber == 1 ? new SinglePlayerGame() : new MultiplayerGame(maxPlayersNumber);
     }
-
 
 
     //+++++++ Getter +++++++
@@ -98,12 +96,12 @@ public class GameController /*implements Runnable*/ {
         IntStream.range(0, playerList.size())
                 .filter(i -> playerList.get(i) instanceof RealPlayer)
                 .forEach(i -> {
-                        RealPlayer realPlayer = (RealPlayer) playerList.get(i);
-                        realPlayer
-                                .getPersonalBoard()
-                                .getInHandLeaderCards()
-                                .addLeaderCard(leaderCardsDeck.subList(i * 4, i * 4 + 4));
-        });
+                    RealPlayer realPlayer = (RealPlayer) playerList.get(i);
+                    realPlayer
+                            .getPersonalBoard()
+                            .getInHandLeaderCards()
+                            .addLeaderCard(leaderCardsDeck.subList(i * 4, i * 4 + 4));
+                });
 
         //sendBroadCastMessage(new RequestMessage(MessageType.SELECT_INITIAL_RESOURCE_REQUEST));
 
@@ -120,7 +118,6 @@ public class GameController /*implements Runnable*/ {
                 .findFirst().orElse(null)
                 .getPersonalBoard().getInHandLeaderCards().remove(discardedLeaderCardsMessage.getIDsToDiscard());
     }
-
 
 
     public void manageReceivedMessage(Message message) {
@@ -148,6 +145,7 @@ public class GameController /*implements Runnable*/ {
 
         }
     }
+
     private void distributeInitialResources(ChosenInitialResourcesMessage chosenInitialResourcesMessage) {
         chosenInitialResourcesMessage.getChosenResource().forEach(resourceType -> ResourceType.getResourceClass(resourceType).onTaking((RealPlayer) playerList.stream()
                 .filter(player -> player.getNickName().equals(chosenInitialResourcesMessage.getNickname()))
@@ -210,11 +208,10 @@ public class GameController /*implements Runnable*/ {
     //*******************
 
 
-
-
     private void updateGameState(GameState nextState) {
         currentGameState = nextState;
     }
+
     public void sendBroadCastMessage(Message message) {
 
         inGameConnectedClients.forEach(inGameConnectedClient -> {
@@ -225,6 +222,7 @@ public class GameController /*implements Runnable*/ {
             }
         });
     }
+
     /**
      * Sends a message to the single client.
      *

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.personalBoard.depots;
 
-import it.polimi.ingsw.utils.exceptions.DepotException;
 import it.polimi.ingsw.server.model.resources.ResourceType;
+import it.polimi.ingsw.utils.exceptions.DepotException;
 import it.polimi.ingsw.utils.observer.Observable;
 
 /**

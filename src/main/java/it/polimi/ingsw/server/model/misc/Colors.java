@@ -1,12 +1,11 @@
 package it.polimi.ingsw.server.model.misc;
 
-import it.polimi.ingsw.client.view.reducedGameModel.ReducedRequirement;
 import it.polimi.ingsw.utils.CLIColors;
 
 /**
  * The enum Colors.
  */
-public enum Colors{
+public enum Colors {
     WHITE,
     BLUE,
     GREY,
@@ -16,8 +15,8 @@ public enum Colors{
     GREEN;
 
     public String getColor() {
-       if (this == Colors.WHITE)
-                return CLIColors.getAnsiYellow();
+        if (this == Colors.WHITE)
+            return CLIColors.getAnsiYellow();
         if (this == Colors.BLUE)
             return CLIColors.getAnsiYellow();
         if (this == Colors.GREY)
@@ -32,6 +31,6 @@ public enum Colors{
             return CLIColors.getAnsiGreen();
 
 
-       else return null;
+        else return null;
     }
 }

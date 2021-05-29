@@ -22,7 +22,7 @@ public class MaestriDelRinascimento {
                     System.out.println("Starting Client in GUI mode...");
                     client = new Client(true);
                 }
-            }else {
+            } else {
                 client = new Client(true);
             }
 

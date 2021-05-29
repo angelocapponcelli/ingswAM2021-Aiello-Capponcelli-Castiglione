@@ -1,11 +1,10 @@
 package it.polimi.ingsw.client.view.reducedGameModel;
 
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
-import it.polimi.ingsw.server.model.cards.TypeLevel;
 import it.polimi.ingsw.server.model.interfaces.Producible;
-import it.polimi.ingsw.server.model.interfaces.Requirement;
 import it.polimi.ingsw.server.model.misc.Colors;
-import it.polimi.ingsw.server.model.resources.*;
+import it.polimi.ingsw.server.model.resources.Resource;
+import it.polimi.ingsw.server.model.resources.ResourceType;
 
 import java.util.HashMap;
 import java.util.Map;

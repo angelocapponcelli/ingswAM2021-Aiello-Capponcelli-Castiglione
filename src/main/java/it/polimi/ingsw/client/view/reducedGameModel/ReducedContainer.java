@@ -15,12 +15,12 @@ public class ReducedContainer {
         return resourceType;
     }
 
-    public int getCount() {
-        return count;
-    }
-
     public void setResourceType(ResourceType resourceType) {
         this.resourceType = resourceType;
+    }
+
+    public int getCount() {
+        return count;
     }
 
     public void setCount(int count) {

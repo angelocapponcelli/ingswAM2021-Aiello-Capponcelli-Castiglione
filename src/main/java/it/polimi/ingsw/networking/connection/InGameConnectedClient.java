@@ -10,7 +10,7 @@ public class InGameConnectedClient implements Observer {
     private final ConnectionIO connectionIO;
 
 
-    public InGameConnectedClient(String nickName, ConnectionIO connectionIO){
+    public InGameConnectedClient(String nickName, ConnectionIO connectionIO) {
         this.nickName = nickName;
         this.connectionIO = connectionIO;
     }
@@ -25,7 +25,7 @@ public class InGameConnectedClient implements Observer {
 
 
     @Override
-    public void update(Message message){
+    public void update(Message message) {
         try {
             connectionIO.sendMessage(message);
         } catch (IOException e) {

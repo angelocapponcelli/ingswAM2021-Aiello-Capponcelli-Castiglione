@@ -1,10 +1,10 @@
 package it.polimi.ingsw.server.model;
 
-import it.polimi.ingsw.utils.exceptions.DepotException;
 import it.polimi.ingsw.server.model.personalBoard.resourceContainers.SpecialContainer;
 import it.polimi.ingsw.server.model.personalBoard.resourceContainers.StrongBoxContainer;
 import it.polimi.ingsw.server.model.personalBoard.resourceContainers.WareHouseContainer;
 import it.polimi.ingsw.server.model.resources.ResourceType;
+import it.polimi.ingsw.utils.exceptions.DepotException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

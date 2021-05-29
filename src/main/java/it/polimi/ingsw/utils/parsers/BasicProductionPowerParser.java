@@ -22,8 +22,8 @@ public class BasicProductionPowerParser {
         ProductionPowerInput input = new ProductionPowerInput();
         ProductionPowerOutput output = new ProductionPowerOutput();
 
-        for(int i = 0; i < tmpInput.size(); i++){
-            switch (tmpInput.get(i).getAsJsonObject().get("resourceType").getAsString()){
+        for (int i = 0; i < tmpInput.size(); i++) {
+            switch (tmpInput.get(i).getAsJsonObject().get("resourceType").getAsString()) {
                 case "ANY":
                     input.add(ResourceType.getResourceClass(ResourceType.ANY), tmpInput.get(i).getAsJsonObject().get("multiplicity").getAsInt());
                     break;
@@ -42,9 +42,9 @@ public class BasicProductionPowerParser {
             }
         }
 
-        for(int i = 0; i < tmpOutput.size(); i++){
+        for (int i = 0; i < tmpOutput.size(); i++) {
             String s = tmpOutput.get(i).getAsJsonObject().get("resourceType").getAsString();
-            switch (s){
+            switch (s) {
                 case "ANY":
                     output.add(ResourceType.ANY, tmpOutput.get(i).getAsJsonObject().get("multiplicity").getAsInt());
                     break;
@@ -65,8 +65,7 @@ public class BasicProductionPowerParser {
         }
 
 
-        return new ProductionPower(input,output);
-
+        return new ProductionPower(input, output);
 
 
     }

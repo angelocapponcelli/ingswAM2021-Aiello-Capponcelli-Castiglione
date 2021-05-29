@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server.model.cards;
 
-import it.polimi.ingsw.utils.exceptions.DepotException;
 import it.polimi.ingsw.server.model.interfaces.Checkable;
 import it.polimi.ingsw.server.model.interfaces.Payable;
 import it.polimi.ingsw.server.model.player.RealPlayer;
@@ -8,6 +7,7 @@ import it.polimi.ingsw.server.model.resources.Resource;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.server.model.specialAbilities.SpecialAbility;
 import it.polimi.ingsw.server.model.specialAbilities.SpecialDiscount;
+import it.polimi.ingsw.utils.exceptions.DepotException;
 
 import java.util.HashMap;
 import java.util.Map;

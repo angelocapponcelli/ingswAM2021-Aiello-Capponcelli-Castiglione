@@ -4,10 +4,10 @@ package it.polimi.ingsw.server.model.game;
  * has to be finished
  */
 
-import it.polimi.ingsw.utils.exceptions.PlayerWithSameNameException;
-import it.polimi.ingsw.utils.exceptions.ReachedMaxNumberOfPlayersException;
 import it.polimi.ingsw.server.model.globalBoard.GlobalBoard;
 import it.polimi.ingsw.server.model.player.Player;
+import it.polimi.ingsw.utils.exceptions.PlayerWithSameNameException;
+import it.polimi.ingsw.utils.exceptions.ReachedMaxNumberOfPlayersException;
 import it.polimi.ingsw.utils.observer.Observable;
 import it.polimi.ingsw.utils.observer.Observer;
 

@@ -9,15 +9,15 @@ public class UpdatedMarketTrayMessage extends ServerMessage {
     private ResourceType[][] marketTray;
     private ResourceType slide;
 
-    public UpdatedMarketTrayMessage(MarketTray marketTray){
-        messageType = MessageType.UPDATED_MARKET_TRAY ;
+    public UpdatedMarketTrayMessage(MarketTray marketTray) {
+        messageType = MessageType.UPDATED_MARKET_TRAY;
 
         slide = marketTray.getSlide().getResourceType();
         int row = marketTray.getMarketTray().length;
         int col = marketTray.getMarketTray()[0].length;
         this.marketTray = new ResourceType[row][col];
-        for (int i = 0; i < row ; i++){
-            for(int j = 0; j < col; j++){
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
                 this.marketTray[i][j] = marketTray.getMarketTray()[i][j].getResourceType();
             }
         }

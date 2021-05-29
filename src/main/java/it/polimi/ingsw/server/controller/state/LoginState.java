@@ -2,7 +2,7 @@ package it.polimi.ingsw.server.controller.state;
 
 import it.polimi.ingsw.networking.messages.Message;
 
-public class LoginState extends State{
+public class LoginState extends State {
 
     @Override
     public void enter() {

@@ -5,7 +5,6 @@ import it.polimi.ingsw.networking.messages.serverMessage.TurnPositionMessage;
 import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.server.model.globalBoard.faithTrack.VaticanReportSection;
 import it.polimi.ingsw.utils.observer.Observable;
-import it.polimi.ingsw.utils.observer.Observer;
 
 public abstract class Player extends Observable {
 
@@ -64,14 +63,13 @@ public abstract class Player extends Observable {
         }
     }
 
+    public Integer getTurnPosition() {
+        return turnPosition;
+    }
 
     public void setTurnPosition(Integer turnPosition) {
         this.turnPosition = turnPosition;
         notifyObserver(new TurnPositionMessage(turnPosition));
-    }
-
-    public Integer getTurnPosition() {
-        return turnPosition;
     }
 
 }

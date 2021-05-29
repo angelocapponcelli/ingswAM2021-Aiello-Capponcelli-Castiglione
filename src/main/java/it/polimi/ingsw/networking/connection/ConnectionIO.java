@@ -2,13 +2,15 @@ package it.polimi.ingsw.networking.connection;
 
 import it.polimi.ingsw.networking.messages.Message;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 /**
  * Handles the Input/Output's streams of a socket.
  */
-public class ConnectionIO{
+public class ConnectionIO {
     protected final Socket socket;
     protected final ObjectInputStream socketIn;
     protected final ObjectOutputStream socketOut;

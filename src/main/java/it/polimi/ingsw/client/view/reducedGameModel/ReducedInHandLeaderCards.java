@@ -6,7 +6,7 @@ import java.util.List;
 public class ReducedInHandLeaderCards {
     List<ReducedLeaderCard> inHandLeaderCards;
 
-    public void update(List<ReducedLeaderCard> leaderCards){
+    public void update(List<ReducedLeaderCard> leaderCards) {
         inHandLeaderCards = leaderCards;
     }
 

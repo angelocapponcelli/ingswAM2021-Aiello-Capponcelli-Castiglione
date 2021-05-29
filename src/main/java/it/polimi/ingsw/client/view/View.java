@@ -7,10 +7,11 @@ public abstract class View {
     Client client;
     ReducedGameModel reducedGameModel;
 
-    public View(Client client){
+    public View(Client client) {
         this.client = client;
         reducedGameModel = new ReducedGameModel();
     }
+
     public abstract void start();
 
     public abstract void askForNickName();
@@ -30,5 +31,6 @@ public abstract class View {
     public abstract void askForCreateOrJoinGame();
 
     public abstract void temporaryDepotDraw();
+
     public abstract void askForInitialResources();
 }

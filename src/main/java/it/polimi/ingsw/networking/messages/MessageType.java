@@ -1,7 +1,5 @@
 package it.polimi.ingsw.networking.messages;
 
-import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedInHandLeaderCardMessage;
-
 public enum MessageType {
     NEW_GAME,
     UPDATED_MARKET_TRAY,

@@ -1,7 +1,11 @@
 package it.polimi.ingsw.client.view.reducedGameModel;
 
 import it.polimi.ingsw.server.model.resources.ResourceType;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ReducedGameModel {
     private final ReducedMarketTray marketTray;

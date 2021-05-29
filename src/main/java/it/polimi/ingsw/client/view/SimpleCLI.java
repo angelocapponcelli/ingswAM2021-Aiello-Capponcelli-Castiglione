@@ -43,6 +43,7 @@ public class SimpleCLI extends View {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
+
     private void waitMilliseconds(int s) {
         try {
             TimeUnit.MILLISECONDS.sleep(s);
@@ -52,27 +53,27 @@ public class SimpleCLI extends View {
     }
 
     @Override
-    public void askForInitialResources(){
+    public void askForInitialResources() {
         clear();
         int numOfResources;
-        switch (reducedGameModel.getPlayerTurnPosition()){
+        switch (reducedGameModel.getPlayerTurnPosition()) {
             case 2:
-                numOfResources=1;
+                numOfResources = 1;
                 break;
             case 3:
-                numOfResources=1;
+                numOfResources = 1;
                 break;
             case 4:
-                numOfResources=2;
+                numOfResources = 2;
                 break;
             default:
-                numOfResources=0;
+                numOfResources = 0;
                 break;
 
         }
 
         List<ResourceType> initialResources = new ArrayList<>();
-        for(int i = 0; i < numOfResources; i++){
+        for (int i = 0; i < numOfResources; i++) {
             System.out.println("Choose a resource :");
             System.out.println("(1)Coin\n(2)Shield\n(3)Stone\n(4)Servant");
             String tmp = null;
@@ -81,7 +82,7 @@ public class SimpleCLI extends View {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            switch (tmp){
+            switch (tmp) {
                 case "1":
                     initialResources.add(ResourceType.COIN);
                     break;
@@ -103,7 +104,7 @@ public class SimpleCLI extends View {
     }
 
     @Override
-    public void temporaryDepotDraw(){
+    public void temporaryDepotDraw() {
         clear();
         System.out.println("temporary depot:");
         reducedGameModel.getTemporaryDepot()
@@ -133,13 +134,13 @@ public class SimpleCLI extends View {
         try {
             input = stdIn.readLine();
 
-            if (input.equals("c")){
+            if (input.equals("c")) {
                 System.out.println("Insert players number");
                 String tmp = stdIn.readLine();
                 client.sendMessage(new NewGameMessage(Integer.parseInt(tmp)));
                 clear();
 
-            } else if (input.equals("j") ){
+            } else if (input.equals("j")) {
                 System.out.println("Insert GameID");
                 String tmp = stdIn.readLine();
                 client.sendMessage(new JoinGameMessage(Integer.parseInt(tmp)));
@@ -150,7 +151,6 @@ public class SimpleCLI extends View {
         }
 
     }
-
 
 
     @Override

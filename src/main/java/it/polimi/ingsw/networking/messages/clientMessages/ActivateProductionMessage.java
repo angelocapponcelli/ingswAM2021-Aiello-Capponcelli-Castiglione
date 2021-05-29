@@ -3,7 +3,7 @@ package it.polimi.ingsw.networking.messages.clientMessages;
 import it.polimi.ingsw.networking.messages.MessageType;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 
-public class ActivateProductionMessage extends ClientMessage{
+public class ActivateProductionMessage extends ClientMessage {
     ResourceType input1;
     ResourceType input2;
     ResourceType outPut;

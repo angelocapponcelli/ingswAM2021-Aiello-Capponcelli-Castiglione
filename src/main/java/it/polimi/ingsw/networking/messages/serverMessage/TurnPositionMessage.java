@@ -2,7 +2,7 @@ package it.polimi.ingsw.networking.messages.serverMessage;
 
 import it.polimi.ingsw.networking.messages.MessageType;
 
-public class TurnPositionMessage extends ServerMessage{
+public class TurnPositionMessage extends ServerMessage {
     private final Integer turnPosition;
 
     public TurnPositionMessage(Integer turnPosition) {

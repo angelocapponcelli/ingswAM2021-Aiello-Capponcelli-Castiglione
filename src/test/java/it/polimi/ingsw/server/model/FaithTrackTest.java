@@ -1,7 +1,6 @@
 package it.polimi.ingsw.server.model;
 
 import it.polimi.ingsw.server.model.globalBoard.faithTrack.FaithTrack;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +12,7 @@ class FaithTrackTest {
     private FaithTrack faithTrack;
 
     @BeforeEach
-    void init(){
+    void init() {
         try {
             faithTrack = new FaithTrack();
         } catch (FileNotFoundException e) {

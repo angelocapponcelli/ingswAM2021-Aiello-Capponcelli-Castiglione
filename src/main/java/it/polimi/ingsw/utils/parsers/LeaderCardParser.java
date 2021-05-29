@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class LeaderCardParser {
 
-    public static List<LeaderCard> getLeaderCards(){
+    public static List<LeaderCard> getLeaderCards() {
         List<LeaderCardTemp> leaderCardTempList = null;
         List<LeaderCard> leaderCardList = new ArrayList<>();
         Type listOfMyClassObject = new TypeToken<ArrayList<LeaderCardTemp>>() {

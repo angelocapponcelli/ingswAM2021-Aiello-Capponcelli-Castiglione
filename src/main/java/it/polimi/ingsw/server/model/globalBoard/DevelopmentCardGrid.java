@@ -13,14 +13,14 @@ public class DevelopmentCardGrid extends Observable {
 
     public DevelopmentCardGrid() throws FileNotFoundException {
 
-        for(int i = 0; i < 3; i++){
-            for (int j= 0; j< 4; j++){
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 4; j++) {
                 deckGrid[i][j] = new Deck();
             }
         }
 
         DevelopmentCardParser.getCards().forEach(developmentCard -> {
-            switch (developmentCard.getTypeLevel().getType()){
+            switch (developmentCard.getTypeLevel().getType()) {
                 case GREEN:
                     deckGrid[3 - developmentCard.getTypeLevel().getLevel()][0].push(developmentCard);
                     break;
@@ -55,10 +55,10 @@ public class DevelopmentCardGrid extends Observable {
         return deckGrid;
     }
 
-    public DevelopmentCard[][] toReduced(){
+    public DevelopmentCard[][] toReduced() {
         DevelopmentCard[][] reducedDeckGrid = new DevelopmentCard[3][4];
-        for (int i = 0; i < 3; i++ ){
-            for(int j = 0; j < 4; j++){
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 4; j++) {
                 reducedDeckGrid[i][j] = deckGrid[i][j].peek();
             }
         }

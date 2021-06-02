@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.view.reducedGameModel;
 
+import it.polimi.ingsw.server.model.misc.Colors;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 
 import java.util.ArrayList;
@@ -61,8 +62,12 @@ public class ReducedGameModel {
         return inHandLeaderCards;
     }
 
-    public List<ReducedPlayer> getPlayers() {
-        return players;
+    public Map<Colors, Integer> getPlayers() {
+        Map<Colors, Integer> listPlayers = new HashMap<>();
+        for (ReducedPlayer reducedPlayer : players) {
+            listPlayers.put(reducedPlayer.getPlayerColor(), reducedPlayer.getFaithPosition());
+        }
+        return listPlayers;
     }
 
     public ReducedDevelopmentCard[][] getDevelopmentCardsGrid() {

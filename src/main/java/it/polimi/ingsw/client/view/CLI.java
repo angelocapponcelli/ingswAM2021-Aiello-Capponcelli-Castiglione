@@ -3,8 +3,7 @@ package it.polimi.ingsw.client.view;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.reducedGameModel.*;
 import it.polimi.ingsw.networking.messages.Message;
-import it.polimi.ingsw.networking.messages.clientMessages.ClientText;
-import it.polimi.ingsw.networking.messages.clientMessages.TakeFromMarketMessage;
+import it.polimi.ingsw.networking.messages.clientMessages.*;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.JoinGameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NewGameMessage;
 import it.polimi.ingsw.server.model.cards.TypeLevel;
@@ -28,7 +27,6 @@ public class CLI extends View {
     private final String COLOR_DEPOT = CLIColors.getAnsiWhite();
     private final String COLOR_MARKET_TRAY = CLIColors.getAnsiWhite();
     private final String COLOR_FAITH_TRACK = CLIColors.getAnsiWhite();
-    private final Scanner input = new Scanner(System.in);
 
     BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 
@@ -89,6 +87,25 @@ public class CLI extends View {
 
     @Override
     public void askForNickName() {
+        boolean inputValidity = false;
+        String nickname = null;
+        while (!inputValidity) {
+            System.out.println(COLOR_TEXT_PRIMARY + "*********************** NICKNAME *************************" + CLIColors.getAnsiReset());
+            System.out.println(COLOR_TEXT_PRIMARY + "Choose your nickname" + CLIColors.getAnsiReset());
+            System.out.print(COLOR_TEXT_PRIMARY + "> " + CLIColors.getAnsiReset());
+
+            try {
+                nickname = stdIn.readLine();
+                if (nickname.length() <= 15) inputValidity = true;
+                else
+                    System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a nickname maximum 15 characters\n" + CLIColors.getAnsiReset());
+            } catch (IOException e) {
+                System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a nickname maximum 15 characters\n" + CLIColors.getAnsiReset());
+
+            }
+        }
+        client.setNickName(nickname);
+        client.sendMessage(new InsertNicknameMessage(nickname));
     }
 
     @Override
@@ -97,33 +114,158 @@ public class CLI extends View {
     }
 
     @Override
-    public void marketTrayDraw() { //TODO
-
+    public void marketTrayDraw() {
+        for (String row : getStringRowsMarketTray()) {
+            System.out.println(row);
+        }
     }
 
     @Override
-    public void inHandLeaderCardsDraw() { //TODO
-
+    public void inHandLeaderCardsDraw() {
+        List<List<String>> cards = new ArrayList<>();
+        if (reducedGameModel.getReducedInHandLeaderCards().getInHandLeaderCards().size() > 0) {
+            for (ReducedLeaderCard card : reducedGameModel.getReducedInHandLeaderCards().getInHandLeaderCards()) {
+                cards.add(getStringRowsLeaderCard(card));
+            }
+            for (int i = 0; i < cards.get(0).size(); i++) {
+                for (int j = 0; j < cards.size(); j++) {
+                    System.out.print(cards.get(j).get(i) + "  ");
+                }
+                System.out.print("\n");
+            }
+        } else System.out.print("You don't have any cards in your hand\n");
     }
 
     @Override
     public void askForLeaderCardsToDiscard() {
+        boolean inputValidity = false;
+        int id1 = 0, id2 = 0;
 
+        System.out.println(COLOR_TEXT_PRIMARY + "********************** DISCARD CARD **********************" + CLIColors.getAnsiReset());
+        while (!inputValidity) {
+            inHandLeaderCardsDraw();
+            System.out.println(COLOR_TEXT_PRIMARY + "Insert an ID card to dicard" + CLIColors.getAnsiReset());
+            System.out.print(COLOR_TEXT_PRIMARY + "> " + CLIColors.getAnsiReset());
+            try {
+                id1 = Integer.parseInt(stdIn.readLine());
+                for (ReducedLeaderCard reducedLeaderCard : reducedGameModel.getReducedInHandLeaderCards().getInHandLeaderCards()) {
+                    if (reducedLeaderCard.getId() == id1) {
+                        inputValidity = true;
+                        break;
+                    }
+                }
+                if (!inputValidity)
+                    System.out.println(COLOR_TEXT_ERROR + "Invalid input: insert the card ID from your hand\n" + CLIColors.getAnsiReset());
+            } catch (IOException e) {
+                System.out.println(COLOR_TEXT_ERROR + "Invalid input: insert the card ID from your hand\n" + CLIColors.getAnsiReset());
+            }
+        }
+        inputValidity = false;
+        while (!inputValidity) {
+            inHandLeaderCardsDraw();
+            System.out.println(COLOR_TEXT_PRIMARY + "Insert an ID card to dicard" + CLIColors.getAnsiReset());
+            System.out.print(COLOR_TEXT_PRIMARY + "> " + CLIColors.getAnsiReset());
+            try {
+                id2 = Integer.parseInt(stdIn.readLine());
+                if (id2 == id1)
+                    System.out.println(COLOR_TEXT_ERROR + "Invalid input: choose a different card\n" + CLIColors.getAnsiReset());
+                else {
+                    for (ReducedLeaderCard reducedLeaderCard : reducedGameModel.getReducedInHandLeaderCards().getInHandLeaderCards()) {
+                        if (reducedLeaderCard.getId() == id2) {
+                            inputValidity = true;
+                            break;
+                        }
+                    }
+                    if (!inputValidity)
+                        System.out.println(COLOR_TEXT_ERROR + "Invalid input: insert the card ID from your hand\n" + CLIColors.getAnsiReset());
+                }
+            } catch (IOException e) {
+                System.out.println(COLOR_TEXT_ERROR + "Invalid input: insert the card ID from your hand\n" + CLIColors.getAnsiReset());
+            }
+        }
+
+        client.sendMessage(new DiscardedLeaderCardsMessage(client.getNickName(), id1, id2));
     }
 
     @Override
     public void askForCreateOrJoinGame() {
-
+        boolean inputValidity = false;
+        while (!inputValidity) {
+            System.out.println(COLOR_TEXT_PRIMARY + "*********************** GAME MENU ***********************" + CLIColors.getAnsiReset());
+            System.out.println(COLOR_TEXT_PRIMARY + "[1] --> New game" + CLIColors.getAnsiReset());
+            System.out.println(COLOR_TEXT_PRIMARY + "[2] --> Join existing game" + CLIColors.getAnsiReset());
+            System.out.print(COLOR_TEXT_PRIMARY + "> " + CLIColors.getAnsiReset());
+            try {
+                int gameMode = 0;
+                gameMode = Integer.parseInt(stdIn.readLine());
+                if (gameMode == 1 || gameMode == 2) inputValidity = true;
+                else
+                    System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert 1 or 2\n" + CLIColors.getAnsiReset());
+            } catch (InputMismatchException | IOException e) {
+                System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number\n" + CLIColors.getAnsiReset());
+            }
+        }
+        //TODO process choose
     }
 
     @Override
     public void temporaryDepotDraw() {
+        List<List<String>> resources = new ArrayList<>();
+        if (!reducedGameModel.getTemporaryDepot().isEmpty()) {
+            for (Map.Entry<ResourceType, Integer> entry : reducedGameModel.getTemporaryDepot().entrySet()) {
+                for (int i = 0; i < entry.getValue(); i++) {
+                    resources.add(getStringRowsMarketBalls(entry.getKey()));
+                }
+            }
 
+            for (int i = 0; i < resources.get(0).size(); i++) {
+                for (int j = 0; j < resources.size(); j++) {
+                    System.out.print(resources.get(j).get(i) + "  ");
+                }
+                System.out.print("\n");
+            }
+        } else System.out.println(COLOR_TEXT_PRIMARY + "Temporary depot is empty" + CLIColors.getAnsiReset());
     }
 
     @Override
     public void askForInitialResources() {
+        boolean inputValidity = false;
+        int option = 0;
+        int numberResource = 0;
+        List<ResourceType> resourceChosen = new ArrayList<>();
+        if (reducedGameModel.getPlayerTurnPosition() == 1 || reducedGameModel.getPlayerTurnPosition() == 2)
+            numberResource = 1;
+        else if (reducedGameModel.getPlayerTurnPosition() == 3)
+            numberResource = 2;
+        for (int i = 0; i < numberResource; i++) {
+            inputValidity = false;
+            while (!inputValidity) {
+                System.out.println(COLOR_TEXT_PRIMARY + "******************** INITIAL RESOURCE ********************" + CLIColors.getAnsiReset());
+                System.out.println(COLOR_TEXT_PRIMARY + "Choose a resource (you will receive the resource choosen)" + CLIColors.getAnsiReset());
+                System.out.println(COLOR_TEXT_PRIMARY + "[1] --> Coin" + CLIColors.getAnsiReset());
+                System.out.println(COLOR_TEXT_PRIMARY + "[2] --> Servant" + CLIColors.getAnsiReset());
+                System.out.println(COLOR_TEXT_PRIMARY + "[3] --> Stone" + CLIColors.getAnsiReset());
+                System.out.println(COLOR_TEXT_PRIMARY + "[4] --> Shield" + CLIColors.getAnsiReset());
+                System.out.print(COLOR_TEXT_PRIMARY + "> " + CLIColors.getAnsiReset());
 
+                try {
+                    option = Integer.parseInt(stdIn.readLine());
+                    if (option >= 1 || option <= 4) inputValidity = true;
+                    else
+                        System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert 1,2,3 or 4 (the number option correspond to the resource you will receive)\n" + CLIColors.getAnsiReset());
+                } catch (InputMismatchException | IOException e) {
+                    System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number\n" + CLIColors.getAnsiReset());
+                }
+            }
+            switch (option) {
+                case 1: resourceChosen.add(ResourceType.COIN);
+                case 2: resourceChosen.add(ResourceType.SERVANT);
+                case 3: resourceChosen.add(ResourceType.STONE);
+                case 4: resourceChosen.add(ResourceType.SHIELD);
+            }
+        }
+
+        client.sendMessage(new ChosenInitialResourcesMessage(client.getNickName(), resourceChosen));
     }
 
 
@@ -167,27 +309,6 @@ public class CLI extends View {
 
     }
 
-    public void gameModeChoice() {
-        boolean inputValidity = false;
-        while (!inputValidity) {
-            System.out.println(COLOR_TEXT_PRIMARY + "*********************** GAME MENU ***********************" + CLIColors.getAnsiReset());
-            System.out.println(COLOR_TEXT_PRIMARY + "[1] --> New game" + CLIColors.getAnsiReset());
-            System.out.println(COLOR_TEXT_PRIMARY + "[2] --> Join existing game" + CLIColors.getAnsiReset());
-            System.out.print(COLOR_TEXT_PRIMARY + "> " + CLIColors.getAnsiReset());
-            try {
-                int gameMode = input.nextInt();
-                if (gameMode == 1 || gameMode == 2) inputValidity = true;
-                else
-                    System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert 1 or 2\n" + CLIColors.getAnsiReset());
-            } catch (InputMismatchException e) {
-                System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number\n" + CLIColors.getAnsiReset());
-                input.next();
-            }
-
-        }
-        /** clientController.gameModeChoice(gameMode); **/
-    }
-
     public void playersNumberChoice() {
         boolean inputValidity = false;
         while (!inputValidity) {
@@ -195,13 +316,12 @@ public class CLI extends View {
             System.out.println(COLOR_TEXT_PRIMARY + "Choose players number (between 1 and 4)" + CLIColors.getAnsiReset());
             System.out.print(COLOR_TEXT_PRIMARY + "> " + CLIColors.getAnsiReset());
             try {
-                int playersNumber = input.nextInt();
+                int playersNumber = Integer.parseInt(stdIn.readLine());
                 if (playersNumber >= 1 && playersNumber <= 4) inputValidity = true;
                 else
                     System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number between 1 and 4\n" + CLIColors.getAnsiReset());
-            } catch (InputMismatchException e) {
+            } catch (InputMismatchException | IOException e) {
                 System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number between 1 and 4\n" + CLIColors.getAnsiReset());
-                input.next();
             }
 
         }
@@ -215,12 +335,11 @@ public class CLI extends View {
             System.out.println(COLOR_TEXT_PRIMARY + "Insert gameID number you want join" + CLIColors.getAnsiReset());
             System.out.print(COLOR_TEXT_PRIMARY + "> " + CLIColors.getAnsiReset());
             try {
-                int gameID = input.nextInt();
+                int gameID = Integer.parseInt(stdIn.readLine());
                 System.out.println(COLOR_TEXT_PRIMARY + "Search game #" + gameID + "..." + CLIColors.getAnsiReset());
                 inputValidity = true;
-            } catch (InputMismatchException e) {
+            } catch (InputMismatchException | IOException e) {
                 System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert the gameID number\n" + CLIColors.getAnsiReset());
-                input.next();
             }
 
         }
@@ -233,21 +352,6 @@ public class CLI extends View {
 
     public void gameIDError() {
         System.out.println(COLOR_TEXT_ERROR + "Game not found!\n" + CLIColors.getAnsiReset());
-    }
-
-    public void nicknameChoice() {
-        boolean inputValidity = false;
-        while (!inputValidity) {
-            System.out.println(COLOR_TEXT_PRIMARY + "*********************** NICKNAME *************************" + CLIColors.getAnsiReset());
-            System.out.println(COLOR_TEXT_PRIMARY + "Choose your nickname" + CLIColors.getAnsiReset());
-            System.out.print(COLOR_TEXT_PRIMARY + "> " + CLIColors.getAnsiReset());
-
-            String nickname = input.nextLine();
-            if (nickname.length() <= 15) inputValidity = true;
-            else
-                System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a nickname maximum 15 characters\n" + CLIColors.getAnsiReset());
-        }
-        /** clientController.nicknameChoice(nickname); **/
     }
 
     public void genericCommunication(String textToDisplay) {
@@ -470,12 +574,6 @@ public class CLI extends View {
         return rows;
     }
 
-    public void showLeaderCard(ReducedLeaderCard leaderCard) {
-        for (String row : getStringRowsLeaderCard(leaderCard)) {
-            System.out.println(row);
-        }
-    }
-
     private List<String> getStringRowsCoin() {
         List<String> rows = new ArrayList<>();
         rows.add(ResourceType.COIN.getColor() + " ▒███ " + CLIColors.getAnsiReset());
@@ -512,33 +610,12 @@ public class CLI extends View {
         return rows;
     }
 
-    private List<String> getStringRowsMarketBalls(Colors color) {
+    private List<String> getStringRowsMarketBalls(ResourceType resourceType) {
         List<String> rows = new ArrayList<>();
-        String ballColor = null;
-        switch (color) {
-            case RED:
-                ballColor = CLIColors.getAnsiRed();
-                break;
-            case BLUE:
-                ballColor = CLIColors.getAnsiCyan();
-                break;
-            case PURPLE:
-                ballColor = CLIColors.getAnsiPurple();
-                break;
-            case GREY:
-                ballColor = CLIColors.getAnsiBrightBlack();
-                break;
-            case YELLOW:
-                ballColor = CLIColors.getAnsiYellow();
-                break;
-            case WHITE:
-                ballColor = CLIColors.getAnsiWhite();
-                break;
-        }
-        rows.add(ballColor + " ███▒ " + CLIColors.getAnsiReset());
-        rows.add(ballColor + "█████▒" + CLIColors.getAnsiReset());
-        rows.add(ballColor + "████▒▒" + CLIColors.getAnsiReset());
-        rows.add(ballColor + " ██▒▒ " + CLIColors.getAnsiReset());
+        rows.add(resourceType.getColor() + " ███▒ " + CLIColors.getAnsiReset());
+        rows.add(resourceType.getColor() + "█████▒" + CLIColors.getAnsiReset());
+        rows.add(resourceType.getColor() + "████▒▒" + CLIColors.getAnsiReset());
+        rows.add(resourceType.getColor() + " ██▒▒ " + CLIColors.getAnsiReset());
         return rows;
     }
 
@@ -722,7 +799,9 @@ public class CLI extends View {
         return rows;
     }
 
-    private List<String> getStringRowsMarketTray(Colors marketTray[][], Colors slide) {
+    private List<String> getStringRowsMarketTray() {
+        ResourceType marketTray[][] = reducedGameModel.getMarketTray().getMarketTray();
+        ResourceType slide = reducedGameModel.getMarketTray().getSlide();
         List<String> rows = new ArrayList<>();
         rows.add(COLOR_MARKET_TRAY + "╔═════════════════════════════════════╗            " + CLIColors.getAnsiReset());
         List<String> slideToDisplay = getStringRowsMarketBalls(slide);
@@ -1232,12 +1311,6 @@ public class CLI extends View {
 
     public void showFaithTrack(Map<Colors, Integer> players) {
         for (String row : getStringRowsFaithTrack(players)) {
-            System.out.println(row);
-        }
-    }
-
-    public void showMarketTray(Colors marketTray[][], Colors slide) {
-        for (String row : getStringRowsMarketTray(marketTray, slide)) {
             System.out.println(row);
         }
     }

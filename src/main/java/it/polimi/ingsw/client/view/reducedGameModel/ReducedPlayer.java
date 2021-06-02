@@ -15,6 +15,18 @@ public class ReducedPlayer {
         return turnPosition;
     }
 
+    public int getFaithPosition() {
+        return faithPosition;
+    }
+
+    public Colors getPlayerColor() {
+        return playerColor;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
     public void setTurnPosition(Integer turnPosition) {
         this.turnPosition = turnPosition;
     }

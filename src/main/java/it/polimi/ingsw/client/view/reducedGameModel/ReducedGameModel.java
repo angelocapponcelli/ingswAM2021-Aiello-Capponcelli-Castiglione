@@ -9,8 +9,8 @@ import java.util.stream.Stream;
 public class ReducedGameModel {
     private final ReducedMarketTray marketTray;
     private final ReducedInHandLeaderCards inHandLeaderCards;
-    private List<ReducedPlayer> players;
-    private final ReducedDevelopmentCard[][] developmentCardsGrid;
+    private  List<ReducedPlayer> players;
+    private ReducedDevelopmentCard[][] developmentCardsGrid;
     private final Boolean[] popeSpaceFlipped;
     private final ReducedDevelopmentCard[] personalDevelopmentBoard;
     private  List<ReducedContainer> wareHouseDepot;
@@ -74,6 +74,10 @@ public class ReducedGameModel {
 
     public ReducedDevelopmentCard[][] getDevelopmentCardsGrid() {
         return developmentCardsGrid;
+    }
+
+    public void setDevelopmentCardsGrid(ReducedDevelopmentCard[][] developmentCardsGrid) {
+        this.developmentCardsGrid = developmentCardsGrid;
     }
 
     public Boolean[] getPopeSpaceFlipped() {

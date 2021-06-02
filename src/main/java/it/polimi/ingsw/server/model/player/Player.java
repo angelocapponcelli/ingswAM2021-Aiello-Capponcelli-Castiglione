@@ -44,6 +44,9 @@ public abstract class Player extends Observable {
         return faithPosition;
     }
 
+    public void setFaithPosition(Integer faithPosition){
+        this.faithPosition = faithPosition;
+    }
     /**
      * Increase player's faith position by one and calls the onOccupy method
      */

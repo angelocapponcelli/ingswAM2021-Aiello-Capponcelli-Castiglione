@@ -2,10 +2,11 @@ package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.reducedGameModel.*;
-import it.polimi.ingsw.networking.messages.Message;
-import it.polimi.ingsw.networking.messages.clientMessages.*;
+import it.polimi.ingsw.networking.messages.clientMessages.ChosenInitialResourcesMessage;
+import it.polimi.ingsw.networking.messages.clientMessages.DiscardedLeaderCardsMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.JoinGameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NewGameMessage;
+import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NicknameMessage;
 import it.polimi.ingsw.server.model.cards.TypeLevel;
 import it.polimi.ingsw.server.model.misc.Colors;
 import it.polimi.ingsw.server.model.resources.ResourceType;
@@ -14,7 +15,10 @@ import it.polimi.ingsw.utils.CLIColors;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class CLI extends View {
@@ -35,6 +39,11 @@ public class CLI extends View {
     }
 
     @Override
+    public void splashScreen() {
+
+    }
+
+   /* @Override
     public void start() { //TODO
 
         clear();
@@ -83,7 +92,7 @@ public class CLI extends View {
                 e.printStackTrace();
             }
         }).start();
-    }
+    }*/
 
     @Override
     public void askForNickName() {
@@ -105,7 +114,7 @@ public class CLI extends View {
             }
         }
         client.setNickName(nickname);
-        client.sendMessage(new InsertNicknameMessage(nickname));
+        client.sendMessage(new NicknameMessage(nickname));
     }
 
     @Override
@@ -196,16 +205,20 @@ public class CLI extends View {
             System.out.println(COLOR_TEXT_PRIMARY + "[2] --> Join existing game" + CLIColors.getAnsiReset());
             System.out.print(COLOR_TEXT_PRIMARY + "> " + CLIColors.getAnsiReset());
             try {
-                int gameMode = 0;
-                gameMode = Integer.parseInt(stdIn.readLine());
-                if (gameMode == 1 || gameMode == 2) inputValidity = true;
-                else
+                int gameMode = Integer.parseInt(stdIn.readLine());
+                inputValidity = true;
+                if (gameMode == 1) {
+                    playersNumberChoice();
+                    inputValidity = true;
+                } else if (gameMode == 2) {
+                    gameIDChoice();
+                    inputValidity = true;
+                } else
                     System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert 1 or 2\n" + CLIColors.getAnsiReset());
             } catch (InputMismatchException | IOException e) {
                 System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number\n" + CLIColors.getAnsiReset());
             }
         }
-        //TODO process choose
     }
 
     @Override
@@ -228,7 +241,17 @@ public class CLI extends View {
     }
 
     @Override
-    public void askForInitialResources() {
+    public void wareHouseDraw() {
+
+    }
+
+    @Override
+    public void devCardGridDraw() {
+
+    }
+
+    @Override
+    public boolean askForInitialResources() {
         boolean inputValidity = false;
         int option = 0;
         int numberResource = 0;
@@ -258,14 +281,31 @@ public class CLI extends View {
                 }
             }
             switch (option) {
-                case 1: resourceChosen.add(ResourceType.COIN);
-                case 2: resourceChosen.add(ResourceType.SERVANT);
-                case 3: resourceChosen.add(ResourceType.STONE);
-                case 4: resourceChosen.add(ResourceType.SHIELD);
+                case 1:
+                    resourceChosen.add(ResourceType.COIN);
+                case 2:
+                    resourceChosen.add(ResourceType.SERVANT);
+                case 3:
+                    resourceChosen.add(ResourceType.STONE);
+                case 4:
+                    resourceChosen.add(ResourceType.SHIELD);
             }
         }
+        if (numberResource > 0) {
+            client.sendMessage(new ChosenInitialResourcesMessage(client.getNickName(), resourceChosen));
+            return true;
+        }
+        return false;
+    }
 
-        client.sendMessage(new ChosenInitialResourcesMessage(client.getNickName(), resourceChosen));
+    @Override
+    public void moveFromTemporary() {
+
+    }
+
+    @Override
+    public void askForAnyResourceReplacement() {
+
     }
 
 
@@ -309,7 +349,7 @@ public class CLI extends View {
 
     }
 
-    public void playersNumberChoice() {
+    private void playersNumberChoice() {
         boolean inputValidity = false;
         while (!inputValidity) {
             System.out.println(COLOR_TEXT_PRIMARY + "********************* PLAYER NUMBER *********************" + CLIColors.getAnsiReset());
@@ -317,15 +357,17 @@ public class CLI extends View {
             System.out.print(COLOR_TEXT_PRIMARY + "> " + CLIColors.getAnsiReset());
             try {
                 int playersNumber = Integer.parseInt(stdIn.readLine());
-                if (playersNumber >= 1 && playersNumber <= 4) inputValidity = true;
-                else
+                if (playersNumber >= 1 && playersNumber <= 4) {
+                    inputValidity = true;
+                    client.sendMessage(new NewGameMessage(playersNumber));
+                } else
                     System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number between 1 and 4\n" + CLIColors.getAnsiReset());
             } catch (InputMismatchException | IOException e) {
                 System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number between 1 and 4\n" + CLIColors.getAnsiReset());
             }
 
         }
-        /** clientController.playersNumberChoice(playersNumber); **/
+
     }
 
     public void gameIDChoice() {
@@ -337,13 +379,14 @@ public class CLI extends View {
             try {
                 int gameID = Integer.parseInt(stdIn.readLine());
                 System.out.println(COLOR_TEXT_PRIMARY + "Search game #" + gameID + "..." + CLIColors.getAnsiReset());
+                client.sendMessage(new JoinGameMessage(gameID));
                 inputValidity = true;
             } catch (InputMismatchException | IOException e) {
                 System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert the gameID number\n" + CLIColors.getAnsiReset());
             }
 
         }
-        /** clientController.gameIDChoice(gameID); **/
+
     }
 
     public void gameIDSuccess() {

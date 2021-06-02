@@ -6,10 +6,11 @@ import it.polimi.ingsw.server.model.misc.Colors;
 import it.polimi.ingsw.server.model.resources.Resource;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ReducedDevelopmentCard {
+public class ReducedDevelopmentCard implements Serializable {
     private final int id;
     private final Map<ResourceType, Integer> cost;
     private final Colors type;

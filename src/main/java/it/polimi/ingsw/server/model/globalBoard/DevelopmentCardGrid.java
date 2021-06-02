@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.globalBoard;
 
+import it.polimi.ingsw.client.view.reducedGameModel.ReducedDevelopmentCard;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 import it.polimi.ingsw.server.model.misc.Deck;
 import it.polimi.ingsw.utils.observer.Observable;
@@ -55,11 +56,12 @@ public class DevelopmentCardGrid extends Observable {
         return deckGrid;
     }
 
-    public DevelopmentCard[][] toReduced() {
-        DevelopmentCard[][] reducedDeckGrid = new DevelopmentCard[3][4];
+    public ReducedDevelopmentCard[][] toReduced() {
+        ReducedDevelopmentCard[][] reducedDeckGrid = new ReducedDevelopmentCard[3][4];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 4; j++) {
-                reducedDeckGrid[i][j] = deckGrid[i][j].peek();
+
+                reducedDeckGrid[i][j] = new ReducedDevelopmentCard(deckGrid[i][j].peek());
             }
         }
         return reducedDeckGrid;

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.view.reducedGameModel.ReducedDevelopmentCard;
 import it.polimi.ingsw.networking.messages.clientMessages.ChosenInitialResourcesMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.DiscardedLeaderCardsMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.ReallocateResourceMessage;
@@ -14,13 +15,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class SimpleCLI extends View {
 
-    private BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+    private final BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 
     public SimpleCLI(Client client) {
         super(client);
@@ -67,7 +71,7 @@ public class SimpleCLI extends View {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            switch (tmp) {
+            switch (Objects.requireNonNull(tmp)) {
                 case "1":
                     initialResources.add(ResourceType.COIN);
                     break;
@@ -96,51 +100,19 @@ public class SimpleCLI extends View {
         temporaryDepotDraw();
         wareHouseDraw();
 
-        reducedGameModel.getTemporaryDepot().entrySet()
-                .forEach(entry -> IntStream.range(0, entry.getValue())
-                        .mapToObj(x -> entry.getKey())
-                        .forEach(resourceType -> {
-                            System.out.println("Where do you want to put " + resourceType + "? (1)(2)(3)");
-                            String shelf;
-                            try {
-                                shelf = stdIn.readLine();
-                                client.sendMessage(new ReallocateResourceMessage(client.getNickName(), entry.getKey(), "Temporary", "WareHouse", -1, Integer.parseInt(shelf) -1));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }));
-
-
-        /*reducedGameModel.getTemporaryDepot().entrySet().forEach(x -> {
-            for (int i = 0; i < x.getValue(); i++) {
-                String destination = "wareHouse";
-                if (reducedGameModel.getActivatedSpecialAbilities().containsKey(SpecialAbilityType.EXTRADEPOT)) {
-                    System.out.println("Where do you want to put " + x.getKey() + "(1)WareHouse\n(2)SpecialDepot");
+        reducedGameModel.getTemporaryDepot().forEach((key, value) -> IntStream.range(0, value)
+                .mapToObj(x -> key)
+                .forEach(resourceType -> {
+                    System.out.println("Where do you want to put " + resourceType + "? (1)(2)(3)");
+                    String shelf;
                     try {
-                        destination = stdIn.readLine();
+                        shelf = stdIn.readLine();
+                        client.sendMessage(new ReallocateResourceMessage(client.getNickName(), key, "Temporary", "WareHouse", -1, Integer.parseInt(shelf) - 1));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    if (destination.equals("2")) {
-                        client.sendMessage(new ReallocateResourceMessage(client.getNickName(), "Temporary", "Special", -1, -1));
-                    }
+                }));
 
-                }
-                else{
-                    System.out.println("In which shelf do you want to put " + x.getKey() +  "? (1), (2) or (3)");
-                    Integer shelf = null;
-                    try {
-                        shelf = Integer.parseInt(stdIn.readLine());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    client.sendMessage(new ReallocateResourceMessage(client.getNickName(),"Temporary", "WareHouse", -1, shelf));
-
-                }
-
-            }
-
-        });*/
     }
 
     @Override
@@ -185,6 +157,17 @@ public class SimpleCLI extends View {
                     System.out.print(getReducedGameModel().getWareHouseDepot().get(i).getResourceType().getColor() + "● " + CLIColors.getAnsiReset());
                 else System.out.print("□ ");
                 count--;
+            }
+            System.out.println();
+        }
+    }
+
+    @Override
+    public void devCardGridDraw() {
+        System.out.println("+++++DEV_CARD_GRID+++++");
+        for(ReducedDevelopmentCard[] row : reducedGameModel.getDevelopmentCardsGrid()){
+            for (ReducedDevelopmentCard card: row){
+                System.out.printf("%-3d",card.getId());
             }
             System.out.println();
         }
@@ -239,6 +222,7 @@ public class SimpleCLI extends View {
         marketTrayDraw();
         inHandLeaderCardsDraw();
         wareHouseDraw();
+        devCardGridDraw();
 
 
     }

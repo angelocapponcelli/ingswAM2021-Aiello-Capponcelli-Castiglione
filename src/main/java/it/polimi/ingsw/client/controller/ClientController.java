@@ -1,18 +1,11 @@
 package it.polimi.ingsw.client.controller;
 
-import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.networking.messages.ErrorMessage;
 import it.polimi.ingsw.networking.messages.Message;
-import it.polimi.ingsw.networking.messages.MessageType;
 import it.polimi.ingsw.networking.messages.serverMessage.TurnPositionMessage;
-import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedInHandLeaderCardMessage;
-import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedMarketTrayMessage;
-import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedTemporaryDepotMessage;
-import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedWareHouseMessage;
+import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.*;
 import it.polimi.ingsw.utils.CLIColors;
-
-import java.util.concurrent.TimeUnit;
 
 
 public class ClientController implements Runnable{
@@ -103,11 +96,6 @@ public class ClientController implements Runnable{
     }
 
 
-
-
-
-
-
     public synchronized void manageReceivedMessage(Message message) {
         switch (message.getMessageType()) {
             case ERROR:
@@ -123,18 +111,11 @@ public class ClientController implements Runnable{
             case UPDATED_IN_HAND_LEADER_CARD:
                 UpdatedInHandLeaderCardMessage updatedInHandLeaderCardMessage = (UpdatedInHandLeaderCardMessage) message;
                 view.getReducedGameModel().getReducedInHandLeaderCards().update(updatedInHandLeaderCardMessage.getInHandLeaderCard());
-                //view.refresh();
                 break;
-           /* case DISCARD_LEADER_CARD_REQUEST:
-                view.askForLeaderCardsToDiscard();
-                break;*/
             case TURN_POSITION_MESSAGE:
                 TurnPositionMessage playerTurnPositionMessage = (TurnPositionMessage) message;
                 view.getReducedGameModel().setPlayerTurnPosition(playerTurnPositionMessage.getTurnPosition());
                 break;
-            /*case SELECT_INITIAL_RESOURCE_REQUEST:
-                view.askForInitialResources();
-                break;*/
             case UPDATED_TEMPORARY_DEPOT:
                 UpdatedTemporaryDepotMessage updatedTemporaryDepotMessage = (UpdatedTemporaryDepotMessage) message;
                 view.getReducedGameModel().setTemporaryDepot(updatedTemporaryDepotMessage.getTemporaryDepot());
@@ -149,6 +130,10 @@ public class ClientController implements Runnable{
                 UpdatedWareHouseMessage updatedWareHouseMessage = (UpdatedWareHouseMessage) message;
                 view.getReducedGameModel().setWareHouseDepot(updatedWareHouseMessage.getWareHouse());
                 view.refresh();
+                break;
+            case UPDATED_DEV_CARD_GRID:
+                UpdatedDevelopmentCardGridMessage updatedDevelopmentCardGridMessage = (UpdatedDevelopmentCardGridMessage) message;
+                view.getReducedGameModel().setDevelopmentCardsGrid(updatedDevelopmentCardGridMessage.getDevelopmentCardGrid());
 
         }
     }

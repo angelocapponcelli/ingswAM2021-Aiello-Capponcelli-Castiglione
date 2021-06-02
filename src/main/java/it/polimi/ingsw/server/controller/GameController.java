@@ -6,7 +6,7 @@ import it.polimi.ingsw.networking.messages.Message;
 import it.polimi.ingsw.networking.messages.MessageType;
 import it.polimi.ingsw.networking.messages.clientMessages.*;
 import it.polimi.ingsw.networking.messages.serverMessage.GamePhaseUpdateMessage;
-import it.polimi.ingsw.networking.messages.serverMessage.RequestMessage;
+import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedDevelopmentCardGridMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedMarketTrayMessage;
 import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.controller.gameStates.GameState;
@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 public class GameController /*implements Runnable*/ {
@@ -75,8 +76,6 @@ public class GameController /*implements Runnable*/ {
             updateGameState(GameState.IN_GAME);
             initializeGame();
             sendBroadCastMessage(new GamePhaseUpdateMessage(MessageType.ALL_PLAYERS_JOINED));
-            //sendBroadCastMessage(new RequestMessage(MessageType.DISCARD_LEADER_CARD_REQUEST));
-            //sendBroadCastMessage(new RequestMessage(MessageType.SELECT_INITIAL_RESOURCE_REQUEST));
 
         }
     }
@@ -92,8 +91,15 @@ public class GameController /*implements Runnable*/ {
 
         Collections.shuffle(playerList);
         IntStream.range(0, playerList.size()).forEach(i -> playerList.get(i).setTurnPosition(i + 1));
+        if(playerList.size() > 2){
+            playerList.get(2).setFaithPosition(1);
+            if (playerList.size() == 4){
+                playerList.get(3).setFaithPosition(1);
+            }
+        }
 
         sendBroadCastMessage(new UpdatedMarketTrayMessage(gameModel.getGlobalBoard().getMarketTray()));
+        sendBroadCastMessage(new UpdatedDevelopmentCardGridMessage(gameModel.getGlobalBoard().getDevelopmentCardGrid().toReduced()));
 
         List<LeaderCard> leaderCardsDeck = LeaderCardParser.getLeaderCards();
         IntStream.range(0, playerList.size())
@@ -112,13 +118,13 @@ public class GameController /*implements Runnable*/ {
 
 
     private void discardInitialLeaderCards(DiscardedLeaderCardsMessage discardedLeaderCardsMessage) {
-        playerList.stream()
+        Objects.requireNonNull(playerList.stream()
                 .filter(player -> player
                         .getNickName()
                         .equals(discardedLeaderCardsMessage.getNickname()))
                 .filter(player -> player instanceof RealPlayer)
                 .map(player -> (RealPlayer) player)
-                .findFirst().orElse(null)
+                .findFirst().orElse(null))
                 .getPersonalBoard().getInHandLeaderCards().remove(discardedLeaderCardsMessage.getIDsToDiscard());
     }
 
@@ -140,7 +146,6 @@ public class GameController /*implements Runnable*/ {
             case DISCARDED_LEADER_CARD:
                 DiscardedLeaderCardsMessage discardLeaderCardsMessage = (DiscardedLeaderCardsMessage) message;
                 discardInitialLeaderCards(discardLeaderCardsMessage);
-                //sendBroadCastMessage(new RequestMessage(MessageType.SELECT_INITIAL_RESOURCE_REQUEST));
                 break;
 
             case CHOSEN_INITIAL_RESOURCES:
@@ -160,7 +165,7 @@ public class GameController /*implements Runnable*/ {
     private void reallocateResource(ReallocateResourceMessage reallocateResourceMessage){
         RealPlayer realPlayer = (RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(reallocateResourceMessage.getNickname()))
                 .findFirst().orElse(null);
-        PersonalBoard personalBoard = realPlayer.getPersonalBoard();
+        PersonalBoard personalBoard = Objects.requireNonNull(realPlayer).getPersonalBoard();
         ResourceType resourceType = reallocateResourceMessage.getResourceType();
         switch (reallocateResourceMessage.getDestinationDepot()) {
             case "WareHouse":
@@ -189,11 +194,8 @@ public class GameController /*implements Runnable*/ {
     private void distributeInitialResources(ChosenInitialResourcesMessage chosenInitialResourcesMessage) {
 
         RealPlayer realPlayer = (RealPlayer)playerList.stream().filter(player -> player.getNickName().equals(chosenInitialResourcesMessage.getNickname())).findFirst().orElse(null);
-        realPlayer.getPersonalBoard().getTemporaryDepot().addResource(chosenInitialResourcesMessage.getChosenResource());
+        Objects.requireNonNull(realPlayer).getPersonalBoard().getTemporaryDepot().addResource(chosenInitialResourcesMessage.getChosenResource());
 
-        /*chosenInitialResourcesMessage.getChosenResource().forEach(resourceType -> ResourceType.getResourceClass(resourceType).onTaking((RealPlayer) playerList.stream()
-                .filter(player -> player.getNickName().equals(chosenInitialResourcesMessage.getNickname()))
-                .findFirst().orElse(null)));*/
     }
 
     //****** MAIN ACTION ***********

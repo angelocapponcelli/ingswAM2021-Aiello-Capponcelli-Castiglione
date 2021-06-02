@@ -34,6 +34,7 @@ public abstract class View {
     public abstract void inHandLeaderCardsDraw();
     public abstract void temporaryDepotDraw();
     public abstract void wareHouseDraw();
+    public abstract void devCardGridDraw();
 
 
 

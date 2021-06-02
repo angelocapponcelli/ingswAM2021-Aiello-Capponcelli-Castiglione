@@ -51,6 +51,11 @@ public class GUI extends View{
     }
 
     @Override
+    public void devCardGridDraw() {
+
+    }
+
+    @Override
     public boolean askForInitialResources() {
         return true;
     }

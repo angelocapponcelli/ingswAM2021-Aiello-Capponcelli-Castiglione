@@ -3,25 +3,24 @@ package it.polimi.ingsw.client.view.reducedGameModel;
 import it.polimi.ingsw.server.model.misc.Colors;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class ReducedGameModel {
     private final ReducedMarketTray marketTray;
     private final ReducedInHandLeaderCards inHandLeaderCards;
     private List<ReducedPlayer> players;
-    private ReducedDevelopmentCard[][] developmentCardsGrid;
-    private Boolean[] popeSpaceFlipped;
-    private ReducedDevelopmentCard[] personalDevelopmentBoard;
-    private List<ReducedContainer> wareHouseDepot;
-    private Map<ResourceType, Integer> strongBoxDepot;
-    private Map<ResourceType, Integer> specialDepot;
+    private final ReducedDevelopmentCard[][] developmentCardsGrid;
+    private final Boolean[] popeSpaceFlipped;
+    private final ReducedDevelopmentCard[] personalDevelopmentBoard;
+    private  List<ReducedContainer> wareHouseDepot;
+    private final Map<ResourceType, Integer> strongBoxDepot;
+    private final Map<ResourceType, Integer> specialDepot;
     private Map<ResourceType, Integer> productionPowerInputBoard;
     private Map<ResourceType, Integer> productionPowerOutputBoard;
     private Map<ResourceType, Integer> temporaryDepot;
     private Integer playerTurnPosition;
+    private final Map<SpecialAbilityType, ResourceType> activatedSpecialAbilities;
 
     public ReducedGameModel() {
         marketTray = new ReducedMarketTray();
@@ -30,17 +29,20 @@ public class ReducedGameModel {
         popeSpaceFlipped = new Boolean[]{false, false, false};
         personalDevelopmentBoard = new ReducedDevelopmentCard[3];
         wareHouseDepot = new ArrayList<>();
+        temporaryDepot = new HashMap<>();
+
         wareHouseDepot.add(new ReducedContainer(null, 0));
         wareHouseDepot.add(new ReducedContainer(null, 0));
         wareHouseDepot.add(new ReducedContainer(null, 0));
-        strongBoxDepot = new HashMap<>();
-        strongBoxDepot.put(ResourceType.COIN, 0);
-        strongBoxDepot.put(ResourceType.SERVANT, 0);
-        strongBoxDepot.put(ResourceType.SHIELD, 0);
-        strongBoxDepot.put(ResourceType.STONE, 0);
+        strongBoxDepot = Map.of(ResourceType.COIN,0,ResourceType.SHIELD,0,ResourceType.STONE,0,ResourceType.SERVANT,0);
         specialDepot = new HashMap<>();
+        activatedSpecialAbilities = new HashMap<>();
     }
 
+
+    public Map<SpecialAbilityType, ResourceType> getActivatedSpecialAbilities() {
+        return activatedSpecialAbilities;
+    }
 
     public Map<ResourceType, Integer> getTemporaryDepot() {
         return temporaryDepot;
@@ -82,6 +84,9 @@ public class ReducedGameModel {
         return personalDevelopmentBoard;
     }
 
+    public void setWareHouseDepot(List<ReducedContainer> reducedWareHouse){
+        wareHouseDepot = reducedWareHouse;
+    }
     public List<ReducedContainer> getWareHouseDepot() {
         return wareHouseDepot;
     }

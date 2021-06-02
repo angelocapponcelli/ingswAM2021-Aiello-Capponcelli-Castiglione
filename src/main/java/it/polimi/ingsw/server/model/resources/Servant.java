@@ -2,6 +2,8 @@ package it.polimi.ingsw.server.model.resources;
 
 import it.polimi.ingsw.server.model.player.RealPlayer;
 
+import java.util.Collections;
+
 public class Servant extends ConcreteResource {
     private static final Servant INSTANCE = new Servant();
     private static final ResourceType resourceType = ResourceType.SERVANT;
@@ -25,7 +27,7 @@ public class Servant extends ConcreteResource {
 
     @Override
     public void onTaking(RealPlayer realPlayer) {
-        realPlayer.getPersonalBoard().getTemporaryDepot().addResource(resourceType);
+        realPlayer.getPersonalBoard().getTemporaryDepot().addResource(Collections.singletonList(resourceType));
 
     }
 

@@ -4,6 +4,5 @@ public enum GameState {
     LOGIN, //wait for all the players to join the game
     INIT, // initial phase of the game
     IN_GAME, //in game phase: players can performs the main actions
-    REALLOCATE_RESOURCE,
-    SELECT_RESOURCE
+    END
 }

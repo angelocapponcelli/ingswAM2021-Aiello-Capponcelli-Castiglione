@@ -12,25 +12,30 @@ public abstract class View {
         reducedGameModel = new ReducedGameModel();
     }
 
-    public abstract void start();
-
-    public abstract void askForNickName();
+    //public abstract void start();
 
     public ReducedGameModel getReducedGameModel() {
         return reducedGameModel;
     }
 
+
+    public abstract void splashScreen();
+    public abstract void askForNickName();
+    public abstract void askForCreateOrJoinGame();
+    public abstract void askForLeaderCardsToDiscard();
+    public abstract boolean askForInitialResources();
+    public abstract void moveFromTemporary();
+    public abstract void askForAnyResourceReplacement();
+
+
     public abstract void refresh();
 
     public abstract void marketTrayDraw();
-
     public abstract void inHandLeaderCardsDraw();
-
-    public abstract void askForLeaderCardsToDiscard();
-
-    public abstract void askForCreateOrJoinGame();
-
     public abstract void temporaryDepotDraw();
+    public abstract void wareHouseDraw();
 
-    public abstract void askForInitialResources();
+
+
+
 }

@@ -1,5 +1,8 @@
 package it.polimi.ingsw.server.model.personalBoard.depots;
 
+import it.polimi.ingsw.client.view.reducedGameModel.ReducedContainer;
+import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedMarketTrayMessage;
+import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedWareHouseMessage;
 import it.polimi.ingsw.server.model.personalBoard.resourceContainers.WareHouseContainer;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.utils.exceptions.DepotException;
@@ -39,6 +42,9 @@ public class WareHouseDepot extends Depot {
                 throw e;
             }
         } else throw new DepotException("Not possible to add resources to this shelf: shelf not Empty");
+
+        notifyObserver(new UpdatedWareHouseMessage(toReduced()));
+
     }
 
     @Override
@@ -52,6 +58,7 @@ public class WareHouseDepot extends Depot {
             }
         }
         if (notExist) throw new DepotException("Impossible to remove resources, resource type not available");
+        notifyObserver(new UpdatedWareHouseMessage(toReduced()));
     }
 
     public void swap(int shelf1, int shelf2) throws DepotException {
@@ -66,6 +73,7 @@ public class WareHouseDepot extends Depot {
             wareHouseContainers.get(shelf1).setCapacity(tmpCapacity);
         }
         Collections.swap(wareHouseContainers, shelf1, shelf2);
+        notifyObserver(new UpdatedWareHouseMessage(toReduced()));
     }
 
     @Override
@@ -85,5 +93,16 @@ public class WareHouseDepot extends Depot {
                 count = count + tmpContainer.getCount();
         }
         return count;
+    }
+
+
+    private List<ReducedContainer> toReduced(){
+        List<ReducedContainer> reduced = new ArrayList<>();
+        for(WareHouseContainer wareHouseContainer: wareHouseContainers){
+            reduced.add(new ReducedContainer(wareHouseContainer.getType(), wareHouseContainer.getCount()));
+        }
+
+        return reduced;
+
     }
 }

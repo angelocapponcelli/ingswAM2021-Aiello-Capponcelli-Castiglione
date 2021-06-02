@@ -2,11 +2,13 @@ package it.polimi.ingsw.client.view.reducedGameModel;
 
 import it.polimi.ingsw.server.model.resources.ResourceType;
 
-public class ReducedContainer {
-    ResourceType resourceType;
-    int count;
+import java.io.Serializable;
 
-    public ReducedContainer(ResourceType resourceType, int count) {
+public class ReducedContainer implements Serializable {
+    ResourceType resourceType;
+    Integer count;
+
+    public ReducedContainer(ResourceType resourceType, Integer count) {
         this.resourceType = resourceType;
         this.count = count;
     }
@@ -19,7 +21,7 @@ public class ReducedContainer {
         this.resourceType = resourceType;
     }
 
-    public int getCount() {
+    public Integer getCount() {
         return count;
     }
 

@@ -2,6 +2,9 @@ package it.polimi.ingsw.server.model.resources;
 
 import it.polimi.ingsw.server.model.player.RealPlayer;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 /**
  * The Any resource. Represents a resource that can be chosen by a player.
  */
@@ -30,7 +33,7 @@ public class Any extends Resource {
 
     @Override
     public void onTaking(RealPlayer realPlayer) {
-        realPlayer.getPersonalBoard().getTemporaryDepot().addResource(resourceType);
+        realPlayer.getPersonalBoard().getTemporaryDepot().addResource(Collections.singletonList(resourceType));
     }
 
     @Override

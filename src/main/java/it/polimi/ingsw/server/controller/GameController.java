@@ -5,6 +5,7 @@ import it.polimi.ingsw.networking.connection.ServerClientHandler;
 import it.polimi.ingsw.networking.messages.Message;
 import it.polimi.ingsw.networking.messages.MessageType;
 import it.polimi.ingsw.networking.messages.clientMessages.*;
+import it.polimi.ingsw.networking.messages.serverMessage.GamePhaseUpdateMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.RequestMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedMarketTrayMessage;
 import it.polimi.ingsw.server.Server;
@@ -14,6 +15,7 @@ import it.polimi.ingsw.server.model.cards.LeaderCard;
 import it.polimi.ingsw.server.model.game.Game;
 import it.polimi.ingsw.server.model.game.MultiplayerGame;
 import it.polimi.ingsw.server.model.game.SinglePlayerGame;
+import it.polimi.ingsw.server.model.personalBoard.PersonalBoard;
 import it.polimi.ingsw.server.model.player.Player;
 import it.polimi.ingsw.server.model.player.RealPlayer;
 import it.polimi.ingsw.server.model.resources.ResourceType;
@@ -44,6 +46,7 @@ public class GameController /*implements Runnable*/ {
     }
 
 
+
     //+++++++ Getter +++++++
     public Integer getGameID() {
         return gameID;
@@ -71,8 +74,9 @@ public class GameController /*implements Runnable*/ {
         if (inGameConnectedClients.size() == maxPlayersNumber) {
             updateGameState(GameState.IN_GAME);
             initializeGame();
-            sendBroadCastMessage(new RequestMessage(MessageType.DISCARD_LEADER_CARD_REQUEST));
-            sendBroadCastMessage(new RequestMessage(MessageType.SELECT_INITIAL_RESOURCE_REQUEST));
+            sendBroadCastMessage(new GamePhaseUpdateMessage(MessageType.ALL_PLAYERS_JOINED));
+            //sendBroadCastMessage(new RequestMessage(MessageType.DISCARD_LEADER_CARD_REQUEST));
+            //sendBroadCastMessage(new RequestMessage(MessageType.SELECT_INITIAL_RESOURCE_REQUEST));
 
         }
     }
@@ -138,17 +142,58 @@ public class GameController /*implements Runnable*/ {
                 discardInitialLeaderCards(discardLeaderCardsMessage);
                 //sendBroadCastMessage(new RequestMessage(MessageType.SELECT_INITIAL_RESOURCE_REQUEST));
                 break;
+
             case CHOSEN_INITIAL_RESOURCES:
                 ChosenInitialResourcesMessage chosenInitialResourcesMessage = (ChosenInitialResourcesMessage) message;
                 distributeInitialResources(chosenInitialResourcesMessage);
+                break;
+            case REALLOCATE_RESOURCE:
+                ReallocateResourceMessage reallocateResourceMessage = (ReallocateResourceMessage) message;
+                reallocateResource(reallocateResourceMessage);
+                break;
+
 
         }
     }
 
+
+    private void reallocateResource(ReallocateResourceMessage reallocateResourceMessage){
+        RealPlayer realPlayer = (RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(reallocateResourceMessage.getNickname()))
+                .findFirst().orElse(null);
+        PersonalBoard personalBoard = realPlayer.getPersonalBoard();
+        ResourceType resourceType = reallocateResourceMessage.getResourceType();
+        switch (reallocateResourceMessage.getDestinationDepot()) {
+            case "WareHouse":
+                try {
+                    personalBoard.getWareHouseDepot().addResource(resourceType, 1, reallocateResourceMessage.getDestinationShelf());
+                } catch (DepotException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "Special":
+                try {
+                    personalBoard.getSpecialDepots().addResources(resourceType, 1);
+                } catch (DepotException e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
+                try {
+                    personalBoard.getTemporaryDepot().removeResources(resourceType,1);
+                } catch (DepotException e) {
+                    e.printStackTrace();
+                }
+        }
+
+
     private void distributeInitialResources(ChosenInitialResourcesMessage chosenInitialResourcesMessage) {
-        chosenInitialResourcesMessage.getChosenResource().forEach(resourceType -> ResourceType.getResourceClass(resourceType).onTaking((RealPlayer) playerList.stream()
+
+        RealPlayer realPlayer = (RealPlayer)playerList.stream().filter(player -> player.getNickName().equals(chosenInitialResourcesMessage.getNickname())).findFirst().orElse(null);
+        realPlayer.getPersonalBoard().getTemporaryDepot().addResource(chosenInitialResourcesMessage.getChosenResource());
+
+        /*chosenInitialResourcesMessage.getChosenResource().forEach(resourceType -> ResourceType.getResourceClass(resourceType).onTaking((RealPlayer) playerList.stream()
                 .filter(player -> player.getNickName().equals(chosenInitialResourcesMessage.getNickname()))
-                .findFirst().orElse(null)));
+                .findFirst().orElse(null)));*/
     }
 
     //****** MAIN ACTION ***********
@@ -176,8 +221,6 @@ public class GameController /*implements Runnable*/ {
                 developmentCard.onTaking(currentPlayer);
 
             }
-            //sendBroadCastMessage(new UpdateDevelopmentCardGridMessage());
-            //sendPrivateMessage(buyDevCardMessage.getNickname(), new UpdatedPersonalDevelopmentBoard();
         }
 
     }
@@ -192,8 +235,6 @@ public class GameController /*implements Runnable*/ {
         } else if (rowOrColumn.equals("column")) {
             gameModel.getGlobalBoard().getMarketTray().selectColumn(number).forEach(marble -> marble.onTaking(currentPlayer));
         } else System.out.println("Error");
-
-        //sendBroadCastMessage(new UpdatedMarketTray(gameModel.getGlobalBoard().getMarketTray()));
     }
 
     private void activateProduction(ActivateProductionMessage activateProductionMessage) {
@@ -230,7 +271,6 @@ public class GameController /*implements Runnable*/ {
      */
     public void sendPrivateMessage(String nickName, Message message) {
         ServerClientHandler serverClientHandler = Server.getConnectedClient().stream().filter(x -> x.getNickName().equals(nickName)).findFirst().orElse(null);
-        //ServerClientHandler serverClientHandler = Server.getNicknameWithConnection().entrySet().stream().filter(x-> x.getKey().equals(nickName)).map(Map.Entry::getValue).findFirst().orElse(null);
         assert serverClientHandler != null;
         serverClientHandler.sendMessage(message);
     }

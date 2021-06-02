@@ -52,7 +52,8 @@ public class Client {
             System.out.println("Client connected!");
             connectionIO = new ConnectionIO(clientSocket);
             receiveMessage();
-            view.start();
+            clientController.run();
+            //view.start();
         } catch (IOException e) {
             System.out.println(CLIColors.getAnsiRed() + "Unable to connect to the server." + CLIColors.getAnsiReset());
         }

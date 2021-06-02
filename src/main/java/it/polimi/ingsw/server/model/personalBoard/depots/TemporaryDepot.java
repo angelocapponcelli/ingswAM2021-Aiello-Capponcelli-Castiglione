@@ -6,6 +6,7 @@ import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.utils.exceptions.DepotException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,8 +26,20 @@ public class TemporaryDepot extends StrongBoxDepot {
         containers.add(new StrongBoxContainer(ResourceType.SHIELD));
     }
 
-    public void addResource(ResourceType resourceType) {
-        for (StrongBoxContainer selectedContainer : containers) {
+    public void addResource(List<ResourceType> resources) {
+
+        resources.forEach(resource -> {
+                    try {
+                        containers.stream()
+                                .filter(containers -> containers.getType().equals(resource))
+                                .findFirst().orElse(null).addResource(1);
+                    } catch (DepotException e) {
+                        e.printStackTrace();
+                    }
+                });
+        notifyObserver(new UpdatedTemporaryDepotMessage(toReduced()));
+
+        /*for (StrongBoxContainer selectedContainer : containers) {
             if (selectedContainer.getType().equals(resourceType)) {
                 try {
                     selectedContainer.addResource(1);
@@ -35,7 +48,7 @@ public class TemporaryDepot extends StrongBoxDepot {
                     e.printStackTrace();
                 }
             }
-        }
+        }*/
     }
 
 

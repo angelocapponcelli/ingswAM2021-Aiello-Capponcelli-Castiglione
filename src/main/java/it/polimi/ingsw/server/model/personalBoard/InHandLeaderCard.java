@@ -43,8 +43,6 @@ public class InHandLeaderCard extends Observable{
     public void addLeaderCard(List<LeaderCard> leaderCards){
         inHandLeaderCards = leaderCards;
         notifyObserver(new UpdatedInHandLeaderCardMessage(inHandLeaderCards.stream().map(ReducedLeaderCard::new).collect(Collectors.toList())));
-        System.out.println("ciao");
-
     }
 
     public void inGameDiscard(List<Integer> leaderCardIDs, RealPlayer realPlayer) {

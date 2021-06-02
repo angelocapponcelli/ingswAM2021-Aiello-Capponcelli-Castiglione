@@ -2,17 +2,12 @@ package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
 
-public class GUI extends View {
+public class GUI extends View{
 
     public GUI(Client client) {
         super(client);
     }
 
-    @Override
-    public void start() {
-
-
-    }
 
     @Override
     public void askForNickName() {
@@ -51,7 +46,27 @@ public class GUI extends View {
     }
 
     @Override
-    public void askForInitialResources() {
+    public void wareHouseDraw() {
+
+    }
+
+    @Override
+    public boolean askForInitialResources() {
+        return true;
+    }
+
+    @Override
+    public void moveFromTemporary() {
+
+    }
+
+    @Override
+    public void askForAnyResourceReplacement() {
+
+    }
+
+    @Override
+    public void splashScreen() {
 
     }
 

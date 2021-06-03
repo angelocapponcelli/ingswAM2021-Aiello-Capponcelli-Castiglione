@@ -9,6 +9,7 @@ public class UpdatedMarketTrayMessage extends ServerMessage {
     private ResourceType[][] marketTray;
     private ResourceType slide;
 
+
     public UpdatedMarketTrayMessage(MarketTray marketTray) {
         messageType = MessageType.UPDATED_MARKET_TRAY;
 

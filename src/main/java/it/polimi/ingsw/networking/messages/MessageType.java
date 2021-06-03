@@ -28,10 +28,13 @@ public enum MessageType {
     /**
      * view's update
      */
+    INIT_VIEW,
     UPDATED_MARKET_TRAY,
     UPDATED_TEMPORARY_DEPOT,
     UPDATED_WAREHOUSE,
     UPDATED_DEV_CARD_GRID,
 
-    ALL_PLAYERS_JOINED
+    ALL_PLAYERS_JOINED,
+
+    ACTION_ENDED
 }

@@ -5,7 +5,9 @@ import it.polimi.ingsw.networking.connection.ServerClientHandler;
 import it.polimi.ingsw.networking.messages.Message;
 import it.polimi.ingsw.networking.messages.MessageType;
 import it.polimi.ingsw.networking.messages.clientMessages.*;
+import it.polimi.ingsw.networking.messages.serverMessage.ActionEndedMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.GamePhaseUpdateMessage;
+import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.InitViewMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedDevelopmentCardGridMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedMarketTrayMessage;
 import it.polimi.ingsw.server.Server;
@@ -98,8 +100,7 @@ public class GameController /*implements Runnable*/ {
             }
         }
 
-        sendBroadCastMessage(new UpdatedMarketTrayMessage(gameModel.getGlobalBoard().getMarketTray()));
-        sendBroadCastMessage(new UpdatedDevelopmentCardGridMessage(gameModel.getGlobalBoard().getDevelopmentCardGrid().toReduced()));
+        sendBroadCastMessage(new InitViewMessage( gameModel.getGlobalBoard().getMarketTray(), gameModel.getGlobalBoard().getDevelopmentCardGrid().toReduced()));
 
         List<LeaderCard> leaderCardsDeck = LeaderCardParser.getLeaderCards();
         IntStream.range(0, playerList.size())
@@ -113,6 +114,8 @@ public class GameController /*implements Runnable*/ {
                 });
 
 
+        //sendBroadCastMessage(new UpdatedDevelopmentCardGridMessage(gameModel.getGlobalBoard().getDevelopmentCardGrid().toReduced()));
+        //sendBroadCastMessage(new UpdatedMarketTrayMessage(gameModel.getGlobalBoard().getMarketTray()));
 
     }
 
@@ -126,6 +129,7 @@ public class GameController /*implements Runnable*/ {
                 .map(player -> (RealPlayer) player)
                 .findFirst().orElse(null))
                 .getPersonalBoard().getInHandLeaderCards().remove(discardedLeaderCardsMessage.getIDsToDiscard());
+        sendPrivateMessage(discardedLeaderCardsMessage.getNickname(), new ActionEndedMessage());
     }
 
 
@@ -188,6 +192,7 @@ public class GameController /*implements Runnable*/ {
                 } catch (DepotException e) {
                     e.printStackTrace();
                 }
+                sendPrivateMessage(reallocateResourceMessage.getNickname(), new ActionEndedMessage());
         }
 
 
@@ -195,6 +200,8 @@ public class GameController /*implements Runnable*/ {
 
         RealPlayer realPlayer = (RealPlayer)playerList.stream().filter(player -> player.getNickName().equals(chosenInitialResourcesMessage.getNickname())).findFirst().orElse(null);
         Objects.requireNonNull(realPlayer).getPersonalBoard().getTemporaryDepot().addResource(chosenInitialResourcesMessage.getChosenResource());
+        sendPrivateMessage(chosenInitialResourcesMessage.getNickname(), new ActionEndedMessage());
+
 
     }
 
@@ -231,12 +238,16 @@ public class GameController /*implements Runnable*/ {
 
         String rowOrColumn = takeFromMarketMessage.getRowOrColumn();
         Integer number = takeFromMarketMessage.getNumber();
+        RealPlayer realPlayer = (RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(takeFromMarketMessage.getNickname())).findFirst().orElse(null);
+        assert realPlayer != null;
+        realPlayer.getPersonalBoard().getTemporaryDepot().clear();
 
         if (rowOrColumn.equals("row")) {
-            gameModel.getGlobalBoard().getMarketTray().selectRow(number).forEach(marble -> marble.onTaking(currentPlayer));
+            gameModel.getGlobalBoard().getMarketTray().selectRow(number).forEach(marble -> marble.onTaking(realPlayer));
         } else if (rowOrColumn.equals("column")) {
-            gameModel.getGlobalBoard().getMarketTray().selectColumn(number).forEach(marble -> marble.onTaking(currentPlayer));
+            gameModel.getGlobalBoard().getMarketTray().selectColumn(number).forEach(marble -> marble.onTaking(realPlayer));
         } else System.out.println("Error");
+        sendPrivateMessage(takeFromMarketMessage.getNickname(), new ActionEndedMessage());
     }
 
     private void activateProduction(ActivateProductionMessage activateProductionMessage) {

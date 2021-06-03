@@ -5,6 +5,7 @@ import it.polimi.ingsw.client.view.reducedGameModel.ReducedDevelopmentCard;
 import it.polimi.ingsw.networking.messages.clientMessages.ChosenInitialResourcesMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.DiscardedLeaderCardsMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.ReallocateResourceMessage;
+import it.polimi.ingsw.networking.messages.clientMessages.TakeFromMarketMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.JoinGameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NewGameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NicknameMessage;
@@ -15,12 +16,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class SimpleCLI extends View {
 
@@ -128,7 +127,6 @@ public class SimpleCLI extends View {
 
     }
 
-
     @Override
     public void splashScreen() {
         clear();
@@ -149,7 +147,7 @@ public class SimpleCLI extends View {
     public void wareHouseDraw() {
         System.out.println("+++++WareHouse+++++");
         for (int i = 0; i < 3; i++) {
-            System.out.print("("+ (i+1) +")");
+            System.out.print("(" + (i + 1) + ")");
             int count = getReducedGameModel().getWareHouseDepot().get(i).getCount();
             for (int j = 0; j < 3 - i; j++) System.out.print(" ");
             for (int j = 0; j < i + 1; j++) {
@@ -165,12 +163,41 @@ public class SimpleCLI extends View {
     @Override
     public void devCardGridDraw() {
         System.out.println("+++++DEV_CARD_GRID+++++");
-        for(ReducedDevelopmentCard[] row : reducedGameModel.getDevelopmentCardsGrid()){
-            for (ReducedDevelopmentCard card: row){
-                System.out.printf("%-3d",card.getId());
+        for (ReducedDevelopmentCard[] row : reducedGameModel.getDevelopmentCardsGrid()) {
+            for (ReducedDevelopmentCard card : row) {
+                System.out.printf("%-3d", card.getId());
             }
             System.out.println();
         }
+    }
+
+    @Override
+    public void askForMainAction() {
+        System.out.println("(1)TakeFromMarket (2)ActivateProduction (3)BuyDevCard");
+        try {
+            String mainAction = stdIn.readLine();
+            switch (mainAction) {
+                case "1":
+                    takeFromMarket();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void takeFromMarket() {
+        System.out.println("(r)Row (c)Column");
+        try {
+            String rowOrColumn = stdIn.readLine();
+            rowOrColumn = rowOrColumn.equals("r") ? "row": "column";
+            System.out.println("Number?");
+            String number = stdIn.readLine();
+            client.sendMessage(new TakeFromMarketMessage(client.getNickName(),rowOrColumn,Integer.parseInt(number)));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -229,7 +256,7 @@ public class SimpleCLI extends View {
 
     @Override
     public void marketTrayDraw() {
-        System.out.println("+++++WareHouse+++++");
+        System.out.println("+++++MarketTray+++++");
         System.out.print(reducedGameModel.getMarketTray().getSlide().getColor() + "●\n" + CLIColors.getAnsiReset());
         for (int i = 0; i < reducedGameModel.getMarketTray().getMarketTray().length; i++) {
             for (int j = 0; j < reducedGameModel.getMarketTray().getMarketTray()[i].length; j++) {

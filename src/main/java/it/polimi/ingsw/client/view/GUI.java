@@ -56,6 +56,11 @@ public class GUI extends View{
     }
 
     @Override
+    public void askForMainAction() {
+
+    }
+
+    @Override
     public boolean askForInitialResources() {
         return true;
     }

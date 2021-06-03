@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.model.globalBoard;
 
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedMarketTrayMessage;
 import it.polimi.ingsw.server.model.resources.Resource;
+import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.utils.observer.Observable;
 import it.polimi.ingsw.utils.parsers.MarketTrayParser;
 
@@ -135,6 +136,19 @@ public class MarketTray extends Observable {
      */
     private void updateSlide(Resource toSlide) {
         slide = toSlide;
+    }
+
+    public ResourceType[][] toReduced(){
+
+        int row = marketTray.length;
+        int col = marketTray[0].length;
+        ResourceType[][] reducedMarket = new ResourceType[row][col];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                reducedMarket[i][j] = marketTray[i][j].getResourceType();
+            }
+        }
+        return reducedMarket;
     }
 
 

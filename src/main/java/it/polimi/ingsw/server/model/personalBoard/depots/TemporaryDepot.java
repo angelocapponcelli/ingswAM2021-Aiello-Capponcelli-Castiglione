@@ -39,16 +39,6 @@ public class TemporaryDepot extends StrongBoxDepot {
                 });
         notifyObserver(new UpdatedTemporaryDepotMessage(toReduced()));
 
-        /*for (StrongBoxContainer selectedContainer : containers) {
-            if (selectedContainer.getType().equals(resourceType)) {
-                try {
-                    selectedContainer.addResource(1);
-                    notifyObserver(new UpdatedTemporaryDepotMessage(toReduced()));
-                } catch (DepotException e) {
-                    e.printStackTrace();
-                }
-            }
-        }*/
     }
 
 
@@ -74,6 +64,7 @@ public class TemporaryDepot extends StrongBoxDepot {
         for (StrongBoxContainer strongBoxContainer : containers) {
             strongBoxContainer.clear();
         }
+
 
     }
 

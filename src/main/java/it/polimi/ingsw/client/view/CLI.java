@@ -42,56 +42,7 @@ public class CLI extends View {
         init();
     }
 
-   /* @Override
-    public void start() { //TODO
 
-        clear();
-        System.out.println("Welcome to Maestri del Rinascimento");
-
-        waitMilliseconds(1000);
-        clear();
-
-
-        new Thread(() -> {
-            stdIn = new BufferedReader(new InputStreamReader(System.in));
-            String userInput;
-            Message message;
-            try {
-                askForNickName();
-                while (!((userInput = stdIn.readLine()).equals("quit"))) {
-                    switch (userInput) {
-                        case "newGame": {
-                            System.out.println("Insert players number");
-                            String tmp = stdIn.readLine();
-
-                            message = new NewGameMessage(Integer.parseInt(tmp));
-                            break;
-                        }
-                        case "selectRow":
-                            System.out.println("row(r) or column");
-                            String rowOrColumn = stdIn.readLine();
-                            System.out.println("Number?");
-                            String number = stdIn.readLine();
-                            message = new TakeFromMarketMessage(client.getNickName(), rowOrColumn, Integer.parseInt(number));
-                            break;
-                        case "joinGame": {
-                            System.out.println("Insert GameID");
-                            String tmp = stdIn.readLine();
-                            message = new JoinGameMessage(Integer.parseInt(tmp));
-                            break;
-                        }
-                        default:
-                            message = new ClientText(client.getNickName(), userInput);
-                            break;
-                    }
-                    client.sendMessage(message);
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }).start();
-    }*/
 
     @Override
     public void askForNickName() {
@@ -146,12 +97,13 @@ public class CLI extends View {
 
     @Override
     public void askForLeaderCardsToDiscard() {
+        clear();
         boolean inputValidity = false;
         int id1 = 0, id2 = 0;
 
         System.out.println(COLOR_TEXT_PRIMARY + "********************** DISCARD CARD **********************" + CLIColors.getAnsiReset());
+        inHandLeaderCardsDraw();
         while (!inputValidity) {
-            inHandLeaderCardsDraw();
             System.out.println(COLOR_TEXT_PRIMARY + "Insert an ID card to dicard" + CLIColors.getAnsiReset());
             System.out.print(COLOR_TEXT_PRIMARY + "> " + CLIColors.getAnsiReset());
             try {
@@ -170,7 +122,6 @@ public class CLI extends View {
         }
         inputValidity = false;
         while (!inputValidity) {
-            inHandLeaderCardsDraw();
             System.out.println(COLOR_TEXT_PRIMARY + "Insert an ID card to dicard" + CLIColors.getAnsiReset());
             System.out.print(COLOR_TEXT_PRIMARY + "> " + CLIColors.getAnsiReset());
             try {
@@ -251,6 +202,11 @@ public class CLI extends View {
         for (String row : getStringDevelopmentCardGrid()) {
             System.out.println(row);
         }
+    }
+
+    @Override
+    public void askForMainAction() {
+
     }
 
     @Override

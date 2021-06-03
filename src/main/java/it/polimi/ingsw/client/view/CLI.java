@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.reducedGameModel.*;
 import it.polimi.ingsw.networking.messages.clientMessages.ChosenInitialResourcesMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.DiscardedLeaderCardsMessage;
+import it.polimi.ingsw.networking.messages.clientMessages.ReallocateResourceMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.JoinGameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NewGameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NicknameMessage;
@@ -15,11 +16,9 @@ import it.polimi.ingsw.utils.CLIColors;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 public class CLI extends View {
 
@@ -40,7 +39,7 @@ public class CLI extends View {
 
     @Override
     public void splashScreen() {
-
+        init();
     }
 
    /* @Override
@@ -242,25 +241,38 @@ public class CLI extends View {
 
     @Override
     public void wareHouseDraw() {
-
+        for (String row : getStringRowsWarehouse()) {
+            System.out.println(row);
+        }
     }
 
     @Override
     public void devCardGridDraw() {
-
+        for (String row : getStringDevelopmentCardGrid()) {
+            System.out.println(row);
+        }
     }
 
     @Override
     public boolean askForInitialResources() {
-        boolean inputValidity = false;
+        clear();
+        boolean inputValidity;
         int option = 0;
-        int numberResource = 0;
-        List<ResourceType> resourceChosen = new ArrayList<>();
-        if (reducedGameModel.getPlayerTurnPosition() == 1 || reducedGameModel.getPlayerTurnPosition() == 2)
-            numberResource = 1;
-        else if (reducedGameModel.getPlayerTurnPosition() == 3)
-            numberResource = 2;
-        for (int i = 0; i < numberResource; i++) {
+        int numOfResources;
+        switch (reducedGameModel.getPlayerTurnPosition()) {
+            case 2:
+            case 3:
+                numOfResources = 1;
+                break;
+            case 4:
+                numOfResources = 2;
+                break;
+            default:
+                numOfResources = 0;
+                break;
+        }
+        List<ResourceType> initialResources = new ArrayList<>();
+        for (int i = 0; i < numOfResources; i++) {
             inputValidity = false;
             while (!inputValidity) {
                 System.out.println(COLOR_TEXT_PRIMARY + "******************** INITIAL RESOURCE ********************" + CLIColors.getAnsiReset());
@@ -273,26 +285,30 @@ public class CLI extends View {
 
                 try {
                     option = Integer.parseInt(stdIn.readLine());
-                    if (option >= 1 || option <= 4) inputValidity = true;
+                    if (option >= 1 && option <= 4) inputValidity = true;
                     else
                         System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert 1,2,3 or 4 (the number option correspond to the resource you will receive)\n" + CLIColors.getAnsiReset());
-                } catch (InputMismatchException | IOException e) {
+                } catch (IOException e) {
                     System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number\n" + CLIColors.getAnsiReset());
                 }
             }
             switch (option) {
                 case 1:
-                    resourceChosen.add(ResourceType.COIN);
+                    initialResources.add(ResourceType.COIN);
+                    break;
                 case 2:
-                    resourceChosen.add(ResourceType.SERVANT);
+                    initialResources.add(ResourceType.SERVANT);
+                    break;
                 case 3:
-                    resourceChosen.add(ResourceType.STONE);
+                    initialResources.add(ResourceType.STONE);
+                    break;
                 case 4:
-                    resourceChosen.add(ResourceType.SHIELD);
+                    initialResources.add(ResourceType.SHIELD);
+                    break;
             }
         }
-        if (numberResource > 0) {
-            client.sendMessage(new ChosenInitialResourcesMessage(client.getNickName(), resourceChosen));
+        if (numOfResources > 0) {
+            client.sendMessage(new ChosenInitialResourcesMessage(client.getNickName(), initialResources));
             return true;
         }
         return false;
@@ -300,12 +316,56 @@ public class CLI extends View {
 
     @Override
     public void moveFromTemporary() {
+        clear();
+        System.out.println(COLOR_TEXT_PRIMARY + "********************* MOVE RESOURCES *********************" + CLIColors.getAnsiReset());
+        temporaryDepotDraw();
+        wareHouseDraw();
+        specialDraw();
 
+        reducedGameModel.getTemporaryDepot().forEach((key, value) -> IntStream.range(0, value)
+                .mapToObj(x -> key)
+                .forEach(resourceType -> {
+                    boolean inputValidity = false;
+                    int option = 0, maxAvalable;
+                    if (reducedGameModel.getSpecialDepot().containsKey(resourceType)) {
+                        maxAvalable = 4;
+                    } else maxAvalable = 3;
+                    while (!inputValidity) {
+                        System.out.println(COLOR_TEXT_PRIMARY + "Where do you want to put " + resourceType + "?" + CLIColors.getAnsiReset());
+                        System.out.println(COLOR_TEXT_PRIMARY + "[1] [2] [3] --> Shelves" + CLIColors.getAnsiReset());
+                        if (maxAvalable == 4) {
+                            System.out.println(COLOR_TEXT_PRIMARY + "[4] --> Special" + CLIColors.getAnsiReset());
+                        }
+                        try {
+                            option = Integer.parseInt(stdIn.readLine()) - 1;
+                            if (option + 1 >= 1 && option + 1 <= maxAvalable) inputValidity = true;
+                            else
+                                System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number beetwen 1 and " + maxAvalable + "\n" + CLIColors.getAnsiReset());
+
+                        } catch (NumberFormatException |IOException e) {
+                            System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number beetwen 1 and " + maxAvalable + "\n" + CLIColors.getAnsiReset());
+                        }
+                    }
+                    client.sendMessage(new ReallocateResourceMessage(client.getNickName(), key, "Temporary", "WareHouse", -1, option));
+                }));
     }
 
     @Override
     public void askForAnyResourceReplacement() {
-
+        boolean inputValidity = false;
+        System.out.println(COLOR_TEXT_PRIMARY + "********************** ANY RESOURCE **********************");
+        while (!inputValidity) {
+            System.out.println(COLOR_TEXT_PRIMARY + "Choose a replacement resource");
+            System.out.println("[1] --> Coin\n[2] --> Shield\n[3] --> Stone\n[4] --> Servant\n" + CLIColors.getAnsiReset());
+            try {
+                int option = Integer.parseInt(stdIn.readLine());
+                if (option >= 1 && option <= 4) inputValidity = true;
+                else System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number beetwen 1 and 4\n" + CLIColors.getAnsiReset());
+            } catch (NumberFormatException | IOException e) {
+                System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number beetwen 1 and 4\n" + CLIColors.getAnsiReset());
+            }
+        }
+        //todo process input
     }
 
 
@@ -403,14 +463,8 @@ public class CLI extends View {
 
     public void showBoard() {
         clear();
-        List<ReducedDevelopmentCard> reducedDevelopmentCards = new ArrayList<>();
-        for (int i = 0; i < reducedGameModel.getDevelopmentCardsGrid().length; i++) {
-            for (int j = 0; j < reducedGameModel.getDevelopmentCardsGrid()[0].length; j++) {
-                reducedDevelopmentCards.add(reducedGameModel.getDevelopmentCardsGrid()[i][j]);
-            }
-        }
-        List<String> developmentCardGrid = getStringDevelopmentCardGrid(reducedDevelopmentCards);
-        List<String> warehouse = getStringRowsWarehouse(reducedGameModel.getWareHouseDepot());
+        List<String> developmentCardGrid = getStringDevelopmentCardGrid();
+        List<String> warehouse = getStringRowsWarehouse();
         List<String> strongBox = getStringRowsStrongBox(reducedGameModel.getStrongBoxDepot());
         //List<String> special = getStringRowsSpecial(reducedGameModel.getSpecialDepot().get); //todo
         //List<String> leaderCardToDisplay = getStringRowsLeaderCard(leaderCard);
@@ -459,17 +513,17 @@ public class CLI extends View {
             rows.add(COLOR_CARD + "║                     ║" + CLIColors.getAnsiReset());
         }
         rowCount = 3;
-        List coutInput = new ArrayList<Integer>(reducedDevelopmentCard.getProductionPowerInput().values());
-        List resourcesInput = new ArrayList<ResourceType>(reducedDevelopmentCard.getProductionPowerInput().keySet());
-        List coutOutput = new ArrayList<Integer>(reducedDevelopmentCard.getProductionPowerOutput().values());
-        List resourcesOutput = new ArrayList<ResourceType>(reducedDevelopmentCard.getProductionPowerOutput().keySet());
+        List<Integer> countInput = new ArrayList<>(reducedDevelopmentCard.getProductionPowerInput().values());
+        List<ResourceType> resourcesInput = new ArrayList<>(reducedDevelopmentCard.getProductionPowerInput().keySet());
+        List<Integer> countOutput = new ArrayList<>(reducedDevelopmentCard.getProductionPowerOutput().values());
+        List<ResourceType> resourcesOutput = new ArrayList<>(reducedDevelopmentCard.getProductionPowerOutput().keySet());
         int max = resourcesInput.size();
         if (max < resourcesOutput.size())
             max = resourcesOutput.size();
 
         for (int i = 0; i < max; i++) {
-            if (coutInput.size() >= i + 1) {
-                rows.add(COLOR_CARD + "║" + coutInput.get(i) + " " + resourceOutput((ResourceType) resourcesInput.get(i)));
+            if (countInput.size() >= i + 1) {
+                rows.add(COLOR_CARD + "║" + countInput.get(i) + " " + resourceOutput(resourcesInput.get(i)));
             } else rows.add(COLOR_CARD + "║         ");
             if (max == 1) {
                 rows.set(rows.size() - 1, rows.get(rows.size() - 1) + COLOR_CARD + " > ");
@@ -478,8 +532,8 @@ public class CLI extends View {
                 else if (i == max - 1) rows.set(rows.size() - 1, rows.get(rows.size() - 1) + COLOR_CARD + " ┘ ");
                 else rows.set(rows.size() - 1, rows.get(rows.size() - 1) + COLOR_CARD + " │ ");
             }
-            if (coutOutput.size() >= i + 1) {
-                rows.set(rows.size() - 1, rows.get(rows.size() - 1) + COLOR_CARD + coutOutput.get(i) + " " + resourceOutput((ResourceType) resourcesOutput.get(i)) + COLOR_CARD + "║" + CLIColors.getAnsiReset());
+            if (countOutput.size() >= i + 1) {
+                rows.set(rows.size() - 1, rows.get(rows.size() - 1) + COLOR_CARD + countOutput.get(i) + " " + resourceOutput(resourcesOutput.get(i)) + COLOR_CARD + "║" + CLIColors.getAnsiReset());
             } else
                 rows.set(rows.size() - 1, rows.get(rows.size() - 1) + COLOR_CARD + "         ║" + CLIColors.getAnsiReset());
             rowCount--;
@@ -506,13 +560,13 @@ public class CLI extends View {
         }
     }
 
-    public void showDevelopmentCardGrid(List<ReducedDevelopmentCard> developmentCardList) {
-        for (String row : getStringDevelopmentCardGrid(developmentCardList)) {
-            System.out.println(row);
+    public List<String> getStringDevelopmentCardGrid() {
+        List<ReducedDevelopmentCard> developmentCardList = new ArrayList<>();
+        ReducedDevelopmentCard[][] grid = reducedGameModel.getDevelopmentCardsGrid();
+        for (int i = 0; i < grid.length; i++) {
+            Collections.addAll(developmentCardList, grid[i]);
         }
-    }
 
-    public List<String> getStringDevelopmentCardGrid(List<ReducedDevelopmentCard> developmentCardList) {
         List<String> rows = new ArrayList<>();
         List<List<String>> cards = new ArrayList<>();
         for (ReducedDevelopmentCard cardToConvert : developmentCardList) {
@@ -671,7 +725,8 @@ public class CLI extends View {
         return rows;
     }
 
-    private List<String> getStringRowsWarehouse(List<ReducedContainer> wareHouseDepot) {
+    private List<String> getStringRowsWarehouse() {
+        List<ReducedContainer> wareHouseDepot = reducedGameModel.getWareHouseDepot();
         List<String> rows = new ArrayList<>();
         rows.add(COLOR_DEPOT + "        ╔══════════╗        " + CLIColors.getAnsiReset());
         List<String> resourceToDisplay = null;
@@ -1358,7 +1413,7 @@ public class CLI extends View {
         }
     }
 
-    public void showSpecial() {
+    public void specialDraw() {
         List<List<String>> specialRows = new ArrayList<>();
         for (Map.Entry<ResourceType, Integer> entry : reducedGameModel.getSpecialDepot().entrySet()) {
             specialRows.add(getStringRowsSpecial(entry.getKey(), entry.getValue()));
@@ -1368,12 +1423,6 @@ public class CLI extends View {
                 System.out.print(specialRows.get(j).get(i) + "  ");
             }
             System.out.print("\n");
-        }
-    }
-
-    public void showWarehouse() {
-        for (String row : getStringRowsWarehouse(reducedGameModel.getWareHouseDepot())) {
-            System.out.println(row);
         }
     }
 

@@ -69,7 +69,12 @@ public class CLI extends View {
 
     @Override
     public void refresh() { //TODO
-
+        clear();
+        System.out.println(client.getNickName() + " Turn Position: " + reducedGameModel.getPlayerTurnPosition());
+        marketTrayDraw();
+        inHandLeaderCardsDraw();
+        wareHouseDraw();
+        devCardGridDraw();
     }
 
     @Override
@@ -298,11 +303,14 @@ public class CLI extends View {
                             else
                                 System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number beetwen 1 and " + maxAvalable + "\n" + CLIColors.getAnsiReset());
 
-                        } catch (NumberFormatException |IOException e) {
+                        } catch (NumberFormatException | IOException e) {
                             System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number beetwen 1 and " + maxAvalable + "\n" + CLIColors.getAnsiReset());
                         }
                     }
-                    client.sendMessage(new ReallocateResourceMessage(client.getNickName(), key, "Temporary", "WareHouse", -1, option));
+                    if (option == 4)
+                        client.sendMessage(new ReallocateResourceMessage(client.getNickName(), key, "Temporary", "Special", -1, -1));
+                    else
+                        client.sendMessage(new ReallocateResourceMessage(client.getNickName(), key, "Temporary", "WareHouse", -1, option));
                 }));
     }
 
@@ -316,7 +324,8 @@ public class CLI extends View {
             try {
                 int option = Integer.parseInt(stdIn.readLine());
                 if (option >= 1 && option <= 4) inputValidity = true;
-                else System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number beetwen 1 and 4\n" + CLIColors.getAnsiReset());
+                else
+                    System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number beetwen 1 and 4\n" + CLIColors.getAnsiReset());
             } catch (NumberFormatException | IOException e) {
                 System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number beetwen 1 and 4\n" + CLIColors.getAnsiReset());
             }
@@ -367,42 +376,43 @@ public class CLI extends View {
 
     private void playersNumberChoice() {
         boolean inputValidity = false;
+        int playersNumber = 0;
         while (!inputValidity) {
-            System.out.println(COLOR_TEXT_PRIMARY + "********************* PLAYER NUMBER *********************" + CLIColors.getAnsiReset());
+            //System.out.println(COLOR_TEXT_PRIMARY + "********************* PLAYER NUMBER *********************" + CLIColors.getAnsiReset());
             System.out.println(COLOR_TEXT_PRIMARY + "Choose players number (between 1 and 4)" + CLIColors.getAnsiReset());
             System.out.print(COLOR_TEXT_PRIMARY + "> " + CLIColors.getAnsiReset());
             try {
-                int playersNumber = Integer.parseInt(stdIn.readLine());
+                playersNumber = Integer.parseInt(stdIn.readLine());
                 if (playersNumber >= 1 && playersNumber <= 4) {
                     inputValidity = true;
                     client.sendMessage(new NewGameMessage(playersNumber));
                 } else
                     System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number between 1 and 4\n" + CLIColors.getAnsiReset());
-            } catch (InputMismatchException | IOException e) {
+            } catch (NumberFormatException | IOException e) {
                 System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert a number between 1 and 4\n" + CLIColors.getAnsiReset());
             }
 
         }
-
+        client.sendMessage(new NewGameMessage(playersNumber));
     }
 
     public void gameIDChoice() {
         boolean inputValidity = false;
+        int gameID = 0;
         while (!inputValidity) {
             System.out.println(COLOR_TEXT_PRIMARY + "************************ GAME ID ************************" + CLIColors.getAnsiReset());
             System.out.println(COLOR_TEXT_PRIMARY + "Insert gameID number you want join" + CLIColors.getAnsiReset());
             System.out.print(COLOR_TEXT_PRIMARY + "> " + CLIColors.getAnsiReset());
             try {
-                int gameID = Integer.parseInt(stdIn.readLine());
+                gameID = Integer.parseInt(stdIn.readLine());
                 System.out.println(COLOR_TEXT_PRIMARY + "Search game #" + gameID + "..." + CLIColors.getAnsiReset());
                 client.sendMessage(new JoinGameMessage(gameID));
                 inputValidity = true;
             } catch (InputMismatchException | IOException e) {
                 System.out.println(COLOR_TEXT_ERROR + "Invalid input: please insert the gameID number\n" + CLIColors.getAnsiReset());
             }
-
         }
-
+        client.sendMessage(new JoinGameMessage(gameID));
     }
 
     public void gameIDSuccess() {
@@ -543,7 +553,7 @@ public class CLI extends View {
         return rows;
     }
 
-    private List<String> getStringRowsLeaderCard(ReducedLeaderCard reducedLeaderCard) {
+    public List<String> getStringRowsLeaderCard(ReducedLeaderCard reducedLeaderCard) {
         List<String> rows = new ArrayList<>();
         rows.add(COLOR_CARD + "╔═════LEADER CARD═════╗" + CLIColors.getAnsiReset());
         rows.add(COLOR_CARD + "║┌─Requirements──────┐║" + CLIColors.getAnsiReset());
@@ -551,10 +561,14 @@ public class CLI extends View {
         for (Map.Entry<ReducedRequirement, Integer> entry : reducedLeaderCard.getRequirements().entrySet()) {
             rows.add(COLOR_CARD + "║│ " + entry.getValue() + " ");
             if (entry.getKey() instanceof ResourceType)
-                rows.set(rows.size() - 1, rows.get(rows.size() - 1) + resourceOutput((ResourceType) entry.getKey()) + COLOR_CARD + "         │║" + CLIColors.getAnsiReset());
+                rows.set(rows.size() - 1, rows.get(rows.size() - 1) + resourceOutput((ResourceType) entry.getKey()) + COLOR_CARD + "        ");
             else {
-                rows.set(rows.size() - 1, rows.get(rows.size() - 1) + typeLevelRequirementOutput((TypeLevel) entry.getKey()) + COLOR_CARD + "   │║" + CLIColors.getAnsiReset());
+                rows.set(rows.size() - 1, rows.get(rows.size() - 1) + typeLevelRequirementOutput((TypeLevel) entry.getKey()) + COLOR_CARD + "  ");
             }
+            if (entry.getValue() < 10)
+                rows.set(rows.size() - 1, rows.get(rows.size() - 1) + " │║" + CLIColors.getAnsiReset());
+            else rows.set(rows.size() - 1, rows.get(rows.size() - 1) + "│║" + CLIColors.getAnsiReset());
+
             rowCount--;
         }
         rows.add(COLOR_CARD + "║└───────────────────┘║" + CLIColors.getAnsiReset());
@@ -568,7 +582,7 @@ public class CLI extends View {
                 rows.add(COLOR_CARD + "║│ $ DICOUNT  " + reducedLeaderCard.getSpecialResourceType().getColor() + "coin" + COLOR_CARD + " $ │║" + CLIColors.getAnsiReset());
             }
             if (reducedLeaderCard.getSpecialResourceType() == ResourceType.SERVANT) {
-                rows.add(COLOR_CARD + "║│$ DICOUNT " + reducedLeaderCard.getSpecialResourceType().getColor() + "servant" + COLOR_CARD + " $ │║" + CLIColors.getAnsiReset());
+                rows.add(COLOR_CARD + "║│$ DICOUNT " + reducedLeaderCard.getSpecialResourceType().getColor() + "servant" + COLOR_CARD + " $│║" + CLIColors.getAnsiReset());
             }
             if (reducedLeaderCard.getSpecialResourceType() == ResourceType.SHIELD) {
                 rows.add(COLOR_CARD + "║│$ DICOUNT  " + reducedLeaderCard.getSpecialResourceType().getColor() + "shield" + COLOR_CARD + " $│║" + CLIColors.getAnsiReset());
@@ -598,7 +612,7 @@ public class CLI extends View {
         if (reducedLeaderCard.getSpecialAbility() == SpecialAbilityType.EXTRADEPOT) {
             rows.add(COLOR_CARD + "║│  EXTRA  DEPOT of  │║" + CLIColors.getAnsiReset());
             if (reducedLeaderCard.getSpecialResourceType() == ResourceType.COIN) {
-                rows.add(COLOR_CARD + "║│  @     " + reducedLeaderCard.getSpecialResourceType().getColor() + "coin" + COLOR_CARD + "    @  │║" + CLIColors.getAnsiReset());
+                rows.add(COLOR_CARD + "║│  @    " + reducedLeaderCard.getSpecialResourceType().getColor() + "coin" + COLOR_CARD + "     @  │║" + CLIColors.getAnsiReset());
             }
             if (reducedLeaderCard.getSpecialResourceType() == ResourceType.SERVANT) {
                 rows.add(COLOR_CARD + "║│  @   " + reducedLeaderCard.getSpecialResourceType().getColor() + "servant" + COLOR_CARD + "   @  │║" + CLIColors.getAnsiReset());
@@ -1406,7 +1420,7 @@ public class CLI extends View {
         output = output + CLIColors.getAnsiReset();
         if (typeLevel.getLevel() > 0)
             output = output + COLOR_CARD + " - LV " + typeLevel.getLevel() + CLIColors.getAnsiReset();
-        else output = output + "      ";
+        else output = output + "       ";
         if (typeLevel.getType() == Colors.GREEN) {
             output = output + " ";
         }
@@ -1441,16 +1455,22 @@ public class CLI extends View {
         switch (resourceType.toString()) {
             case "COIN":
                 output = output + "coin   ";
+                break;
             case "STONE":
                 output = output + "stone  ";
+                break;
             case "SHIELD":
                 output = output + "shield ";
+                break;
             case "SERVANT":
                 output = output + "servant";
+                break;
             case "FAITH":
                 output = output + "faith  ";
+                break;
             case "ANY":
                 output = output + "any    ";
+                break;
         }
         output = output + CLIColors.getAnsiReset();
         return output;

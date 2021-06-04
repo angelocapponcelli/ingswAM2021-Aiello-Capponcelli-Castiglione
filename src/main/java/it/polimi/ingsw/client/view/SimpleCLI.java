@@ -1,11 +1,9 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.controller.MY_TURN;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedDevelopmentCard;
-import it.polimi.ingsw.networking.messages.clientMessages.ChosenInitialResourcesMessage;
-import it.polimi.ingsw.networking.messages.clientMessages.DiscardedLeaderCardsMessage;
-import it.polimi.ingsw.networking.messages.clientMessages.ReallocateResourceMessage;
-import it.polimi.ingsw.networking.messages.clientMessages.TakeFromMarketMessage;
+import it.polimi.ingsw.networking.messages.clientMessages.*;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.JoinGameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NewGameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NicknameMessage;
@@ -28,7 +26,6 @@ public class SimpleCLI extends View {
     public SimpleCLI(Client client) {
         super(client);
     }
-
 
     private void clear() {
         System.out.print("\033[H\033[2J");
@@ -99,8 +96,9 @@ public class SimpleCLI extends View {
         temporaryDepotDraw();
         wareHouseDraw();
 
+        //Todo special ability whiteMarble
         reducedGameModel.getTemporaryDepot().forEach((key, value) -> IntStream.range(0, value)
-                .mapToObj(x -> key)
+                .mapToObj(x -> key).filter(resourceType -> !resourceType.equals(ResourceType.ANY))
                 .forEach(resourceType -> {
                     System.out.println("Where do you want to put " + resourceType + "? (1)(2)(3)");
                     String shelf;
@@ -112,14 +110,46 @@ public class SimpleCLI extends View {
                     }
                 }));
 
+
+        /*reducedGameModel.getTemporaryDepot().forEach((key, value) -> IntStream.range(0, value)
+                .mapToObj(x -> key)
+                .forEach(resourceType -> {
+                    if(key.equals(ResourceType.ANY)){
+                        askForAnyResourceReplacement();
+                    }
+                    System.out.println("Where do you want to put " + resourceType + "? (1)(2)(3)");
+                    String shelf;
+                    try {
+                        shelf = stdIn.readLine();
+                        client.sendMessage(new ReallocateResourceMessage(client.getNickName(), key, "Temporary", "WareHouse", -1, Integer.parseInt(shelf) - 1));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }));*/
+
     }
 
-    @Override
     public void askForAnyResourceReplacement() {
         System.out.println("Choose a replacement resource");
-        System.out.println("1)COIN\n2)SHIELD\n3)STONE\n4)SERVANT");
+        System.out.println("1)COIN\n2)SHIELD\n3)STONE\n4)SERVANT\n5)DISCARD");
         try {
             String input = stdIn.readLine();
+            switch (input){
+                case "1":
+                    client.sendMessage(new SelectResourceReplacementMessage(client.getNickName(), ResourceType.COIN));
+                    break;
+                case "2":
+                    client.sendMessage(new SelectResourceReplacementMessage(client.getNickName(), ResourceType.SHIELD));
+                    break;
+                case "3":
+                    client.sendMessage(new SelectResourceReplacementMessage(client.getNickName(), ResourceType.STONE));
+                    break;
+                case "4":
+                    client.sendMessage(new SelectResourceReplacementMessage(client.getNickName(), ResourceType.SERVANT));
+                    break;
+                case "5":
+                    client.sendMessage(new DiscardAny(client.getNickName()));
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -172,20 +202,40 @@ public class SimpleCLI extends View {
     }
 
     @Override
-    public void askForMainAction() {
+    public void personalDevelopmentBoardDraw() {
+        System.out.println("+++++PersonalDevelopmentBoard+++++");
+        for(int i = 0; i< 3; i++){
+            if (reducedGameModel.getPersonalDevelopmentBoard()[i] != null){
+                System.out.print(reducedGameModel.getPersonalDevelopmentBoard()[i]);
+            }
+            else System.out.print("[]");
+        }
+        System.out.println();
+    }
+
+    @Override
+    public MY_TURN askForMainAction() {
         System.out.println("(1)TakeFromMarket (2)ActivateProduction (3)BuyDevCard");
         try {
             String mainAction = stdIn.readLine();
             switch (mainAction) {
                 case "1":
-                    takeFromMarket();
+                    return MY_TURN.TAKE_FROM_MARKET;
+                case "2":
+                    return MY_TURN.ACTIVATE_PRODUCTION;
+                case "3":
+                    return MY_TURN.BUY_DEV_CARD;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    private void takeFromMarket() {
+    public void takeFromMarket() {
+        clear();
+        wareHouseDraw();
+        marketTrayDraw();
         System.out.println("(r)Row (c)Column");
         try {
             String rowOrColumn = stdIn.readLine();
@@ -198,6 +248,20 @@ public class SimpleCLI extends View {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void buyDevCard() {
+        clear();
+        devCardGridDraw();
+        personalDevelopmentBoardDraw();
+        System.out.println("Choose a development card to buy");
+        try {
+            String toBuy = stdIn.readLine();
+            client.sendMessage(new BuyDevCardMessage(client.getNickName(), Integer.parseInt(toBuy)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -250,6 +314,7 @@ public class SimpleCLI extends View {
         inHandLeaderCardsDraw();
         wareHouseDraw();
         devCardGridDraw();
+        personalDevelopmentBoardDraw();
 
 
     }
@@ -272,7 +337,6 @@ public class SimpleCLI extends View {
         System.out.println("++++++++++LeaderCard++++++++++");
         reducedGameModel.getReducedInHandLeaderCards().getInHandLeaderCards().forEach(x -> System.out.println(x.getId()));
     }
-
 
     @Override
     public void askForLeaderCardsToDiscard() {

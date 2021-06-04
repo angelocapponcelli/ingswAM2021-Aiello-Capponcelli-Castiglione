@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.controller.MY_TURN;
 
 public class GUI extends View{
 
@@ -56,7 +57,22 @@ public class GUI extends View{
     }
 
     @Override
-    public void askForMainAction() {
+    public void personalDevelopmentBoardDraw() {
+
+    }
+
+    @Override
+    public MY_TURN askForMainAction() {
+        return null;
+    }
+
+    @Override
+    public void takeFromMarket() {
+
+    }
+
+    @Override
+    public void buyDevCard() {
 
     }
 

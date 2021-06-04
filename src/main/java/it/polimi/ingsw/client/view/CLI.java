@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.controller.MY_TURN;
 import it.polimi.ingsw.client.view.reducedGameModel.*;
 import it.polimi.ingsw.networking.messages.clientMessages.ChosenInitialResourcesMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.DiscardedLeaderCardsMessage;
@@ -210,7 +211,22 @@ public class CLI extends View {
     }
 
     @Override
-    public void askForMainAction() {
+    public void personalDevelopmentBoardDraw() {
+
+    }
+
+    @Override
+    public MY_TURN askForMainAction() {
+        return null;
+    }
+
+    @Override
+    public void takeFromMarket() {
+
+    }
+
+    @Override
+    public void buyDevCard() {
 
     }
 

@@ -7,6 +7,7 @@ import it.polimi.ingsw.networking.messages.MessageType;
 import it.polimi.ingsw.networking.messages.clientMessages.*;
 import it.polimi.ingsw.networking.messages.serverMessage.ActionEndedMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.GamePhaseUpdateMessage;
+import it.polimi.ingsw.networking.messages.serverMessage.ItIsMyTurnMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.InitViewMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedDevelopmentCardGridMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedMarketTrayMessage;
@@ -39,7 +40,7 @@ public class GameController /*implements Runnable*/ {
     private final List<InGameConnectedClient> inGameConnectedClients = new ArrayList<>();
     private final List<Player> playerList = new ArrayList<>();
     private GameState currentGameState;
-    private RealPlayer currentPlayer;
+    private int currentPlayer = 0;
 
     public GameController(Integer maxPlayersNumber, Integer gameID) {
         this.gameID = gameID;
@@ -161,10 +162,25 @@ public class GameController /*implements Runnable*/ {
                 reallocateResource(reallocateResourceMessage);
                 break;
 
+            case SELECT_RESOURCE_REPLACEMENT:
+                SelectResourceReplacementMessage selectResourceReplacementMessage = (SelectResourceReplacementMessage) message;
+                selectResourceReplacement(selectResourceReplacementMessage);
+
 
         }
     }
 
+    private void selectResourceReplacement(SelectResourceReplacementMessage selectResourceReplacementMessage){
+        try {
+            ((RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(selectResourceReplacementMessage.getNickname()))
+                    .findFirst().orElse(null)).getPersonalBoard().getTemporaryDepot().removeResources(ResourceType.ANY,1);
+        } catch (DepotException e) {
+            e.printStackTrace();
+        }
+        ((RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(selectResourceReplacementMessage.getNickname()))
+                .findFirst().orElse(null)).getPersonalBoard().getTemporaryDepot().addResource(Collections.singletonList(selectResourceReplacementMessage.getResourceType()));
+
+    }
 
     private void reallocateResource(ReallocateResourceMessage reallocateResourceMessage){
         RealPlayer realPlayer = (RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(reallocateResourceMessage.getNickname()))
@@ -209,28 +225,32 @@ public class GameController /*implements Runnable*/ {
     private void buyDevCard(BuyDevCardMessage buyDevCardMessage) {
         int cardId = buyDevCardMessage.getCardID();
         DevelopmentCard developmentCard = null;
+        RealPlayer realPlayer = playerList.stream()
+                .filter(player -> player.getNickName().equals(buyDevCardMessage.getNickname()))
+                .findFirst()
+                .map(player -> (RealPlayer) player)
+                .orElse(null);
 
         for (int i = 0; i < gameModel.getGlobalBoard().getDevelopmentCardGrid().getDeckGrid().length; i++) {
             for (int j = 0; j < gameModel.getGlobalBoard().getDevelopmentCardGrid().getDeckGrid()[0].length; j++) {
-                DevelopmentCard temp = gameModel.getGlobalBoard().getDevelopmentCardGrid().getDeckGrid()[i][j].pop();
+                DevelopmentCard temp = gameModel.getGlobalBoard().getDevelopmentCardGrid().getDeckGrid()[i][j].peek();
                 if (temp.getId() == cardId) {
                     developmentCard = temp;
+                    if (developmentCard.getCost().check(realPlayer)) {
+                        try {
+                            developmentCard.getCost().pay(realPlayer);
+                        } catch (DepotException e) {
+                            e.printStackTrace();
+                        }
+                        developmentCard.onTaking(realPlayer);
+                    }
                     break;
                 }
             }
         }
 
-        if (developmentCard != null) {
-            if (developmentCard.getCost().check(currentPlayer)) {
-                try {
-                    developmentCard.getCost().pay(currentPlayer);
-                } catch (DepotException e) {
-                    e.printStackTrace();
-                }
-                developmentCard.onTaking(currentPlayer);
-
-            }
-        }
+        sendPrivateMessage(buyDevCardMessage.getNickname(),new ActionEndedMessage());
+        nextPlayerTurn();
 
     }
 
@@ -248,15 +268,22 @@ public class GameController /*implements Runnable*/ {
             gameModel.getGlobalBoard().getMarketTray().selectColumn(number).forEach(marble -> marble.onTaking(realPlayer));
         } else System.out.println("Error");
         sendPrivateMessage(takeFromMarketMessage.getNickname(), new ActionEndedMessage());
+        nextPlayerTurn();
     }
 
     private void activateProduction(ActivateProductionMessage activateProductionMessage) {
+        RealPlayer realPlayer = playerList.stream()
+                .filter(player -> player.getNickName().equals(activateProductionMessage.getNickname()))
+                .findFirst()
+                .map(player -> (RealPlayer) player)
+                .orElse(null);
         try {
-            gameModel.getGlobalBoard().getBasicProductionPower().getProductionInput().pay(currentPlayer);
+            gameModel.getGlobalBoard().getBasicProductionPower().getProductionInput().pay(realPlayer);
         } catch (DepotException e) {
             e.printStackTrace();
         }
-        gameModel.getGlobalBoard().getBasicProductionPower().getProductionOutput().onActivation(currentPlayer);
+        gameModel.getGlobalBoard().getBasicProductionPower().getProductionOutput().onActivation(realPlayer);
+        nextPlayerTurn();
     }
     //*******************
 
@@ -286,6 +313,17 @@ public class GameController /*implements Runnable*/ {
         ServerClientHandler serverClientHandler = Server.getConnectedClient().stream().filter(x -> x.getNickName().equals(nickName)).findFirst().orElse(null);
         assert serverClientHandler != null;
         serverClientHandler.sendMessage(message);
+    }
+
+
+
+    private void nextPlayerTurn(){
+        if (currentPlayer + 1 == playerList.size()){
+            currentPlayer = 0;
+        }
+        else currentPlayer++;
+
+        sendPrivateMessage(playerList.get(currentPlayer).getNickName(), new ItIsMyTurnMessage());
     }
 
 }

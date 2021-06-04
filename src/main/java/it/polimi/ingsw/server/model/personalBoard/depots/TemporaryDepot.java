@@ -44,8 +44,12 @@ public class TemporaryDepot extends StrongBoxDepot {
 
     @Override
     public void removeResources(ResourceType resourceType, int numResource) throws DepotException {
-
+        containers.stream()
+                .filter(containers -> containers.getType().equals(resourceType))
+                .findFirst()
+                .orElse(null).remove(numResource);
     }
+
 
     @Override
     public int getAllResourceCount() {

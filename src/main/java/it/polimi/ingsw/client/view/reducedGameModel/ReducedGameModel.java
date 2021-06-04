@@ -9,18 +9,18 @@ import java.util.stream.Stream;
 public class ReducedGameModel {
     private final ReducedMarketTray marketTray;
     private final ReducedInHandLeaderCards inHandLeaderCards;
-    private  List<ReducedPlayer> players;
+    private List<ReducedPlayer> players;
     private ReducedDevelopmentCard[][] developmentCardsGrid;
-    private final Boolean[] popeSpaceFlipped;
-    private final ReducedDevelopmentCard[] personalDevelopmentBoard;
-    private  List<ReducedContainer> wareHouseDepot;
-    private final Map<ResourceType, Integer> strongBoxDepot;
-    private final Map<ResourceType, Integer> specialDepot;
+    private Boolean[] popeSpaceFlipped;
+    private ReducedDevelopmentCard[] personalDevelopmentBoard;
+    private List<ReducedContainer> wareHouseDepot;
+    private Map<ResourceType, Integer> strongBoxDepot;
+    private Map<ResourceType, Integer> specialDepot;
     private Map<ResourceType, Integer> productionPowerInputBoard;
     private Map<ResourceType, Integer> productionPowerOutputBoard;
     private Map<ResourceType, Integer> temporaryDepot;
     private Integer playerTurnPosition;
-    private final Map<SpecialAbilityType, ResourceType> activatedSpecialAbilities;
+    private Map<SpecialAbilityType, ResourceType> activatedSpecialAbilities;
 
     public ReducedGameModel() {
         marketTray = new ReducedMarketTray();
@@ -39,15 +39,16 @@ public class ReducedGameModel {
         activatedSpecialAbilities = new HashMap<>();
     }
 
-
     public Map<SpecialAbilityType, ResourceType> getActivatedSpecialAbilities() {
         return activatedSpecialAbilities;
+    }
+    public void setActivatedSpecialAbilities(Map<SpecialAbilityType, ResourceType> activatedSpecialAbilities) {
+        this.activatedSpecialAbilities = activatedSpecialAbilities;
     }
 
     public Map<ResourceType, Integer> getTemporaryDepot() {
         return temporaryDepot;
     }
-
     public void setTemporaryDepot(Map<ResourceType, Integer> temporaryDepot) {
         this.temporaryDepot = temporaryDepot;
     }
@@ -55,7 +56,6 @@ public class ReducedGameModel {
     public Integer getPlayerTurnPosition() {
         return playerTurnPosition;
     }
-
     public void setPlayerTurnPosition(Integer playerTurnPosition) {
         this.playerTurnPosition = playerTurnPosition;
     }
@@ -72,10 +72,13 @@ public class ReducedGameModel {
         return listPlayers;
     }
 
+    public void setPlayers(List<ReducedPlayer> players) {
+        this.players = players;
+    }
+
     public ReducedDevelopmentCard[][] getDevelopmentCardsGrid() {
         return developmentCardsGrid;
     }
-
     public void setDevelopmentCardsGrid(ReducedDevelopmentCard[][] developmentCardsGrid) {
         this.developmentCardsGrid = developmentCardsGrid;
     }
@@ -83,33 +86,53 @@ public class ReducedGameModel {
     public Boolean[] getPopeSpaceFlipped() {
         return popeSpaceFlipped;
     }
+    public void setPopeSpaceFlipped(Boolean[] popeSpaceFlipped) {
+        this.popeSpaceFlipped = popeSpaceFlipped;
+    }
 
     public ReducedDevelopmentCard[] getPersonalDevelopmentBoard() {
         return personalDevelopmentBoard;
     }
-
-    public void setWareHouseDepot(List<ReducedContainer> reducedWareHouse){
-        wareHouseDepot = reducedWareHouse;
+    public void setPersonalDevelopmentBoard(ReducedDevelopmentCard[] personalDevelopmentBoard) {
+        this.personalDevelopmentBoard = personalDevelopmentBoard;
     }
+
     public List<ReducedContainer> getWareHouseDepot() {
         return wareHouseDepot;
+    }
+    public void setWareHouseDepot(List<ReducedContainer> reducedWareHouse){
+        wareHouseDepot = reducedWareHouse;
     }
 
     public Map<ResourceType, Integer> getStrongBoxDepot() {
         return strongBoxDepot;
     }
+    public void setStrongBoxDepot(Map<ResourceType, Integer> strongBoxDepot) {
+        this.strongBoxDepot = strongBoxDepot;
+    }
 
     public Map<ResourceType, Integer> getSpecialDepot() {
         return specialDepot;
+    }
+    public void setSpecialDepot(Map<ResourceType, Integer> specialDepot) {
+        this.specialDepot = specialDepot;
     }
 
     public Map<ResourceType, Integer> getProductionPowerInputBoard() {
         return productionPowerInputBoard;
     }
+    public void setProductionPowerInputBoard(Map<ResourceType, Integer> productionPowerInputBoard) {
+        this.productionPowerInputBoard = productionPowerInputBoard;
+    }
 
     public Map<ResourceType, Integer> getProductionPowerOutputBoard() {
         return productionPowerOutputBoard;
     }
+    public void setProductionPowerOutputBoard(Map<ResourceType, Integer> productionPowerOutputBoard) {
+        this.productionPowerOutputBoard = productionPowerOutputBoard;
+    }
+
+
 
     public ReducedMarketTray getMarketTray() {
         return marketTray;

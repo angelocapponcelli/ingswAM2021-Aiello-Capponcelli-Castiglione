@@ -1,7 +1,11 @@
 package it.polimi.ingsw.server.model.personalBoard;
 
+import it.polimi.ingsw.client.view.reducedGameModel.ReducedDevelopmentCard;
+import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedPersonalDevelopmentBoardMessage;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 import it.polimi.ingsw.server.model.misc.Deck;
+import it.polimi.ingsw.utils.exceptions.PersonalBoardException;
+import it.polimi.ingsw.utils.observer.Observable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +13,11 @@ import java.util.List;
 /**
  * The place where a player puts Development Cards;
  */
-public class PersonalDevelopmentBoard {
-    private final List<Deck> board;
+public class PersonalDevelopmentBoard extends Observable {
+    private final List<Deck> board = new ArrayList<>();
     private Integer cardsCount;
 
     public PersonalDevelopmentBoard() {
-        this.board = new ArrayList<>();
         board.add(new Deck()); //Deck 0
         board.add(new Deck()); //Deck 1
         board.add(new Deck()); //Deck 2
@@ -27,6 +30,30 @@ public class PersonalDevelopmentBoard {
      */
     public void addCard(Integer deck, DevelopmentCard developmentCard) {
         board.get(deck).getDeck().add(developmentCard);
+    }
+
+    public void addCard(DevelopmentCard developmentCard) throws PersonalBoardException {
+        switch (developmentCard.getTypeLevel().getLevel()){
+            case 1:
+                board.stream()
+                        .filter(deck -> deck.peek()==null)
+                        .findFirst()
+                        .orElseThrow(PersonalBoardException::new).push(developmentCard);
+                break;
+            case 2:
+                board.stream()
+                        .filter(deck -> deck.peek().getTypeLevel().getLevel()==1)
+                        .findFirst()
+                        .orElseThrow(PersonalBoardException::new).push(developmentCard);
+                break;
+            case 3:
+                board.stream()
+                        .filter(deck -> deck.peek().getTypeLevel().getLevel()==2)
+                        .findFirst()
+                        .orElseThrow(PersonalBoardException::new).push(developmentCard);
+                break;
+        }
+        notifyObserver(new UpdatedPersonalDevelopmentBoardMessage(toReduced()));
     }
 
     public Integer getCardsCount() {
@@ -62,6 +89,14 @@ public class PersonalDevelopmentBoard {
             }
         }
         return null;
+    }
+
+    public List<ReducedDevelopmentCard> toReduced() {
+        List<ReducedDevelopmentCard> reduced = new ArrayList<>();
+        for(Deck deck: board){
+            reduced.add(deck.peek().toReduced());
+        }
+        return reduced;
     }
 
 }

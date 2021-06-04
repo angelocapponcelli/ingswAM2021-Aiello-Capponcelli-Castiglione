@@ -102,6 +102,7 @@ public class PersonalBoard extends Observable {
         inHandLeaderCards.addObserver(obs);
         temporaryDepot.addObserver(obs);
         wareHouseDepot.addObserver(obs);
+        personalDevelopmentBoard.addObserver(obs);
     }
 
     @Override
@@ -110,5 +111,6 @@ public class PersonalBoard extends Observable {
         inHandLeaderCards.removeObserver(obs);
         temporaryDepot.removeObserver(obs);
         wareHouseDepot.removeObserver(obs);
+        personalDevelopmentBoard.removeObserver(obs);
     }
 }

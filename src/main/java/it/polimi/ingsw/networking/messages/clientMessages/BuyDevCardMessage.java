@@ -7,8 +7,8 @@ public class BuyDevCardMessage extends ClientMessage {
 
     public BuyDevCardMessage(String nickname, int cardID) {
         super(nickname);
-        this.cardID = cardID;
         messageType = MessageType.BUY_DEV_CARD;
+        this.cardID = cardID;
     }
 
     public int getCardID() {

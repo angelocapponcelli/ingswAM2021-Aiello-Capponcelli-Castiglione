@@ -36,5 +36,14 @@ public enum MessageType {
 
     ALL_PLAYERS_JOINED,
 
-    ACTION_ENDED
+    ACTION_ENDED,
+
+
+    MY_TURN_MESSAGE,
+
+
+
+    DISCARD_ANY,
+    SELECT_RESOURCE_REPLACEMENT,
+    SelectResourceTypeMessage
 }

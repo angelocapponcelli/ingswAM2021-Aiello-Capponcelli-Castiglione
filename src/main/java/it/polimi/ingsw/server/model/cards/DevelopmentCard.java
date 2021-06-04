@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.cards;
 
+import it.polimi.ingsw.client.view.reducedGameModel.ReducedDevelopmentCard;
 import it.polimi.ingsw.server.model.interfaces.Takeable;
 import it.polimi.ingsw.server.model.player.RealPlayer;
 import it.polimi.ingsw.server.model.productionPower.ProductionPower;
@@ -48,5 +49,9 @@ public class DevelopmentCard implements Takeable {
     @Override
     public void onTaking(RealPlayer realPlayer) {
         realPlayer.getPersonalBoard().getPersonalDevelopmentBoard().addCard(0, this);
+    }
+
+    public ReducedDevelopmentCard toReduced(){
+        return new ReducedDevelopmentCard(this);
     }
 }

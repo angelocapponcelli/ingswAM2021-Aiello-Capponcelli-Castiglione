@@ -45,6 +45,8 @@ public abstract class View {
     public abstract void takeFromMarket();
     public abstract void buyDevCard();
 
+    public abstract void faithTrackDraw();
+
 
 
 

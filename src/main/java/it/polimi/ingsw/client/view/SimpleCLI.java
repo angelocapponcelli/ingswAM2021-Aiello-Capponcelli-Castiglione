@@ -101,31 +101,20 @@ public class SimpleCLI extends View {
                 .mapToObj(x -> key).filter(resourceType -> !resourceType.equals(ResourceType.ANY))
                 .forEach(resourceType -> {
                     System.out.println("Where do you want to put " + resourceType + "? (1)(2)(3)");
+                    System.out.println("(d) to discard");
                     String shelf;
                     try {
                         shelf = stdIn.readLine();
-                        client.sendMessage(new ReallocateResourceMessage(client.getNickName(), key, "Temporary", "WareHouse", -1, Integer.parseInt(shelf) - 1));
+                        if (shelf.equals("d")) {
+                            client.sendMessage(new DiscardResourceMessage(client.getNickName()));
+                        } else {
+                            client.sendMessage(new ReallocateResourceMessage(client.getNickName(), key, "Temporary", "WareHouse", -1, Integer.parseInt(shelf) - 1));
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }));
 
-
-        /*reducedGameModel.getTemporaryDepot().forEach((key, value) -> IntStream.range(0, value)
-                .mapToObj(x -> key)
-                .forEach(resourceType -> {
-                    if(key.equals(ResourceType.ANY)){
-                        askForAnyResourceReplacement();
-                    }
-                    System.out.println("Where do you want to put " + resourceType + "? (1)(2)(3)");
-                    String shelf;
-                    try {
-                        shelf = stdIn.readLine();
-                        client.sendMessage(new ReallocateResourceMessage(client.getNickName(), key, "Temporary", "WareHouse", -1, Integer.parseInt(shelf) - 1));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }));*/
 
     }
 
@@ -134,7 +123,7 @@ public class SimpleCLI extends View {
         System.out.println("1)COIN\n2)SHIELD\n3)STONE\n4)SERVANT\n5)DISCARD");
         try {
             String input = stdIn.readLine();
-            switch (input){
+            switch (input) {
                 case "1":
                     client.sendMessage(new SelectResourceReplacementMessage(client.getNickName(), ResourceType.COIN));
                     break;
@@ -204,18 +193,17 @@ public class SimpleCLI extends View {
     @Override
     public void personalDevelopmentBoardDraw() {
         System.out.println("+++++PersonalDevelopmentBoard+++++");
-        for(int i = 0; i< 3; i++){
-            if (reducedGameModel.getPersonalDevelopmentBoard()[i] != null){
-                System.out.print(reducedGameModel.getPersonalDevelopmentBoard()[i]);
-            }
-            else System.out.print("[]");
+        for (int i = 0; i < 3; i++) {
+            if (reducedGameModel.getPersonalDevelopmentBoard().get(i) != null) {
+                System.out.print("[" + reducedGameModel.getPersonalDevelopmentBoard().get(i).getId() + "]");
+            } else System.out.print("[]");
         }
         System.out.println();
     }
 
     @Override
     public MY_TURN askForMainAction() {
-        System.out.println("(1)TakeFromMarket (2)ActivateProduction (3)BuyDevCard");
+        System.out.println("> (1)TakeFromMarket (2)ActivateProduction (3)BuyDevCard");
         try {
             String mainAction = stdIn.readLine();
             switch (mainAction) {
@@ -239,10 +227,10 @@ public class SimpleCLI extends View {
         System.out.println("(r)Row (c)Column");
         try {
             String rowOrColumn = stdIn.readLine();
-            rowOrColumn = rowOrColumn.equals("r") ? "row": "column";
+            rowOrColumn = rowOrColumn.equals("r") ? "row" : "column";
             System.out.println("Number?");
             String number = stdIn.readLine();
-            client.sendMessage(new TakeFromMarketMessage(client.getNickName(),rowOrColumn,Integer.parseInt(number)));
+            client.sendMessage(new TakeFromMarketMessage(client.getNickName(), rowOrColumn, Integer.parseInt(number)));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -262,6 +250,12 @@ public class SimpleCLI extends View {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void faithTrackDraw() {
+        reducedGameModel.getPlayers()
+                .forEach(reducedPlayer -> System.out.println(reducedPlayer.getNickName() + " :" + reducedPlayer.getFaithPosition()));
     }
 
     @Override
@@ -305,11 +299,11 @@ public class SimpleCLI extends View {
 
     }
 
-
     @Override
     public void refresh() {
         clear();
         System.out.println(client.getNickName() + " Turn Position: " + reducedGameModel.getPlayerTurnPosition());
+        faithTrackDraw();
         marketTrayDraw();
         inHandLeaderCardsDraw();
         wareHouseDraw();
@@ -335,7 +329,8 @@ public class SimpleCLI extends View {
     @Override
     public void inHandLeaderCardsDraw() {
         System.out.println("++++++++++LeaderCard++++++++++");
-        reducedGameModel.getReducedInHandLeaderCards().getInHandLeaderCards().forEach(x -> System.out.println(x.getId()));
+        reducedGameModel.getReducedInHandLeaderCards().getInHandLeaderCards().forEach(x -> System.out.print(x.getId() + " "));
+        System.out.println();
     }
 
     @Override
@@ -355,7 +350,9 @@ public class SimpleCLI extends View {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         client.sendMessage(new DiscardedLeaderCardsMessage(client.getNickName(), id1, id2));
     }
+
 
 }

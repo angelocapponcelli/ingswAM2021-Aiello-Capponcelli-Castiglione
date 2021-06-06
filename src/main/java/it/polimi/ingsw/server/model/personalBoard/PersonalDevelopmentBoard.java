@@ -53,6 +53,7 @@ public class PersonalDevelopmentBoard extends Observable {
                         .orElseThrow(PersonalBoardException::new).push(developmentCard);
                 break;
         }
+
         notifyObserver(new UpdatedPersonalDevelopmentBoardMessage(toReduced()));
     }
 
@@ -91,11 +92,18 @@ public class PersonalDevelopmentBoard extends Observable {
         return null;
     }
 
+    /**
+     * @return a list of lightweight development card on top of the personal development board
+     */
     public List<ReducedDevelopmentCard> toReduced() {
         List<ReducedDevelopmentCard> reduced = new ArrayList<>();
         for(Deck deck: board){
-            reduced.add(deck.peek().toReduced());
+            if(deck.peek()!=null){
+                reduced.add(deck.peek().toReduced());
+            }
+            else reduced.add(null);
         }
+        System.out.println("ciaoo");
         return reduced;
     }
 

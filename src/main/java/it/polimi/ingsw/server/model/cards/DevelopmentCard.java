@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.view.reducedGameModel.ReducedDevelopmentCard;
 import it.polimi.ingsw.server.model.interfaces.Takeable;
 import it.polimi.ingsw.server.model.player.RealPlayer;
 import it.polimi.ingsw.server.model.productionPower.ProductionPower;
+import it.polimi.ingsw.utils.exceptions.PersonalBoardException;
 
 public class DevelopmentCard implements Takeable {
     private final Integer id;
@@ -48,7 +49,11 @@ public class DevelopmentCard implements Takeable {
      */
     @Override
     public void onTaking(RealPlayer realPlayer) {
-        realPlayer.getPersonalBoard().getPersonalDevelopmentBoard().addCard(0, this);
+        try {
+            realPlayer.getPersonalBoard().getPersonalDevelopmentBoard().addCard(this);
+        } catch (PersonalBoardException e) {
+            e.printStackTrace();
+        }
     }
 
     public ReducedDevelopmentCard toReduced(){

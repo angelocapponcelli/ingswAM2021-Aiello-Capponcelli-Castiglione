@@ -8,7 +8,6 @@ import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 import java.util.List;
 
 public class UpdatedPersonalDevelopmentBoardMessage extends ServerMessage {
-    MessageType messageType;
     List<ReducedDevelopmentCard> developmentCards;
 
     public UpdatedPersonalDevelopmentBoardMessage(List<ReducedDevelopmentCard> developmentCards) {

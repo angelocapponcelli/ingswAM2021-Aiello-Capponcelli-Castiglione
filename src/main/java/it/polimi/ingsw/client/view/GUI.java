@@ -77,6 +77,11 @@ public class GUI extends View{
     }
 
     @Override
+    public void faithTrackDraw() {
+
+    }
+
+    @Override
     public boolean askForInitialResources() {
         return true;
     }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model.globalBoard.faithTrack;
 
 import it.polimi.ingsw.utils.observer.Observable;
+import it.polimi.ingsw.utils.observer.Observer;
 import it.polimi.ingsw.utils.parsers.FaithTrackParser;
 
 import java.io.FileNotFoundException;
@@ -63,4 +64,19 @@ public class FaithTrack extends Observable {
         return vaticanReportSectionList;
     }
 
+    @Override
+    public void addObserver(Observer obs) {
+        super.addObserver(obs);
+        for(Cell cell: track){
+            cell.addObserver(obs);
+        }
+    }
+
+    @Override
+    public void removeObserver(Observer obs) {
+        super.removeObserver(obs);
+        for(Cell cell: track){
+            cell.removeObserver(obs);
+        }
+    }
 }

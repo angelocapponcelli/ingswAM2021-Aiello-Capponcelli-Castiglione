@@ -7,26 +7,19 @@ import it.polimi.ingsw.utils.observer.Observer;
 public class RealPlayer extends Player {
     private final PersonalBoard personalBoard;
     private final Integer victoryPoint;
-    //private Boolean first;
 
 
     public RealPlayer(String nickName, GameController gameController) {
         super(nickName, gameController);
         this.personalBoard = new PersonalBoard();
-        //this.first = false;
         this.victoryPoint = 0;
     }
 
     public RealPlayer(String nickName) {
         super(nickName);
         this.personalBoard = new PersonalBoard();
-        //this.first = false;
         this.victoryPoint = 0;
     }
-
-    /*public void setFirst() {
-        this.first = true;
-    }*/
 
 
     public Integer getVictoryPoint() {
@@ -45,10 +38,6 @@ public class RealPlayer extends Player {
         sum = sum + gameController.getGameModel().getGlobalBoard().getFaithTrack().getTrack().get(faithPosition).getVictoryPoints();
         return sum;
     }
-
-    /*public Boolean isFirst() {
-        return this.first;
-    }*/
 
     public PersonalBoard getPersonalBoard() {
         return this.personalBoard;

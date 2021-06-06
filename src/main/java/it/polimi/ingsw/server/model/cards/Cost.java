@@ -44,7 +44,7 @@ public class Cost implements Checkable, Payable {
             requiredCount = entry.getValue();
 
             for (SpecialAbility specialAbility : realPlayer.getPersonalBoard().getInHandLeaderCards().getEnabledAbilities()) {
-                if (specialAbility.getClass() == SpecialDiscount.class && entry.getKey() == ((SpecialDiscount) specialAbility).getResource()) {
+                if (specialAbility.getClass() == SpecialDiscount.class && entry.getKey() == specialAbility.getResource()) {
                     requiredCount--;
                     break;
                 }

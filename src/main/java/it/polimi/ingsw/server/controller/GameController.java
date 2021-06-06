@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.controller;
 
+import it.polimi.ingsw.client.view.reducedGameModel.ReducedPlayer;
 import it.polimi.ingsw.networking.connection.InGameConnectedClient;
 import it.polimi.ingsw.networking.connection.ServerClientHandler;
 import it.polimi.ingsw.networking.messages.Message;
@@ -26,10 +27,7 @@ import it.polimi.ingsw.utils.exceptions.DepotException;
 import it.polimi.ingsw.utils.parsers.LeaderCardParser;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.IntStream;
 
 public class GameController /*implements Runnable*/ {
@@ -101,7 +99,12 @@ public class GameController /*implements Runnable*/ {
             }
         }
 
-        sendBroadCastMessage(new InitViewMessage( gameModel.getGlobalBoard().getMarketTray(), gameModel.getGlobalBoard().getDevelopmentCardGrid().toReduced()));
+        List<ReducedPlayer> reducedPlayers = new ArrayList<>();
+        for(Player player: playerList ){
+            reducedPlayers.add(new ReducedPlayer(player));
+        }
+        sendBroadCastMessage(new InitViewMessage(reducedPlayers ,gameModel.getGlobalBoard().getMarketTray(), gameModel.getGlobalBoard().getDevelopmentCardGrid().toReduced()));
+        //sendBroadCastMessage(new InitViewMessage(gameModel.getGlobalBoard().getMarketTray(), gameModel.getGlobalBoard().getDevelopmentCardGrid().toReduced()));
 
         List<LeaderCard> leaderCardsDeck = LeaderCardParser.getLeaderCards();
         IntStream.range(0, playerList.size())
@@ -121,17 +124,6 @@ public class GameController /*implements Runnable*/ {
     }
 
 
-    private void discardInitialLeaderCards(DiscardedLeaderCardsMessage discardedLeaderCardsMessage) {
-        Objects.requireNonNull(playerList.stream()
-                .filter(player -> player
-                        .getNickName()
-                        .equals(discardedLeaderCardsMessage.getNickname()))
-                .filter(player -> player instanceof RealPlayer)
-                .map(player -> (RealPlayer) player)
-                .findFirst().orElse(null))
-                .getPersonalBoard().getInHandLeaderCards().remove(discardedLeaderCardsMessage.getIDsToDiscard());
-        sendPrivateMessage(discardedLeaderCardsMessage.getNickname(), new ActionEndedMessage());
-    }
 
 
     public void manageReceivedMessage(Message message) {
@@ -152,7 +144,6 @@ public class GameController /*implements Runnable*/ {
                 DiscardedLeaderCardsMessage discardLeaderCardsMessage = (DiscardedLeaderCardsMessage) message;
                 discardInitialLeaderCards(discardLeaderCardsMessage);
                 break;
-
             case CHOSEN_INITIAL_RESOURCES:
                 ChosenInitialResourcesMessage chosenInitialResourcesMessage = (ChosenInitialResourcesMessage) message;
                 distributeInitialResources(chosenInitialResourcesMessage);
@@ -161,13 +152,33 @@ public class GameController /*implements Runnable*/ {
                 ReallocateResourceMessage reallocateResourceMessage = (ReallocateResourceMessage) message;
                 reallocateResource(reallocateResourceMessage);
                 break;
-
             case SELECT_RESOURCE_REPLACEMENT:
                 SelectResourceReplacementMessage selectResourceReplacementMessage = (SelectResourceReplacementMessage) message;
                 selectResourceReplacement(selectResourceReplacementMessage);
+                break;
+            case DISCARD_RESOURCE:
+                DiscardResourceMessage discardResourceMessage = (DiscardResourceMessage) message;
+                discardResource(discardResourceMessage);
+                break;
 
 
         }
+    }
+
+
+
+
+    private void discardInitialLeaderCards(DiscardedLeaderCardsMessage discardedLeaderCardsMessage) {
+        Objects.requireNonNull(playerList.stream()
+                .filter(player -> player
+                        .getNickName()
+                        .equals(discardedLeaderCardsMessage.getNickname()))
+                .filter(player -> player instanceof RealPlayer)
+                .map(player -> (RealPlayer) player)
+                .findFirst().orElse(null))
+                .getPersonalBoard().getInHandLeaderCards().remove(discardedLeaderCardsMessage.getIDsToDiscard());
+
+        sendPrivateMessage(discardedLeaderCardsMessage.getNickname(), new ActionEndedMessage());
     }
 
     private void selectResourceReplacement(SelectResourceReplacementMessage selectResourceReplacementMessage){
@@ -211,6 +222,11 @@ public class GameController /*implements Runnable*/ {
                 sendPrivateMessage(reallocateResourceMessage.getNickname(), new ActionEndedMessage());
         }
 
+    private void discardResource(DiscardResourceMessage discardResourceMessage){
+        playerList.stream().filter(player -> !player.getNickName().equals(discardResourceMessage.getNickname())).forEach(Player::increaseFaithPosition);
+    }
+
+
 
     private void distributeInitialResources(ChosenInitialResourcesMessage chosenInitialResourcesMessage) {
 
@@ -224,12 +240,12 @@ public class GameController /*implements Runnable*/ {
     //****** MAIN ACTION ***********
     private void buyDevCard(BuyDevCardMessage buyDevCardMessage) {
         int cardId = buyDevCardMessage.getCardID();
-        DevelopmentCard developmentCard = null;
-        RealPlayer realPlayer = playerList.stream()
+        DevelopmentCard developmentCard;
+        RealPlayer realPlayer = (RealPlayer) playerList.stream()
                 .filter(player -> player.getNickName().equals(buyDevCardMessage.getNickname()))
-                .findFirst()
-                .map(player -> (RealPlayer) player)
-                .orElse(null);
+                .findFirst().orElse(null);
+
+
 
         for (int i = 0; i < gameModel.getGlobalBoard().getDevelopmentCardGrid().getDeckGrid().length; i++) {
             for (int j = 0; j < gameModel.getGlobalBoard().getDevelopmentCardGrid().getDeckGrid()[0].length; j++) {
@@ -238,10 +254,12 @@ public class GameController /*implements Runnable*/ {
                     developmentCard = temp;
                     if (developmentCard.getCost().check(realPlayer)) {
                         try {
+                            gameModel.getGlobalBoard().getDevelopmentCardGrid().pop(i,j);
                             developmentCard.getCost().pay(realPlayer);
                         } catch (DepotException e) {
                             e.printStackTrace();
                         }
+
                         developmentCard.onTaking(realPlayer);
                     }
                     break;
@@ -249,7 +267,7 @@ public class GameController /*implements Runnable*/ {
             }
         }
 
-        sendPrivateMessage(buyDevCardMessage.getNickname(),new ActionEndedMessage());
+        sendPrivateMessage(buyDevCardMessage.getNickname(), new ActionEndedMessage());
         nextPlayerTurn();
 
     }
@@ -272,11 +290,9 @@ public class GameController /*implements Runnable*/ {
     }
 
     private void activateProduction(ActivateProductionMessage activateProductionMessage) {
-        RealPlayer realPlayer = playerList.stream()
+        RealPlayer realPlayer = (RealPlayer) playerList.stream()
                 .filter(player -> player.getNickName().equals(activateProductionMessage.getNickname()))
-                .findFirst()
-                .map(player -> (RealPlayer) player)
-                .orElse(null);
+                .findFirst().orElse(null);
         try {
             gameModel.getGlobalBoard().getBasicProductionPower().getProductionInput().pay(realPlayer);
         } catch (DepotException e) {

@@ -8,6 +8,8 @@ import it.polimi.ingsw.networking.messages.serverMessage.TurnPositionMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.*;
 import it.polimi.ingsw.utils.CLIColors;
 
+import java.util.Objects;
+
 
 public class ClientController implements Runnable{
     ClientState currentState;
@@ -37,7 +39,7 @@ public class ClientController implements Runnable{
     }
     public enum IN_GAME{
         NO_MY_TURN,
-        MY_TURN
+        MY_TURN,
     }
     /*public enum MY_TURN{
         ACTIVATE_PRODUCTION,
@@ -67,6 +69,7 @@ public class ClientController implements Runnable{
                     case INIT:
                         switch (initState) {
                             case DISCARD_LEADER:
+                                view.inHandLeaderCardsDraw();
                                 view.askForLeaderCardsToDiscard();
                                 try {
                                     wait();
@@ -79,7 +82,6 @@ public class ClientController implements Runnable{
                                 if(view.askForInitialResources()){
                                     try {
                                         wait();
-                                        //currentState = ClientState.IN_GAME.MOVE_FROM_TEMPORARY;
                                         currentState = ClientState.MOVE_FROM_TEMPORARY;
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
@@ -96,7 +98,7 @@ public class ClientController implements Runnable{
                     case IN_GAME:
                         switch (inGameState){
                             case MY_TURN:
-                                System.out.println("myTurn!!!!!!!!");
+                                System.out.println("your turn");
                                 view.refresh();
                                 myTurnState = view.askForMainAction();
                                 switch (myTurnState){
@@ -134,7 +136,7 @@ public class ClientController implements Runnable{
 
                             case NO_MY_TURN:
                                 view.refresh();
-                                System.out.println("not my turn");
+                                System.out.println("not your turn");
                                 try {
                                     wait();
                                 } catch (InterruptedException e) {
@@ -177,6 +179,7 @@ public class ClientController implements Runnable{
                 break;
             case INIT_VIEW:
                 InitViewMessage initViewMessage = (InitViewMessage) message;
+                view.getReducedGameModel().setPlayers(initViewMessage.getReducedPlayers());
                 view.getReducedGameModel().getMarketTray().setMarketTray(initViewMessage.getMarketTray());
                 view.getReducedGameModel().getMarketTray().setSlide(initViewMessage.getSlide());
                 view.getReducedGameModel().setDevelopmentCardsGrid(initViewMessage.getDevelopmentCardGrid());
@@ -185,12 +188,12 @@ public class ClientController implements Runnable{
                 UpdatedMarketTrayMessage updatedMarketTray = (UpdatedMarketTrayMessage) message;
                 view.getReducedGameModel().getMarketTray().setMarketTray(updatedMarketTray.getMarketTray());
                 view.getReducedGameModel().getMarketTray().setSlide(updatedMarketTray.getSlide());
-                view.refresh();
+                //view.refresh();
                 break;
             case UPDATED_IN_HAND_LEADER_CARD:
                 UpdatedInHandLeaderCardMessage updatedInHandLeaderCardMessage = (UpdatedInHandLeaderCardMessage) message;
                 view.getReducedGameModel().getReducedInHandLeaderCards().update(updatedInHandLeaderCardMessage.getInHandLeaderCard());
-                view.refresh();
+                //view.refresh();
                 break;
             case TURN_POSITION_MESSAGE:
                 TurnPositionMessage playerTurnPositionMessage = (TurnPositionMessage) message;
@@ -208,17 +211,17 @@ public class ClientController implements Runnable{
             case UPDATED_WAREHOUSE:
                 UpdatedWareHouseMessage updatedWareHouseMessage = (UpdatedWareHouseMessage) message;
                 view.getReducedGameModel().setWareHouseDepot(updatedWareHouseMessage.getWareHouse());
-                view.refresh();
+                //view.refresh();
                 break;
             case UPDATED_DEV_CARD_GRID:
                 UpdatedDevelopmentCardGridMessage updatedDevelopmentCardGridMessage = (UpdatedDevelopmentCardGridMessage) message;
                 view.getReducedGameModel().setDevelopmentCardsGrid(updatedDevelopmentCardGridMessage.getDevelopmentCardGrid());
-                view.refresh();
+                //view.refresh();
                 break;
             case UPDATED_PERSONAL_DEVELOPMENT_BOARD:
                 UpdatedPersonalDevelopmentBoardMessage updatedPersonalDevelopmentBoardMessage = (UpdatedPersonalDevelopmentBoardMessage) message;
-                view.getReducedGameModel().setPersonalDevelopmentBoard(updatedPersonalDevelopmentBoardMessage.getDevelopmentCards().toArray(new ReducedDevelopmentCard[0]));
-                view.refresh();
+                view.getReducedGameModel().setPersonalDevelopmentBoard(updatedPersonalDevelopmentBoardMessage.getDevelopmentCards());
+                //view.refresh();
                 break;
             case MY_TURN_MESSAGE:
                 inGameState = IN_GAME.MY_TURN;
@@ -228,6 +231,11 @@ public class ClientController implements Runnable{
                 System.out.println("action ENDED");
                 notifyAll();
                 break;
+            case UPDATED_FAITH_POSITION:
+                UpdatedFaithPositionMessage updatedFaithPositionMessage = (UpdatedFaithPositionMessage) message;
+                Objects.requireNonNull(view.getReducedGameModel().getPlayers().stream()
+                        .filter(reducedPlayer -> reducedPlayer.getNickName().equals(updatedFaithPositionMessage.getNickname()))
+                        .findFirst().orElse(null)).setFaithPosition(updatedFaithPositionMessage.getFaithPosition());
 
         }
     }

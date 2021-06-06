@@ -231,6 +231,11 @@ public class CLI extends View {
     }
 
     @Override
+    public void faithTrackDraw() {
+
+    }
+
+    @Override
     public boolean askForInitialResources() {
         clear();
         boolean inputValidity;

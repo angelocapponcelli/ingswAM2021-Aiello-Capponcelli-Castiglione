@@ -59,7 +59,10 @@ public class Deck {
      * @return the the card on top of the deck
      */
     public DevelopmentCard peek() {
-        return deck.get(deck.size() - 1);
+        if (deck.size() > 0) {
+            return deck.get(deck.size() - 1);
+        }
+        return null;
     }
 
     public void shuffle() {

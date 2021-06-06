@@ -12,7 +12,7 @@ public class ReducedGameModel {
     private List<ReducedPlayer> players;
     private ReducedDevelopmentCard[][] developmentCardsGrid;
     private Boolean[] popeSpaceFlipped;
-    private ReducedDevelopmentCard[] personalDevelopmentBoard;
+    private List<ReducedDevelopmentCard> personalDevelopmentBoard;
     private List<ReducedContainer> wareHouseDepot;
     private Map<ResourceType, Integer> strongBoxDepot;
     private Map<ResourceType, Integer> specialDepot;
@@ -27,10 +27,9 @@ public class ReducedGameModel {
         inHandLeaderCards = new ReducedInHandLeaderCards();
         developmentCardsGrid = new ReducedDevelopmentCard[3][4];
         popeSpaceFlipped = new Boolean[]{false, false, false};
-        personalDevelopmentBoard = new ReducedDevelopmentCard[3];
+        personalDevelopmentBoard = Arrays.asList(null,null,null);
         wareHouseDepot = new ArrayList<>();
         temporaryDepot = new HashMap<>();
-
         wareHouseDepot.add(new ReducedContainer(null, 0));
         wareHouseDepot.add(new ReducedContainer(null, 0));
         wareHouseDepot.add(new ReducedContainer(null, 0));
@@ -64,12 +63,8 @@ public class ReducedGameModel {
         return inHandLeaderCards;
     }
 
-    public Map<Colors, Integer> getPlayers() {
-        Map<Colors, Integer> listPlayers = new HashMap<>();
-        for (ReducedPlayer reducedPlayer : players) {
-            listPlayers.put(reducedPlayer.getPlayerColor(), reducedPlayer.getFaithPosition());
-        }
-        return listPlayers;
+    public List<ReducedPlayer> getPlayers() {
+        return players;
     }
 
     public void setPlayers(List<ReducedPlayer> players) {
@@ -90,10 +85,10 @@ public class ReducedGameModel {
         this.popeSpaceFlipped = popeSpaceFlipped;
     }
 
-    public ReducedDevelopmentCard[] getPersonalDevelopmentBoard() {
+    public List<ReducedDevelopmentCard> getPersonalDevelopmentBoard() {
         return personalDevelopmentBoard;
     }
-    public void setPersonalDevelopmentBoard(ReducedDevelopmentCard[] personalDevelopmentBoard) {
+    public void setPersonalDevelopmentBoard(List<ReducedDevelopmentCard> personalDevelopmentBoard) {
         this.personalDevelopmentBoard = personalDevelopmentBoard;
     }
 

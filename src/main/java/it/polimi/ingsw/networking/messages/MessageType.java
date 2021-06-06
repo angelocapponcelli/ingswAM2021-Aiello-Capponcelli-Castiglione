@@ -33,6 +33,7 @@ public enum MessageType {
     UPDATED_TEMPORARY_DEPOT,
     UPDATED_WAREHOUSE,
     UPDATED_DEV_CARD_GRID,
+    UPDATED_FAITH_POSITION,
 
     ALL_PLAYERS_JOINED,
 
@@ -44,6 +45,7 @@ public enum MessageType {
 
 
     DISCARD_ANY,
+    DISCARD_RESOURCE,
     SELECT_RESOURCE_REPLACEMENT,
     SelectResourceTypeMessage
 }

@@ -1,14 +1,19 @@
 package it.polimi.ingsw.client.view.reducedGameModel;
 
 import it.polimi.ingsw.server.model.misc.Colors;
+import it.polimi.ingsw.server.model.player.Player;
 
-public class ReducedPlayer {
+import java.io.Serializable;
+
+public class ReducedPlayer implements Serializable {
     private int faithPosition;
     private Colors playerColor;
     private String nickName;
     private Integer turnPosition;
 
-    public ReducedPlayer() {
+    public ReducedPlayer(Player player) {
+        this.faithPosition = player.getFaithPosition();
+        this.nickName = player.getNickName();
     }
 
     public Integer getTurnPosition() {

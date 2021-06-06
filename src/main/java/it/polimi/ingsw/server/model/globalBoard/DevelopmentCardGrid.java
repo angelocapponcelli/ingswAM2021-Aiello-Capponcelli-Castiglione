@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model.globalBoard;
 
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedDevelopmentCard;
+import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedDevelopmentCardGridMessage;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 import it.polimi.ingsw.server.model.misc.Deck;
 import it.polimi.ingsw.utils.observer.Observable;
@@ -47,6 +48,14 @@ public class DevelopmentCardGrid extends Observable {
 
     }
 
+    public DevelopmentCard peek(int row, int column){
+        return deckGrid[row][column].peek();
+    }
+    public DevelopmentCard pop(int row, int column){
+        DevelopmentCard developmentCard = deckGrid[row][column].pop();
+        notifyObserver(new UpdatedDevelopmentCardGridMessage(toReduced()));
+        return developmentCard;
+    }
 
     public Deck getDeck(Integer row, Integer column) {
         return this.deckGrid[row][column];

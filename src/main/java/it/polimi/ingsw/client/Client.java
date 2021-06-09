@@ -1,20 +1,21 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.controller.ClientController;
-import it.polimi.ingsw.client.view.CLI;
-import it.polimi.ingsw.client.view.GUI;
-import it.polimi.ingsw.client.view.SimpleCLI;
+import it.polimi.ingsw.client.view.CLI.SimpleCLI;
+import it.polimi.ingsw.client.view.GUI.FXGui;
+import it.polimi.ingsw.client.view.GUI.GUI;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.networking.connection.ConnectionIO;
 import it.polimi.ingsw.networking.messages.Message;
 import it.polimi.ingsw.utils.CLIColors;
+import javafx.application.Application;
 
 import java.io.IOException;
 import java.net.Socket;
 
 public class Client {
     private final View view;
-    private final ClientController clientController;
+    private ClientController clientController;
     private String nickName;
     private int playerPosition;
     private ConnectionIO connectionIO;
@@ -24,10 +25,14 @@ public class Client {
 
         if (GUI) {
             view = new GUI(this);
+            FXGui.setClient(this);
+            new Thread(()-> Application.launch(FXGui.class)).start();
+
         } else {
             view = new SimpleCLI(this);
         }
         clientController = new ClientController(view);
+
     }
 
     public Socket getClientSocket() {
@@ -54,7 +59,6 @@ public class Client {
             connectionIO = new ConnectionIO(clientSocket);
             receiveMessage();
             clientController.run();
-            //view.start();
         } catch (IOException e) {
             System.out.println(CLIColors.getAnsiRed() + "Unable to connect to the server." + CLIColors.getAnsiReset());
         }

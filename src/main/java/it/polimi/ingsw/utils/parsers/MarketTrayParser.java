@@ -16,7 +16,7 @@ public class MarketTrayParser {
 
     public static MarketTray getMarketTray() throws FileNotFoundException {
         Gson gson = new Gson();
-        tempJson tmp = gson.fromJson(new FileReader("src/main/resources/MarketTray.json"), tempJson.class);
+        tempJson tmp = gson.fromJson(new FileReader("src/main/resources/JSONs/MarketTray.json"), tempJson.class);
 
         List<ResourceType> marblesList = new ArrayList<>();
         ResourceType slide;

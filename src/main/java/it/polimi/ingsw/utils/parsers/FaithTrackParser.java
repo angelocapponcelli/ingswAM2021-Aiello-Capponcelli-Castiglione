@@ -16,7 +16,7 @@ public class FaithTrackParser {
         List<Cell> track = new ArrayList<>();
         List<VaticanReportSection> reportSections = new ArrayList<>();
 
-        JsonObject jsonObject = JsonParser.parseReader(new FileReader("src/main/resources/FaithTrack.json")).getAsJsonObject();
+        JsonObject jsonObject = JsonParser.parseReader(new FileReader("src/main/resources/JSONs/FaithTrack.json")).getAsJsonObject();
         JsonArray tmpTrack = jsonObject.getAsJsonArray("track");
         JsonArray tmpReport = jsonObject.getAsJsonArray("vaticanReportSections");
 

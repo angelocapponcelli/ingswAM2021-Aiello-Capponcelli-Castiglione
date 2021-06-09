@@ -30,7 +30,7 @@ public class LeaderCardParser {
         Gson gson = new Gson();
 
         try {
-            leaderCardTempList = gson.fromJson(new FileReader("src/main/resources/LeaderCard.json"), listOfMyClassObject);
+            leaderCardTempList = gson.fromJson(new FileReader("src/main/resources/JSONs/LeaderCard.json"), listOfMyClassObject);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

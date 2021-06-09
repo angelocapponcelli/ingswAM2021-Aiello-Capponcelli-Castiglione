@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox fx:controller="it.polimi.ingsw.client.view.GUI.CreateOrJoin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="159.0" prefWidth="600.0">
+         <children>
+            <Label layoutX="119.0" layoutY="34.0" text="Create or Join a game?">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <HBox prefHeight="187.0" prefWidth="600.0">
+         <children>
+            <Pane prefHeight="236.0" prefWidth="423.0">
+               <children>
+                  <Button fx:id="createButton" layoutX="76.0" layoutY="50.0" mnemonicParsing="false" onAction="#askForPlayersNumber" prefHeight="50.0" prefWidth="150.0" text="Create">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Button>
+               </children></Pane>
+            <Pane prefHeight="236.0" prefWidth="422.0">
+               <children>
+                  <Button fx:id="joinButton" layoutX="75.0" layoutY="50.0" mnemonicParsing="false" onAction="#askForGameID" prefHeight="50.0" prefWidth="150.0" text="Join">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Button>
+               </children></Pane>
+         </children>
+      </HBox>
+   </children>
+</VBox>

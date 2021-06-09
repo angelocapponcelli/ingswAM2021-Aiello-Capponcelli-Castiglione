@@ -118,9 +118,6 @@ public class GameController /*implements Runnable*/ {
                 });
 
 
-        //sendBroadCastMessage(new UpdatedDevelopmentCardGridMessage(gameModel.getGlobalBoard().getDevelopmentCardGrid().toReduced()));
-        //sendBroadCastMessage(new UpdatedMarketTrayMessage(gameModel.getGlobalBoard().getMarketTray()));
-
     }
 
 

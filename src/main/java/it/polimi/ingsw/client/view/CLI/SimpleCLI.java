@@ -1,7 +1,8 @@
-package it.polimi.ingsw.client.view;
+package it.polimi.ingsw.client.view.CLI;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.controller.MY_TURN;
+import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedDevelopmentCard;
 import it.polimi.ingsw.networking.messages.clientMessages.*;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.JoinGameMessage;

@@ -15,7 +15,7 @@ public class BasicProductionPowerParser {
 
     public static ProductionPower getBasicProductionPower() throws FileNotFoundException {
 
-        JsonObject jsonObject = JsonParser.parseReader(new FileReader("src/main/resources/BasicProductionPower.json")).getAsJsonObject();
+        JsonObject jsonObject = JsonParser.parseReader(new FileReader("src/main/resources/JSONs/BasicProductionPower.json")).getAsJsonObject();
         JsonArray tmpInput = jsonObject.getAsJsonArray("productionPowerInput");
         JsonArray tmpOutput = jsonObject.getAsJsonArray("productionPowerOutput");
 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox fx:controller="it.polimi.ingsw.client.view.GUI.NickNameController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="237.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="161.0" prefWidth="600.0">
+         <children>
+            <Label layoutX="157.0" layoutY="41.0" text="Insert a nickName">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <HBox prefHeight="189.0" prefWidth="609.0">
+         <children>
+            <Pane prefHeight="136.0" prefWidth="498.0">
+               <children>
+                  <TextField fx:id="nickName" layoutX="31.0" layoutY="49.0" prefHeight="35.0" prefWidth="453.0" promptText="insert nickname" />
+               </children></Pane>
+            <Pane prefHeight="189.0" prefWidth="103.0">
+               <children>
+                  <Button fx:id="loginButton" layoutX="23.0" layoutY="49.0" mnemonicParsing="false" onAction="#askForCreateOrJoinGame" prefHeight="35.0" prefWidth="57.0" text="Login" />
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+   </children>
+</VBox>

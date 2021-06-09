@@ -1,7 +1,7 @@
 package it.polimi.ingsw.client.controller;
 
+import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.View;
-import it.polimi.ingsw.client.view.reducedGameModel.ReducedDevelopmentCard;
 import it.polimi.ingsw.networking.messages.ErrorMessage;
 import it.polimi.ingsw.networking.messages.Message;
 import it.polimi.ingsw.networking.messages.serverMessage.TurnPositionMessage;
@@ -11,10 +11,12 @@ import it.polimi.ingsw.utils.CLIColors;
 import java.util.Objects;
 
 
-public class ClientController implements Runnable{
+public class ClientController implements Runnable {
+    private Client client;
     ClientState currentState;
     INIT initState = INIT.DISCARD_LEADER;
     IN_GAME inGameState = IN_GAME.NO_MY_TURN;
+    LOGIN loginState = LOGIN.NICKNAME;
     MY_TURN myTurnState;
 
     View view;
@@ -24,31 +26,10 @@ public class ClientController implements Runnable{
         currentState = ClientState.LOGIN;
     }
 
-    public enum ClientState {
-        LOGIN,
-        INIT,
-        IN_GAME,
-        MOVE_FROM_TEMPORARY,
-        RESOURCE_REPLACEMENT
+    public ClientController(View view, Client client) {
+        this.view = view;
+        currentState = ClientState.LOGIN;
     }
-
-    public enum INIT{
-        DISCARD_LEADER,
-        CHOOSE_RESOURCES,
-        MOVE_FROM_TEMPORARY
-    }
-    public enum IN_GAME{
-        NO_MY_TURN,
-        MY_TURN,
-    }
-    /*public enum MY_TURN{
-        ACTIVATE_PRODUCTION,
-        BUY_DEV_CARD,
-        TAKE_FROM_MARKET,
-        DISCARD_LEADER_CARD,
-        ACTIVATE_LEADER_CARD
-    }*/
-
 
     @Override
     public void run() {
@@ -57,13 +38,25 @@ public class ClientController implements Runnable{
             synchronized (this) {
                 switch (currentState) {
                     case LOGIN:
-                        view.splashScreen();
-                        view.askForNickName();
-                        view.askForCreateOrJoinGame();
-                        try {
-                            wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                        //view.splashScreen();
+                        switch (loginState) {
+                            case NICKNAME:
+                                view.askForNickName();
+                                try {
+                                    wait();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                loginState = LOGIN.CREATE_OR_JOIN;
+                                break;
+                            case CREATE_OR_JOIN:
+                                view.askForCreateOrJoinGame();
+                                try {
+                                    wait();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                break;
                         }
                         break;
                     case INIT:
@@ -79,14 +72,14 @@ public class ClientController implements Runnable{
                                 initState = INIT.CHOOSE_RESOURCES;
                                 break;
                             case CHOOSE_RESOURCES:
-                                if(view.askForInitialResources()){
+                                if (view.askForInitialResources()) {
                                     try {
                                         wait();
                                         currentState = ClientState.MOVE_FROM_TEMPORARY;
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     }
-                                }else {
+                                } else {
                                     currentState = ClientState.IN_GAME;
                                     inGameState = IN_GAME.MY_TURN;
                                 }
@@ -96,12 +89,12 @@ public class ClientController implements Runnable{
                         break;
 
                     case IN_GAME:
-                        switch (inGameState){
+                        switch (inGameState) {
                             case MY_TURN:
                                 System.out.println("your turn");
                                 view.refresh();
                                 myTurnState = view.askForMainAction();
-                                switch (myTurnState){
+                                switch (myTurnState) {
                                     case TAKE_FROM_MARKET:
                                         view.takeFromMarket();
                                         try {
@@ -170,7 +163,6 @@ public class ClientController implements Runnable{
         }
     }
 
-
     public synchronized void manageReceivedMessage(Message message) {
         switch (message.getMessageType()) {
             case ERROR:
@@ -228,7 +220,6 @@ public class ClientController implements Runnable{
                 notifyAll();
                 break;
             case ACTION_ENDED:
-                System.out.println("action ENDED");
                 notifyAll();
                 break;
             case UPDATED_FAITH_POSITION:
@@ -238,6 +229,39 @@ public class ClientController implements Runnable{
                         .findFirst().orElse(null)).setFaithPosition(updatedFaithPositionMessage.getFaithPosition());
 
         }
+    }
+
+    public enum ClientState {
+        LOGIN,
+        INIT,
+        IN_GAME,
+        MOVE_FROM_TEMPORARY,
+        RESOURCE_REPLACEMENT
+    }
+
+    public enum INIT {
+        DISCARD_LEADER,
+        CHOOSE_RESOURCES,
+        MOVE_FROM_TEMPORARY
+    }
+    /*public enum MY_TURN{
+        ACTIVATE_PRODUCTION,
+        BUY_DEV_CARD,
+        TAKE_FROM_MARKET,
+        DISCARD_LEADER_CARD,
+        ACTIVATE_LEADER_CARD
+    }*/
+
+
+    public enum IN_GAME {
+        NO_MY_TURN,
+        MY_TURN,
+    }
+
+
+    public enum LOGIN {
+        NICKNAME,
+        CREATE_OR_JOIN
     }
 
 }

@@ -5,6 +5,7 @@ import it.polimi.ingsw.networking.messages.Message;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.JoinGameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NewGameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NicknameMessage;
+import it.polimi.ingsw.networking.messages.serverMessage.ActionEndedMessage;
 import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.utils.CLIColors;
@@ -69,6 +70,7 @@ public class ServerClientHandler implements Runnable {
                     NicknameMessage nicknameMessage = (NicknameMessage) message;
                     nickName = nicknameMessage.getNickname();
                     Server.getConnectedClient().add(this);
+                    sendMessage(new ActionEndedMessage());
                     System.out.println("Added new Connected Client: " + nickName);
                     break;
 
@@ -77,6 +79,7 @@ public class ServerClientHandler implements Runnable {
                     NewGameMessage newGameMessage = (NewGameMessage) message;
                     gameController = Server.newGame(newGameMessage.getPlayersNumber());
                     gameController.addConnectedClient(new InGameConnectedClient(nickName, connectionIO));
+                    //sendMessage(new ActionEndedMessage());
                     //new Thread(() -> gameController.run()).start();
                     System.out.println(nickName + " created new Game. ID:" + gameController.getGameID() + " Players number:" + newGameMessage.getPlayersNumber());
                     break;
@@ -86,6 +89,7 @@ public class ServerClientHandler implements Runnable {
                     try {
                         gameController = Server.findGame(joinGameMessage.getGameId());
                         gameController.addConnectedClient(new InGameConnectedClient(nickName, connectionIO));
+                        //sendMessage(new ActionEndedMessage());
                         System.out.println("Client " + nickName + " joined game: " + gameController.getGameID());
                     } catch (GameIsFullException e) {
                         sendMessage(new ErrorMessage("This game is full"));

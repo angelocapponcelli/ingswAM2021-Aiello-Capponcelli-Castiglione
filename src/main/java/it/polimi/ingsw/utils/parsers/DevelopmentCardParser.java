@@ -31,7 +31,7 @@ public class DevelopmentCardParser {
         }.getType();
 
         Gson gson = new Gson();
-        tempDeck = gson.fromJson(new FileReader("src/main/resources/DevelopmentCard.json"), listOfMyClassObject);
+        tempDeck = gson.fromJson(new FileReader("src/main/resources/JSONs/DevelopmentCard.json"), listOfMyClassObject);
 
         for (DevelopmentCardTemp developmentCardTemp : tempDeck) {
             Cost cost = new Cost();

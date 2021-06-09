@@ -7,8 +7,8 @@ import it.polimi.ingsw.client.view.reducedGameModel.ReducedGameModel;
 import java.io.IOException;
 
 public abstract class View {
-    Client client;
-    ReducedGameModel reducedGameModel;
+    protected Client client;
+    protected ReducedGameModel reducedGameModel;
 
     public View(Client client) {
         this.client = client;

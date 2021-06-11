@@ -4,6 +4,7 @@ import it.polimi.ingsw.server.model.interfaces.Checkable;
 import it.polimi.ingsw.server.model.interfaces.Payable;
 import it.polimi.ingsw.server.model.player.RealPlayer;
 import it.polimi.ingsw.server.model.resources.Resource;
+import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.utils.exceptions.DepotException;
 
 import java.util.HashMap;
@@ -18,6 +19,13 @@ public class ProductionPowerInput implements Checkable, Payable {
     public ProductionPowerInput() {
         this.productionPowerInput = new HashMap<>();
     }
+
+    public ProductionPowerInput(Map<ResourceType, Integer> input) {
+        Map<Resource, Integer> tmpInput = new HashMap<>();
+        input.forEach( (k,v) -> tmpInput.put(ResourceType.getResourceClass(k), v));
+        productionPowerInput = tmpInput;
+    }
+
 
     public Map<Resource, Integer> getProductionPowerInput() {
         return productionPowerInput;

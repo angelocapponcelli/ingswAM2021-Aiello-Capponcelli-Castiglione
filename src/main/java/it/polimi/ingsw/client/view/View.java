@@ -33,17 +33,19 @@ public abstract class View {
 
     public abstract void refresh();
 
-    public abstract void marketTrayDraw();
-    public abstract void inHandLeaderCardsDraw();
-    public abstract void temporaryDepotDraw();
-    public abstract void wareHouseDraw();
-    public abstract void devCardGridDraw();
-    public abstract void personalDevelopmentBoardDraw();
+    public abstract void drawMarketTray();
+    public abstract void drawInHandLeaderCards();
+    public abstract void drawTemporaryDepot();
+    public abstract void drawWareHouse();
+    public abstract void drawDevCardGrid();
+    public abstract void drawPersonalDevelopmentBoard();
+    public abstract void drawStrongBox();
 
 
     public abstract MY_TURN askForMainAction();
     public abstract void takeFromMarket();
     public abstract void buyDevCard();
+    public abstract void activateProduction();
 
     public abstract void faithTrackDraw();
 

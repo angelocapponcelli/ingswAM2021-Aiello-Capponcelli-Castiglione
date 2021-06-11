@@ -14,9 +14,7 @@ import it.polimi.ingsw.utils.CLIColors;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
@@ -94,8 +92,8 @@ public class SimpleCLI extends View {
     @Override
     public void moveFromTemporary() {
         clear();
-        temporaryDepotDraw();
-        wareHouseDraw();
+        drawTemporaryDepot();
+        drawWareHouse();
 
         //Todo special ability whiteMarble
         reducedGameModel.getTemporaryDepot().forEach((key, value) -> IntStream.range(0, value)
@@ -155,7 +153,7 @@ public class SimpleCLI extends View {
     }
 
     @Override
-    public void temporaryDepotDraw() {
+    public void drawTemporaryDepot() {
         clear();
         System.out.println("temporary depot:");
         reducedGameModel.getTemporaryDepot()
@@ -164,7 +162,7 @@ public class SimpleCLI extends View {
     }
 
     @Override
-    public void wareHouseDraw() {
+    public void drawWareHouse() {
         System.out.println("+++++WareHouse+++++");
         for (int i = 0; i < 3; i++) {
             System.out.print("(" + (i + 1) + ")");
@@ -181,7 +179,7 @@ public class SimpleCLI extends View {
     }
 
     @Override
-    public void devCardGridDraw() {
+    public void drawDevCardGrid() {
         System.out.println("+++++DEV_CARD_GRID+++++");
         for (ReducedDevelopmentCard[] row : reducedGameModel.getDevelopmentCardsGrid()) {
             for (ReducedDevelopmentCard card : row) {
@@ -192,13 +190,21 @@ public class SimpleCLI extends View {
     }
 
     @Override
-    public void personalDevelopmentBoardDraw() {
+    public void drawPersonalDevelopmentBoard() {
         System.out.println("+++++PersonalDevelopmentBoard+++++");
         for (int i = 0; i < 3; i++) {
             if (reducedGameModel.getPersonalDevelopmentBoard().get(i) != null) {
                 System.out.print("[" + reducedGameModel.getPersonalDevelopmentBoard().get(i).getId() + "]");
             } else System.out.print("[]");
         }
+        System.out.println();
+    }
+
+    @Override
+    public void drawStrongBox() {
+        System.out.println("+++++STRONG_BOX+++++");
+        reducedGameModel.getStrongBoxDepot()
+                .forEach(reducedContainer -> System.out.print(reducedContainer.getResourceType().getColor()+" ● " + reducedContainer.getCount() + CLIColors.getAnsiReset()));
         System.out.println();
     }
 
@@ -223,15 +229,15 @@ public class SimpleCLI extends View {
 
     public void takeFromMarket() {
         clear();
-        wareHouseDraw();
-        marketTrayDraw();
+        drawWareHouse();
+        drawMarketTray();
         System.out.println("(r)Row (c)Column");
         try {
             String rowOrColumn = stdIn.readLine();
             rowOrColumn = rowOrColumn.equals("r") ? "row" : "column";
             System.out.println("Number?");
             String number = stdIn.readLine();
-            client.sendMessage(new TakeFromMarketMessage(client.getNickName(), rowOrColumn, Integer.parseInt(number)));
+            client.sendMessage(new TakeFromMarketMessage(client.getNickName(), rowOrColumn, Integer.parseInt(number) - 1));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -242,12 +248,83 @@ public class SimpleCLI extends View {
     @Override
     public void buyDevCard() {
         clear();
-        devCardGridDraw();
-        personalDevelopmentBoardDraw();
+        drawDevCardGrid();
+        drawPersonalDevelopmentBoard();
         System.out.println("Choose a development card to buy");
         try {
             String toBuy = stdIn.readLine();
             client.sendMessage(new BuyDevCardMessage(client.getNickName(), Integer.parseInt(toBuy)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Todo: TO COMPLETE
+    @Override
+    public void activateProduction() {
+        clear();
+        drawWareHouse();
+        boolean inputOK = false;
+        Map<ResourceType,Integer> input = new HashMap<>();
+        Map<ResourceType, Integer> output = new HashMap<>();
+
+        try {
+            do {
+
+                System.out.println("1)Basic Board's Production 2)Development Card's Production");
+                String productionType = stdIn.readLine();
+
+                if(productionType.equals("1")){
+                    inputOK = true;
+
+                    /*Input choice*/
+                    reducedGameModel.getProductionPowerInputBoard().forEach((key,value) ->{
+                        if(key.equals(ResourceType.ANY)){
+                            IntStream.range(0,value)
+                                    .mapToObj(x -> key)
+                                    .forEach( any -> {
+                                        System.out.println("Choose an input Resource");
+                                        ResourceType resourceReplacement = anyResourceReplacement();
+                                        if (input.containsKey(resourceReplacement)){
+                                            input.put(resourceReplacement, input.get(resourceReplacement)+1);
+                                        } else input.put(resourceReplacement,1);
+                            });
+                        }
+                        else {
+                            input.put(key,value);
+                        }
+                    });
+
+                    /*Output choice*/
+                    reducedGameModel.getProductionPowerOutputBoard().forEach((key,value) ->{
+                        if(key.equals(ResourceType.ANY)){
+                            IntStream.range(0,value)
+                                    .mapToObj(x -> key)
+                                    .forEach( any -> {
+                                        System.out.println("Choose an output Resource");
+                                        ResourceType resourceReplacement = anyResourceReplacement();
+                                        if (output.containsKey(resourceReplacement)){
+                                            output.put(resourceReplacement, output.get(resourceReplacement)+1);
+                                        } else output.put(resourceReplacement,1);
+                                    });
+                        }
+                        else {
+                            output.put(key,value);
+                        }
+                    });
+
+
+
+                    client.sendMessage(new ActivateBasicProductionMessage(client.getNickName(),input,output));
+
+
+                }else if(productionType.equals("2")){
+                    inputOK = true;
+
+                }
+
+
+            }while (!inputOK);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -273,6 +350,30 @@ public class SimpleCLI extends View {
         client.sendMessage(new NicknameMessage(tmp));
         clear();
 
+    }
+
+
+    private ResourceType anyResourceReplacement(){
+        System.out.println("1)COIN\n2)STONE\n3)SHIELD\n4)SERVANT");
+        try {
+            String resourceString = stdIn.readLine();
+            ResourceType resourceType;
+            switch (resourceString){
+                case "1":
+                    return ResourceType.COIN;
+                case "2":
+                    return ResourceType.STONE;
+                case "3":
+                    return ResourceType.SHIELD;
+                case "4":
+                    return ResourceType.SERVANT;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + resourceString);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -305,22 +406,25 @@ public class SimpleCLI extends View {
         clear();
         System.out.println(client.getNickName() + " Turn Position: " + reducedGameModel.getPlayerTurnPosition());
         faithTrackDraw();
-        marketTrayDraw();
-        inHandLeaderCardsDraw();
-        wareHouseDraw();
-        devCardGridDraw();
-        personalDevelopmentBoardDraw();
+        drawMarketTray();
+        drawInHandLeaderCards();
+        drawWareHouse();
+        drawStrongBox();
+        drawDevCardGrid();
+        drawPersonalDevelopmentBoard();
 
 
     }
 
     @Override
-    public void marketTrayDraw() {
+    public void drawMarketTray() {
         System.out.println("+++++MarketTray+++++");
         System.out.print(reducedGameModel.getMarketTray().getSlide().getColor() + "●\n" + CLIColors.getAnsiReset());
+        System.out.println("   (1)(2)(3)(4)");
         for (int i = 0; i < reducedGameModel.getMarketTray().getMarketTray().length; i++) {
+            System.out.print("("+(i+1)+")");
             for (int j = 0; j < reducedGameModel.getMarketTray().getMarketTray()[i].length; j++) {
-                System.out.print(reducedGameModel.getMarketTray().getMarketTray()[i][j].getColor() + "● " + CLIColors.getAnsiReset());
+                System.out.print(reducedGameModel.getMarketTray().getMarketTray()[i][j].getColor() + " ● " + CLIColors.getAnsiReset());
 
             }
             System.out.print("\n");
@@ -328,7 +432,7 @@ public class SimpleCLI extends View {
     }
 
     @Override
-    public void inHandLeaderCardsDraw() {
+    public void drawInHandLeaderCards() {
         System.out.println("++++++++++LeaderCard++++++++++");
         reducedGameModel.getReducedInHandLeaderCards().getInHandLeaderCards().forEach(x -> System.out.print(x.getId() + " "));
         System.out.println();

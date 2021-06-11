@@ -73,21 +73,21 @@ public class CLI extends View {
     public void refresh() { //TODO
         clear();
         System.out.println(client.getNickName() + " Turn Position: " + reducedGameModel.getPlayerTurnPosition());
-        marketTrayDraw();
-        inHandLeaderCardsDraw();
-        wareHouseDraw();
-        devCardGridDraw();
+        drawMarketTray();
+        drawInHandLeaderCards();
+        drawWareHouse();
+        drawDevCardGrid();
     }
 
     @Override
-    public void marketTrayDraw() {
+    public void drawMarketTray() {
         for (String row : getStringRowsMarketTray()) {
             System.out.println(row);
         }
     }
 
     @Override
-    public void inHandLeaderCardsDraw() {
+    public void drawInHandLeaderCards() {
         List<List<String>> cards = new ArrayList<>();
         if (reducedGameModel.getReducedInHandLeaderCards().getInHandLeaderCards().size() > 0) {
             for (ReducedLeaderCard card : reducedGameModel.getReducedInHandLeaderCards().getInHandLeaderCards()) {
@@ -109,7 +109,7 @@ public class CLI extends View {
         int id1 = 0, id2 = 0;
 
         System.out.println(COLOR_TEXT_PRIMARY + "********************** DISCARD CARD **********************" + CLIColors.getAnsiReset());
-        inHandLeaderCardsDraw();
+        drawInHandLeaderCards();
         while (!inputValidity) {
             System.out.println(COLOR_TEXT_PRIMARY + "Insert an ID card to dicard" + CLIColors.getAnsiReset());
             System.out.print(COLOR_TEXT_PRIMARY + "> " + CLIColors.getAnsiReset());
@@ -179,7 +179,7 @@ public class CLI extends View {
     }
 
     @Override
-    public void temporaryDepotDraw() {
+    public void drawTemporaryDepot() {
         List<List<String>> resources = new ArrayList<>();
         if (!reducedGameModel.getTemporaryDepot().isEmpty()) {
             for (Map.Entry<ResourceType, Integer> entry : reducedGameModel.getTemporaryDepot().entrySet()) {
@@ -198,21 +198,26 @@ public class CLI extends View {
     }
 
     @Override
-    public void wareHouseDraw() {
+    public void drawWareHouse() {
         for (String row : getStringRowsWarehouse()) {
             System.out.println(row);
         }
     }
 
     @Override
-    public void devCardGridDraw() {
+    public void drawDevCardGrid() {
         for (String row : getStringDevelopmentCardGrid()) {
             System.out.println(row);
         }
     }
 
     @Override
-    public void personalDevelopmentBoardDraw() {
+    public void drawPersonalDevelopmentBoard() {
+
+    }
+
+    @Override
+    public void drawStrongBox() {
 
     }
 
@@ -230,6 +235,12 @@ public class CLI extends View {
     public void buyDevCard() {
 
     }
+
+    @Override
+    public void activateProduction() {
+
+    }
+
 
     @Override
     public void faithTrackDraw() {
@@ -301,8 +312,8 @@ public class CLI extends View {
     public void moveFromTemporary() {
         clear();
         System.out.println(COLOR_TEXT_PRIMARY + "********************* MOVE RESOURCES *********************" + CLIColors.getAnsiReset());
-        temporaryDepotDraw();
-        wareHouseDraw();
+        drawTemporaryDepot();
+        drawWareHouse();
         specialDraw();
 
         reducedGameModel.getTemporaryDepot().forEach((key, value) -> IntStream.range(0, value)
@@ -813,25 +824,27 @@ public class CLI extends View {
         return rows;
     }
 
-    private List<String> getStringRowsStrongBox(Map<ResourceType, Integer> strongBoxDepot) {
+    private List<String> getStringRowsStrongBox(List<ReducedContainer> strongBoxDepot) {
         List<String> rows = new ArrayList<>();
         List<String> coin = getStringRowsCoin();
         List<String> servant = getStringRowsServant();
         List<String> shield = getStringRowsShield();
         List<String> stone = getStringRowsStone();
         String coinCount, servantCount, shieldCount, stoneCount;
-        if (strongBoxDepot.get(ResourceType.COIN) > 9)
-            coinCount = "x" + strongBoxDepot.get(ResourceType.COIN);
-        else coinCount = "x" + strongBoxDepot.get(ResourceType.COIN) + " ";
-        if (strongBoxDepot.get(ResourceType.SERVANT) > 9)
-            servantCount = "x" + strongBoxDepot.get(ResourceType.SERVANT);
-        else servantCount = "x" + strongBoxDepot.get(ResourceType.SERVANT) + " ";
-        if (strongBoxDepot.get(ResourceType.SHIELD) > 9)
-            shieldCount = "x" + strongBoxDepot.get(ResourceType.SHIELD);
-        else shieldCount = "x" + strongBoxDepot.get(ResourceType.SHIELD) + " ";
-        if (strongBoxDepot.get(ResourceType.STONE) > 9)
-            stoneCount = "x" + strongBoxDepot.get(ResourceType.STONE);
-        else stoneCount = "x" + strongBoxDepot.get(ResourceType.STONE) + " ";
+        if (strongBoxDepot.stream().filter(x -> x.getResourceType().equals(ResourceType.COIN)).findFirst().orElse(null).getCount() > 9)
+            coinCount = "x" + strongBoxDepot.stream().filter(x -> x.getResourceType().equals(ResourceType.COIN)).findFirst().orElse(null).getCount();
+        else coinCount = "x" + strongBoxDepot.stream().filter(x -> x.getResourceType().equals(ResourceType.COIN)).findFirst().orElse(null).getCount() + " ";
+        if (strongBoxDepot.stream().filter(x -> x.getResourceType().equals(ResourceType.SERVANT)).findFirst().orElse(null).getCount() > 9)
+            servantCount = "x" + strongBoxDepot.stream().filter(x -> x.getResourceType().equals(ResourceType.SERVANT)).findFirst().orElse(null).getCount();
+        else servantCount = "x" + strongBoxDepot.stream().filter(x -> x.getResourceType().equals(ResourceType.SERVANT)).findFirst().orElse(null).getCount() + " ";
+        if (strongBoxDepot.stream().filter(x -> x.getResourceType().equals(ResourceType.SHIELD)).findFirst().orElse(null).getCount() > 9)
+            shieldCount = "x" + strongBoxDepot.stream().filter(x -> x.getResourceType().equals(ResourceType.SHIELD)).findFirst().orElse(null).getCount();
+        else shieldCount = "x" + strongBoxDepot.stream().filter(x -> x.getResourceType().equals(ResourceType.SHIELD)).findFirst().orElse(null).getCount() + " ";
+        if (strongBoxDepot.stream().filter(x -> x.getResourceType().equals(ResourceType.STONE)).findFirst().orElse(null).getCount() > 9)
+            stoneCount = "x" + strongBoxDepot.stream().filter(x -> x.getResourceType().equals(ResourceType.STONE)).findFirst().orElse(null).getCount();
+        else stoneCount = "x" + strongBoxDepot.stream().filter(x -> x.getResourceType().equals(ResourceType.STONE)).findFirst().orElse(null).getCount() + " ";
+
+
         rows.add(COLOR_DEPOT + "╔════════════════════════════════╗" + CLIColors.getAnsiReset());
         rows.add(COLOR_DEPOT + "║  " + coin.get(0) + COLOR_DEPOT + "        " + servant.get(0) + COLOR_DEPOT + "          ║" + CLIColors.getAnsiReset());
         rows.add(COLOR_DEPOT + "║  " + coin.get(1) + COLOR_DEPOT + " coin   " + servant.get(1) + COLOR_DEPOT + " servant  ║" + CLIColors.getAnsiReset());

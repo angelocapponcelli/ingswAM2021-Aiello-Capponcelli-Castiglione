@@ -34,6 +34,7 @@ public enum MessageType {
     UPDATED_WAREHOUSE,
     UPDATED_DEV_CARD_GRID,
     UPDATED_FAITH_POSITION,
+    UPDATED_STRONG_BOX,
 
     ALL_PLAYERS_JOINED,
 
@@ -47,5 +48,6 @@ public enum MessageType {
     DISCARD_ANY,
     DISCARD_RESOURCE,
     SELECT_RESOURCE_REPLACEMENT,
-    SelectResourceTypeMessage
+    SelectResourceTypeMessage,
+    ACTIVATE_BASIC_PRODUCTION
 }

@@ -1,6 +1,9 @@
 package it.polimi.ingsw.server.model.personalBoard.depots;
 
+import it.polimi.ingsw.client.view.reducedGameModel.ReducedContainer;
+import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedStrongBoxMessage;
 import it.polimi.ingsw.server.model.personalBoard.resourceContainers.StrongBoxContainer;
+import it.polimi.ingsw.server.model.personalBoard.resourceContainers.WareHouseContainer;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.utils.exceptions.DepotException;
 
@@ -27,6 +30,8 @@ public class StrongBoxDepot extends Depot {
             if (selectedContainer.getType() == resourceType) {
                 try {
                     selectedContainer.addResource(numResource);
+                    notifyObserver(new UpdatedStrongBoxMessage(toReduced()));
+
                 } catch (DepotException e) {
                     e.printStackTrace();
                 }
@@ -40,6 +45,7 @@ public class StrongBoxDepot extends Depot {
             if (selectedContainer.getType() == resourceType)
                 selectedContainer.remove(numResource);
         }
+        notifyObserver(new UpdatedStrongBoxMessage(toReduced()));
     }
 
     @Override
@@ -60,4 +66,16 @@ public class StrongBoxDepot extends Depot {
         }
         return count;
     }
+
+
+    private List<ReducedContainer> toReduced(){
+        List<ReducedContainer> reduced = new ArrayList<>();
+        for(StrongBoxContainer strongBoxContainer: containers){
+            reduced.add(new ReducedContainer(strongBoxContainer.getType(), strongBoxContainer.getCount()));
+        }
+
+        return reduced;
+
+    }
+
 }

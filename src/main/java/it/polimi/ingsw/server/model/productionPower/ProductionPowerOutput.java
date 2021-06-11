@@ -15,6 +15,12 @@ public class ProductionPowerOutput implements Activable {
         this.productionPowerOutput = new HashMap<>();
     }
 
+    public ProductionPowerOutput(Map<ResourceType, Integer> input) {
+        Map<Producible, Integer> tmpOutput = new HashMap<>();
+        input.forEach( (k,v) -> tmpOutput.put(ResourceType.getResourceClass(k), v));
+        productionPowerOutput = tmpOutput;
+    }
+
     public Map<Producible, Integer> getProductionPowerOutput() {
         return productionPowerOutput;
     }

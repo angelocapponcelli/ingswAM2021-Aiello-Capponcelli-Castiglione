@@ -48,32 +48,37 @@ public class GUI extends View {
     }
 
     @Override
-    public void marketTrayDraw() {
+    public void drawMarketTray() {
 
     }
 
     @Override
-    public void inHandLeaderCardsDraw() {
+    public void drawInHandLeaderCards() {
 
     }
 
     @Override
-    public void temporaryDepotDraw() {
+    public void drawTemporaryDepot() {
 
     }
 
     @Override
-    public void wareHouseDraw() {
+    public void drawWareHouse() {
 
     }
 
     @Override
-    public void devCardGridDraw() {
+    public void drawDevCardGrid() {
 
     }
 
     @Override
-    public void personalDevelopmentBoardDraw() {
+    public void drawPersonalDevelopmentBoard() {
+
+    }
+
+    @Override
+    public void drawStrongBox() {
 
     }
 
@@ -89,6 +94,11 @@ public class GUI extends View {
 
     @Override
     public void buyDevCard() {
+
+    }
+
+    @Override
+    public void activateProduction() {
 
     }
 

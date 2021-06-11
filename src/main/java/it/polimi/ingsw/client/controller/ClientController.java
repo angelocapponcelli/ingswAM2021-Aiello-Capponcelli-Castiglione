@@ -62,7 +62,7 @@ public class ClientController implements Runnable {
                     case INIT:
                         switch (initState) {
                             case DISCARD_LEADER:
-                                view.inHandLeaderCardsDraw();
+                                view.drawInHandLeaderCards();
                                 view.askForLeaderCardsToDiscard();
                                 try {
                                     wait();
@@ -106,7 +106,7 @@ public class ClientController implements Runnable {
                                         break;
 
                                     case ACTIVATE_PRODUCTION:
-                                        view.refresh();
+                                        view.activateProduction();
                                         try {
                                             wait();
                                         } catch (InterruptedException e) {
@@ -175,6 +175,8 @@ public class ClientController implements Runnable {
                 view.getReducedGameModel().getMarketTray().setMarketTray(initViewMessage.getMarketTray());
                 view.getReducedGameModel().getMarketTray().setSlide(initViewMessage.getSlide());
                 view.getReducedGameModel().setDevelopmentCardsGrid(initViewMessage.getDevelopmentCardGrid());
+                view.getReducedGameModel().setProductionPowerInputBoard(initViewMessage.getProductionPower().getProductionPowerInput());
+                view.getReducedGameModel().setProductionPowerOutputBoard(initViewMessage.getProductionPower().getProductionPowerOutput());
                 break;
             case UPDATED_MARKET_TRAY:
                 UpdatedMarketTrayMessage updatedMarketTray = (UpdatedMarketTrayMessage) message;
@@ -203,6 +205,11 @@ public class ClientController implements Runnable {
             case UPDATED_WAREHOUSE:
                 UpdatedWareHouseMessage updatedWareHouseMessage = (UpdatedWareHouseMessage) message;
                 view.getReducedGameModel().setWareHouseDepot(updatedWareHouseMessage.getWareHouse());
+                //view.refresh();
+                break;
+            case UPDATED_STRONG_BOX:
+                UpdatedStrongBoxMessage updatedStrongBoxMessage = (UpdatedStrongBoxMessage) message;
+                view.getReducedGameModel().setStrongBoxDepot(updatedStrongBoxMessage.getStrongBox());
                 //view.refresh();
                 break;
             case UPDATED_DEV_CARD_GRID:

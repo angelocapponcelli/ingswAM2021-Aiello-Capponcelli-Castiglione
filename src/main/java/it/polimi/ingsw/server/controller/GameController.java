@@ -10,8 +10,6 @@ import it.polimi.ingsw.networking.messages.serverMessage.ActionEndedMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.GamePhaseUpdateMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.ItIsMyTurnMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.InitViewMessage;
-import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedDevelopmentCardGridMessage;
-import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedMarketTrayMessage;
 import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.controller.gameStates.GameState;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
@@ -22,6 +20,9 @@ import it.polimi.ingsw.server.model.game.SinglePlayerGame;
 import it.polimi.ingsw.server.model.personalBoard.PersonalBoard;
 import it.polimi.ingsw.server.model.player.Player;
 import it.polimi.ingsw.server.model.player.RealPlayer;
+import it.polimi.ingsw.server.model.productionPower.ProductionPower;
+import it.polimi.ingsw.server.model.productionPower.ProductionPowerInput;
+import it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.utils.exceptions.DepotException;
 import it.polimi.ingsw.utils.parsers.LeaderCardParser;
@@ -103,8 +104,14 @@ public class GameController /*implements Runnable*/ {
         for(Player player: playerList ){
             reducedPlayers.add(new ReducedPlayer(player));
         }
-        sendBroadCastMessage(new InitViewMessage(reducedPlayers ,gameModel.getGlobalBoard().getMarketTray(), gameModel.getGlobalBoard().getDevelopmentCardGrid().toReduced()));
-        //sendBroadCastMessage(new InitViewMessage(gameModel.getGlobalBoard().getMarketTray(), gameModel.getGlobalBoard().getDevelopmentCardGrid().toReduced()));
+        sendBroadCastMessage(new InitViewMessage(
+                reducedPlayers,
+                gameModel.getGlobalBoard().getMarketTray(),
+                gameModel.getGlobalBoard().getDevelopmentCardGrid().toReduced(),
+                gameModel.getGlobalBoard().getBasicProductionPower().toReduced()
+                )
+        );
+
 
         List<LeaderCard> leaderCardsDeck = LeaderCardParser.getLeaderCards();
         IntStream.range(0, playerList.size())
@@ -123,6 +130,9 @@ public class GameController /*implements Runnable*/ {
 
 
 
+
+
+
     public void manageReceivedMessage(Message message) {
         switch (message.getMessageType()) {
             case TAKE_FROM_MARKET:
@@ -136,6 +146,10 @@ public class GameController /*implements Runnable*/ {
             case ACTIVATE_PRODUCTION:
                 ActivateProductionMessage activateProductionMessage = (ActivateProductionMessage) message;
                 activateProduction(activateProductionMessage);
+                break;
+            case ACTIVATE_BASIC_PRODUCTION:
+                ActivateBasicProductionMessage activateBasicProductionMessage = (ActivateBasicProductionMessage) message;
+                activateBasicProduction(activateBasicProductionMessage);
                 break;
             case DISCARDED_LEADER_CARD:
                 DiscardedLeaderCardsMessage discardLeaderCardsMessage = (DiscardedLeaderCardsMessage) message;
@@ -165,6 +179,9 @@ public class GameController /*implements Runnable*/ {
 
 
 
+
+
+
     private void discardInitialLeaderCards(DiscardedLeaderCardsMessage discardedLeaderCardsMessage) {
         Objects.requireNonNull(playerList.stream()
                 .filter(player -> player
@@ -180,13 +197,13 @@ public class GameController /*implements Runnable*/ {
 
     private void selectResourceReplacement(SelectResourceReplacementMessage selectResourceReplacementMessage){
         try {
-            ((RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(selectResourceReplacementMessage.getNickname()))
-                    .findFirst().orElse(null)).getPersonalBoard().getTemporaryDepot().removeResources(ResourceType.ANY,1);
+            ((RealPlayer) Objects.requireNonNull(playerList.stream().filter(player -> player.getNickName().equals(selectResourceReplacementMessage.getNickname()))
+                    .findFirst().orElse(null))).getPersonalBoard().getTemporaryDepot().removeResources(ResourceType.ANY,1);
         } catch (DepotException e) {
             e.printStackTrace();
         }
-        ((RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(selectResourceReplacementMessage.getNickname()))
-                .findFirst().orElse(null)).getPersonalBoard().getTemporaryDepot().addResource(Collections.singletonList(selectResourceReplacementMessage.getResourceType()));
+        ((RealPlayer) Objects.requireNonNull(playerList.stream().filter(player -> player.getNickName().equals(selectResourceReplacementMessage.getNickname()))
+                .findFirst().orElse(null))).getPersonalBoard().getTemporaryDepot().addResource(Collections.singletonList(selectResourceReplacementMessage.getResourceType()));
 
     }
 
@@ -238,11 +255,7 @@ public class GameController /*implements Runnable*/ {
     private void buyDevCard(BuyDevCardMessage buyDevCardMessage) {
         int cardId = buyDevCardMessage.getCardID();
         DevelopmentCard developmentCard;
-        RealPlayer realPlayer = (RealPlayer) playerList.stream()
-                .filter(player -> player.getNickName().equals(buyDevCardMessage.getNickname()))
-                .findFirst().orElse(null);
-
-
+        RealPlayer realPlayer = getRealPlayer(buyDevCardMessage);
 
         for (int i = 0; i < gameModel.getGlobalBoard().getDevelopmentCardGrid().getDeckGrid().length; i++) {
             for (int j = 0; j < gameModel.getGlobalBoard().getDevelopmentCardGrid().getDeckGrid()[0].length; j++) {
@@ -273,7 +286,7 @@ public class GameController /*implements Runnable*/ {
 
         String rowOrColumn = takeFromMarketMessage.getRowOrColumn();
         Integer number = takeFromMarketMessage.getNumber();
-        RealPlayer realPlayer = (RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(takeFromMarketMessage.getNickname())).findFirst().orElse(null);
+        RealPlayer realPlayer = getRealPlayer(takeFromMarketMessage);
         assert realPlayer != null;
         realPlayer.getPersonalBoard().getTemporaryDepot().clear();
 
@@ -287,9 +300,7 @@ public class GameController /*implements Runnable*/ {
     }
 
     private void activateProduction(ActivateProductionMessage activateProductionMessage) {
-        RealPlayer realPlayer = (RealPlayer) playerList.stream()
-                .filter(player -> player.getNickName().equals(activateProductionMessage.getNickname()))
-                .findFirst().orElse(null);
+        RealPlayer realPlayer = getRealPlayer(activateProductionMessage);
         try {
             gameModel.getGlobalBoard().getBasicProductionPower().getProductionInput().pay(realPlayer);
         } catch (DepotException e) {
@@ -297,6 +308,23 @@ public class GameController /*implements Runnable*/ {
         }
         gameModel.getGlobalBoard().getBasicProductionPower().getProductionOutput().onActivation(realPlayer);
         nextPlayerTurn();
+    }
+
+    private void activateBasicProduction(ActivateBasicProductionMessage activateBasicProductionMessage) {
+        RealPlayer realPlayer = getRealPlayer(activateBasicProductionMessage);
+
+        ProductionPowerInput input = new ProductionPowerInput(activateBasicProductionMessage.getInput());
+        ProductionPowerOutput output = new ProductionPowerOutput(activateBasicProductionMessage.getOutput());
+
+        try {
+            input.pay(realPlayer);
+        } catch (DepotException e) {
+            e.printStackTrace();
+        }
+        output.onActivation(realPlayer);
+        sendPrivateMessage(activateBasicProductionMessage.getNickname(), new ActionEndedMessage());
+        nextPlayerTurn();
+
     }
     //*******************
 
@@ -338,5 +366,16 @@ public class GameController /*implements Runnable*/ {
 
         sendPrivateMessage(playerList.get(currentPlayer).getNickName(), new ItIsMyTurnMessage());
     }
+
+
+
+    private RealPlayer getRealPlayer(ClientMessage message){
+
+        return  (RealPlayer) playerList.stream()
+                .filter(player -> player.getNickName().equals(message.getNickname()))
+                .findFirst().orElse(null);
+    }
+
+
 
 }

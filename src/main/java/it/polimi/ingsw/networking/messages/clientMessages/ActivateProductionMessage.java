@@ -3,6 +3,8 @@ package it.polimi.ingsw.networking.messages.clientMessages;
 import it.polimi.ingsw.networking.messages.MessageType;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 
+import java.util.List;
+
 public class ActivateProductionMessage extends ClientMessage {
     ResourceType input1;
     ResourceType input2;
@@ -15,6 +17,7 @@ public class ActivateProductionMessage extends ClientMessage {
         this.input2 = input2;
         this.outPut = outPut;
     }
+
 
     public ResourceType getInput1() {
         return input1;

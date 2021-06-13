@@ -11,7 +11,8 @@ public class NickNameController {
     public TextField nickName;
     public Button loginButton;
 
-    public void askForCreateOrJoinGame(ActionEvent actionEvent) {
+    public void onLoginButtonPressed(ActionEvent actionEvent) {
+        FXGUI.getClient().setNickName(nickName.getText());
         FXGUI.getClient().sendMessage(new NicknameMessage(nickName.getText()));
     }
 }

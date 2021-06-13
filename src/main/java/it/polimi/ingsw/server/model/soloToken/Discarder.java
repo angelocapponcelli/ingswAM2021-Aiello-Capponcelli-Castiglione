@@ -19,16 +19,13 @@ public class Discarder implements Revealable {
 
     @Override
     public void onReveal(Lorenzo lorenzo) {
-        GlobalBoard globalBoard1 = new GlobalBoard();
-        /*get global board in some way*/
-        int tmp1;
-        int tmp2;
+        GlobalBoard globalBoard1 = lorenzo.getGameController().getGameModel().getGlobalBoard();
         ArrayList<Deck> listOfPossibleDecks = new ArrayList<>();
-        for (tmp1 = 0; tmp1 < 3; tmp1++) {
-            for (tmp2 = 0; tmp2 < 4; tmp2++) {
-                DevelopmentCard developmentCard = globalBoard1.getDevelopmentCardGrid().getDeck(tmp1, tmp2).getDeck().get(0);
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 4; j++) {
+                DevelopmentCard developmentCard = globalBoard1.getDevelopmentCardGrid().getDeck(i, j).getDeck().get(0);
                 if (developmentCard.getTypeLevel().getType().equals(this.type)) {
-                    listOfPossibleDecks.add(globalBoard1.getDevelopmentCardGrid().getDeck(tmp1, tmp2));
+                    listOfPossibleDecks.add(globalBoard1.getDevelopmentCardGrid().getDeck(i, j));
                 }
             }
         }

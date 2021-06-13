@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class CreateOrJoin {
 
-    public void askForPlayersNumber(ActionEvent actionEvent){
+    public void onCreateButtonPressed(ActionEvent actionEvent){
         Platform.runLater(() -> {
             try {
                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/FXML/playersNumber.fxml")));
@@ -27,7 +27,17 @@ public class CreateOrJoin {
         });
     }
 
-    public void askForGameID(ActionEvent actionEvent) throws IOException {
-        FXGUI.setRoot("gameID");
+    public void askForGameID(){
+        Platform.runLater(() -> {
+            try {
+                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/FXML/gameID.fxml")));
+                Stage stage = FXGUI.getStage();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

@@ -211,22 +211,24 @@ public class SimpleCLI extends View {
     }
 
     @Override
-    public MY_TURN askForMainAction() {
+    public void askForMainAction() {
         System.out.println("> (1)TakeFromMarket (2)ActivateProduction (3)BuyDevCard");
         try {
             String mainAction = stdIn.readLine();
             switch (mainAction) {
                 case "1":
-                    return MY_TURN.TAKE_FROM_MARKET;
+                    client.getClientController().setMyTurnState(MY_TURN.TAKE_FROM_MARKET);
+                    break;
                 case "2":
-                    return MY_TURN.ACTIVATE_PRODUCTION;
+                    client.getClientController().setMyTurnState(MY_TURN.ACTIVATE_PRODUCTION);
+                    break;
                 case "3":
-                    return MY_TURN.BUY_DEV_CARD;
+                    client.getClientController().setMyTurnState(MY_TURN.BUY_DEV_CARD);
+                    break;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
     }
 
     public void takeFromMarket() {
@@ -442,6 +444,7 @@ public class SimpleCLI extends View {
 
     @Override
     public void askForLeaderCardsToDiscard() {
+        drawInHandLeaderCards();
         System.out.println("Choose the ID of the first Leader Cards to discard");
         int id1 = 0;
         try {

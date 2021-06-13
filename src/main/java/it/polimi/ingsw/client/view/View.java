@@ -42,7 +42,7 @@ public abstract class View {
     public abstract void drawStrongBox();
 
 
-    public abstract MY_TURN askForMainAction();
+    public abstract void askForMainAction();
     public abstract void takeFromMarket();
     public abstract void buyDevCard();
     public abstract void activateProduction();

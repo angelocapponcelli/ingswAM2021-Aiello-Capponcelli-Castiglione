@@ -31,7 +31,6 @@ public class Client {
             clientController = new ClientController(view);
         }
 
-
     }
 
     public Socket getClientSocket() {

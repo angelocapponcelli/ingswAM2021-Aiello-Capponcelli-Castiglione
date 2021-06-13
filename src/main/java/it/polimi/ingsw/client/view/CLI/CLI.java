@@ -222,8 +222,7 @@ public class CLI extends View {
     }
 
     @Override
-    public MY_TURN askForMainAction() {
-        return null;
+    public void askForMainAction() {
     }
 
     @Override

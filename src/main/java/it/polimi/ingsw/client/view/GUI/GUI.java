@@ -61,13 +61,52 @@ public class GUI extends View {
 
     @Override
     public void askForLeaderCardsToDiscard() {
-
+        Platform.runLater(()-> {
+            try {
+                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/FXML/discardLeaderCard.fxml")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            stage = FXGUI.getStage();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        });
     }
 
     @Override
     public boolean askForInitialResources() {
+        int numOfResources;
+        switch (reducedGameModel.getPlayerTurnPosition()) {
+            case 2:
+            case 3:
+                numOfResources = 1;
+                break;
+            case 4:
+                numOfResources = 2;
+                break;
+            default:
+                numOfResources = 0;
+                break;
+        }
+        if (numOfResources > 0) {
+            Platform.runLater(()-> {
+                try {
+                    root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/FXML/askForInitialResources.fxml")));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                stage = FXGUI.getStage();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            });
+            return true;
+        }
+
         return false;
     }
+
 
     @Override
     public void moveFromTemporary() {
@@ -120,8 +159,19 @@ public class GUI extends View {
     }
 
     @Override
-    public MY_TURN askForMainAction() {
-        return null;
+    public void askForMainAction() {
+        Platform.runLater(()-> {
+            try {
+                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/FXML/askForMainAction.fxml")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            stage = FXGUI.getStage();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        });
+        client.getClientController().pause();
     }
 
     @Override

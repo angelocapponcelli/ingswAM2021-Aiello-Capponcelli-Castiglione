@@ -11,18 +11,29 @@ import java.util.Objects;
 
 
 public class ClientController implements Runnable {
-    ClientState currentState = ClientState.LOGIN;
-    LOGIN loginState = LOGIN.NICKNAME;
-    INIT initState = INIT.DISCARD_LEADER;
-    IN_GAME inGameState = IN_GAME.NO_MY_TURN;
-    MY_TURN myTurnState;
+    private ClientState currentState = ClientState.LOGIN;
+    private LOGIN loginState = LOGIN.NICKNAME;
+    private INIT initState = INIT.DISCARD_LEADER;
+    private IN_GAME inGameState = IN_GAME.NO_MY_TURN;
+    private MY_TURN myTurnState;
 
     View view;
+
+    public void setMyTurnState(MY_TURN myTurnState) {
+        this.myTurnState = myTurnState;
+    }
 
     public synchronized void update(){
         notifyAll();
     }
 
+    public synchronized void pause(){
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     public ClientController(View view) {
         this.view = view;
     }
@@ -35,17 +46,14 @@ public class ClientController implements Runnable {
                     case LOGIN:
                         switch (loginState) {
                             case SPLASH:
-                                System.out.println("Splash");
                                 view.splashScreen();
                                 try {
                                     wait();
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
-                                System.out.println("ciao");
                                 loginState = LOGIN.NICKNAME;
                             case NICKNAME:
-                                System.out.println("NickName");
                                 view.askForNickName();
                                 try {
                                     wait();
@@ -55,7 +63,6 @@ public class ClientController implements Runnable {
                                 loginState = LOGIN.CREATE_OR_JOIN;
                                 break;
                             case CREATE_OR_JOIN:
-                                System.out.println("CreateOrJoin");
                                 view.askForCreateOrJoinGame();
                                 try {
                                     wait();
@@ -68,7 +75,6 @@ public class ClientController implements Runnable {
                     case INIT:
                         switch (initState) {
                             case DISCARD_LEADER:
-                                view.drawInHandLeaderCards();
                                 view.askForLeaderCardsToDiscard();
                                 try {
                                     wait();
@@ -99,9 +105,10 @@ public class ClientController implements Runnable {
                             case MY_TURN:
                                 System.out.println("your turn");
                                 view.refresh();
-                                myTurnState = view.askForMainAction();
+                                view.askForMainAction();
                                 switch (myTurnState) {
                                     case TAKE_FROM_MARKET:
+                                        System.out.println("takeFrom");
                                         view.takeFromMarket();
                                         try {
                                             wait();
@@ -112,6 +119,7 @@ public class ClientController implements Runnable {
                                         break;
 
                                     case ACTIVATE_PRODUCTION:
+                                        System.out.println("Activate");
                                         view.activateProduction();
                                         try {
                                             wait();
@@ -122,6 +130,7 @@ public class ClientController implements Runnable {
                                         break;
 
                                     case BUY_DEV_CARD:
+                                        System.out.println("buydev");
                                         view.buyDevCard();
                                         try {
                                             wait();

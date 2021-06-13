@@ -1,7 +1,6 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.view.GUI.FXGui;
 import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.utils.CLIColors;
 
@@ -13,24 +12,20 @@ public class MaestriDelRinascimento {
 
 
         if (args[0].equals("--client")) {
-            Client client = null;
+            Client client;
             if (args.length == 2) {
                 if (args[1].equals("cli")) {
                     System.out.println("Starting Client in CLI mode...");
                     client = new Client(false);
                     client.start(hostName, portNumber);
                 }
-                if (args[1].equals("gui")) {
+                else if (args[1].equals("gui")) {
                     System.out.println("Starting Client in GUI mode...");
                     client = new Client(true);
                     client.start(hostName,portNumber);
 
                 }
-            } else {
-                client = new Client(true);
-                FXGui.setClient(client);
             }
-
 
         } else if (args[0].equals("--server")) {
             System.out.println("Starting server on port " + portNumber);

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client.controller;
 
-import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.networking.messages.ErrorMessage;
 import it.polimi.ingsw.networking.messages.Message;
@@ -12,35 +11,41 @@ import java.util.Objects;
 
 
 public class ClientController implements Runnable {
-    private Client client;
-    ClientState currentState;
+    ClientState currentState = ClientState.LOGIN;
+    LOGIN loginState = LOGIN.NICKNAME;
     INIT initState = INIT.DISCARD_LEADER;
     IN_GAME inGameState = IN_GAME.NO_MY_TURN;
-    LOGIN loginState = LOGIN.NICKNAME;
     MY_TURN myTurnState;
 
     View view;
 
-    public ClientController(View view) {
-        this.view = view;
-        currentState = ClientState.LOGIN;
+    public synchronized void update(){
+        notifyAll();
     }
 
-    public ClientController(View view, Client client) {
+    public ClientController(View view) {
         this.view = view;
-        currentState = ClientState.LOGIN;
     }
 
     @Override
     public void run() {
-
         while (true) {
             synchronized (this) {
                 switch (currentState) {
                     case LOGIN:
-                        //view.splashScreen();
                         switch (loginState) {
+                            case SPLASH:
+                                System.out.println("Splash");
+                                view.splashScreen();
+                                try {
+                                    wait();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                System.out.println("ciao");
+                                loginState = LOGIN.NICKNAME;
                             case NICKNAME:
+                                System.out.println("NickName");
                                 view.askForNickName();
                                 try {
                                     wait();
@@ -50,6 +55,7 @@ public class ClientController implements Runnable {
                                 loginState = LOGIN.CREATE_OR_JOIN;
                                 break;
                             case CREATE_OR_JOIN:
+                                System.out.println("CreateOrJoin");
                                 view.askForCreateOrJoinGame();
                                 try {
                                     wait();
@@ -267,6 +273,7 @@ public class ClientController implements Runnable {
 
 
     public enum LOGIN {
+        SPLASH,
         NICKNAME,
         CREATE_OR_JOIN
     }

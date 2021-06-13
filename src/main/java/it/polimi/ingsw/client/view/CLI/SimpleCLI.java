@@ -10,6 +10,7 @@ import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.New
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NicknameMessage;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.utils.CLIColors;
+import javafx.application.Platform;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -149,7 +150,8 @@ public class SimpleCLI extends View {
     public void splashScreen() {
         clear();
         System.out.println("Welcome to Maestri del Rinascimento");
-        waitMilliseconds(500);
+        //waitMilliseconds(500);
+        client.getClientController().update();
     }
 
     @Override

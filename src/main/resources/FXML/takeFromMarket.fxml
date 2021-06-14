@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.polimi.ingsw.client.view.GUI.SceneController.TakeFromMarketController">
+    <Button fx:id="firstColButton" layoutX="114.0" layoutY="53.0" mnemonicParsing="false" onAction="#onColumnRowSelected" text="col 1"/>
+    <Button fx:id="secondColButton" layoutX="200.0" layoutY="53.0" mnemonicParsing="false" onAction="#onColumnRowSelected" text="col 2"/>
+    <Button fx:id="thirdColButton" layoutX="289.0" layoutY="53.0" mnemonicParsing="false" onAction="#onColumnRowSelected" text="col 3"/>
+    <Button fx:id="fourthColButton" layoutX="370.0" layoutY="53.0" mnemonicParsing="false" onAction="#onColumnRowSelected" text="col 4"/>
+    <Button fx:id="firstRowButton" layoutX="43.0" layoutY="101.0" mnemonicParsing="false" onAction="#onColumnRowSelected" text="row 1"/>
+    <Button fx:id="secondRowButton" layoutX="43.0" layoutY="153.0" mnemonicParsing="false" onAction="#onColumnRowSelected" text="row 2"/>
+    <Button fx:id="thirdRowButton" layoutX="43.0" layoutY="200.0" mnemonicParsing="false" onAction="#onColumnRowSelected" text="row 3"/>
+</AnchorPane>

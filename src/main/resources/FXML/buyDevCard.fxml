@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.polimi.ingsw.client.view.GUI.SceneController.BuyDevCardController">
+    <GridPane fx:id="gridCard" alignment="CENTER" layoutX="95.0" layoutY="61.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="278.0"
+              prefWidth="410.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        </rowConstraints>
+        <children>
+            <Button fx:id="firstCardButton" mnemonicParsing="false" onAction="#onCardSelected" text="card1"
+                    GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Button fx:id="secondCardButton" mnemonicParsing="false" onAction="#onCardSelected" text="card2"
+                    GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <Button fx:id="thirdCardButton" mnemonicParsing="false" onAction="#onCardSelected" text="card3"
+                    GridPane.columnIndex="2" GridPane.rowIndex="0" />
+            <Button fx:id="fourthCardButton" mnemonicParsing="false" onAction="#onCardSelected" text="card4"
+                    GridPane.columnIndex="3" GridPane.rowIndex="0" />
+            <Button fx:id="secondColButton" mnemonicParsing="false" onAction="#onCardSelected" text="card5"
+                    GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Button fx:id="fourthColButton" mnemonicParsing="false" onAction="#onCardSelected" text="card6"
+                    GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <Button fx:id="fourthCardButton1" mnemonicParsing="false" onAction="#onCardSelected" text="card7"
+                    GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+            <Button fx:id="fourthCardButton11" mnemonicParsing="false" onAction="#onCardSelected" text="card8"
+                    GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+            <Button fx:id="firstRowButton" mnemonicParsing="false" onAction="#onCardSelected" text="card9"
+                    GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <Button fx:id="secondRowButton" mnemonicParsing="false" onAction="#onCardSelected" text="card10"
+                    GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            <Button fx:id="fourthCardButton111" mnemonicParsing="false" onAction="#onCardSelected" text="card11"
+                    GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+            <Button fx:id="fourthCardButton1111" mnemonicParsing="false" onAction="#onCardSelected" text="card12"
+                    GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+        </children>
+    </GridPane>
+</AnchorPane>

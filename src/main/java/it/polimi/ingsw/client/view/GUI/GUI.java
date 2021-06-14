@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.view.GUI;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.controller.MY_TURN;
 import it.polimi.ingsw.client.view.View;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -176,17 +175,47 @@ public class GUI extends View {
 
     @Override
     public void takeFromMarket() {
-
+        Platform.runLater(()-> {
+            try {
+                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/FXML/takeFromMarket.fxml")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            stage = FXGUI.getStage();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        });
     }
 
     @Override
     public void buyDevCard() {
-
+        Platform.runLater(()-> {
+            try {
+                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/FXML/buyDevCard.fxml")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            stage = FXGUI.getStage();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        });
     }
 
     @Override
     public void activateProduction() {
-
+        Platform.runLater(()-> {
+            try {
+                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/FXML/activateProduction.fxml")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            stage = FXGUI.getStage();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        });
     }
 
     @Override

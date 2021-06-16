@@ -109,7 +109,17 @@ public class GUI extends View {
 
     @Override
     public void moveFromTemporary() {
-
+        Platform.runLater(()-> {
+            try {
+                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/FXML/moveFromTemporary.fxml")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            stage = FXGUI.getStage();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        });
     }
 
     @Override
@@ -119,7 +129,17 @@ public class GUI extends View {
 
     @Override
     public void refresh() {
-
+        Platform.runLater(()-> {
+            try {
+                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/FXML/gameBoard.fxml")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            stage = FXGUI.getStage();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        });
     }
 
     @Override

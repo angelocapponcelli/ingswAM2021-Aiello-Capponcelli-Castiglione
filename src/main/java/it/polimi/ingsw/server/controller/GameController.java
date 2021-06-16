@@ -49,7 +49,6 @@ public class GameController /*implements Runnable*/ {
     }
 
 
-
     //+++++++ Getter +++++++
     public Integer getGameID() {
         return gameID;
@@ -93,22 +92,22 @@ public class GameController /*implements Runnable*/ {
 
         Collections.shuffle(playerList);
         IntStream.range(0, playerList.size()).forEach(i -> playerList.get(i).setTurnPosition(i + 1));
-        if(playerList.size() > 2){
+        if (playerList.size() > 2) {
             playerList.get(2).setFaithPosition(1);
-            if (playerList.size() == 4){
+            if (playerList.size() == 4) {
                 playerList.get(3).setFaithPosition(1);
             }
         }
 
         List<ReducedPlayer> reducedPlayers = new ArrayList<>();
-        for(Player player: playerList ){
+        for (Player player : playerList) {
             reducedPlayers.add(new ReducedPlayer(player));
         }
         sendBroadCastMessage(new InitViewMessage(
-                reducedPlayers,
-                gameModel.getGlobalBoard().getMarketTray(),
-                gameModel.getGlobalBoard().getDevelopmentCardGrid().toReduced(),
-                gameModel.getGlobalBoard().getBasicProductionPower().toReduced()
+                        reducedPlayers,
+                        gameModel.getGlobalBoard().getMarketTray(),
+                        gameModel.getGlobalBoard().getDevelopmentCardGrid().toReduced(),
+                        gameModel.getGlobalBoard().getBasicProductionPower().toReduced()
                 )
         );
 
@@ -126,11 +125,6 @@ public class GameController /*implements Runnable*/ {
 
 
     }
-
-
-
-
-
 
 
     public void manageReceivedMessage(Message message) {
@@ -177,11 +171,6 @@ public class GameController /*implements Runnable*/ {
     }
 
 
-
-
-
-
-
     private void discardInitialLeaderCards(DiscardedLeaderCardsMessage discardedLeaderCardsMessage) {
         Objects.requireNonNull(playerList.stream()
                 .filter(player -> player
@@ -195,10 +184,10 @@ public class GameController /*implements Runnable*/ {
         sendPrivateMessage(discardedLeaderCardsMessage.getNickname(), new ActionEndedMessage());
     }
 
-    private void selectResourceReplacement(SelectResourceReplacementMessage selectResourceReplacementMessage){
+    private void selectResourceReplacement(SelectResourceReplacementMessage selectResourceReplacementMessage) {
         try {
             ((RealPlayer) Objects.requireNonNull(playerList.stream().filter(player -> player.getNickName().equals(selectResourceReplacementMessage.getNickname()))
-                    .findFirst().orElse(null))).getPersonalBoard().getTemporaryDepot().removeResources(ResourceType.ANY,1);
+                    .findFirst().orElse(null))).getPersonalBoard().getTemporaryDepot().removeResources(ResourceType.ANY, 1);
         } catch (DepotException e) {
             e.printStackTrace();
         }
@@ -207,7 +196,7 @@ public class GameController /*implements Runnable*/ {
 
     }
 
-    private void reallocateResource(ReallocateResourceMessage reallocateResourceMessage){
+    private void reallocateResource(ReallocateResourceMessage reallocateResourceMessage) {
         RealPlayer realPlayer = (RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(reallocateResourceMessage.getNickname()))
                 .findFirst().orElse(null);
         PersonalBoard personalBoard = Objects.requireNonNull(realPlayer).getPersonalBoard();
@@ -228,23 +217,38 @@ public class GameController /*implements Runnable*/ {
                 }
                 break;
         }
-                try {
-                    personalBoard.getTemporaryDepot().removeResources(resourceType,1);
-                } catch (DepotException e) {
-                    e.printStackTrace();
-                }
-                sendPrivateMessage(reallocateResourceMessage.getNickname(), new ActionEndedMessage());
+        try {
+            personalBoard.getTemporaryDepot().removeResources(resourceType, 1);
+        } catch (DepotException e) {
+            e.printStackTrace();
         }
 
-    private void discardResource(DiscardResourceMessage discardResourceMessage){
-        playerList.stream().filter(player -> !player.getNickName().equals(discardResourceMessage.getNickname())).forEach(Player::increaseFaithPosition);
+        if (personalBoard.getTemporaryDepot().getAllResourceCount() == 0)
+            sendPrivateMessage(reallocateResourceMessage.getNickname(), new ActionEndedMessage());
     }
 
+    private void discardResource(DiscardResourceMessage discardResourceMessage) {
+        RealPlayer realPlayer = (RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(discardResourceMessage.getNickname()))
+                .findFirst().orElse(null);
+        PersonalBoard personalBoard = Objects.requireNonNull(realPlayer).getPersonalBoard();
+        ResourceType resourceType = discardResourceMessage.getResourceType();
+
+        try {
+            personalBoard.getTemporaryDepot().removeResources(resourceType, 1);
+        } catch (DepotException e) {
+            e.printStackTrace();
+        }
+
+        playerList.stream().filter(player -> !player.getNickName().equals(discardResourceMessage.getNickname())).forEach(Player::increaseFaithPosition);
+
+        if (personalBoard.getTemporaryDepot().getAllResourceCount() == 0)
+            sendPrivateMessage(discardResourceMessage.getNickname(), new ActionEndedMessage());
+    }
 
 
     private void distributeInitialResources(ChosenInitialResourcesMessage chosenInitialResourcesMessage) {
 
-        RealPlayer realPlayer = (RealPlayer)playerList.stream().filter(player -> player.getNickName().equals(chosenInitialResourcesMessage.getNickname())).findFirst().orElse(null);
+        RealPlayer realPlayer = (RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(chosenInitialResourcesMessage.getNickname())).findFirst().orElse(null);
         Objects.requireNonNull(realPlayer).getPersonalBoard().getTemporaryDepot().addResource(chosenInitialResourcesMessage.getChosenResource());
         sendPrivateMessage(chosenInitialResourcesMessage.getNickname(), new ActionEndedMessage());
 
@@ -264,7 +268,7 @@ public class GameController /*implements Runnable*/ {
                     developmentCard = temp;
                     if (developmentCard.getCost().check(realPlayer)) {
                         try {
-                            gameModel.getGlobalBoard().getDevelopmentCardGrid().pop(i,j);
+                            gameModel.getGlobalBoard().getDevelopmentCardGrid().pop(i, j);
                             developmentCard.getCost().pay(realPlayer);
                         } catch (DepotException e) {
                             e.printStackTrace();
@@ -357,25 +361,21 @@ public class GameController /*implements Runnable*/ {
     }
 
 
-
-    private void nextPlayerTurn(){
-        if (currentPlayer + 1 == playerList.size()){
+    private void nextPlayerTurn() {
+        if (currentPlayer + 1 == playerList.size()) {
             currentPlayer = 0;
-        }
-        else currentPlayer++;
+        } else currentPlayer++;
 
         sendPrivateMessage(playerList.get(currentPlayer).getNickName(), new ItIsMyTurnMessage());
     }
 
 
+    private RealPlayer getRealPlayer(ClientMessage message) {
 
-    private RealPlayer getRealPlayer(ClientMessage message){
-
-        return  (RealPlayer) playerList.stream()
+        return (RealPlayer) playerList.stream()
                 .filter(player -> player.getNickName().equals(message.getNickname()))
                 .findFirst().orElse(null);
     }
-
 
 
 }

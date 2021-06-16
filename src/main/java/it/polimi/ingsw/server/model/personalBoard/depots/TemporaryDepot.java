@@ -6,9 +6,9 @@ import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.utils.exceptions.DepotException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
@@ -53,7 +53,11 @@ public class TemporaryDepot extends StrongBoxDepot {
 
     @Override
     public int getAllResourceCount() {
-        return 0;
+        AtomicInteger count = new AtomicInteger();
+        containers.forEach(container -> {
+                count.addAndGet(container.getCount());
+        });
+        return count.get();
     }
 
     @Override

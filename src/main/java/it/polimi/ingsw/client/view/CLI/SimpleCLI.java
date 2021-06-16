@@ -10,7 +10,6 @@ import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.New
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NicknameMessage;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.utils.CLIColors;
-import javafx.application.Platform;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -106,7 +105,7 @@ public class SimpleCLI extends View {
                     try {
                         shelf = stdIn.readLine();
                         if (shelf.equals("d")) {
-                            client.sendMessage(new DiscardResourceMessage(client.getNickName()));
+                            client.sendMessage(new DiscardResourceMessage(client.getNickName(), key));
                         } else {
                             client.sendMessage(new ReallocateResourceMessage(client.getNickName(), key, "Temporary", "WareHouse", -1, Integer.parseInt(shelf) - 1));
                         }

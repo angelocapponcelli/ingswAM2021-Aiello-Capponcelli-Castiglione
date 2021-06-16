@@ -239,7 +239,10 @@ public class ClientController implements Runnable {
                 break;
             case MY_TURN_MESSAGE:
                 inGameState = IN_GAME.MY_TURN;
-                notifyAll();
+                /** If player is not moving resources to not stop him in his action
+                 *  He will wake up by the end of the action
+                 */
+                if (currentState != ClientState.MOVE_FROM_TEMPORARY) notifyAll();
                 break;
             case ACTION_ENDED:
                 notifyAll();

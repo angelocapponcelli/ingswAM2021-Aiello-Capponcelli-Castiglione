@@ -222,6 +222,11 @@ public class CLI extends View {
     }
 
     @Override
+    public void drawFaithTrack() {
+
+    }
+
+    @Override
     public void askForMainAction() {
     }
 

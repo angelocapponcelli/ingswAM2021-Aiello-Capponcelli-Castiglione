@@ -40,6 +40,7 @@ public abstract class View {
     public abstract void drawDevCardGrid();
     public abstract void drawPersonalDevelopmentBoard();
     public abstract void drawStrongBox();
+    public abstract void drawFaithTrack();
 
 
     public abstract void askForMainAction();

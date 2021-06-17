@@ -107,7 +107,8 @@ public class GameController /*implements Runnable*/ {
                         reducedPlayers,
                         gameModel.getGlobalBoard().getMarketTray(),
                         gameModel.getGlobalBoard().getDevelopmentCardGrid().toReduced(),
-                        gameModel.getGlobalBoard().getBasicProductionPower().toReduced()
+                        gameModel.getGlobalBoard().getBasicProductionPower().toReduced(),
+                        gameModel.getGlobalBoard().getFaithTrack().toReduced()
                 )
         );
 
@@ -223,7 +224,7 @@ public class GameController /*implements Runnable*/ {
             e.printStackTrace();
         }
 
-        if (personalBoard.getTemporaryDepot().getAllResourceCount() == 0)
+        if (personalBoard.getTemporaryDepot().getAllResourceCountNoAny() == 0)
             sendPrivateMessage(reallocateResourceMessage.getNickname(), new ActionEndedMessage());
     }
 

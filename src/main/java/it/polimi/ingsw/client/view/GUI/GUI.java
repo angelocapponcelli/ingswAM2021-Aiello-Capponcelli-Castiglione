@@ -178,6 +178,11 @@ public class GUI extends View {
     }
 
     @Override
+    public void drawFaithTrack() {
+
+    }
+
+    @Override
     public void askForMainAction() {
         Platform.runLater(()-> {
             try {

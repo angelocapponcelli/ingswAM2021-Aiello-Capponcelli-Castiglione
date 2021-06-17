@@ -4,10 +4,13 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.controller.MY_TURN;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedDevelopmentCard;
+import it.polimi.ingsw.client.view.reducedGameModel.ReducedFaithCell;
+import it.polimi.ingsw.client.view.reducedGameModel.ReducedPlayer;
 import it.polimi.ingsw.networking.messages.clientMessages.*;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.JoinGameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NewGameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NicknameMessage;
+import it.polimi.ingsw.server.model.player.Player;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.utils.CLIColors;
 
@@ -210,6 +213,26 @@ public class SimpleCLI extends View {
     }
 
     @Override
+    public void drawFaithTrack() {
+        for(int i = 0; i< reducedGameModel.getFaithTrack().size(); i++){
+            if(i> 0 && reducedGameModel.getFaithTrack().get(i).getVictoryPoints() != reducedGameModel.getFaithTrack().get(i-1).getVictoryPoints()){
+                System.out.print(CLIColors.ANSI_YELLOW_BACKGROUND+ "["+reducedGameModel.getFaithTrack().get(i).getVictoryPoints()+"]"+ CLIColors.getAnsiReset());
+            }
+            else System.out.print("[ ]");
+        }
+        System.out.println();
+        for(ReducedPlayer player: getReducedGameModel().getPlayers()){
+
+            for(int i = 0; i< player.getFaithPosition(); i++){
+                System.out.print("   ");
+            }
+            System.out.println(" ↑"+player.getNickName());
+        }
+
+    }
+
+
+    @Override
     public void askForMainAction() {
         System.out.println("> (1)TakeFromMarket (2)ActivateProduction (3)BuyDevCard");
         try {
@@ -408,7 +431,8 @@ public class SimpleCLI extends View {
     public void refresh() {
         clear();
         System.out.println(client.getNickName() + " Turn Position: " + reducedGameModel.getPlayerTurnPosition());
-        faithTrackDraw();
+        //faithTrackDraw();
+        drawFaithTrack();
         drawMarketTray();
         drawInHandLeaderCards();
         drawWareHouse();

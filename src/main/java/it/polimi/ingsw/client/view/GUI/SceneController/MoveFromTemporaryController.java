@@ -19,8 +19,6 @@ import java.util.stream.IntStream;
 
 public class MoveFromTemporaryController {
 
-    public VBox temporaryDepotResourceVbox;
-    public VBox resourceToMoveVbox;
     public HBox firstShelfBox;
     public HBox secondShelfBox;
     public HBox thirdShelfBox;
@@ -32,7 +30,6 @@ public class MoveFromTemporaryController {
         FXGUI.getClient().getView().getReducedGameModel().getTemporaryDepot().forEach((key, value) -> IntStream.range(0, value)
                 .mapToObj(x -> key).filter(resourceType -> !resourceType.equals(ResourceType.ANY))
                 .forEach(resourceType -> {
-                    temporaryDepotResourceVbox.getChildren().add(new Label(resourceType.toString()));
                     ImageView imageView = new ImageView();
                     imageView.setFitHeight(50);
                     imageView.setFitWidth(50);
@@ -40,8 +37,7 @@ public class MoveFromTemporaryController {
                     imageView.setAccessibleText(resourceType.toString());
                     temporaryDepotResourceHbox.getChildren().add(imageView);
                 }));
-        if (temporaryDepotResourceVbox.getChildren().size() > 0) {
-            resourceToMoveVbox.getChildren().add(temporaryDepotResourceVbox.getChildren().get(0));
+        if (temporaryDepotResourceHbox.getChildren().size() > 0) {
             resourceToMovePane.setCenter(temporaryDepotResourceHbox.getChildren().get(0));
             ImageView imageView = (ImageView) resourceToMovePane.getCenter();
             imageView.setFitWidth(78);
@@ -98,14 +94,11 @@ public class MoveFromTemporaryController {
             default:
                 throw new IllegalStateException("Unexpected value: " + shelfClicked.getId());
         }
-        Label toMove = (Label) resourceToMoveVbox.getChildren().get(0);
         ResourceType resourceType = ResourceType.valueOf(imageView.getAccessibleText());
 
         FXGUI.getClient().sendMessage(new ReallocateResourceMessage(FXGUI.getClient().getNickName(), resourceType, "Temporary", "WareHouse", -1, shelfNumber));
 
-        resourceToMoveVbox.getChildren().remove(0);
         if (temporaryDepotResourceHbox.getChildren().size() > 0) {
-            resourceToMoveVbox.getChildren().add(temporaryDepotResourceVbox.getChildren().get(0));
             resourceToMovePane.setCenter(temporaryDepotResourceHbox.getChildren().get(0));
             imageView = (ImageView) resourceToMovePane.getCenter();
             imageView.setFitWidth(78);
@@ -114,15 +107,13 @@ public class MoveFromTemporaryController {
     }
 
     public void onDiscardClicked(ActionEvent event) {
-        Label toMove = (Label) resourceToMoveVbox.getChildren().get(0);
-        ResourceType key = ResourceType.valueOf(toMove.getText());
+        ImageView imageView = (ImageView) resourceToMovePane.getCenter();
+        ResourceType key = ResourceType.valueOf(imageView.getAccessibleText());
         FXGUI.getClient().sendMessage(new DiscardResourceMessage(FXGUI.getClient().getNickName(), key));
 
-        resourceToMoveVbox.getChildren().remove(0);
-        if (temporaryDepotResourceVbox.getChildren().size() > 0) {
-            resourceToMoveVbox.getChildren().add(temporaryDepotResourceVbox.getChildren().get(0));
+        if (temporaryDepotResourceHbox.getChildren().size() > 0) {
             resourceToMovePane.setCenter(temporaryDepotResourceHbox.getChildren().get(0));
-            ImageView imageView = (ImageView) resourceToMovePane.getCenter();
+            imageView = (ImageView) resourceToMovePane.getCenter();
             imageView.setFitWidth(78);
             imageView.setFitHeight(78);
         }

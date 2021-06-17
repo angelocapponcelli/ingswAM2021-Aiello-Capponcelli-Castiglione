@@ -34,6 +34,4 @@
     <Button fx:id="discardButton" layoutX="84.0" layoutY="429.0" mnemonicParsing="false" onAction="#onDiscardClicked"
             text="Discard"/>
     <Button layoutX="327.0" layoutY="272.0" mnemonicParsing="false" text="Special //todo"/>
-    <VBox fx:id="resourceToMoveVbox" layoutX="254.0" layoutY="476.0" prefHeight="84.0" prefWidth="166.0"/>
-    <VBox fx:id="temporaryDepotResourceVbox" layoutX="45.0" layoutY="476.0" prefHeight="84.0" prefWidth="190.0"/>
 </AnchorPane>

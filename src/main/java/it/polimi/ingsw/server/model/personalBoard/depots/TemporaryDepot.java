@@ -51,6 +51,15 @@ public class TemporaryDepot extends StrongBoxDepot {
     }
 
 
+    public int getAllResourceCountNoAny() {
+        AtomicInteger count = new AtomicInteger();
+        containers.stream().filter(strongBoxContainer -> !strongBoxContainer.getType().equals(ResourceType.ANY)).forEach(container -> {
+            count.addAndGet(container.getCount());
+        });
+        return count.get();
+    }
+
+
     @Override
     public int getAllResourceCount() {
         AtomicInteger count = new AtomicInteger();
@@ -59,6 +68,8 @@ public class TemporaryDepot extends StrongBoxDepot {
         });
         return count.get();
     }
+
+
 
     @Override
     public int getSpecificResourceCount(ResourceType resourceType) {

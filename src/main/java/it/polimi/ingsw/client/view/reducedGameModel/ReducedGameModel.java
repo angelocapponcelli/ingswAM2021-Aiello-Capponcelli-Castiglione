@@ -20,6 +20,7 @@ public class ReducedGameModel {
     private Map<ResourceType, Integer> temporaryDepot;
     private Integer playerTurnPosition;
     private Map<SpecialAbilityType, ResourceType> activatedSpecialAbilities;
+    private List<ReducedFaithCell> faithTrack;
 
     public ReducedGameModel() {
         marketTray = new ReducedMarketTray();
@@ -135,10 +136,15 @@ public class ReducedGameModel {
     }
 
 
-
     public ReducedMarketTray getMarketTray() {
         return marketTray;
     }
 
+    public List<ReducedFaithCell> getFaithTrack() {
+        return faithTrack;
+    }
 
+    public void setFaithTrack(List<ReducedFaithCell> faithTrack) {
+        this.faithTrack = faithTrack;
+    }
 }

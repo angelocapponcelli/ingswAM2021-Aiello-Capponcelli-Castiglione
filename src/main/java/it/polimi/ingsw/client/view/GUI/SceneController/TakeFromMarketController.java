@@ -9,6 +9,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 import java.util.stream.IntStream;
@@ -16,16 +18,20 @@ import java.util.stream.IntStream;
 public class TakeFromMarketController {
 
     public GridPane marketTrayGrid;
+    public ImageView slideImage;
 
     @FXML
     public void initialize() {
         ReducedMarketTray marketTray = FXGUI.getClient().getView().getReducedGameModel().getMarketTray();
-
+        int count = 0;
         for (int i = 0; i < marketTray.getMarketTray().length; i++) {
             for (int j = 0; j < marketTray.getMarketTray()[i].length; j++) {
-                marketTrayGrid.add(new Label(marketTray.getMarketTray()[i][j].toString()), j, i);
+                ImageView imageView = (ImageView) marketTrayGrid.getChildren().get(count);
+                imageView.setImage(new Image(getClass().getResourceAsStream("/image/marketTray/" + marketTray.getMarketTray()[i][j].toString() + ".png")));
+                count++;
             }
         }
+        slideImage.setImage(new Image(getClass().getResourceAsStream("/image/marketTray/" + FXGUI.getClient().getView().getReducedGameModel().getMarketTray().getSlide().toString() + ".png")));
     }
 
     public void onColumnRowSelected(ActionEvent actionEvent) {

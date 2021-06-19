@@ -35,6 +35,5 @@ public class Cell extends Observable {
      */
     public void onOccupy(Player player) {
         notifyObserver(new UpdatedFaithPositionMessage(player.getNickName(), player.getFaithPosition()));
-        //player.getGameController().sendBroadCastMessage(new UpdatedFaithPositionMessage(player.getNickName(), player.getFaithPosition()));
     }
 }

@@ -17,6 +17,7 @@ import it.polimi.ingsw.utils.CLIColors;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
@@ -102,7 +103,29 @@ public class SimpleCLI extends View {
         reducedGameModel.getTemporaryDepot().forEach((key, value) -> IntStream.range(0, value)
                 .mapToObj(x -> key).filter(resourceType -> !resourceType.equals(ResourceType.ANY))
                 .forEach(resourceType -> {
-                    System.out.println("Where do you want to put " + resourceType + "? (1)(2)(3)");
+                    String shelf = null;
+                    List<String> validInput = Arrays.asList("1","2","3","d");
+
+                    do {
+                        System.out.println("Where do you want to put " + resourceType + "? (1)(2)(3)\n(d) to discard");
+
+                        try {
+                            shelf = stdIn.readLine();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }while (!validInput.contains(shelf));
+
+                    if (shelf.equals("d")) {
+                        client.sendMessage(new DiscardResourceMessage(client.getNickName(), key));
+                    } else {
+                        client.sendMessage(new ReallocateResourceMessage(client.getNickName(), key, "Temporary", "WareHouse", -1, Integer.parseInt(shelf) - 1));
+                    }
+
+
+
+                    /*System.out.println("Where do you want to put " + resourceType + "? (1)(2)(3)");
                     System.out.println("(d) to discard");
                     String shelf;
                     try {
@@ -114,7 +137,7 @@ public class SimpleCLI extends View {
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
-                    }
+                    }*/
                 }));
 
 
@@ -122,7 +145,7 @@ public class SimpleCLI extends View {
 
     public void askForAnyResourceReplacement() {
         System.out.println("Choose a replacement resource");
-        System.out.println("1)COIN\n2)SHIELD\n3)STONE\n4)SERVANT\n5)DISCARD");
+        System.out.println("1)COIN\n2)SHIELD\n3)STONE\n4)SERVANT\nd)DISCARD");
         try {
             String input = stdIn.readLine();
             switch (input) {
@@ -138,8 +161,9 @@ public class SimpleCLI extends View {
                 case "4":
                     client.sendMessage(new SelectResourceReplacementMessage(client.getNickName(), ResourceType.SERVANT));
                     break;
-                case "5":
+                case "d":
                     client.sendMessage(new DiscardAny(client.getNickName()));
+                    break;
             }
 
         } catch (IOException e) {
@@ -152,7 +176,7 @@ public class SimpleCLI extends View {
     public void splashScreen() {
         clear();
         System.out.println("Welcome to Maestri del Rinascimento");
-        //waitMilliseconds(500);
+        //waitMilliseconds(400);
         client.getClientController().update();
     }
 
@@ -214,11 +238,12 @@ public class SimpleCLI extends View {
 
     @Override
     public void drawFaithTrack() {
+
         for(int i = 0; i< reducedGameModel.getFaithTrack().size(); i++){
             if(i> 0 && reducedGameModel.getFaithTrack().get(i).getVictoryPoints() != reducedGameModel.getFaithTrack().get(i-1).getVictoryPoints()){
                 System.out.print(CLIColors.ANSI_YELLOW_BACKGROUND+ "["+reducedGameModel.getFaithTrack().get(i).getVictoryPoints()+"]"+ CLIColors.getAnsiReset());
             }
-            else System.out.print("[ ]");
+            else System.out.print("[ ]"+CLIColors.getAnsiReset());
         }
         System.out.println();
         for(ReducedPlayer player: getReducedGameModel().getPlayers()){
@@ -234,40 +259,69 @@ public class SimpleCLI extends View {
 
     @Override
     public void askForMainAction() {
-        System.out.println("> (1)TakeFromMarket (2)ActivateProduction (3)BuyDevCard");
-        try {
-            String mainAction = stdIn.readLine();
-            switch (mainAction) {
-                case "1":
-                    client.getClientController().setMyTurnState(MY_TURN.TAKE_FROM_MARKET);
-                    break;
-                case "2":
-                    client.getClientController().setMyTurnState(MY_TURN.ACTIVATE_PRODUCTION);
-                    break;
-                case "3":
-                    client.getClientController().setMyTurnState(MY_TURN.BUY_DEV_CARD);
-                    break;
+        List<String> validInputs = Arrays.asList("1","2","3");
+        String mainAction = null;
+
+        do {
+            System.out.println("> (1)TakeFromMarket (2)ActivateProduction (3)BuyDevCard");
+
+            try {
+                mainAction = stdIn.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        }while (!validInputs.contains(mainAction));
+
+        switch (mainAction) {
+            case "1":
+                client.getClientController().setMyTurnState(MY_TURN.TAKE_FROM_MARKET);
+                break;
+            case "2":
+                client.getClientController().setMyTurnState(MY_TURN.ACTIVATE_PRODUCTION);
+                break;
+            case "3":
+                client.getClientController().setMyTurnState(MY_TURN.BUY_DEV_CARD);
+                break;
         }
+
     }
 
     public void takeFromMarket() {
         clear();
         drawWareHouse();
         drawMarketTray();
-        System.out.println("(r)Row (c)Column");
-        try {
-            String rowOrColumn = stdIn.readLine();
-            rowOrColumn = rowOrColumn.equals("r") ? "row" : "column";
-            System.out.println("Number?");
-            String number = stdIn.readLine();
-            client.sendMessage(new TakeFromMarketMessage(client.getNickName(), rowOrColumn, Integer.parseInt(number) - 1));
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        List<String> validInput = Arrays.asList("r","c");
+        List<String> validRow = Arrays.asList("1","2","3");
+        List<String> validColumn = Arrays.asList("1","2","3","4");
+        String rowOrColumn = null;
+        String number = null;
+
+        do {
+            System.out.println("(r)Row (c)Column");
+            try {
+                rowOrColumn = stdIn.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }while (!validInput.contains(rowOrColumn));
+
+        rowOrColumn = rowOrColumn.equals("r") ? "row" : "column";
+
+        do {
+
+            System.out.println("Number?");
+            try {
+                number = stdIn.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }while( !((rowOrColumn.equals("row") && validRow.contains(number)) || (rowOrColumn.equals("column") && validColumn.contains(number))) );
+
+        client.sendMessage(new TakeFromMarketMessage(client.getNickName(), rowOrColumn, Integer.parseInt(number) - 1));
+
 
     }
 
@@ -366,14 +420,14 @@ public class SimpleCLI extends View {
     public void askForNickName() {
         clear();
         System.out.println("Insert a nickName");
-        String tmp = null;
+        String nickName = null;
         try {
-            tmp = stdIn.readLine();
+            nickName = stdIn.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        client.setNickName(tmp);
-        client.sendMessage(new NicknameMessage(tmp));
+        client.setNickName(nickName);
+        client.sendMessage(new NicknameMessage(nickName));
         clear();
 
     }
@@ -404,26 +458,44 @@ public class SimpleCLI extends View {
 
     @Override
     public void askForCreateOrJoinGame() {
-        System.out.println("Do you want to create(c) or join(j) a game?");
-        String input;
-        try {
-            input = stdIn.readLine();
+        List<String> validInput = Arrays.asList("c", "j");
+        String input = null;
+        do {
+            System.out.println("Do you want to create(c) or join(j) a game?");
+            try {
+                input = stdIn.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }while (!validInput.contains(input));
 
             if (input.equals("c")) {
-                System.out.println("Insert players number");
-                String tmp = stdIn.readLine();
-                client.sendMessage(new NewGameMessage(Integer.parseInt(tmp)));
+                List<String> validPlayersNumber = Arrays.asList("1","2","3","4");
+                String playersNumber = null;
+                do {
+                    System.out.println("Insert players number");
+                    try {
+                        playersNumber = stdIn.readLine();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }while (!validPlayersNumber.contains(playersNumber));
+
+                client.sendMessage(new NewGameMessage(Integer.parseInt(playersNumber)));
                 clear();
 
             } else if (input.equals("j")) {
                 System.out.println("Insert GameID");
-                String tmp = stdIn.readLine();
+                String tmp = null;
+                try {
+                    tmp = stdIn.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 client.sendMessage(new JoinGameMessage(Integer.parseInt(tmp)));
                 clear();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 

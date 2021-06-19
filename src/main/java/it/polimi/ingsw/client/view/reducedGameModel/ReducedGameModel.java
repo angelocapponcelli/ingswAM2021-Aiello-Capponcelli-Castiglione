@@ -1,10 +1,8 @@
 package it.polimi.ingsw.client.view.reducedGameModel;
 
-import it.polimi.ingsw.server.model.misc.Colors;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 public class ReducedGameModel {
     private final ReducedMarketTray marketTray;
@@ -13,11 +11,11 @@ public class ReducedGameModel {
     private ReducedDevelopmentCard[][] developmentCardsGrid;
     private Boolean[] popeSpaceFlipped;
     private List<ReducedDevelopmentCard> personalDevelopmentBoard;
+    private Map<ResourceType, Integer> temporaryDepot;
     private List<ReducedContainer> wareHouseDepot;
     private List<ReducedContainer> strongBoxDepot;
     private Map<ResourceType, Integer> specialDepot;
     private ReducedProductionPower productionPower = new ReducedProductionPower();
-    private Map<ResourceType, Integer> temporaryDepot;
     private Integer playerTurnPosition;
     private Map<SpecialAbilityType, ResourceType> activatedSpecialAbilities;
     private List<ReducedFaithCell> faithTrack;
@@ -32,14 +30,14 @@ public class ReducedGameModel {
         temporaryDepot = new HashMap<>();
         wareHouseDepot = Arrays.asList(new ReducedContainer(null, 0),
                 new ReducedContainer(null, 0),
-                new ReducedContainer(null, 0));
+                new ReducedContainer(null, 0)
+        );
         strongBoxDepot = Arrays.asList(
                 new ReducedContainer(ResourceType.COIN, 0),
                 new ReducedContainer(ResourceType.STONE, 0),
                 new ReducedContainer(ResourceType.SHIELD, 0),
-                new ReducedContainer(ResourceType.SERVANT, 0));
-
-
+                new ReducedContainer(ResourceType.SERVANT, 0)
+        );
         specialDepot = new HashMap<>();
         activatedSpecialAbilities = new HashMap<>();
     }

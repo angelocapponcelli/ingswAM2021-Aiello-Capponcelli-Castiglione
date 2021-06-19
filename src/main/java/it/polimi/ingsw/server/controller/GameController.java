@@ -198,6 +198,7 @@ public class GameController /*implements Runnable*/ {
     }
 
     private void reallocateResource(ReallocateResourceMessage reallocateResourceMessage) {
+        System.out.println("kswkmw");
         RealPlayer realPlayer = (RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(reallocateResourceMessage.getNickname()))
                 .findFirst().orElse(null);
         PersonalBoard personalBoard = Objects.requireNonNull(realPlayer).getPersonalBoard();
@@ -242,7 +243,7 @@ public class GameController /*implements Runnable*/ {
 
         playerList.stream().filter(player -> !player.getNickName().equals(discardResourceMessage.getNickname())).forEach(Player::increaseFaithPosition);
 
-        if (personalBoard.getTemporaryDepot().getAllResourceCount() == 0)
+        if (personalBoard.getTemporaryDepot().getAllResourceCountNoAny() == 0)
             sendPrivateMessage(discardResourceMessage.getNickname(), new ActionEndedMessage());
     }
 

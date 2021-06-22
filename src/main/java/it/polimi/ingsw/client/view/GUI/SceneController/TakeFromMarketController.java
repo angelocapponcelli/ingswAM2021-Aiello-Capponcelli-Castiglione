@@ -3,8 +3,6 @@ package it.polimi.ingsw.client.view.GUI.SceneController;
 import it.polimi.ingsw.client.view.GUI.FXGUI;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedMarketTray;
 import it.polimi.ingsw.networking.messages.clientMessages.TakeFromMarketMessage;
-import it.polimi.ingsw.server.model.resources.ResourceType;
-import it.polimi.ingsw.utils.CLIColors;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,8 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-
-import java.util.stream.IntStream;
 
 public class TakeFromMarketController {
 

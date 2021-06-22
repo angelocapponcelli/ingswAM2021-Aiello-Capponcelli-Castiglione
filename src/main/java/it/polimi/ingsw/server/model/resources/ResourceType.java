@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.resources;
 
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedRequirement;
-import it.polimi.ingsw.utils.CLIColors;
+import it.polimi.ingsw.client.view.CLI.CLIColors;
 
 /**
  * The enum ResourceType.

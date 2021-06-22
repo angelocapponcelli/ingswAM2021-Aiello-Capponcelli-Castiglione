@@ -1,4 +1,4 @@
-package it.polimi.ingsw.utils;
+package it.polimi.ingsw.client.view.CLI;
 
 public class CLIColors {
     public static final String ANSI_RESET = "\u001B[0m";

@@ -5,7 +5,7 @@ import it.polimi.ingsw.networking.messages.ErrorMessage;
 import it.polimi.ingsw.networking.messages.Message;
 import it.polimi.ingsw.networking.messages.serverMessage.TurnPositionMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.*;
-import it.polimi.ingsw.utils.CLIColors;
+import it.polimi.ingsw.client.view.CLI.CLIColors;
 
 import java.util.Objects;
 
@@ -240,8 +240,8 @@ public class ClientController implements Runnable {
                 break;
             case MY_TURN_MESSAGE:
                 inGameState = IN_GAME.MY_TURN;
-                /** If player is not moving resources to not stop him in his action
-                 *  He will wake up by the end of the action
+                /* If player is not moving resources to not stop him in his action
+                 * He will wake up by the end of the action
                  */
                 if (currentState != ClientState.MOVE_FROM_TEMPORARY) notifyAll();
                 break;

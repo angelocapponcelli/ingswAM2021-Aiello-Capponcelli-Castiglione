@@ -4,29 +4,25 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.controller.MY_TURN;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedDevelopmentCard;
-import it.polimi.ingsw.client.view.reducedGameModel.ReducedFaithCell;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedPlayer;
 import it.polimi.ingsw.networking.messages.clientMessages.*;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.JoinGameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NewGameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NicknameMessage;
-import it.polimi.ingsw.server.model.player.Player;
 import it.polimi.ingsw.server.model.resources.ResourceType;
-import it.polimi.ingsw.utils.CLIColors;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
-public class SimpleCLI extends View {
+public class CLI extends View {
 
     private final BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 
-    public SimpleCLI(Client client) {
+    public CLI(Client client) {
         super(client);
     }
 

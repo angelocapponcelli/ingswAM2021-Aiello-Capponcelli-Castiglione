@@ -1,13 +1,13 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.controller.ClientController;
-import it.polimi.ingsw.client.view.CLI.SimpleCLI;
+import it.polimi.ingsw.client.view.CLI.CLI;
 import it.polimi.ingsw.client.view.GUI.FXGUI;
 import it.polimi.ingsw.client.view.GUI.GUI;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.networking.connection.ConnectionIO;
 import it.polimi.ingsw.networking.messages.Message;
-import it.polimi.ingsw.utils.CLIColors;
+import it.polimi.ingsw.client.view.CLI.CLIColors;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -27,7 +27,7 @@ public class Client {
             new Thread(() -> FXGUI.main(this)).start();
 
         } else {
-            view = new SimpleCLI(this);
+            view = new CLI(this);
             clientController = new ClientController(view);
         }
 

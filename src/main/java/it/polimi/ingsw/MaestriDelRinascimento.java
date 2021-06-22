@@ -2,7 +2,7 @@ package it.polimi.ingsw;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.server.Server;
-import it.polimi.ingsw.utils.CLIColors;
+import it.polimi.ingsw.client.view.CLI.CLIColors;
 
 public class MaestriDelRinascimento {
 

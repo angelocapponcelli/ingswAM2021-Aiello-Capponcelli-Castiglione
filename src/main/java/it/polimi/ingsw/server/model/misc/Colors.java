@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.misc;
 
-import it.polimi.ingsw.utils.CLIColors;
+import it.polimi.ingsw.client.view.CLI.CLIColors;
 
 /**
  * The enum Colors.

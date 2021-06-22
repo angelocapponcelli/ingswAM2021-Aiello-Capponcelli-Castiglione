@@ -8,7 +8,7 @@ import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.Nic
 import it.polimi.ingsw.networking.messages.serverMessage.ActionEndedMessage;
 import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.controller.GameController;
-import it.polimi.ingsw.utils.CLIColors;
+import it.polimi.ingsw.client.view.CLI.CLIColors;
 import it.polimi.ingsw.utils.exceptions.GameIsFullException;
 
 import java.io.EOFException;

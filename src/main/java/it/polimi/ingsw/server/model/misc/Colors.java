@@ -15,22 +15,26 @@ public enum Colors {
     GREEN;
 
     public String getColor() {
-        if (this == Colors.WHITE)
-            return CLIColors.getAnsiYellow();
-        if (this == Colors.BLUE)
-            return CLIColors.getAnsiYellow();
-        if (this == Colors.GREY)
-            return CLIColors.getAnsiBlack();
-        if (this == Colors.YELLOW)
-            return CLIColors.getAnsiYellow();
-        if (this == Colors.PURPLE)
-            return CLIColors.getAnsiPurple();
-        if (this == Colors.RED)
-            return CLIColors.getAnsiRed();
-        if (this == Colors.GREEN)
-            return CLIColors.getAnsiGreen();
 
+        switch (this) {
+            case WHITE:
+                return CLIColors.getAnsiWhite();
+            case BLUE:
+                return CLIColors.getAnsiBlue();
+            case GREY:
+                return CLIColors.getAnsiBrightBlack();
+            case YELLOW:
+                return CLIColors.getAnsiYellow();
+            case PURPLE:
+                return CLIColors.getAnsiPurple();
+            case RED:
+                return CLIColors.getAnsiRed();
+            case GREEN:
+                return CLIColors.getAnsiGreen();
+            default:
+                return CLIColors.ANSI_RESET;
+        }
 
-        else return null;
     }
+
 }

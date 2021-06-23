@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.controller.MY_TURN;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedDevelopmentCard;
+import it.polimi.ingsw.client.view.reducedGameModel.ReducedLeaderCard;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedPlayer;
 import it.polimi.ingsw.networking.messages.clientMessages.*;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.JoinGameMessage;
@@ -528,9 +529,43 @@ public class CLI extends View {
 
     @Override
     public void drawInHandLeaderCards() {
+        int width = 15;
         System.out.println("++++++++++LeaderCard++++++++++");
-        reducedGameModel.getReducedInHandLeaderCards().getInHandLeaderCards().forEach(x -> System.out.print(x.getId() + " "));
+        List<ReducedLeaderCard> inHandLeaderCards = reducedGameModel.getReducedInHandLeaderCards().getInHandLeaderCards();
+
+        inHandLeaderCards.forEach(x -> {
+            System.out.print("  ");
+            IntStream.range(0,width).forEach(y -> System.out.print("_"));
+            System.out.print("  ");
+        });
         System.out.println();
+
+        inHandLeaderCards.forEach(x -> System.out.print(" |"+Utils.getAlignedToCenter(" |"+String.valueOf(x.getId())+"|",width)+"| "));
+        System.out.println();
+
+        inHandLeaderCards.forEach(x -> System.out.print(" |"+Utils.getAlignedToLeft(x.requirementsToCLI(),width)+"| "));
+        System.out.println();
+
+        inHandLeaderCards.forEach(x -> System.out.print(" |"+Utils.getAlignedToLeft(" ",width)+"| "));
+        System.out.println();
+
+        inHandLeaderCards.forEach(x -> System.out.print(" |"+Utils.getAlignedToCenter(x.victoryPointsToCLI(),width)+"| "));
+        System.out.println();
+
+        inHandLeaderCards.forEach(x -> System.out.print(" |"+Utils.getAlignedToLeft(" ",width)+"| "));
+        System.out.println();
+
+        inHandLeaderCards.forEach(x -> System.out.print(" |"+Utils.getAlignedToCenter(x.specialAbilityToCLI(),width)+"| "));
+        System.out.println();
+
+        inHandLeaderCards.forEach(x -> {
+            System.out.print("  ");
+            IntStream.range(0,width).forEach(y -> System.out.print("-"));
+            System.out.print("  ");
+        });
+        System.out.println();
+
+
     }
 
     @Override
@@ -554,6 +589,7 @@ public class CLI extends View {
 
         client.sendMessage(new DiscardedLeaderCardsMessage(client.getNickName(), id1, id2));
     }
+
 
 
 }

@@ -34,5 +34,10 @@ class WareHouseDepotTest {
         wareHouseDepot.removeResources(ResourceType.SERVANT, 1);
         wareHouseDepot.swap(2, 1);
         assertEquals(4, wareHouseDepot.getAllResourceCount());
+
+        assertEquals(2,wareHouseDepot.getSpecificResourceCount(ResourceType.COIN));
+        assertEquals(2,wareHouseDepot.getSpecificResourceCount(ResourceType.SERVANT));
+        assertEquals(0,wareHouseDepot.getSpecificResourceCount(ResourceType.SHIELD));
+        assertEquals(0,wareHouseDepot.getSpecificResourceCount(ResourceType.STONE));
     }
 }

@@ -2,10 +2,13 @@ package it.polimi.ingsw.server.model;
 
 import it.polimi.ingsw.server.model.cards.Cost;
 import it.polimi.ingsw.server.model.player.RealPlayer;
-import it.polimi.ingsw.server.model.resources.ResourceType;
+import it.polimi.ingsw.server.model.resources.*;
 import it.polimi.ingsw.utils.exceptions.DepotException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -74,4 +77,25 @@ class CostTest {
         assertEquals(0, player.getPersonalBoard().getSpecialDepots().getSpecificResourceCount(ResourceType.STONE));
         assertEquals(0, player.getPersonalBoard().getStrongBoxDepot().getSpecificResourceCount(ResourceType.STONE));
     }
+
+    @Test
+    void getCost(){
+        cost= new Cost();
+        cost.add(ResourceType.COIN, 7);
+        Map<Resource, Integer> map;
+        map= cost.getCost();
+        assertEquals(false, map.isEmpty());
+        assertEquals(7, map.get(Coin.getInstance()));
+        cost.add(ResourceType.SHIELD, 2);
+        map=cost.getCost();
+        assertEquals(2, map.get(Shield.getInstance()));
+        cost.add(ResourceType.SERVANT, 12);
+        map=cost.getCost();
+        assertEquals(12, map.get(Servant.getInstance()));
+        cost.add(ResourceType.STONE, 2);
+        map=cost.getCost();
+        assertEquals(2, map.get(Stone.getInstance()));
+
+    }
+
 }

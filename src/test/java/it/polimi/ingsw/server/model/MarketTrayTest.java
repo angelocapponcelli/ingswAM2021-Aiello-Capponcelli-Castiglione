@@ -17,6 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class MarketTrayTest {
     MarketTray marketTray;
 
+    ResourceType[][] reduce;
+
     @BeforeEach
     void populateMarketTray() {
         Resource[][] marketTrayTemp = new Resource[][]{
@@ -126,6 +128,22 @@ class MarketTrayTest {
         assertEquals(newColumn, marketTray.getColumn(0));
 
         assertEquals(Coin.getInstance(), marketTray.getSlide());
+    }
+
+    @Test
+    void toReduce(){
+        reduce= new ResourceType[3][4];
+        reduce= marketTray.toReduced();
+        assertEquals(reduce[0][0],marketTray.getMarketTray()[0][0].getResourceType());
+        assertEquals(reduce[1][0],marketTray.getMarketTray()[1][0].getResourceType());
+        assertEquals(reduce[2][2],marketTray.getMarketTray()[2][2].getResourceType());
+        assertEquals(reduce[2][3],marketTray.getMarketTray()[2][3].getResourceType());
+        assertEquals(reduce[1][3],marketTray.getMarketTray()[1][3].getResourceType());
+        assertEquals(reduce[0][1],marketTray.getMarketTray()[0][1].getResourceType());
+        assertEquals(reduce[0][2],marketTray.getMarketTray()[0][2].getResourceType());
+        assertEquals(reduce[1][2],marketTray.getMarketTray()[1][2].getResourceType());
+
+
     }
 
 }

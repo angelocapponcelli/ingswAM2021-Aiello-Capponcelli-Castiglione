@@ -26,8 +26,25 @@ class PopeSpaceCellTest {
 
     @Test
     void getVictoryPointsTest() {
+        Random random= new Random();
+        int victory= random.nextInt(15);
+        PopeSpaceCell popeSpaceCell1= new PopeSpaceCell(victory);
         assertEquals(victoryPoints, popeSpaceCell.getVictoryPoints());
+        assertEquals(victory, popeSpaceCell1.getVictoryPoints());
+
+        victory=random.nextInt(35);
+        PopeSpaceCell popeSpaceCell2= new PopeSpaceCell(victory);
+        assertEquals(victory,popeSpaceCell2.getVictoryPoints());
+
     }
+
+    @Test
+    void occupy(){
+        assertEquals(false, popeSpaceCell.getAlreadyOccupied());
+
+    }
+
+
 
 
 }

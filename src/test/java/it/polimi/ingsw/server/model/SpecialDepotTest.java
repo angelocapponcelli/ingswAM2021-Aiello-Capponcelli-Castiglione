@@ -29,6 +29,13 @@ class SpecialDepotTest {
         assertEquals(3, specialDepot.getAllResourceCount());
         assertThrows(DepotException.class, () -> specialDepot.removeResources(ResourceType.SERVANT, 2));
 
+
+        assertEquals(2, specialDepot.getSpecialContainers().get(0).getCount());
+        assertEquals(1, specialDepot.getSpecialContainers().get(1).getCount());
+        specialDepot.removeResources(ResourceType.COIN,1);
+        assertEquals(2, specialDepot.getAllResourceCount());
+        assertEquals(1, specialDepot.getSpecialContainers().get(0).getCount());
+        assertEquals(1, specialDepot.getSpecialContainers().get(1).getCount());
     }
 
 }

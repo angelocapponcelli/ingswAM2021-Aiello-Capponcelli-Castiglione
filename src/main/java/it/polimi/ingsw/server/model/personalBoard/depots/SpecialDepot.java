@@ -89,4 +89,8 @@ public class SpecialDepot extends Depot {
         }
         return count;
     }
+
+    public List<SpecialContainer> getSpecialContainers(){
+        return this.specialContainers;
+    }
 }

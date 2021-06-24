@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.model;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.LeaderRequirements;
 import it.polimi.ingsw.server.model.cards.TypeLevel;
+import it.polimi.ingsw.server.model.interfaces.Requirement;
 import it.polimi.ingsw.server.model.misc.Colors;
 import it.polimi.ingsw.server.model.player.RealPlayer;
 import it.polimi.ingsw.server.model.resources.*;
@@ -10,8 +11,9 @@ import it.polimi.ingsw.utils.exceptions.DepotException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class LeaderRequirementsTest {
 
@@ -143,6 +145,24 @@ class LeaderRequirementsTest {
         assertFalse(leaderRequirements.check(player));
         leaderRequirements.add(new TypeLevel(Colors.BLUE, 1), 1);
         assertFalse(leaderRequirements.check(player));
+    }
+
+    @Test
+    void getRequirements(){
+        Map<Requirement, Integer> tmp= leaderRequirements.getLeaderRequirements();
+        leaderRequirements.add(Coin.getInstance(), 10);
+        leaderRequirements.add(Shield.getInstance(), 11);
+        leaderRequirements.add(Servant.getInstance(), 12);
+        leaderRequirements.add(Stone.getInstance(), 13);
+
+        tmp= leaderRequirements.getLeaderRequirements();
+        assertEquals(4, tmp.size());
+        assertEquals(10, tmp.get(Coin.getInstance()));
+        assertEquals(13, tmp.get(Stone.getInstance()));
+        assertEquals(12, tmp.get(Servant.getInstance()));
+        assertEquals(11, tmp.get(Shield.getInstance()));
+
+
     }
 
 }

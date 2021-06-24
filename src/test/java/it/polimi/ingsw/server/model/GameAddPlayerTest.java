@@ -2,8 +2,12 @@ package it.polimi.ingsw.server.model;
 
 import it.polimi.ingsw.server.model.game.Game;
 import it.polimi.ingsw.server.model.game.MultiplayerGame;
+import it.polimi.ingsw.server.model.globalBoard.DevelopmentCardGrid;
+import it.polimi.ingsw.server.model.globalBoard.GlobalBoard;
+import it.polimi.ingsw.server.model.misc.Colors;
 import it.polimi.ingsw.server.model.player.Player;
 import it.polimi.ingsw.server.model.player.RealPlayer;
+import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.utils.exceptions.PlayerWithSameNameException;
 import it.polimi.ingsw.utils.exceptions.ReachedMaxNumberOfPlayersException;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,6 +64,37 @@ class GameAddPlayerTest {
 
         assertThrows(PlayerWithSameNameException.class, () -> game.addPlayer(new RealPlayer("Vincent")));
 
+    }
+
+    @Test
+    void getPlayers(){
+        List<Player> players= game.getPlayers();
+        assertEquals(3, players.size());
+        assertEquals("Jules", players.get(1).getNickName());
+    }
+    @Test
+    void currentPlayer(){
+        game.setCurrentPlayer(game.getPlayers().get(1));
+        Player player= game.getCurrentPlayer();
+        assertEquals("Jules", player.getNickName());
+        game.setCurrentPlayer(game.getPlayers().get(2));
+        player= game.getCurrentPlayer();
+        assertEquals("Mia", player.getNickName());
+    }
+
+    @Test
+    void getGlobalBoard(){
+        GlobalBoard globalBoard= game.getGlobalBoard();
+        DevelopmentCardGrid grid= globalBoard.getDevelopmentCardGrid();
+        assertEquals(0,globalBoard.getFaithTrack().getTrack().get(0).getVictoryPoints());
+        assertEquals(Colors.GREEN,grid.getDeck(0,0).getDeck().get(0).getTypeLevel().getType() );
+    }
+
+    @Test
+    void winner(){
+        assertEquals(null, game.getWinner());
+        game.setWinner(game.getPlayers().get(2));
+        assertEquals("Mia", game.getWinner().getNickName());
     }
 
 }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model.soloToken;
 
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
+import it.polimi.ingsw.server.model.globalBoard.DevelopmentCardGrid;
 import it.polimi.ingsw.server.model.globalBoard.GlobalBoard;
 import it.polimi.ingsw.server.model.interfaces.Revealable;
 import it.polimi.ingsw.server.model.misc.Colors;
@@ -8,6 +9,8 @@ import it.polimi.ingsw.server.model.misc.Deck;
 import it.polimi.ingsw.server.model.player.Lorenzo;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Discarder implements Revealable {
     private final Colors type;
@@ -19,22 +22,35 @@ public class Discarder implements Revealable {
 
     @Override
     public void onReveal(Lorenzo lorenzo) {
-        GlobalBoard globalBoard1 = new GlobalBoard();
-        /*get global board in some way*/
-        int tmp1;
-        int tmp2;
-        ArrayList<Deck> listOfPossibleDecks = new ArrayList<>();
-        for (tmp1 = 0; tmp1 < 3; tmp1++) {
-            for (tmp2 = 0; tmp2 < 4; tmp2++) {
-                DevelopmentCard developmentCard = globalBoard1.getDevelopmentCardGrid().getDeck(tmp1, tmp2).getDeck().get(0);
-                if (developmentCard.getTypeLevel().getType().equals(this.type)) {
-                    listOfPossibleDecks.add(globalBoard1.getDevelopmentCardGrid().getDeck(tmp1, tmp2));
-                }
+        List<DevelopmentCard> tmp= new ArrayList<>();
+        int column;
+        int maxsize=2;
+        for(column=0; column<4; column++){
+            if(lorenzo.getGameController().getGameModel().getGlobalBoard().getDevelopmentCardGrid().getDeck(0, column).peek().getTypeLevel().getType().equals(this.type)){
+                break;
             }
         }
-        int tmp3 = 0;
-        /*asks the player which deck*/
-        listOfPossibleDecks.get(tmp3).getDeck().remove(0);
-        listOfPossibleDecks.get(tmp3).getDeck().remove(0);
+        DevelopmentCardGrid grid= lorenzo.getGameController().getGameModel().getGlobalBoard().getDevelopmentCardGrid();
+        for (int i=2; i>=0; i--){
+            for(int j=grid.getDeck(i,column).getDeck().size()-1; j>=0; j--){
+                tmp.add(grid.getDeck(i,column).getDeck().get(j));
+                maxsize--;
+                if(maxsize==0){
+                    break;
+                }
+            }
+            if(maxsize==0){
+                break;
+            }
+        }
+
+        if(tmp.size()<2 && grid.getDeck(0,column).getDeck().size()<=2){
+            System.out.println("Lorenzo has won");
+        }
+
+        for(int i=0; i<3;i++){
+            lorenzo.getGameController().getGameModel().getGlobalBoard().getDevelopmentCardGrid().getDeck(i, column).getDeck().removeIf(tmp::contains);
+        }
+
     }
 }

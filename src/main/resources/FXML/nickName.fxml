@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox fx:controller="it.polimi.ingsw.client.view.GUI.NickNameController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="237.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:controller="it.polimi.ingsw.client.view.GUI.SceneController.NickNameController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="237.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane prefHeight="161.0" prefWidth="600.0">
          <children>
@@ -23,7 +23,7 @@
                </children></Pane>
             <Pane prefHeight="189.0" prefWidth="103.0">
                <children>
-                  <Button fx:id="loginButton" layoutX="23.0" layoutY="49.0" mnemonicParsing="false" onAction="#askForCreateOrJoinGame" prefHeight="35.0" prefWidth="57.0" text="Login" />
+                  <Button fx:id="loginButton" layoutX="23.0" layoutY="49.0" mnemonicParsing="false" onAction="#onLoginButtonPressed" prefHeight="35.0" prefWidth="57.0" text="Login" />
                </children>
             </Pane>
          </children>

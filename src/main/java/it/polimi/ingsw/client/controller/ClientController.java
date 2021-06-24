@@ -1,45 +1,59 @@
 package it.polimi.ingsw.client.controller;
 
-import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.networking.messages.ErrorMessage;
+import it.polimi.ingsw.networking.messages.ErrorType;
 import it.polimi.ingsw.networking.messages.Message;
 import it.polimi.ingsw.networking.messages.serverMessage.TurnPositionMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.*;
-import it.polimi.ingsw.utils.CLIColors;
+import it.polimi.ingsw.client.view.CLI.CLIColors;
 
 import java.util.Objects;
 
 
 public class ClientController implements Runnable {
-    private Client client;
-    ClientState currentState;
-    INIT initState = INIT.DISCARD_LEADER;
-    IN_GAME inGameState = IN_GAME.NO_MY_TURN;
-    LOGIN loginState = LOGIN.NICKNAME;
-    MY_TURN myTurnState;
+    private ClientState currentState = ClientState.LOGIN;
+    private LOGIN loginState = LOGIN.NICKNAME;
+    private INIT initState = INIT.DISCARD_LEADER;
+    private IN_GAME inGameState = IN_GAME.NO_MY_TURN;
+    private MY_TURN myTurnState;
 
     View view;
 
-    public ClientController(View view) {
-        this.view = view;
-        currentState = ClientState.LOGIN;
+    public void setMyTurnState(MY_TURN myTurnState) {
+        this.myTurnState = myTurnState;
     }
 
-    public ClientController(View view, Client client) {
+    public synchronized void update(){
+        notifyAll();
+    }
+
+    public synchronized void pause(){
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    public ClientController(View view) {
         this.view = view;
-        currentState = ClientState.LOGIN;
     }
 
     @Override
     public void run() {
-
         while (true) {
             synchronized (this) {
                 switch (currentState) {
                     case LOGIN:
-                        //view.splashScreen();
                         switch (loginState) {
+                            case SPLASH:
+                                view.splashScreen();
+                                try {
+                                    wait();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                loginState = LOGIN.NICKNAME;
                             case NICKNAME:
                                 view.askForNickName();
                                 try {
@@ -47,7 +61,6 @@ public class ClientController implements Runnable {
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
-                                loginState = LOGIN.CREATE_OR_JOIN;
                                 break;
                             case CREATE_OR_JOIN:
                                 view.askForCreateOrJoinGame();
@@ -62,14 +75,12 @@ public class ClientController implements Runnable {
                     case INIT:
                         switch (initState) {
                             case DISCARD_LEADER:
-                                view.drawInHandLeaderCards();
                                 view.askForLeaderCardsToDiscard();
                                 try {
                                     wait();
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
-                                initState = INIT.CHOOSE_RESOURCES;
                                 break;
                             case CHOOSE_RESOURCES:
                                 if (view.askForInitialResources()) {
@@ -93,9 +104,10 @@ public class ClientController implements Runnable {
                             case MY_TURN:
                                 System.out.println("your turn");
                                 view.refresh();
-                                myTurnState = view.askForMainAction();
+                                view.askForMainAction();
                                 switch (myTurnState) {
                                     case TAKE_FROM_MARKET:
+                                        System.out.println("takeFrom");
                                         view.takeFromMarket();
                                         try {
                                             wait();
@@ -106,6 +118,7 @@ public class ClientController implements Runnable {
                                         break;
 
                                     case ACTIVATE_PRODUCTION:
+                                        System.out.println("Activate");
                                         view.activateProduction();
                                         try {
                                             wait();
@@ -116,6 +129,7 @@ public class ClientController implements Runnable {
                                         break;
 
                                     case BUY_DEV_CARD:
+                                        System.out.println("buydev");
                                         view.buyDevCard();
                                         try {
                                             wait();
@@ -167,7 +181,7 @@ public class ClientController implements Runnable {
         switch (message.getMessageType()) {
             case ERROR:
                 ErrorMessage errorMessage = (ErrorMessage) message;
-                System.out.println(CLIColors.getAnsiRed() + errorMessage.getErrorMessage() + CLIColors.getAnsiReset());
+                errorHandler(errorMessage);
                 break;
             case INIT_VIEW:
                 InitViewMessage initViewMessage = (InitViewMessage) message;
@@ -177,6 +191,7 @@ public class ClientController implements Runnable {
                 view.getReducedGameModel().setDevelopmentCardsGrid(initViewMessage.getDevelopmentCardGrid());
                 view.getReducedGameModel().setProductionPowerInputBoard(initViewMessage.getProductionPower().getProductionPowerInput());
                 view.getReducedGameModel().setProductionPowerOutputBoard(initViewMessage.getProductionPower().getProductionPowerOutput());
+                view.getReducedGameModel().setFaithTrack(initViewMessage.getFaithTrack());
                 break;
             case UPDATED_MARKET_TRAY:
                 UpdatedMarketTrayMessage updatedMarketTray = (UpdatedMarketTrayMessage) message;
@@ -224,10 +239,15 @@ public class ClientController implements Runnable {
                 break;
             case MY_TURN_MESSAGE:
                 inGameState = IN_GAME.MY_TURN;
-                notifyAll();
+                /* If player is not moving resources to not stop him in his action
+                 * He will wake up by the end of the action
+                 */
+                if (currentState != ClientState.MOVE_FROM_TEMPORARY) notifyAll();
                 break;
             case ACTION_ENDED:
+                evolve();
                 notifyAll();
+
                 break;
             case UPDATED_FAITH_POSITION:
                 UpdatedFaithPositionMessage updatedFaithPositionMessage = (UpdatedFaithPositionMessage) message;
@@ -249,7 +269,6 @@ public class ClientController implements Runnable {
     public enum INIT {
         DISCARD_LEADER,
         CHOOSE_RESOURCES,
-        MOVE_FROM_TEMPORARY
     }
     /*public enum MY_TURN{
         ACTIVATE_PRODUCTION,
@@ -267,8 +286,59 @@ public class ClientController implements Runnable {
 
 
     public enum LOGIN {
+        SPLASH,
         NICKNAME,
         CREATE_OR_JOIN
+    }
+
+
+    private void errorHandler(ErrorMessage errorMessage){
+        /*it should use "view.errorPopUp() instead of println()"*/
+        switch (errorMessage.getErrorType()){
+            case GAME_IS_FULL:
+                System.out.println(CLIColors.getAnsiRed() + "This Game is Full!" + CLIColors.getAnsiReset());
+                notifyAll();
+                break;
+            case ID_NOT_EXISTS:
+                System.out.println(CLIColors.getAnsiRed() + "This ID do not exists!" + CLIColors.getAnsiReset());
+                notifyAll();
+                break;
+            case NICKNAME_ALREADY_TAKEN:
+                System.out.println(CLIColors.getAnsiRed() + "NickName already taken" + CLIColors.getAnsiReset());
+                notifyAll();
+                break;
+
+        }
+    }
+
+
+    public void evolve(){
+        switch (currentState){
+            case LOGIN:
+                switch (loginState){
+                    case SPLASH:
+                        loginState = LOGIN.NICKNAME;
+                        break;
+                    case NICKNAME:
+                        loginState = LOGIN.CREATE_OR_JOIN;
+                        break;
+                }
+                break;
+            case INIT:
+                switch (initState){
+                    case DISCARD_LEADER:
+                        initState = INIT.CHOOSE_RESOURCES;
+                        break;
+
+                }
+                break;
+            case IN_GAME:
+                break;
+            case MOVE_FROM_TEMPORARY:
+                break;
+            case RESOURCE_REPLACEMENT:
+                break;
+        }
     }
 
 }

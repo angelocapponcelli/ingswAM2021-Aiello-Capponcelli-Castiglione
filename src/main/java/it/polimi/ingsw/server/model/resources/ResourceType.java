@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.resources;
 
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedRequirement;
-import it.polimi.ingsw.utils.CLIColors;
+import it.polimi.ingsw.client.view.CLI.CLIColors;
 
 /**
  * The enum ResourceType.
@@ -62,4 +62,26 @@ public enum ResourceType implements ReducedRequirement {
                 return null;
         }
     }
+
+    public String toCLI() {
+        switch (this.toString()) {
+            case "COIN":
+                return CLIColors.getAnsiYellow()+"●"+CLIColors.getAnsiReset();
+            case "STONE":
+                return CLIColors.getAnsiBrightBlack()+"●"+CLIColors.getAnsiReset();
+            case "SHIELD":
+                return CLIColors.getAnsiBlue()+"●"+CLIColors.getAnsiReset();
+            case "SERVANT":
+                return CLIColors.getAnsiPurple()+"●"+CLIColors.getAnsiReset();
+            case "FAITH":
+                return CLIColors.getAnsiRed()+"●"+CLIColors.getAnsiReset();
+            case "ANY":
+                return CLIColors.getAnsiWhite()+"●"+CLIColors.getAnsiReset();
+            default:
+                return null;
+        }
+    }
+
+
+
 }

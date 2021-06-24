@@ -1,14 +1,14 @@
 package it.polimi.ingsw.networking.messages;
 
 public class ErrorMessage extends Message {
-    String errorMessage;
+    ErrorType errorType;
 
-    public ErrorMessage(String errorMessage) {
+    public ErrorMessage(ErrorType errorType) {
         messageType = MessageType.ERROR;
-        this.errorMessage = errorMessage;
+        this.errorType = errorType;
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
+    public ErrorType getErrorType() {
+        return errorType;
     }
 }

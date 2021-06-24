@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.cards;
 
+import it.polimi.ingsw.client.view.CLI.CLIColors;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedRequirement;
 import it.polimi.ingsw.server.model.interfaces.Requirement;
 import it.polimi.ingsw.server.model.misc.Colors;
@@ -30,5 +31,10 @@ public class TypeLevel implements Requirement, ReducedRequirement, Serializable 
      */
     public int getLevel() {
         return level;
+    }
+
+    @Override
+    public String toCLI() {
+        return type.getColor()+"█"+level+CLIColors.getAnsiReset();
     }
 }

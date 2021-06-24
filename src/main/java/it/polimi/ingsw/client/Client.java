@@ -1,23 +1,21 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.controller.ClientController;
-import it.polimi.ingsw.client.view.CLI.SimpleCLI;
-import it.polimi.ingsw.client.view.GUI.FXGui;
+import it.polimi.ingsw.client.view.CLI.CLI;
+import it.polimi.ingsw.client.view.GUI.FXGUI;
 import it.polimi.ingsw.client.view.GUI.GUI;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.networking.connection.ConnectionIO;
 import it.polimi.ingsw.networking.messages.Message;
-import it.polimi.ingsw.utils.CLIColors;
-import javafx.application.Application;
+import it.polimi.ingsw.client.view.CLI.CLIColors;
 
 import java.io.IOException;
 import java.net.Socket;
 
 public class Client {
     private final View view;
-    private ClientController clientController;
+    private final ClientController clientController;
     private String nickName;
-    private int playerPosition;
     private ConnectionIO connectionIO;
     private Socket clientSocket;
 
@@ -25,13 +23,13 @@ public class Client {
 
         if (GUI) {
             view = new GUI(this);
-            FXGui.setClient(this);
-            new Thread(()-> Application.launch(FXGui.class)).start();
+            clientController = new ClientController(view);
+            new Thread(() -> FXGUI.main(this)).start();
 
         } else {
-            view = new SimpleCLI(this);
+            view = new CLI(this);
+            clientController = new ClientController(view);
         }
-        clientController = new ClientController(view);
 
     }
 
@@ -64,9 +62,6 @@ public class Client {
         }
     }
 
-    public void setPlayerPosition(int playerPosition) {
-        this.playerPosition = playerPosition;
-    }
 
     public String getNickName() {
         return nickName;
@@ -85,7 +80,6 @@ public class Client {
                 try {
                     clientController.manageReceivedMessage(connectionIO.receiveMessage());
                 } catch (IOException | ClassNotFoundException e) {
-                    //e.printStackTrace();
                     System.out.println("Server closed!");
                     System.exit(-1);
                 }

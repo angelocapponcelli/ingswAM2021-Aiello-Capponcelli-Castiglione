@@ -1,10 +1,12 @@
 package it.polimi.ingsw.server.model.globalBoard.faithTrack;
 
+import it.polimi.ingsw.client.view.reducedGameModel.ReducedFaithCell;
 import it.polimi.ingsw.utils.observer.Observable;
 import it.polimi.ingsw.utils.observer.Observer;
 import it.polimi.ingsw.utils.parsers.FaithTrackParser;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -79,4 +81,13 @@ public class FaithTrack extends Observable {
             cell.removeObserver(obs);
         }
     }
+
+    public List<ReducedFaithCell> toReduced(){
+        List<ReducedFaithCell> reduced = new ArrayList<>();
+
+        track.stream()
+                .forEach(cell -> reduced.add(new ReducedFaithCell(cell.getVictoryPoints(), getVaticanReportSectionFromCell(cell) != null ? getVaticanReportSectionFromCell(cell).getVictoryPoints():0)));
+        return reduced;
+    }
+
 }

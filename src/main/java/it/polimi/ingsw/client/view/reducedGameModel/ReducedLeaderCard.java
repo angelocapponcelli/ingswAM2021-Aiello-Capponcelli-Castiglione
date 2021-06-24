@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client.view.reducedGameModel;
 
+import it.polimi.ingsw.client.view.CLI.CLIColors;
+import it.polimi.ingsw.client.view.CLI.Utils;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
 import it.polimi.ingsw.server.model.cards.TypeLevel;
 import it.polimi.ingsw.server.model.interfaces.Requirement;
@@ -64,5 +66,36 @@ public class ReducedLeaderCard implements Serializable {
 
     public ResourceType getSpecialResourceType() {
         return specialResourceType;
+    }
+
+    public String requirementsToCLI() {
+
+        StringBuffer temp = new StringBuffer();
+        requirements.forEach((key, value) -> {
+            for (int i = 0; i < value; i++) {
+                temp.append(key.toCLI());
+            }
+            temp.append(" ");
+        });
+        return temp.toString();
+    }
+
+    public String victoryPointsToCLI(){
+        return CLIColors.getAnsiYellowBackground()+"{"+ victoryPoints +"}"+CLIColors.getAnsiReset();
+    }
+
+    public String specialAbilityToCLI(){
+        switch (specialAbility){
+            case DISCOUNT:
+                return "-1"+specialResourceType.toCLI();
+            case EXTRADEPOT:
+                return "|" + specialResourceType.toCLI() + "|" +" "+ "|" + specialResourceType.toCLI() + "|";
+            case PRODUCTION_POWER:
+                return ResourceType.ANY.toCLI() + "=" + specialResourceType.toCLI();
+            case WHITE_MARBLE:
+                return "1"+ specialResourceType.toCLI() +" -> " + "1"+CLIColors.getAnsiBlack()+"●"+CLIColors.getAnsiReset() + " 1"+ResourceType.FAITH.toCLI();
+            default:
+                return "ERROR!";
+        }
     }
 }

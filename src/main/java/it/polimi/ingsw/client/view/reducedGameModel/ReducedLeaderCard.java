@@ -71,9 +71,9 @@ public class ReducedLeaderCard implements Serializable {
     public String requirementsToCLI() {
 
         StringBuffer temp = new StringBuffer();
-        requirements.entrySet().stream().forEach(entry ->{
-            for (int i = 0; i < entry.getValue(); i++){
-                temp.append(entry.getKey().toCLI());
+        requirements.forEach((key, value) -> {
+            for (int i = 0; i < value; i++) {
+                temp.append(key.toCLI());
             }
             temp.append(" ");
         });
@@ -81,19 +81,19 @@ public class ReducedLeaderCard implements Serializable {
     }
 
     public String victoryPointsToCLI(){
-        return CLIColors.getAnsiYellowBackground()+String.valueOf(victoryPoints)+CLIColors.getAnsiReset();
+        return CLIColors.getAnsiYellowBackground()+"{"+ victoryPoints +"}"+CLIColors.getAnsiReset();
     }
 
     public String specialAbilityToCLI(){
         switch (specialAbility){
             case DISCOUNT:
-                return "< -1"+specialResourceType.toCLI() +" >";
+                return "-1"+specialResourceType.toCLI();
             case EXTRADEPOT:
-                return "< |" + specialResourceType.toCLI() + "|" +" "+ "|" + specialResourceType.toCLI() + "| >";
+                return "|" + specialResourceType.toCLI() + "|" +" "+ "|" + specialResourceType.toCLI() + "|";
             case PRODUCTION_POWER:
-                return "< "+ResourceType.ANY.toCLI() + "=" + specialResourceType.toCLI() + " >";
+                return ResourceType.ANY.toCLI() + "=" + specialResourceType.toCLI();
             case WHITE_MARBLE:
-                return "< 1"+ specialResourceType.toCLI() +" -> " + "1"+CLIColors.getAnsiBlack()+"●"+CLIColors.getAnsiReset() + "1"+ResourceType.FAITH.toCLI()+ " >";
+                return "1"+ specialResourceType.toCLI() +" -> " + "1"+CLIColors.getAnsiBlack()+"●"+CLIColors.getAnsiReset() + " 1"+ResourceType.FAITH.toCLI();
             default:
                 return "ERROR!";
         }

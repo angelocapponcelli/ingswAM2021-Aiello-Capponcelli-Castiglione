@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class CLI extends View {
@@ -114,27 +115,12 @@ public class CLI extends View {
 
                     }while (!validInput.contains(shelf));
 
-                    if (shelf.equals("d")) {
+                    if (Objects.equals(shelf, "d")) {
                         client.sendMessage(new DiscardResourceMessage(client.getNickName(), key));
                     } else {
-                        client.sendMessage(new ReallocateResourceMessage(client.getNickName(), key, "Temporary", "WareHouse", -1, Integer.parseInt(shelf) - 1));
+                        client.sendMessage(new ReallocateResourceMessage(client.getNickName(), key, "Temporary", "WareHouse", -1, Integer.parseInt(Objects.requireNonNull(shelf)) - 1));
                     }
 
-
-
-                    /*System.out.println("Where do you want to put " + resourceType + "? (1)(2)(3)");
-                    System.out.println("(d) to discard");
-                    String shelf;
-                    try {
-                        shelf = stdIn.readLine();
-                        if (shelf.equals("d")) {
-                            client.sendMessage(new DiscardResourceMessage(client.getNickName(), key));
-                        } else {
-                            client.sendMessage(new ReallocateResourceMessage(client.getNickName(), key, "Temporary", "WareHouse", -1, Integer.parseInt(shelf) - 1));
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }*/
                 }));
 
 
@@ -172,9 +158,21 @@ public class CLI extends View {
     @Override
     public void splashScreen() {
         clear();
-        System.out.println("Welcome to Maestri del Rinascimento");
-        //waitMilliseconds(400);
-        client.getClientController().update();
+        System.out.println("\n" +
+                "███╗░░░███╗░█████╗░███████╗░██████╗████████╗██████╗░██╗        ██████╗░███████╗██╗░░░░░\n" +
+                "████╗░████║██╔══██╗██╔════╝██╔════╝╚══██╔══╝██╔══██╗██║        ██╔══██╗██╔════╝██║░░░░░\n" +
+                "██╔████╔██║███████║█████╗░░╚█████╗░░░░██║░░░██████╔╝██║        ██║░░██║█████╗░░██║░░░░░\n" +
+                "██║╚██╔╝██║██╔══██║██╔══╝░░░╚═══██╗░░░██║░░░██╔══██╗██║        ██║░░██║██╔══╝░░██║░░░░░\n" +
+                "██║░╚═╝░██║██║░░██║███████╗██████╔╝░░░██║░░░██║░░██║██║        ██████╔╝███████╗███████╗\n" +
+                "╚═╝░░░░░╚═╝╚═╝░░╚═╝╚══════╝╚═════╝░░░░╚═╝░░░╚═╝░░╚═╝╚═╝        ╚═════╝░╚══════╝╚══════╝\n" +
+                "\n" +
+                "██████╗░██╗███╗░░██╗░█████╗░░██████╗░█████╗░██╗███╗░░░███╗███████╗███╗░░██╗████████╗░█████╗░\n" +
+                "██╔══██╗██║████╗░██║██╔══██╗██╔════╝██╔══██╗██║████╗░████║██╔════╝████╗░██║╚══██╔══╝██╔══██╗\n" +
+                "██████╔╝██║██╔██╗██║███████║╚█████╗░██║░░╚═╝██║██╔████╔██║█████╗░░██╔██╗██║░░░██║░░░██║░░██║\n" +
+                "██╔══██╗██║██║╚████║██╔══██║░╚═══██╗██║░░██╗██║██║╚██╔╝██║██╔══╝░░██║╚████║░░░██║░░░██║░░██║\n" +
+                "██║░░██║██║██║░╚███║██║░░██║██████╔╝╚█████╔╝██║██║░╚═╝░██║███████╗██║░╚███║░░░██║░░░╚█████╔╝\n" +
+                "╚═╝░░╚═╝╚═╝╚═╝░░╚══╝╚═╝░░╚═╝╚═════╝░░╚════╝░╚═╝╚═╝░░░░░╚═╝╚══════╝╚═╝░░╚══╝░░░╚═╝░░░░╚════╝░");
+
     }
 
     @Override
@@ -270,7 +268,7 @@ public class CLI extends View {
 
         }while (!validInputs.contains(mainAction));
 
-        switch (mainAction) {
+        switch (Objects.requireNonNull(mainAction)) {
             case "1":
                 client.getClientController().setMyTurnState(MY_TURN.TAKE_FROM_MARKET);
                 break;
@@ -304,7 +302,7 @@ public class CLI extends View {
             }
         }while (!validInput.contains(rowOrColumn));
 
-        rowOrColumn = rowOrColumn.equals("r") ? "row" : "column";
+        rowOrColumn = Objects.equals(rowOrColumn, "r") ? "row" : "column";
 
         do {
 
@@ -317,7 +315,7 @@ public class CLI extends View {
 
         }while( !((rowOrColumn.equals("row") && validRow.contains(number)) || (rowOrColumn.equals("column") && validColumn.contains(number))) );
 
-        client.sendMessage(new TakeFromMarketMessage(client.getNickName(), rowOrColumn, Integer.parseInt(number) - 1));
+        client.sendMessage(new TakeFromMarketMessage(client.getNickName(), rowOrColumn, Integer.parseInt(Objects.requireNonNull(number)) - 1));
 
 
     }
@@ -407,15 +405,10 @@ public class CLI extends View {
         }
     }
 
-    @Override
-    public void faithTrackDraw() {
-        reducedGameModel.getPlayers()
-                .forEach(reducedPlayer -> System.out.println(reducedPlayer.getNickName() + " :" + reducedPlayer.getFaithPosition()));
-    }
 
     @Override
     public void askForNickName() {
-        clear();
+        splashScreen();
         System.out.println("Insert a nickName");
         String nickName = null;
         try {
@@ -426,7 +419,6 @@ public class CLI extends View {
         client.setNickName(nickName);
         client.sendMessage(new NicknameMessage(nickName));
         clear();
-
     }
 
 
@@ -434,7 +426,6 @@ public class CLI extends View {
         System.out.println("1)COIN\n2)STONE\n3)SHIELD\n4)SERVANT");
         try {
             String resourceString = stdIn.readLine();
-            ResourceType resourceType;
             switch (resourceString){
                 case "1":
                     return ResourceType.COIN;
@@ -467,7 +458,7 @@ public class CLI extends View {
 
         }while (!validInput.contains(input));
 
-            if (input.equals("c")) {
+            if (Objects.equals(input, "c")) {
                 List<String> validPlayersNumber = Arrays.asList("1","2","3","4");
                 String playersNumber = null;
                 do {
@@ -479,10 +470,10 @@ public class CLI extends View {
                     }
                 }while (!validPlayersNumber.contains(playersNumber));
 
-                client.sendMessage(new NewGameMessage(Integer.parseInt(playersNumber)));
+                client.sendMessage(new NewGameMessage(Integer.parseInt(Objects.requireNonNull(playersNumber))));
                 clear();
 
-            } else if (input.equals("j")) {
+            } else if (Objects.equals(input, "j")) {
                 System.out.println("Insert GameID");
                 String tmp = null;
                 try {
@@ -490,7 +481,7 @@ public class CLI extends View {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                client.sendMessage(new JoinGameMessage(Integer.parseInt(tmp)));
+                client.sendMessage(new JoinGameMessage(Integer.parseInt(Objects.requireNonNull(tmp))));
                 clear();
             }
 
@@ -499,8 +490,6 @@ public class CLI extends View {
     @Override
     public void refresh() {
         clear();
-        System.out.println(client.getNickName() + " Turn Position: " + reducedGameModel.getPlayerTurnPosition());
-        //faithTrackDraw();
         drawFaithTrack();
         drawMarketTray();
         drawInHandLeaderCards();
@@ -534,34 +523,34 @@ public class CLI extends View {
         List<ReducedLeaderCard> inHandLeaderCards = reducedGameModel.getReducedInHandLeaderCards().getInHandLeaderCards();
 
         inHandLeaderCards.forEach(x -> {
-            System.out.print("  ");
-            IntStream.range(0,width).forEach(y -> System.out.print("_"));
-            System.out.print("  ");
+            System.out.print(" ╔");
+            IntStream.range(0,width).forEach(y -> System.out.print("═"));
+            System.out.print("╗ ");
         });
         System.out.println();
 
-        inHandLeaderCards.forEach(x -> System.out.print(" |"+Utils.getAlignedToCenter(" |"+String.valueOf(x.getId())+"|",width)+"| "));
+        inHandLeaderCards.forEach(x -> System.out.print(" ║"+Utils.getAlignedToCenter(" |"+x.getId()+"|",width)+"║ "));
         System.out.println();
 
-        inHandLeaderCards.forEach(x -> System.out.print(" |"+Utils.getAlignedToLeft(x.requirementsToCLI(),width)+"| "));
+        inHandLeaderCards.forEach(x -> System.out.print(" ║"+Utils.getAlignedToLeft(x.requirementsToCLI(),width)+"║ "));
         System.out.println();
 
-        inHandLeaderCards.forEach(x -> System.out.print(" |"+Utils.getAlignedToLeft(" ",width)+"| "));
+        inHandLeaderCards.forEach(x -> System.out.print(" ║"+Utils.getAlignedToLeft(" ",width)+"║ "));
         System.out.println();
 
-        inHandLeaderCards.forEach(x -> System.out.print(" |"+Utils.getAlignedToCenter(x.victoryPointsToCLI(),width)+"| "));
+        inHandLeaderCards.forEach(x -> System.out.print(" ║"+Utils.getAlignedToCenter(x.victoryPointsToCLI(),width)+"║ "));
         System.out.println();
 
-        inHandLeaderCards.forEach(x -> System.out.print(" |"+Utils.getAlignedToLeft(" ",width)+"| "));
+        inHandLeaderCards.forEach(x -> System.out.print(" ║"+Utils.getAlignedToLeft(" ",width)+"║ "));
         System.out.println();
 
-        inHandLeaderCards.forEach(x -> System.out.print(" |"+Utils.getAlignedToCenter(x.specialAbilityToCLI(),width)+"| "));
+        inHandLeaderCards.forEach(x -> System.out.print(" ║"+Utils.getAlignedToCenter(x.specialAbilityToCLI(),width)+"║ "));
         System.out.println();
 
         inHandLeaderCards.forEach(x -> {
-            System.out.print("  ");
-            IntStream.range(0,width).forEach(y -> System.out.print("-"));
-            System.out.print("  ");
+            System.out.print(" ╚");
+            IntStream.range(0,width).forEach(y -> System.out.print("═"));
+            System.out.print("╝ ");
         });
         System.out.println();
 
@@ -570,26 +559,33 @@ public class CLI extends View {
 
     @Override
     public void askForLeaderCardsToDiscard() {
+        List<String> validInput = reducedGameModel.getReducedInHandLeaderCards().getInHandLeaderCards().stream().map(x -> String.valueOf(x.getId())).collect(Collectors.toList());
         drawInHandLeaderCards();
-        System.out.println("Choose the ID of the first Leader Cards to discard");
-        int id1 = 0;
-        try {
-            id1 = Integer.parseInt(stdIn.readLine());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String id1 = null;
+        do {
+            System.out.println("Choose the ID of the first Leader Cards to discard");
+            try {
+                id1 = stdIn.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        System.out.println("Choose the ID of the second Leader Cards to discard");
-        int id2 = 0;
-        try {
-            id2 = Integer.parseInt(stdIn.readLine());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        }while (!validInput.contains(id1));
+        validInput.remove(id1);
 
-        client.sendMessage(new DiscardedLeaderCardsMessage(client.getNickName(), id1, id2));
+
+        String id2 = null;
+        do {
+            System.out.println("Choose the ID of the second Leader Cards to discard");
+            try {
+                id2 = stdIn.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }while (!validInput.contains(id2));
+
+        client.sendMessage(new DiscardedLeaderCardsMessage(client.getNickName(), Integer.parseInt(Objects.requireNonNull(id1)), Integer.parseInt(Objects.requireNonNull(id2))));
     }
-
-
 
 }

@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.networking.messages.ErrorMessage;
+import it.polimi.ingsw.networking.messages.ErrorType;
 import it.polimi.ingsw.networking.messages.Message;
 import it.polimi.ingsw.networking.messages.serverMessage.TurnPositionMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.*;
@@ -60,7 +61,6 @@ public class ClientController implements Runnable {
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
-                                loginState = LOGIN.CREATE_OR_JOIN;
                                 break;
                             case CREATE_OR_JOIN:
                                 view.askForCreateOrJoinGame();
@@ -81,7 +81,6 @@ public class ClientController implements Runnable {
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
-                                initState = INIT.CHOOSE_RESOURCES;
                                 break;
                             case CHOOSE_RESOURCES:
                                 if (view.askForInitialResources()) {
@@ -182,7 +181,7 @@ public class ClientController implements Runnable {
         switch (message.getMessageType()) {
             case ERROR:
                 ErrorMessage errorMessage = (ErrorMessage) message;
-                System.out.println(CLIColors.getAnsiRed() + errorMessage.getErrorMessage() + CLIColors.getAnsiReset());
+                errorHandler(errorMessage);
                 break;
             case INIT_VIEW:
                 InitViewMessage initViewMessage = (InitViewMessage) message;
@@ -246,7 +245,9 @@ public class ClientController implements Runnable {
                 if (currentState != ClientState.MOVE_FROM_TEMPORARY) notifyAll();
                 break;
             case ACTION_ENDED:
+                evolve();
                 notifyAll();
+
                 break;
             case UPDATED_FAITH_POSITION:
                 UpdatedFaithPositionMessage updatedFaithPositionMessage = (UpdatedFaithPositionMessage) message;
@@ -268,7 +269,6 @@ public class ClientController implements Runnable {
     public enum INIT {
         DISCARD_LEADER,
         CHOOSE_RESOURCES,
-        MOVE_FROM_TEMPORARY
     }
     /*public enum MY_TURN{
         ACTIVATE_PRODUCTION,
@@ -289,6 +289,56 @@ public class ClientController implements Runnable {
         SPLASH,
         NICKNAME,
         CREATE_OR_JOIN
+    }
+
+
+    private void errorHandler(ErrorMessage errorMessage){
+        /*it should use "view.errorPopUp() instead of println()"*/
+        switch (errorMessage.getErrorType()){
+            case GAME_IS_FULL:
+                System.out.println(CLIColors.getAnsiRed() + "This Game is Full!" + CLIColors.getAnsiReset());
+                notifyAll();
+                break;
+            case ID_NOT_EXISTS:
+                System.out.println(CLIColors.getAnsiRed() + "This ID do not exists!" + CLIColors.getAnsiReset());
+                notifyAll();
+                break;
+            case NICKNAME_ALREADY_TAKEN:
+                System.out.println(CLIColors.getAnsiRed() + "NickName already taken" + CLIColors.getAnsiReset());
+                notifyAll();
+                break;
+
+        }
+    }
+
+
+    public void evolve(){
+        switch (currentState){
+            case LOGIN:
+                switch (loginState){
+                    case SPLASH:
+                        loginState = LOGIN.NICKNAME;
+                        break;
+                    case NICKNAME:
+                        loginState = LOGIN.CREATE_OR_JOIN;
+                        break;
+                }
+                break;
+            case INIT:
+                switch (initState){
+                    case DISCARD_LEADER:
+                        initState = INIT.CHOOSE_RESOURCES;
+                        break;
+
+                }
+                break;
+            case IN_GAME:
+                break;
+            case MOVE_FROM_TEMPORARY:
+                break;
+            case RESOURCE_REPLACEMENT:
+                break;
+        }
     }
 
 }

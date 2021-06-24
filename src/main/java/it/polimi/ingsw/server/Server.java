@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.networking.connection.ServerClientHandler;
+import it.polimi.ingsw.networking.connection.ServerToClientHandler;
 import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.utils.exceptions.GameIsFullException;
 
@@ -9,6 +9,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -16,7 +17,7 @@ import java.util.concurrent.Executors;
 public class Server {
 
     private static final List<GameController> onGoingGames = new ArrayList<>();
-    private static final List<ServerClientHandler> connectedClient = new ArrayList<>();
+    private static final List<ServerToClientHandler> connectedClient = new ArrayList<>();
     private static Integer nextGameID = 1;
 
 
@@ -41,8 +42,8 @@ public class Server {
         while (true) {
             try {
                 System.out.println("Accepting...");
-                Socket clientSocket = serverSocket.accept();
-                executor.submit(new ServerClientHandler(clientSocket));
+                Socket clientSocket = Objects.requireNonNull(serverSocket).accept();
+                executor.submit(new ServerToClientHandler(clientSocket));
                 System.out.println("Client Accepted");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -56,7 +57,7 @@ public class Server {
     /**
      * @return the list of connected clients
      */
-    public static List<ServerClientHandler> getConnectedClient() {
+    public static List<ServerToClientHandler> getConnectedClient() {
         return connectedClient;
     }
 

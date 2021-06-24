@@ -1,6 +1,7 @@
 package it.polimi.ingsw.networking.connection;
 
 import it.polimi.ingsw.networking.messages.ErrorMessage;
+import it.polimi.ingsw.networking.messages.ErrorType;
 import it.polimi.ingsw.networking.messages.Message;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.JoinGameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NewGameMessage;
@@ -19,13 +20,13 @@ import java.net.SocketException;
 /**
  * Handles the interactions from the Server to a single Client
  */
-public class ServerClientHandler implements Runnable {
+public class ServerToClientHandler implements Runnable {
     private String nickName;
     private GameController gameController;
     private ConnectionIO connectionIO;
     private Socket socket;
 
-    public ServerClientHandler(Socket socket) throws IOException {
+    public ServerToClientHandler(Socket socket) throws IOException {
         this.socket = socket;
         connectionIO = new ConnectionIO(socket);
     }
@@ -66,12 +67,16 @@ public class ServerClientHandler implements Runnable {
 
         if (gameController == null) {
             switch (message.getMessageType()) {
+
                 case NICKNAME:
                     NicknameMessage nicknameMessage = (NicknameMessage) message;
-                    nickName = nicknameMessage.getNickname();
-                    Server.getConnectedClient().add(this);
-                    sendMessage(new ActionEndedMessage());
-                    System.out.println("Added new Connected Client: " + nickName);
+                    if(Server.getConnectedClient().stream().noneMatch(x -> x.getNickName().equals(nicknameMessage.getNickname()))) {
+                        nickName = nicknameMessage.getNickname();
+                        Server.getConnectedClient().add(this);
+                        sendMessage(new ActionEndedMessage());
+                        System.out.println("Added new Connected Client: " + nickName);
+                    }
+                    else sendMessage(new ErrorMessage(ErrorType.NICKNAME_ALREADY_TAKEN));
                     break;
 
                 case NEW_GAME:
@@ -79,8 +84,6 @@ public class ServerClientHandler implements Runnable {
                     NewGameMessage newGameMessage = (NewGameMessage) message;
                     gameController = Server.newGame(newGameMessage.getPlayersNumber());
                     gameController.addConnectedClient(new InGameConnectedClient(nickName, connectionIO));
-                    //sendMessage(new ActionEndedMessage());
-                    //new Thread(() -> gameController.run()).start();
                     System.out.println(nickName + " created new Game. ID:" + gameController.getGameID() + " Players number:" + newGameMessage.getPlayersNumber());
                     break;
 
@@ -89,19 +92,18 @@ public class ServerClientHandler implements Runnable {
                     try {
                         gameController = Server.findGame(joinGameMessage.getGameId());
                         gameController.addConnectedClient(new InGameConnectedClient(nickName, connectionIO));
-                        //sendMessage(new ActionEndedMessage());
                         System.out.println("Client " + nickName + " joined game: " + gameController.getGameID());
                     } catch (GameIsFullException e) {
-                        sendMessage(new ErrorMessage("This game is full"));
+                        sendMessage(new ErrorMessage(ErrorType.GAME_IS_FULL));
+
                     } catch (ClassNotFoundException e) {
-                        sendMessage(new ErrorMessage("The Specified Game does not exists"));
+                        sendMessage(new ErrorMessage(ErrorType.ID_NOT_EXISTS));
                     }
                     break;
 
 
             }
         } else gameController.manageReceivedMessage(message);
-        /*gameController.onReceivedMessage(message);*/
 
     }
 

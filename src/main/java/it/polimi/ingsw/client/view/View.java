@@ -1,11 +1,7 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.controller.MY_TURN;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedGameModel;
-
-import java.io.IOException;
-
 public abstract class View {
     protected Client client;
     protected ReducedGameModel reducedGameModel;
@@ -15,7 +11,6 @@ public abstract class View {
         reducedGameModel = new ReducedGameModel();
     }
 
-    //public abstract void start();
 
     public ReducedGameModel getReducedGameModel() {
         return reducedGameModel;
@@ -47,8 +42,6 @@ public abstract class View {
     public abstract void takeFromMarket();
     public abstract void buyDevCard();
     public abstract void activateProduction();
-
-    public abstract void faithTrackDraw();
 
 
 

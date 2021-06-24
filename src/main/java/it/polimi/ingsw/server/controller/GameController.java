@@ -2,7 +2,7 @@ package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedPlayer;
 import it.polimi.ingsw.networking.connection.InGameConnectedClient;
-import it.polimi.ingsw.networking.connection.ServerClientHandler;
+import it.polimi.ingsw.networking.connection.ServerToClientHandler;
 import it.polimi.ingsw.networking.messages.Message;
 import it.polimi.ingsw.networking.messages.MessageType;
 import it.polimi.ingsw.networking.messages.clientMessages.*;
@@ -20,7 +20,6 @@ import it.polimi.ingsw.server.model.game.SinglePlayerGame;
 import it.polimi.ingsw.server.model.personalBoard.PersonalBoard;
 import it.polimi.ingsw.server.model.player.Player;
 import it.polimi.ingsw.server.model.player.RealPlayer;
-import it.polimi.ingsw.server.model.productionPower.ProductionPower;
 import it.polimi.ingsw.server.model.productionPower.ProductionPowerInput;
 import it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput;
 import it.polimi.ingsw.server.model.resources.ResourceType;
@@ -31,7 +30,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.IntStream;
 
-public class GameController /*implements Runnable*/ {
+public class GameController {
 
     private final Integer gameID;
     private final Game gameModel;
@@ -357,17 +356,19 @@ public class GameController /*implements Runnable*/ {
      * @param message  The message to be sent.
      */
     public void sendPrivateMessage(String nickName, Message message) {
-        ServerClientHandler serverClientHandler = Server.getConnectedClient().stream().filter(x -> x.getNickName().equals(nickName)).findFirst().orElse(null);
-        assert serverClientHandler != null;
-        serverClientHandler.sendMessage(message);
+        ServerToClientHandler serverToClientHandler = Server.getConnectedClient().stream().filter(x -> x.getNickName().equals(nickName)).findFirst().orElse(null);
+        assert serverToClientHandler != null;
+        serverToClientHandler.sendMessage(message);
     }
 
 
     private void nextPlayerTurn() {
-        if (currentPlayer + 1 == playerList.size()) {
-            currentPlayer = 0;
-        } else currentPlayer++;
-
+        if(gameModel instanceof MultiplayerGame) {
+            if (currentPlayer + 1 == playerList.size()) {
+                currentPlayer = 0;
+            } else currentPlayer++;
+        }
+        else lorenzoTurn();
         sendPrivateMessage(playerList.get(currentPlayer).getNickName(), new ItIsMyTurnMessage());
     }
 
@@ -378,6 +379,11 @@ public class GameController /*implements Runnable*/ {
                 .filter(player -> player.getNickName().equals(message.getNickname()))
                 .findFirst().orElse(null);
     }
+
+    private void lorenzoTurn(){
+
+    }
+
 
 
 }

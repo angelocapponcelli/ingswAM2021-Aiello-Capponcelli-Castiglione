@@ -124,7 +124,7 @@ public class GUI extends View {
 
     @Override
     public void askForAnyResourceReplacement() {
-
+        System.out.println("replacement");
     }
 
     @Override

@@ -36,6 +36,7 @@ public class BuyDevCardController {
     public void onCardSelected(MouseEvent event) {
         ImageView cardClicked = (ImageView) event.getSource();
         int id = FXGUI.getClient().getView().getReducedGameModel().getDevelopmentCardsGrid()[gridCard.getRowIndex(cardClicked.getParent())][gridCard.getColumnIndex(cardClicked.getParent())].getId();
+        System.out.println("id = " + id);
         FXGUI.getClient().sendMessage(new BuyDevCardMessage(FXGUI.getClient().getNickName(), id));
     }
 }

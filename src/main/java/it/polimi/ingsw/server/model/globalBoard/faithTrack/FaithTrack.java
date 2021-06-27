@@ -3,9 +3,7 @@ package it.polimi.ingsw.server.model.globalBoard.faithTrack;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedFaithCell;
 import it.polimi.ingsw.utils.observer.Observable;
 import it.polimi.ingsw.utils.observer.Observer;
-import it.polimi.ingsw.utils.parsers.FaithTrackParser;
-
-import java.io.FileNotFoundException;
+import it.polimi.ingsw.utils.parsers.SettingsParser;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +13,8 @@ public class FaithTrack extends Observable {
     private final List<VaticanReportSection> vaticanReportSectionList;
 
 
-    public FaithTrack() throws FileNotFoundException {
-        FaithTrack temp = FaithTrackParser.getFaithTrack();
+    public FaithTrack(){
+        FaithTrack temp = SettingsParser.getInstance().getFaithTrack();
         this.track = temp.getTrack();
         this.vaticanReportSectionList = temp.getVaticanReportSectionList();
     }
@@ -85,8 +83,7 @@ public class FaithTrack extends Observable {
     public List<ReducedFaithCell> toReduced(){
         List<ReducedFaithCell> reduced = new ArrayList<>();
 
-        track.stream()
-                .forEach(cell -> reduced.add(new ReducedFaithCell(cell.getVictoryPoints(), getVaticanReportSectionFromCell(cell) != null ? getVaticanReportSectionFromCell(cell).getVictoryPoints():0)));
+        track.forEach(cell -> reduced.add(new ReducedFaithCell(cell.getVictoryPoints(), getVaticanReportSectionFromCell(cell) != null ? getVaticanReportSectionFromCell(cell).getVictoryPoints():0)));
         return reduced;
     }
 

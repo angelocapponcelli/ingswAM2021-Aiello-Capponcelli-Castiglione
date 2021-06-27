@@ -33,6 +33,26 @@ public enum ResourceType implements ReducedRequirement {
         }
     }
 
+    public static ResourceType parse(String string){
+        switch (string) {
+            case "COIN":
+                return COIN;
+            case "STONE":
+                return STONE;
+            case "SHIELD":
+                return SHIELD;
+            case "SERVANT":
+                return SERVANT;
+            case "FAITH":
+                return FAITH;
+            case "ANY":
+                return ANY;
+            default:
+                return null;
+        }
+
+    }
+
     public static boolean contains(String test) {
 
         for (ResourceType resourceType : ResourceType.values()) {

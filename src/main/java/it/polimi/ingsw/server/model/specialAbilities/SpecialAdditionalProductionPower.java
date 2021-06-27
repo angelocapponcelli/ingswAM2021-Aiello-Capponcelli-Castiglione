@@ -21,6 +21,12 @@ public class SpecialAdditionalProductionPower extends SpecialAbility {
 
     }
 
+    public SpecialAdditionalProductionPower(Resource resource, ProductionPower productionPower) {
+        this.resource = resource;
+        this.productionPower = productionPower;
+
+    }
+
     public SpecialAdditionalProductionPower(ProductionPower productionPower) {
         this.productionPower = productionPower;
     }

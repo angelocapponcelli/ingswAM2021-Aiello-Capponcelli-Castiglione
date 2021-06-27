@@ -61,10 +61,10 @@ class LeaderRequirementsTest {
 
     @Test
     void resourceSpecialDepotRequirement() throws DepotException {
-        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.COIN);
-        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.SHIELD);
-        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.SERVANT);
-        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.STONE);
+        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.COIN, 2);
+        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.SHIELD, 2);
+        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.SERVANT, 2);
+        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.STONE, 2);
         player.getPersonalBoard().getSpecialDepots().addResources(ResourceType.COIN, 2);
         player.getPersonalBoard().getSpecialDepots().addResources(ResourceType.SHIELD, 2);
         player.getPersonalBoard().getSpecialDepots().addResources(ResourceType.SERVANT, 1);
@@ -81,10 +81,10 @@ class LeaderRequirementsTest {
 
     @Test
     void resourceRequirement() throws DepotException {
-        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.COIN);
-        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.SHIELD);
-        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.SERVANT);
-        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.STONE);
+        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.COIN, 2);
+        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.SHIELD, 2);
+        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.SERVANT, 2);
+        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.STONE, 2);
         player.getPersonalBoard().getSpecialDepots().addResources(ResourceType.COIN, 2);
         player.getPersonalBoard().getSpecialDepots().addResources(ResourceType.SHIELD, 2);
         player.getPersonalBoard().getSpecialDepots().addResources(ResourceType.SERVANT, 1);
@@ -149,13 +149,13 @@ class LeaderRequirementsTest {
 
     @Test
     void getRequirements(){
-        Map<Requirement, Integer> tmp= leaderRequirements.getLeaderRequirements();
+
         leaderRequirements.add(Coin.getInstance(), 10);
         leaderRequirements.add(Shield.getInstance(), 11);
         leaderRequirements.add(Servant.getInstance(), 12);
         leaderRequirements.add(Stone.getInstance(), 13);
 
-        tmp= leaderRequirements.getLeaderRequirements();
+        Map<Requirement, Integer> tmp = leaderRequirements.getLeaderRequirements();
         assertEquals(4, tmp.size());
         assertEquals(10, tmp.get(Coin.getInstance()));
         assertEquals(13, tmp.get(Stone.getInstance()));

@@ -3,7 +3,7 @@ package it.polimi.ingsw.networking.messages.clientMessages;
 import it.polimi.ingsw.networking.messages.MessageType;
 
 public class ClientText extends ClientMessage {
-    String text;
+    private final String text;
 
     public ClientText(String nickname, String text) {
         super(nickname);

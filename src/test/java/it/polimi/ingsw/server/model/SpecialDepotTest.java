@@ -17,14 +17,14 @@ class SpecialDepotTest {
         assertThrows(DepotException.class, () -> specialDepot.addResources(ResourceType.COIN, 0));
         assertThrows(DepotException.class, () -> specialDepot.addResources(ResourceType.COIN, 1));
         assertThrows(DepotException.class, () -> specialDepot.addResources(ResourceType.COIN, 50));
-        specialDepot.addSpecialContainer(ResourceType.COIN);
+        specialDepot.addSpecialContainer(ResourceType.COIN, 2);
         assertThrows(DepotException.class, () -> specialDepot.addResources(ResourceType.COIN, -1));
         assertThrows(DepotException.class, () -> specialDepot.addResources(ResourceType.COIN, 3));
         assertThrows(DepotException.class, () -> specialDepot.addResources(ResourceType.SERVANT, 1));
         assertEquals(0, specialDepot.getAllResourceCount());
         specialDepot.addResources(ResourceType.COIN, 2);
         assertEquals(2, specialDepot.getAllResourceCount());
-        specialDepot.addSpecialContainer(ResourceType.SERVANT);
+        specialDepot.addSpecialContainer(ResourceType.SERVANT, 2);
         specialDepot.addResources(ResourceType.SERVANT, 1);
         assertEquals(3, specialDepot.getAllResourceCount());
         assertThrows(DepotException.class, () -> specialDepot.removeResources(ResourceType.SERVANT, 2));

@@ -7,7 +7,7 @@ import it.polimi.ingsw.networking.messages.serverMessage.ServerMessage;
 import java.util.List;
 
 public class UpdatedWareHouseMessage extends ServerMessage {
-    List<ReducedContainer> wareHouse;
+    private final List<ReducedContainer> wareHouse;
 
     public UpdatedWareHouseMessage(List<ReducedContainer> wareHouse) {
         messageType = MessageType.UPDATED_WAREHOUSE;

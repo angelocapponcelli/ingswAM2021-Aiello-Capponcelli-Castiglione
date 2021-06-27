@@ -13,13 +13,6 @@ public class SelectDeckFromGridClientMessage extends ClientMessage {
         this.messageType = MessageType.SELECT_DECK_FROM_GRID;
     }
 
-    @Override
-    public Boolean check() {
-        if (this.column < 0 || this.column > 3) {
-            return false;
-        }
-        return this.row >= 0 && this.row <= 2;
-    }
 
     public Integer getColumn() {
         return column;

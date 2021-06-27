@@ -5,8 +5,11 @@ import it.polimi.ingsw.server.model.resources.Resource;
 
 public class SpecialDiscount extends SpecialAbility {
 
-    public SpecialDiscount(Resource resource) {
+    private final int discount;
+
+    public SpecialDiscount(Resource resource, int discount) {
         this.resource = resource;
+        this.discount = discount;
     }
 
     /**

@@ -2,7 +2,6 @@ package it.polimi.ingsw.client.controller;
 
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.networking.messages.ErrorMessage;
-import it.polimi.ingsw.networking.messages.ErrorType;
 import it.polimi.ingsw.networking.messages.Message;
 import it.polimi.ingsw.networking.messages.serverMessage.TurnPositionMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.*;
@@ -17,8 +16,7 @@ public class ClientController implements Runnable {
     private INIT initState = INIT.DISCARD_LEADER;
     private IN_GAME inGameState = IN_GAME.NO_MY_TURN;
     private MY_TURN myTurnState;
-
-    View view;
+    private final View view;
 
     public void setMyTurnState(MY_TURN myTurnState) {
         this.myTurnState = myTurnState;

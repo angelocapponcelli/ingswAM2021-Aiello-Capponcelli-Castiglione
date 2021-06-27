@@ -6,8 +6,8 @@ import it.polimi.ingsw.server.model.globalBoard.MarketTray;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 
 public class UpdatedMarketTrayMessage extends ServerMessage {
-    private ResourceType[][] marketTray;
-    private ResourceType slide;
+    private final ResourceType[][] marketTray;
+    private final ResourceType slide;
 
 
     public UpdatedMarketTrayMessage(MarketTray marketTray) {

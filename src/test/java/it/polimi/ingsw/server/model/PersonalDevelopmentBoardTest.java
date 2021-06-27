@@ -9,16 +9,13 @@ import it.polimi.ingsw.server.model.personalBoard.PersonalDevelopmentBoard;
 import it.polimi.ingsw.server.model.productionPower.ProductionPower;
 import it.polimi.ingsw.server.model.productionPower.ProductionPowerInput;
 import it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput;
-import it.polimi.ingsw.utils.exceptions.PersonalBoardException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class PersonalDevelopmentBoardTest {
 
@@ -86,7 +83,7 @@ class PersonalDevelopmentBoardTest {
         assertEquals(2,notNull );
         /*just the top card*/
 
-        assertEquals(null, cards.get(0));
+        assertNull(cards.get(0));
         assertEquals(3, cards.get(1).getId());
         assertEquals(6, cards.get(2).getId());
         assertEquals(1, cards.get(2).getVictoryPoints());
@@ -112,9 +109,6 @@ class PersonalDevelopmentBoardTest {
 
     }
 
-
-
-
     @Test
     void getCardsCount(){
         developmentBoard.increaseCardCount();
@@ -122,15 +116,6 @@ class PersonalDevelopmentBoardTest {
         developmentBoard.increaseCardCount();
         developmentBoard.increaseCardCount();
         assertEquals(3, developmentBoard.getCardsCount());
-        /*
-        assertEquals(6, developmentBoard.getCardsCount());
-        try {
-            developmentBoard.addCard(new DevelopmentCard(1, new Cost(), new TypeLevel(Colors.YELLOW, 1), new ProductionPower(new ProductionPowerInput(), new ProductionPowerOutput()), 14));
-        } catch (PersonalBoardException e) {
-            e.printStackTrace();
-        }
-        assertEquals(7, developmentBoard.getCardsCount());
-        */
 
 
     }

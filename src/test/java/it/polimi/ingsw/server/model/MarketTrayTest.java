@@ -48,14 +48,6 @@ class MarketTrayTest {
         int a = r.nextInt(2 + 1);
         List<Resource> expectedRow = marketTray1.getRow(a);
 
-        /*System.out.printf("[%s]\n", marketTray1.getSlide());
-        for(int i = 0; i< marketTray1.getMarketTray().length; i++){
-            for(int j = 0; j < marketTray1.getMarketTray()[i].length; j++){
-                System.out.printf("%5s\t|  ", marketTray1.getMarketTray()[i][j]);
-            }
-            System.out.printf("\n");
-        }*/
-
         assertEquals(expectedRow, marketTray1.selectRow(a));
 
         List<Resource> newRow = new ArrayList<>();

@@ -7,7 +7,6 @@ import it.polimi.ingsw.server.model.globalBoard.GlobalBoard;
 import it.polimi.ingsw.server.model.misc.Colors;
 import it.polimi.ingsw.server.model.player.Player;
 import it.polimi.ingsw.server.model.player.RealPlayer;
-import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.utils.exceptions.PlayerWithSameNameException;
 import it.polimi.ingsw.utils.exceptions.ReachedMaxNumberOfPlayersException;
 import org.junit.jupiter.api.BeforeEach;

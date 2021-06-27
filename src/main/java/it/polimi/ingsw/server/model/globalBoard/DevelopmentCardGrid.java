@@ -3,11 +3,16 @@ package it.polimi.ingsw.server.model.globalBoard;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedDevelopmentCard;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedDevelopmentCardGridMessage;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
+import it.polimi.ingsw.server.model.misc.Colors;
 import it.polimi.ingsw.server.model.misc.Deck;
 import it.polimi.ingsw.utils.observer.Observable;
-import it.polimi.ingsw.utils.parsers.DevelopmentCardParser;
+import it.polimi.ingsw.utils.parsers.SettingsParser;
 
 import java.io.FileNotFoundException;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class DevelopmentCardGrid extends Observable {
@@ -21,7 +26,8 @@ public class DevelopmentCardGrid extends Observable {
             }
         }
 
-        DevelopmentCardParser.getCards().forEach(developmentCard -> {
+        SettingsParser.getInstance().getDevelopmentCards()
+                .forEach(developmentCard -> {
             switch (developmentCard.getTypeLevel().getType()) {
                 case GREEN:
                     deckGrid[3 - developmentCard.getTypeLevel().getLevel()][0].push(developmentCard);
@@ -65,6 +71,32 @@ public class DevelopmentCardGrid extends Observable {
         return deckGrid;
     }
 
+
+
+    public List<Deck> getColumn(Colors type){
+        return Arrays.stream(deckGrid)
+                .flatMap(deckRow -> Arrays.stream(deckRow)
+                        .filter(deck -> deck.peek().getTypeLevel().getType().equals(type)))
+                .collect(Collectors.toList());
+    }
+
+
+    public DevelopmentCard peekLowerLevelOfSpecifiedType(Colors type){
+        return Arrays.stream(deckGrid)
+                .flatMap(deckRow -> Arrays.stream(deckRow).filter(deck -> deck.peek().getTypeLevel().getType().equals(type)))
+                .min(Comparator.comparing(deck-> deck.peek().getTypeLevel().getLevel()))
+                .get().peek();
+    }
+
+    public void popLowerLevelOfSpecifiedType(Colors type){
+         Arrays.stream(deckGrid)
+                .flatMap(deckRow -> Arrays.stream(deckRow).filter(deck -> deck.peek().getTypeLevel().getType().equals(type)))
+                .min(Comparator.comparing(deck-> deck.peek().getTypeLevel().getLevel()))
+                .get().pop();
+
+        notifyObserver(new UpdatedDevelopmentCardGridMessage(toReduced()));
+    }
+
     public ReducedDevelopmentCard[][] toReduced() {
         ReducedDevelopmentCard[][] reducedDeckGrid = new ReducedDevelopmentCard[3][4];
         for (int i = 0; i < 3; i++) {
@@ -75,5 +107,7 @@ public class DevelopmentCardGrid extends Observable {
         }
         return reducedDeckGrid;
     }
+
+
 
 }

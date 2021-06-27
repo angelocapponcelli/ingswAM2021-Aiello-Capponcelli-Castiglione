@@ -99,7 +99,7 @@
     },
     "victoryPoints": 5,
     "specialAbility": {
-      "type": "WHITEMARBLE",
+      "type": "WHITE_MARBLE",
       "resource": "SERVANT"
     }
   },
@@ -111,7 +111,7 @@
     },
     "victoryPoints": 5,
     "specialAbility": {
-      "type": "WHITEMARBLE",
+      "type": "WHITE_MARBLE",
       "resource": "SHIELD"
     }
   },
@@ -123,7 +123,7 @@
     },
     "victoryPoints": 5,
     "specialAbility": {
-      "type": "WHITEMARBLE",
+      "type": "WHITE_MARBLE",
       "resource": "STONE"
     }
   },
@@ -135,7 +135,7 @@
     },
     "victoryPoints": 5,
     "specialAbility": {
-      "type": "WHITEMARBLE",
+      "type": "WHITE_MARBLE",
       "resource": "COIN"
     }
   },
@@ -146,7 +146,7 @@
     },
     "victoryPoints": 4,
     "specialAbility": {
-      "type": "PRODUCTIONPOWER",
+      "type": "PRODUCTION_POWER",
       "resource": "SHIELD"
     }
   },
@@ -157,7 +157,7 @@
     },
     "victoryPoints": 4,
     "specialAbility": {
-      "type": "PRODUCTIONPOWER",
+      "type": "PRODUCTION_POWER",
       "resource": "SERVANT"
     }
   },
@@ -168,7 +168,7 @@
     },
     "victoryPoints": 4,
     "specialAbility": {
-      "type": "PRODUCTIONPOWER",
+      "type": "PRODUCTION_POWER",
       "resource": "STONE"
     }
   },
@@ -179,7 +179,7 @@
     },
     "victoryPoints": 4,
     "specialAbility": {
-      "type": "PRODUCTIONPOWER",
+      "type": "PRODUCTION_POWER",
       "resource": "COIN"
     }
   }

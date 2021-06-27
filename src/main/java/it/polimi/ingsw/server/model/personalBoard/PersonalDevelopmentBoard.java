@@ -103,7 +103,6 @@ public class PersonalDevelopmentBoard extends Observable {
             }
             else reduced.add(null);
         }
-        System.out.println("ciaoo");
         return reduced;
     }
 

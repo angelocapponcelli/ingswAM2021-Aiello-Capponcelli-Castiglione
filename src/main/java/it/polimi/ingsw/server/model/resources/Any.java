@@ -2,7 +2,6 @@ package it.polimi.ingsw.server.model.resources;
 
 import it.polimi.ingsw.server.model.player.RealPlayer;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 /**

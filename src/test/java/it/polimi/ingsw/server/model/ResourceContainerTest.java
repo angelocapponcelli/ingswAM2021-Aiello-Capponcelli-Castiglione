@@ -29,7 +29,7 @@ class ResourceContainerTest {
 
     @Test
     void SpecialContainer() throws DepotException {
-        SpecialContainer specialContainer = new SpecialContainer(ResourceType.SERVANT);
+        SpecialContainer specialContainer = new SpecialContainer(ResourceType.SERVANT, 2);
         assertThrows(DepotException.class, () -> specialContainer.addResource(-1));
         assertThrows(DepotException.class, () -> specialContainer.remove(1));
         assertThrows(DepotException.class, () -> specialContainer.remove(-1));

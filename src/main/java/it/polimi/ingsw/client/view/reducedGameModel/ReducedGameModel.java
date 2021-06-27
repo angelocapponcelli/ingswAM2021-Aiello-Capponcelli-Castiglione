@@ -15,7 +15,7 @@ public class ReducedGameModel {
     private List<ReducedContainer> wareHouseDepot;
     private List<ReducedContainer> strongBoxDepot;
     private Map<ResourceType, Integer> specialDepot;
-    private ReducedProductionPower productionPower = new ReducedProductionPower();
+    private final ReducedProductionPower productionPower = new ReducedProductionPower();
     private Integer playerTurnPosition;
     private Map<SpecialAbilityType, ResourceType> activatedSpecialAbilities;
     private List<ReducedFaithCell> faithTrack;

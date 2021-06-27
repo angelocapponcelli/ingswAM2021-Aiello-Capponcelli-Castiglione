@@ -9,7 +9,7 @@ import it.polimi.ingsw.utils.observer.Observable;
 public abstract class Player extends Observable {
 
     protected GameController gameController;
-    protected String nickName;
+    protected final String nickName;
     protected Integer faithPosition;
     protected VaticanReportStatus vaticanReportStatus;
     protected Integer turnPosition;

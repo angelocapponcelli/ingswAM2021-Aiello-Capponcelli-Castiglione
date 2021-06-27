@@ -4,7 +4,6 @@ import it.polimi.ingsw.server.model.globalBoard.faithTrack.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,11 +13,7 @@ class FaithTrackTest {
 
     @BeforeEach
     void init() {
-        try {
-            faithTrack = new FaithTrack();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        faithTrack = new FaithTrack();
     }
 
     @Test

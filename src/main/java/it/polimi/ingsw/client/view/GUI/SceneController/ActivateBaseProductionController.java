@@ -50,12 +50,12 @@ public class ActivateBaseProductionController {
             if (input.containsKey(resourceReplacement)){
                 input.put(resourceReplacement, input.get(resourceReplacement)+1);
             } else input.put(resourceReplacement,1);
-            inputLabel.setText(inputLabel.getText() + " " + resourceReplacement.toString());
+            inputLabel.setText(inputLabel.getText() + " " + resourceReplacement);
         } else {
             if (output.containsKey(resourceReplacement)){
                 output.put(resourceReplacement, output.get(resourceReplacement)+1);
             } else output.put(resourceReplacement,1);
-            outputLabel.setText(outputLabel.getText() + " " + resourceReplacement.toString());
+            outputLabel.setText(outputLabel.getText() + " " + resourceReplacement);
         }
         if (outputCount == output.size()) FXGUI.getClient().sendMessage(new ActivateBasicProductionMessage(FXGUI.getClient().getNickName(),input,output));
     }

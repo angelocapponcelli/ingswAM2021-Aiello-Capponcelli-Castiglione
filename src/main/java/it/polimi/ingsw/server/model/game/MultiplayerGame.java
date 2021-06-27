@@ -9,10 +9,8 @@ public class MultiplayerGame extends Game {
         super(maxPlayerNumber);
     }
 
-
     @Override
     public void endGame(Player player) {
 
     }
-
 }

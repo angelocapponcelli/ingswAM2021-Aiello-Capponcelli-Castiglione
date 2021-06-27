@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiscardedLeaderCardsMessage extends ClientMessage {
-    List<Integer> IDsToDiscard = new ArrayList<>();
+    private final List<Integer> IDsToDiscard = new ArrayList<>();
 
     public DiscardedLeaderCardsMessage(String nickname, int card1, int card2) {
         super(nickname);

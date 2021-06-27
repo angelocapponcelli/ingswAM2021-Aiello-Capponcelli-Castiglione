@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.view.reducedGameModel;
 
 import it.polimi.ingsw.client.view.CLI.CLIColors;
-import it.polimi.ingsw.client.view.CLI.Utils;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
 import it.polimi.ingsw.server.model.cards.TypeLevel;
 import it.polimi.ingsw.server.model.interfaces.Requirement;

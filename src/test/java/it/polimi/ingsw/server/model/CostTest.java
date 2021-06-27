@@ -7,7 +7,6 @@ import it.polimi.ingsw.utils.exceptions.DepotException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,7 +21,7 @@ class CostTest {
         player.getPersonalBoard().getWareHouseDepot().addResource(ResourceType.COIN, 2, 2);
         player.getPersonalBoard().getWareHouseDepot().addResource(ResourceType.SHIELD, 1, 1);
         player.getPersonalBoard().getWareHouseDepot().addResource(ResourceType.SERVANT, 1, 0);
-        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.SHIELD);
+        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.SHIELD, 2);
         player.getPersonalBoard().getSpecialDepots().addResources(ResourceType.SHIELD, 1);
         player.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.COIN, 10);
     }
@@ -84,7 +83,7 @@ class CostTest {
         cost.add(ResourceType.COIN, 7);
         Map<Resource, Integer> map;
         map= cost.getCost();
-        assertEquals(false, map.isEmpty());
+        assertFalse(map.isEmpty());
         assertEquals(7, map.get(Coin.getInstance()));
         cost.add(ResourceType.SHIELD, 2);
         map=cost.getCost();

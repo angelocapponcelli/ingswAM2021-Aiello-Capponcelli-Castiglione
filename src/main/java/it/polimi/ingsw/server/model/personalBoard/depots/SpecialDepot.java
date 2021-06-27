@@ -23,8 +23,8 @@ public class SpecialDepot extends Depot {
      *
      * @param resourceType the only resource type that the container can store.
      */
-    public void addSpecialContainer(ResourceType resourceType) {
-        specialContainers.add(new SpecialContainer(resourceType));
+    public void addSpecialContainer(ResourceType resourceType, int capacity) {
+        specialContainers.add(new SpecialContainer(resourceType, capacity));
     }
 
     /**

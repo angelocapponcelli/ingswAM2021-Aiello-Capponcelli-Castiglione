@@ -19,13 +19,6 @@ public class MoveFromTemporaryDepotForMarketMessage extends ClientMessage {
         this.depot = depot;
     }
 
-    @Override
-    public Boolean check() {
-        if (!(this.depot.equals("Warehouse")) || !(this.depot.equals("Special"))) {
-            return false;
-        }
-        return ResourceType.getResourceClass(this.resourceType) == Any.getInstance() && ResourceType.getResourceClass(this.resourceType) == Faith.getInstance();
-    }
 
     public Integer getNumberOfContainer() {
         return numberOfContainer;

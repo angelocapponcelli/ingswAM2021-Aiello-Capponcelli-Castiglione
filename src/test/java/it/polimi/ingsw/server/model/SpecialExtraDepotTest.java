@@ -19,8 +19,8 @@ class SpecialExtraDepotTest {
     @BeforeEach
     void init(){
         realPlayer= new RealPlayer("Christian Eriksen", new GameController(3,0));
-        specialExtraDepot1= new SpecialExtraDepot(Coin.getInstance());
-        specialExtraDepot2= new SpecialExtraDepot(Shield.getInstance());
+        specialExtraDepot1= new SpecialExtraDepot(Coin.getInstance(),2);
+        specialExtraDepot2= new SpecialExtraDepot(Shield.getInstance(),2);
     }
 
     @Test

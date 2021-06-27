@@ -3,12 +3,10 @@ package it.polimi.ingsw.networking.messages.clientMessages;
 import it.polimi.ingsw.networking.messages.MessageType;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 
-import java.util.List;
-
 public class ActivateProductionMessage extends ClientMessage {
-    ResourceType input1;
-    ResourceType input2;
-    ResourceType outPut;
+    private final ResourceType input1;
+    private final ResourceType input2;
+    private final ResourceType outPut;
 
     public ActivateProductionMessage(String nickname, ResourceType input1, ResourceType input2, ResourceType outPut) {
         super(nickname);

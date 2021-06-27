@@ -10,11 +10,6 @@ public class SelectDeckFromPersonalBoardClientMessage extends ClientMessage {
         this.messageType = MessageType.SELECT_DECK_FROM_PERSONAL;
     }
 
-    @Override
-    public Boolean check() {
-        return this.numberOfDeck <= 2 && this.numberOfDeck >= 0;
-    }
-
     public Integer getNumberOfDeck() {
         return numberOfDeck;
     }

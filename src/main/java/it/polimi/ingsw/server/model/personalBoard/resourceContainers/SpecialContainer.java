@@ -7,8 +7,8 @@ import it.polimi.ingsw.server.model.resources.ResourceType;
  */
 public class SpecialContainer extends ResourceContainer {
 
-    public SpecialContainer(ResourceType resource) {
-        super(resource, 2);
+    public SpecialContainer(ResourceType resource, int capacity) {
+        super(resource, capacity);
     }
 
 }

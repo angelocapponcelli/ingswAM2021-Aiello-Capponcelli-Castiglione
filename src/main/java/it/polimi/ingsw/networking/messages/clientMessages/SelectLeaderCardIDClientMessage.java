@@ -7,9 +7,4 @@ public class SelectLeaderCardIDClientMessage extends SelectCardIDClientMessage {
         super(nickname, id);
         this.messageType = MessageType.SELECT_LEADER_CARD;
     }
-
-    @Override
-    public Boolean check() {
-        return this.id >= 0;
-    }
 }

@@ -2,19 +2,122 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="it.polimi.ingsw.client.view.GUI.SceneController.ActivateProductionController">
-    <CheckBox fx:id="baseProduction" layoutX="56.0" layoutY="313.0" mnemonicParsing="false" text="Base production"/>
-    <CheckBox fx:id="firstCardProduction" layoutX="183.0" layoutY="313.0" mnemonicParsing="false"
-              text="Card Production 1"/>
-    <CheckBox fx:id="secondCardProduction" layoutX="319.0" layoutY="313.0" mnemonicParsing="false"
-              text="Card Production 2"/>
-    <CheckBox fx:id="thirdCardProduction" layoutX="449.0" layoutY="313.0" mnemonicParsing="false"
-              text="Card Production 3"/>
-    <Button layoutX="410.0" layoutY="351.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="149.0"
-            text="Confirm production" onAction="#onConfirmProduction"/>
+<AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="729.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.GUI.SceneController.ActivateProductionController">
+    <ImageView fitHeight="552.0" fitWidth="737.0" layoutX="-1.0">
+        <image>
+            <Image url="@../image/activateProductionBackground.png" />
+        </image>
+    </ImageView>
+    <HBox fx:id="firstShelfBox" alignment="CENTER" layoutX="36.0" layoutY="236.0" prefHeight="51.0" prefWidth="118.0" />
+    <HBox fx:id="secondShelfBox" alignment="CENTER" layoutX="36.0" layoutY="287.0" prefHeight="51.0" prefWidth="118.0" />
+    <HBox fx:id="thirdShelfBox" alignment="CENTER" layoutX="12.0" layoutY="338.0" prefHeight="51.0" prefWidth="166.0" />
+   <Rectangle arcHeight="5.0" arcWidth="5.0" height="161.0" layoutX="5.0" layoutY="388.0" stroke="#ffffff00" strokeType="INSIDE" width="186.0">
+      <fill>
+         <LinearGradient endX="1.0" endY="0.5381679471212488" startX="0.0801526908656113" startY="0.5000000145599133">
+            <stops>
+               <Stop>
+                  <color>
+                     <Color red="0.8588235378265381" green="0.8078431487083435" blue="0.6705882549285889" />
+                  </color>
+               </Stop>
+               <Stop offset="1.0">
+                  <color>
+                     <Color red="1.0" green="1.0" blue="1.0" opacity="0.0" />
+                  </color>
+               </Stop>
+            </stops>
+         </LinearGradient>
+      </fill>
+   </Rectangle>
+   <Label fx:id="coinLabel" graphicTextGap="0.0" layoutX="50.0" layoutY="388.0" prefHeight="30.0" prefWidth="90.0" text="x 0">
+      <font>
+         <Font name="18thCentury" size="38.0" />
+      </font>
+   </Label>
+   <Label fx:id="stoneLabel" graphicTextGap="0.0" layoutX="50.0" layoutY="426.0" prefHeight="30.0" prefWidth="90.0" text="x 0">
+      <font>
+         <Font name="18thCentury" size="38.0" />
+      </font>
+   </Label>
+   <Label fx:id="shieldLabel" graphicTextGap="0.0" layoutX="50.0" layoutY="466.0" prefHeight="30.0" prefWidth="90.0" text="x 0">
+      <font>
+         <Font name="18thCentury" size="38.0" />
+      </font>
+   </Label>
+   <Label fx:id="servantLabel" graphicTextGap="0.0" layoutX="50.0" layoutY="504.0" prefHeight="30.0" prefWidth="90.0" text="x 0">
+      <font>
+         <Font name="18thCentury" size="38.0" />
+      </font>
+   </Label>
+    <ImageView fx:id="firstDevelopmentCardImage" fitHeight="200.0" fitWidth="132.0" layoutX="282.0" layoutY="250.0">
+    </ImageView>
+    <ImageView fx:id="secondDevelopmentCardImage" fitHeight="200.0" fitWidth="132.0" layoutX="424.0" layoutY="250.0">
+    </ImageView>
+    <ImageView fx:id="thirdDevelopmentCardImage" fitHeight="200.0" fitWidth="132.0" layoutX="572.0" layoutY="250.0">
+    </ImageView>
+    <CheckBox fx:id="baseProduction" layoutX="217.0" layoutY="471.0" mnemonicParsing="false">
+        <font>
+            <Font size="20.0" />
+        </font>
+    </CheckBox>
+    <CheckBox fx:id="firstDevelopmentCardCheckBox" layoutX="334.0" layoutY="471.0" mnemonicParsing="false">
+        <font>
+            <Font size="20.0" />
+        </font>
+    </CheckBox>
+    <CheckBox fx:id="secondDevelopmentCardCheckBox" layoutX="476.0" layoutY="471.0" mnemonicParsing="false">
+        <font>
+            <Font size="20.0" />
+        </font>
+    </CheckBox>
+    <CheckBox fx:id="thirdDevelopmentCardCheckBox" layoutX="624.0" layoutY="471.0" mnemonicParsing="false">
+        <font>
+            <Font size="20.0" />
+        </font>
+    </CheckBox>
+    <Button layoutX="581.0" layoutY="511.0" mnemonicParsing="false" onAction="#onConfirmProduction" prefHeight="26.0" prefWidth="132.0" text="Confirm production">
+      <font>
+         <Font name="18thCentury" size="16.0" />
+      </font></Button>
+   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="11.0" layoutY="391.0">
+      <image>
+         <Image url="@../image/resources/COIN.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="11.0" layoutY="510.0">
+      <image>
+         <Image url="@../image/resources/SERVANT.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="11.0" layoutY="429.0">
+      <image>
+         <Image url="@../image/resources/STONE.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="11.0" layoutY="471.0">
+      <image>
+         <Image url="@../image/resources/SHIELD.png" />
+      </image>
+   </ImageView>
+   <Label layoutX="27.0" layoutY="24.0" prefHeight="51.0" prefWidth="518.0" text="Select production you want activate and confirm selection" wrapText="true">
+      <font>
+         <Font name="18thCentury" size="26.0" />
+      </font>
+   </Label>
+   <Label layoutX="27.0" layoutY="67.0" prefHeight="51.0" prefWidth="518.0" text="You can activate development card production (if you have card) and also base production" wrapText="true">
+      <font>
+         <Font name="18thCentury" size="20.0" />
+      </font>
+   </Label>
 </AnchorPane>

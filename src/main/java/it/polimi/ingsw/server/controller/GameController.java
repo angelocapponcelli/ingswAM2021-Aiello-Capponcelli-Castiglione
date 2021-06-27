@@ -123,6 +123,7 @@ public class GameController {
 
 
         List<LeaderCard> leaderCardsDeck = SettingsParser.getInstance().getLeaderCards();
+        Collections.shuffle(leaderCardsDeck);
         IntStream.range(0, playerList.size())
                 .filter(i -> playerList.get(i) instanceof RealPlayer)
                 .forEach(i -> {

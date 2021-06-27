@@ -24,7 +24,7 @@ public class Client {
         if (GUI) {
             view = new GUI(this);
             clientController = new ClientController(view);
-            new Thread(() -> FXGUI.main(this)).start();
+            new Thread( () -> FXGUI.main(this)).start();
 
         } else {
             view = new CLI(this);

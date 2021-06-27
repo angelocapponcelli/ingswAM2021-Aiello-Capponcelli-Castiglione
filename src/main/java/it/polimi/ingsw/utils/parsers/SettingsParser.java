@@ -14,6 +14,7 @@ import it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput;
 import it.polimi.ingsw.server.model.resources.*;
 import it.polimi.ingsw.server.model.specialAbilities.*;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -38,6 +39,8 @@ public class SettingsParser {
     }
 
     public MarketTray getMarketTray() throws FileNotFoundException {
+
+
 
         JsonObject jsonObject = JsonParser.parseReader(new FileReader(json)).getAsJsonObject().get("MarketTray").getAsJsonObject();
 

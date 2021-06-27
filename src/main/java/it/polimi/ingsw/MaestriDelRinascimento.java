@@ -36,7 +36,6 @@ public class MaestriDelRinascimento {
                         }
                 );
                 parsePort(args);
-                //Server.setSettingsParser(settings.get());
                 SettingsParser.getInstance().setJson(settings.get());
                 Server.start(portNumber.get());
                 break;
@@ -51,6 +50,7 @@ public class MaestriDelRinascimento {
 
                 System.out.println("\n[--server]: Start server");
                 System.out.println(CLIColors.ANSI_BRIGHT_BLACK +
+                        "[-s=, --settings=]: Specify the path of a custom settings.json file" +
                         "[-p=, --port=]: Specify the port on which the server will listen on" +
                         CLIColors.ANSI_RESET);
 

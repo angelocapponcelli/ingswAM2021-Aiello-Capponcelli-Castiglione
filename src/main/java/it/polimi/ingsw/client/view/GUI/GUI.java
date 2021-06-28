@@ -4,8 +4,10 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.View;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -194,6 +196,11 @@ public class GUI extends View {
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+
+            /* to center stage */
+            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
         });
         client.getClientController().pause();
     }

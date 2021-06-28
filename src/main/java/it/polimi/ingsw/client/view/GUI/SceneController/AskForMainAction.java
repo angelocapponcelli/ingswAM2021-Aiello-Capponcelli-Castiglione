@@ -6,14 +6,18 @@ import it.polimi.ingsw.client.view.reducedGameModel.ReducedContainer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 
 import java.util.Objects;
 
 public class AskForMainAction {
 
+    @FXML
+    private FlowPane inHandLeaderCardPane;
     @FXML
     private HBox firstShelfBox;
     @FXML
@@ -94,6 +98,16 @@ public class AskForMainAction {
                     servantLabel.setText("x " + reducedContainer.getCount());
                     break;
                 default: System.err.println("Invalid resource");
+            }
+        }
+
+        for (int i = 0; i < FXGUI.getClient().getView().getReducedGameModel().getReducedInHandLeaderCards().getInHandLeaderCards().size(); i++) {
+            if (FXGUI.getClient().getView().getReducedGameModel().getReducedInHandLeaderCards().getInHandLeaderCards().get(i).getPlayed())
+            {
+                ImageView leaderCard = new ImageView(new Image(getClass().getResourceAsStream("/image/cards/"+ FXGUI.getClient().getView().getReducedGameModel().getReducedInHandLeaderCards().getInHandLeaderCards().get(i).getId() +".png")));
+                leaderCard.setFitWidth(132);
+                leaderCard.setFitHeight(200);
+                inHandLeaderCardPane.getChildren().add(leaderCard);
             }
         }
     }

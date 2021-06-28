@@ -1,56 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.GUI.SceneController.PlayersNumber">
-   <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="103.0" prefWidth="600.0" text="How Many Players?">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Label>
-      <HBox prefHeight="278.0" prefWidth="600.0">
-         <children>
-            <Pane prefHeight="264.0" prefWidth="302.0">
-               <children>
-                  <Button fx:id="singlePlayerButton" layoutX="80.0" layoutY="102.0" mnemonicParsing="false" onAction="#singlePlayer" prefHeight="60.0" prefWidth="140.0" text="Single Player">
-                     <font>
-                        <Font size="16.0" />
-                     </font></Button>
-               </children>
-            </Pane>
-            <VBox prefHeight="264.0" prefWidth="302.0">
-               <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <Button fx:id="twoPlayersButton" layoutX="80.0" layoutY="14.0" mnemonicParsing="false" onAction="#twoPlayers" prefHeight="60.0" prefWidth="140.0" text="Two Players">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Button>
-                     </children></Pane>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <Button fx:id="threePlayersButton" layoutX="80.0" layoutY="14.0" mnemonicParsing="false" onAction="#threePlayers" prefHeight="60.0" prefWidth="140.0" text="Three Players">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Button>
-                     </children></Pane>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <Button fx:id="fourPlayersButton" layoutX="80.0" layoutY="14.0" mnemonicParsing="false" onAction="#fourPlayersButton" prefHeight="60.0" prefWidth="140.0" text="Four Players">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </Pane>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-   </children>
-</VBox>
+<StackPane prefHeight="400.0" prefWidth="428.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.GUI.SceneController.PlayersNumber">
+
+    <VBox fx:id="choosePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+        <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="110.0" prefWidth="600.0" text="How Many Players?">
+                <font>
+                    <Font size="36.0" />
+                </font>
+            </Label>
+            <HBox prefHeight="278.0" prefWidth="600.0">
+                <children>
+                    <Pane prefHeight="264.0" prefWidth="302.0">
+                        <children>
+                            <Button fx:id="singlePlayerButton" layoutX="80.0" layoutY="102.0" mnemonicParsing="false" onAction="#singlePlayer" prefHeight="60.0" prefWidth="140.0" text="Single Player">
+                                <font>
+                                    <Font size="16.0" />
+                                </font>
+                            </Button>
+                        </children>
+                    </Pane>
+                    <VBox prefHeight="264.0" prefWidth="302.0">
+                        <children>
+                            <Pane prefHeight="200.0" prefWidth="200.0">
+                                <children>
+                                    <Button fx:id="twoPlayersButton" layoutX="80.0" layoutY="14.0" mnemonicParsing="false" onAction="#twoPlayers" prefHeight="60.0" prefWidth="140.0" text="Two Players">
+                                        <font>
+                                            <Font size="16.0" />
+                                        </font>
+                                    </Button>
+                                </children>
+                            </Pane>
+                            <Pane prefHeight="200.0" prefWidth="200.0">
+                                <children>
+                                    <Button fx:id="threePlayersButton" layoutX="80.0" layoutY="14.0" mnemonicParsing="false" onAction="#threePlayers" prefHeight="60.0" prefWidth="140.0" text="Three Players">
+                                        <font>
+                                            <Font size="16.0" />
+                                        </font>
+                                    </Button>
+                                </children>
+                            </Pane>
+                            <Pane prefHeight="200.0" prefWidth="200.0">
+                                <children>
+                                    <Button fx:id="fourPlayersButton" layoutX="80.0" layoutY="14.0" mnemonicParsing="false" onAction="#fourPlayersButton" prefHeight="60.0" prefWidth="140.0" text="Four Players">
+                                        <font>
+                                            <Font size="16.0" />
+                                        </font>
+                                    </Button>
+                                </children>
+                            </Pane>
+                        </children>
+                    </VBox>
+                </children>
+            </HBox>
+        </children>
+    </VBox>
+   <BorderPane fx:id="waitPane" prefHeight="200.0" prefWidth="200.0" visible="false">
+      <center>
+         <ProgressIndicator maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="128.0" prefWidth="158.0" BorderPane.alignment="CENTER" />
+      </center>
+      <top>
+         <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="82.0" prefWidth="538.0" text="wait for other players..." BorderPane.alignment="CENTER">
+            <font>
+               <Font size="34.0" />
+            </font>
+         </Label>
+      </top>
+   </BorderPane>
+</StackPane>

@@ -3,14 +3,28 @@ package it.polimi.ingsw.client.view.GUI.SceneController;
 import it.polimi.ingsw.client.view.GUI.FXGUI;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedMarketTray;
 import it.polimi.ingsw.networking.messages.clientMessages.TakeFromMarketMessage;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.Objects;
 
 public class TakeFromMarketController {
+
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
     public GridPane marketTrayGrid;
     public ImageView slideImage;

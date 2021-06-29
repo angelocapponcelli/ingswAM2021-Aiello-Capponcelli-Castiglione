@@ -6,20 +6,31 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Deck that contains development cards.
+ */
 public class Deck {
 
     private final List<DevelopmentCard> deck;
 
+    /**
+     * Class constructor. Instantiates a new deck.
+     */
     public Deck() {
         deck = new ArrayList<>();
     }
 
+    /**
+     * Gets list of cards
+     * @return list of development cards contained in the deck
+     */
     public List<DevelopmentCard> getDeck() {
         return deck;
     }
 
     /**
-     * has to be check
+     * Gets the sum of the points of each card in the deck
+     * @return sum of victory points of the cards of the deck
      */
     public int getVictoryPoint() {
         int sum = 0;
@@ -65,6 +76,9 @@ public class Deck {
         return null;
     }
 
+    /**
+     * Shuffles this deck.
+     */
     public void shuffle() {
         Collections.shuffle(deck);
     }

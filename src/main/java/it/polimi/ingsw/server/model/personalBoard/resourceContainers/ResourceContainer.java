@@ -13,12 +13,21 @@ public abstract class ResourceContainer {
     protected int capacity;
     protected int count;
 
+    /**
+     * Class constructor. Instantiates a new Resource container characterized by type and capacity
+     * @param resourceType the resource that can be put in this container
+     * @param capacity the maximum amount of that type of resource that can be put in this container
+     */
     public ResourceContainer(ResourceType resourceType, int capacity) {
         this.resourceType = resourceType;
         this.capacity = capacity;
         count = 0;
     }
 
+    /**
+     * Class constructor. Instantiates a new Resource Container.
+     * @param capacity the maximum amount of that type of resource that can be put in this container
+     */
     public ResourceContainer(int capacity) {
         this.capacity = capacity;
         count = 0;
@@ -58,6 +67,13 @@ public abstract class ResourceContainer {
         return count;
     }
 
+
+    /**
+     * Performs the addiction of the specified amount of the resource to this container.
+     * @param numResource the amount of the resource that has to be added to this container
+     * @throws DepotException if the bound is smaller than the count of resources already present in the container plus the resources that need to be put
+     *
+     */
     public void addResource(int numResource) throws DepotException {
         if (numResource < 0) throw new DepotException("Invalid negative parameter");
         if (capacity >= count + numResource || capacity == -1) {

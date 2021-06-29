@@ -9,6 +9,9 @@ import it.polimi.ingsw.server.model.soloToken.Discarder;
 
 import java.util.*;
 
+/**
+ * Lorenzo is the cpu player. It is present only in the single player game mode
+ */
 public class Lorenzo extends Player {
 
     private final List<Revealable> soloTokenDeck = Arrays.asList(
@@ -21,14 +24,19 @@ public class Lorenzo extends Player {
             new Discarder(Colors.GREEN)
     );
 
-
+    /**
+     * Class constructor. Instantiate a new Lorenzo
+     * @param gameController the controller which is referred to the game played
+     */
     public Lorenzo(GameController gameController){
         super("Lorenzo",gameController);
         this.gameController = gameController;
         shuffleDeck();
     }
 
-
+    /**
+     * Reveals one solo token and performs the action of that token
+     */
     public void reveal() {
         Revealable revealable = soloTokenDeck.get(0);
         Collections.rotate(soloTokenDeck, -1);
@@ -36,6 +44,9 @@ public class Lorenzo extends Player {
 
     }
 
+    /**
+     * Shuffles the solo token deck
+     */
     public void shuffleDeck() {
         Collections.shuffle(soloTokenDeck);
     }

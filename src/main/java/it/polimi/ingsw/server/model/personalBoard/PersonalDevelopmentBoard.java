@@ -17,6 +17,11 @@ public class PersonalDevelopmentBoard extends Observable {
     private final List<Deck> board = new ArrayList<>();
     private Integer cardsCount;
 
+
+    /**
+     * Class constructor. Instantiates a new Personal Development Board.
+     * It creates three decks and sets the count of the cards to zero.
+     */
     public PersonalDevelopmentBoard() {
         board.add(new Deck()); //Deck 0
         board.add(new Deck()); //Deck 1
@@ -25,6 +30,7 @@ public class PersonalDevelopmentBoard extends Observable {
     }
 
     /**
+     * Adds a card to one of the three decks of the board
      * @param deck            The deck where the development card will be pushed on.
      * @param developmentCard The development card to be added.
      */
@@ -32,6 +38,11 @@ public class PersonalDevelopmentBoard extends Observable {
         board.get(deck).getDeck().add(developmentCard);
     }
 
+    /**
+     * Adds automatically the card to the board
+     * @param developmentCard the card to be added
+     * @throws PersonalBoardException if the card  can't be put because of the level.
+     */
     public void addCard(DevelopmentCard developmentCard) throws PersonalBoardException {
         switch (developmentCard.getTypeLevel().getLevel()){
             case 1:
@@ -57,14 +68,25 @@ public class PersonalDevelopmentBoard extends Observable {
         notifyObserver(new UpdatedPersonalDevelopmentBoardMessage(toReduced()));
     }
 
+    /**
+     * Gets the count of the card in the board
+     * @return cards count
+     */
     public Integer getCardsCount() {
         return cardsCount;
     }
 
+    /**
+     *Performs the increment of the cards count
+     */
     public void increaseCardCount() {
         this.cardsCount = this.cardsCount + 1;
     }
 
+    /**
+     * Gets the sum of the points of every card in the board
+     * @return sum of victory points
+     */
     public Integer getVictoryPoint() {
         int sum = 0;
         for (Deck tmpDeck : board) {
@@ -74,6 +96,10 @@ public class PersonalDevelopmentBoard extends Observable {
         return sum;
     }
 
+    /**
+     * Gets the list of every card in the board
+     * @return list of all bought cards
+     */
     public List<DevelopmentCard> getALlCards() {
         List<DevelopmentCard> allCards = new ArrayList<>();
         for (Deck deck : board) {
@@ -82,11 +108,17 @@ public class PersonalDevelopmentBoard extends Observable {
         return allCards;
     }
 
+    /**
+     * Gets top card of the deck
+     * @param deck the deck selected
+     * @return top card
+     */
     public DevelopmentCard getTopCard(Deck deck) {
         int tmp;
+        int size= deck.getDeck().size();
         for (tmp = 0; tmp < 3; tmp++) {
-            if (deck.equals(this.board.get(tmp))) {
-                return this.board.get(tmp).getDeck().get(0);
+            if (deck.equals(this.board.get(tmp))&& size>0) {
+                return this.board.get(tmp).getDeck().get(size-1);
             }
         }
         return null;

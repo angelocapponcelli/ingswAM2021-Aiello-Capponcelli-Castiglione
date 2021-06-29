@@ -9,10 +9,19 @@ import it.polimi.ingsw.server.model.player.Player;
 public class PopeSpaceCell extends Cell {
     private Boolean alreadyOccupied;
 
+    /**
+     * Class constructor. Instantiates a new Pope Space Cell.
+     * @param victoryPoints the points that are associated with the cell.
+     */
     public PopeSpaceCell(Integer victoryPoints) {
         super(victoryPoints);
         this.alreadyOccupied = false;
     }
+
+    /**
+     * Gets if the cell has been already occupied by some other player before.
+     * @return true if some player has already stepped on that cell
+     */
 
     public Boolean getAlreadyOccupied() {
         return alreadyOccupied;

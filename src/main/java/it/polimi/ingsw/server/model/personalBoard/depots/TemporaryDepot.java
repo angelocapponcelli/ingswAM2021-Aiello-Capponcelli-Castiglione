@@ -17,6 +17,9 @@ import java.util.stream.Collectors;
 public class TemporaryDepot extends StrongBoxDepot {
     private final List<StrongBoxContainer> containers;
 
+    /**
+     * Class constructor. Instantiates a new Temporary Depot.
+     */
     public TemporaryDepot() {
         containers = new ArrayList<>();
         containers.add(new StrongBoxContainer(ResourceType.ANY));
@@ -26,6 +29,11 @@ public class TemporaryDepot extends StrongBoxDepot {
         containers.add(new StrongBoxContainer(ResourceType.SHIELD));
     }
 
+
+    /**
+     * Adds resources taken from the market
+     * @param resources the resources
+     */
     public void addResource(List<ResourceType> resources) {
 
         resources.forEach(resource -> {
@@ -41,7 +49,12 @@ public class TemporaryDepot extends StrongBoxDepot {
 
     }
 
-
+    /**
+     * Removes the resource selected
+     * @param resourceType the resource to be removed
+     * @param numResource the amount of the resource that has to be removed
+     * @throws DepotException if the count of the resources is less than numResource
+     */
     @Override
     public void removeResources(ResourceType resourceType, int numResource) throws DepotException {
         containers.stream()
@@ -51,6 +64,10 @@ public class TemporaryDepot extends StrongBoxDepot {
     }
 
 
+    /**
+     * Gets the sum of every resource that it isn't an 'ANY' resource.
+     * @return sum of resources different from 'ANY'
+     */
     public int getAllResourceCountNoAny() {
         AtomicInteger count = new AtomicInteger();
         containers.stream().filter(strongBoxContainer -> !strongBoxContainer.getType().equals(ResourceType.ANY)).forEach(container -> count.addAndGet(container.getCount()));
@@ -58,6 +75,10 @@ public class TemporaryDepot extends StrongBoxDepot {
     }
 
 
+    /**
+     * Gets the sum of every resource in it
+     * @return sum of resources
+     */
     @Override
     public int getAllResourceCount() {
         AtomicInteger count = new AtomicInteger();
@@ -66,7 +87,10 @@ public class TemporaryDepot extends StrongBoxDepot {
     }
 
 
-
+    /**
+     * @param resourceType the resource
+     * @return 0
+     */
     @Override
     public int getSpecificResourceCount(ResourceType resourceType) {
         return 0;
@@ -83,6 +107,10 @@ public class TemporaryDepot extends StrongBoxDepot {
 
     }
 
+    /**
+     * Creates a reduced version of this depot
+     * @return map that represents the reduced version of this depot
+     */
     private Map<ResourceType, Integer> toReduced() {
         return containers.stream().collect(Collectors.toMap(StrongBoxContainer::getType, StrongBoxContainer::getCount));
     }

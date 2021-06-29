@@ -15,6 +15,10 @@ import java.util.List;
 public class StrongBoxDepot extends Depot {
     protected final List<StrongBoxContainer> containers;
 
+    /**
+     * Class constructor. Instantiates a new Strong Box. It also instantiates four strong box containers set with the
+     * four different concrete resource.
+     */
     public StrongBoxDepot() {
         containers = new ArrayList<>();
         containers.add(new StrongBoxContainer(ResourceType.COIN));
@@ -23,6 +27,11 @@ public class StrongBoxDepot extends Depot {
         containers.add(new StrongBoxContainer(ResourceType.SHIELD));
     }
 
+    /**
+     * Performs the increment of the resource's count in the strong box
+     * @param resourceType the resource type of the resources to be added
+     * @param numResource  the number of resources to be added
+     */
     @Override
     public void addResources(ResourceType resourceType, int numResource) {
         for (StrongBoxContainer selectedContainer : containers) {
@@ -38,6 +47,13 @@ public class StrongBoxDepot extends Depot {
         }
     }
 
+
+    /**
+     * Performs the removal of the quantity of the specified resource from the correspondent strong box container.
+     * @param resourceType the resource to be removed
+     * @param numResource the amount of the resource that has to be removed
+     * @throws DepotException if the strongbox container's size is less than the numResource
+     */
     @Override
     public void removeResources(ResourceType resourceType, int numResource) throws DepotException {
         for (StrongBoxContainer selectedContainer : containers) {
@@ -47,6 +63,11 @@ public class StrongBoxDepot extends Depot {
         notifyObserver(new UpdatedStrongBoxMessage(toReduced()));
     }
 
+    /**
+     * Gets the count of all resources, which it is useful when the game is ending to count the resources and convert
+     * them into victory points
+     * @return sum of all resources in the strong box
+     */
     @Override
     public int getAllResourceCount() {
         int count = 0;
@@ -56,6 +77,11 @@ public class StrongBoxDepot extends Depot {
         return count;
     }
 
+    /**
+     * Gets the count of a specific resource in the strong box
+     * @param resourceType the resource
+     * @return count of the resource
+     */
     @Override
     public int getSpecificResourceCount(ResourceType resourceType) {
         int count = 0;
@@ -66,7 +92,10 @@ public class StrongBoxDepot extends Depot {
         return count;
     }
 
-
+    /**
+     * Performs the reduction of the strongbox. It gets a reduced version of the strongbox
+     * @return reduced version of the strongbox
+     */
     private List<ReducedContainer> toReduced(){
         List<ReducedContainer> reduced = new ArrayList<>();
         for(StrongBoxContainer strongBoxContainer: containers){

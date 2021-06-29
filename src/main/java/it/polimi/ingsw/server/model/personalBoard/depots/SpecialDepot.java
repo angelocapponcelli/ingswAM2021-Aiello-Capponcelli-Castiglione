@@ -14,6 +14,9 @@ import java.util.List;
 public class SpecialDepot extends Depot {
     private final List<SpecialContainer> specialContainers;
 
+    /**
+     * Class constructor. Instantiates a new Special Depot.
+     */
     public SpecialDepot() {
         specialContainers = new ArrayList<>();
     }
@@ -90,6 +93,10 @@ public class SpecialDepot extends Depot {
         return count;
     }
 
+    /**
+     * Gets list of special container that compose the special depot
+     * @return list of special container
+     */
     public List<SpecialContainer> getSpecialContainers(){
         return this.specialContainers;
     }

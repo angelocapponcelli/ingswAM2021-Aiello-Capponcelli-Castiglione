@@ -14,6 +14,9 @@ public enum Colors {
     RED,
     GREEN;
 
+    /**
+     * @return color
+     */
     public String getColor() {
 
         switch (this) {

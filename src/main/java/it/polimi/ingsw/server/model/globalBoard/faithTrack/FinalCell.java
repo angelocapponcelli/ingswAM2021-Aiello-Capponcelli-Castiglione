@@ -8,7 +8,7 @@ import it.polimi.ingsw.server.model.player.Player;
  */
 public class FinalCell extends PopeSpaceCell {
     /**
-     * Instantiates a new Final cell.
+     * Class constructor. Instantiates a new Final cell.
      *
      * @param victoryPoints the victory points of the cell.
      */
@@ -16,6 +16,10 @@ public class FinalCell extends PopeSpaceCell {
         super(victoryPoints);
     }
 
+    /**
+     * onOccupy. This method is called when a player steps on this cell.
+     * @param player The player who step into the cell.
+     */
     @Override
     public void onOccupy(Player player) {
         super.onOccupy(player);

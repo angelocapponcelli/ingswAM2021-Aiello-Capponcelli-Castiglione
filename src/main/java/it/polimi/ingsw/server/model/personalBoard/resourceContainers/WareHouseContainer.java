@@ -9,6 +9,10 @@ import it.polimi.ingsw.utils.exceptions.DepotException;
 
 public class WareHouseContainer extends ResourceContainer {
 
+    /**
+     * Class constructor. Instantiates a new Special container
+     * @param capacity the maximum amount of resources that characterizes the container
+     */
     public WareHouseContainer(int capacity) {
         super(capacity);
     }
@@ -24,6 +28,11 @@ public class WareHouseContainer extends ResourceContainer {
         this.resourceType = resource;
     }
 
+    /**
+     * Performs the setting of the capacity of the container
+     * @param capacity the maximum amount of resources that characterizes the container
+     * @throws DepotException if there are too many resources
+     */
     public void setCapacity(int capacity) throws DepotException {
         if (capacity < 0) this.capacity = -1;
         else {

@@ -5,7 +5,7 @@ import it.polimi.ingsw.utils.exceptions.DepotException;
 import it.polimi.ingsw.utils.observer.Observable;
 
 /**
- * Generic Depot without any specialization
+ * Generic Depot without any specialization.
  */
 public abstract class Depot extends Observable {
 

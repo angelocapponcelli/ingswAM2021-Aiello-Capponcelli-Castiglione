@@ -14,10 +14,19 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Development Card Grid. It is a grid composed by twelve decks. Each deck is associated to a specific level and type
+ * of development card.
+ */
 
 public class DevelopmentCardGrid extends Observable {
     private final Deck[][] deckGrid = new Deck[3][4];
 
+    /**
+     * Class constructor. Instantiates a new Card grid. Instantiates twelve new Decks and populates them based on type and level of the cards.
+     * It also shuffles the decks.
+     * @throws FileNotFoundException if the JSON file is not found
+     */
     public DevelopmentCardGrid() throws FileNotFoundException {
 
         for (int i = 0; i < 3; i++) {
@@ -54,22 +63,50 @@ public class DevelopmentCardGrid extends Observable {
 
     }
 
+    /**
+     * Gets the top card of the deck
+     * @param row where to find the deck
+     * @param column where to find the deck
+     * @return card which is on top of the selected deck
+     */
+
     public DevelopmentCard peek(int row, int column){
         return deckGrid[row][column].peek();
     }
+
+    /**
+     * Picks the top card of the selected deck. The it removes the card from the deck and notifies the observer
+     * @param row where to find the deck
+     * @param column where to find the deck
+     * @return card which is on top of the selected Deck
+     */
     public DevelopmentCard pop(int row, int column){
         DevelopmentCard developmentCard = deckGrid[row][column].pop();
         notifyObserver(new UpdatedDevelopmentCardGridMessage(toReduced()));
         return developmentCard;
     }
 
+    /**
+     * Gets the selected deck
+     * @param row where to find the deck
+     * @param column where to find the deck
+     * @return deck selected
+     */
+
     public Deck getDeck(Integer row, Integer column) {
         return this.deckGrid[row][column];
     }
 
+    /**
+     * Gets the multidimensional array of the grid
+     * @return grid where the cards are put
+     */
+
     public Deck[][] getDeckGrid() {
         return deckGrid;
     }
+
+
 
 
 
@@ -96,6 +133,11 @@ public class DevelopmentCardGrid extends Observable {
 
         notifyObserver(new UpdatedDevelopmentCardGridMessage(toReduced()));
     }
+
+    /**
+     * Gets a reduced version of the grid
+     * @return reduced development card multidimensional array.
+     */
 
     public ReducedDevelopmentCard[][] toReduced() {
         ReducedDevelopmentCard[][] reducedDeckGrid = new ReducedDevelopmentCard[3][4];

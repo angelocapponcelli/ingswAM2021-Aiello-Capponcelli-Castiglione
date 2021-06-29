@@ -5,10 +5,15 @@ import it.polimi.ingsw.client.view.GUI.FXGUI;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedContainer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 
@@ -16,6 +21,8 @@ import java.util.Objects;
 
 public class AskForMainAction {
 
+    @FXML
+    private FlowPane specialPane;
     @FXML
     private FlowPane inHandLeaderCardPane;
     @FXML
@@ -110,6 +117,28 @@ public class AskForMainAction {
                 inHandLeaderCardPane.getChildren().add(leaderCard);
             }
         }
+
+        FXGUI.getClient().getView().getReducedGameModel().getSpecialDepot().forEach( (resourceType, count) -> {
+            AnchorPane anchorPane = new AnchorPane();
+            ImageView imageViewBackGround = new ImageView(new Image(getClass().getResourceAsStream("/image/special/special" + resourceType.toString() + ".png")));
+            imageViewBackGround.setFitHeight(50);
+            imageViewBackGround.setFitWidth(110);
+            anchorPane.getChildren().add(imageViewBackGround);
+            HBox hBox = new HBox();
+            hBox.setAlignment(Pos.CENTER_LEFT);
+            hBox.setPrefHeight(50);
+            hBox.setPrefWidth(110);
+            hBox.setSpacing(16);
+            hBox.setPadding(new Insets(0, 0, 0, 6));
+            for (int i = 0; i < count; i++) {
+                ImageView imageResourceSpecial = new ImageView(new Image(getClass().getResourceAsStream("/image/resources/" + resourceType.toString() + ".png")));
+                imageResourceSpecial.setFitWidth(40);
+                imageResourceSpecial.setFitHeight(40);
+                hBox.getChildren().add(imageResourceSpecial);
+            }
+            anchorPane.getChildren().add(hBox);
+            specialPane.getChildren().add(anchorPane);
+        });
     }
 
     public void onTakeFromMarket(ActionEvent actionEvent) {

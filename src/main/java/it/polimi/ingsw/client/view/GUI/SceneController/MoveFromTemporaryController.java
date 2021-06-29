@@ -6,10 +6,16 @@ import it.polimi.ingsw.networking.messages.clientMessages.ReallocateResourceMess
 import it.polimi.ingsw.server.model.resources.ResourceType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 
 import java.util.Objects;
@@ -17,11 +23,18 @@ import java.util.stream.IntStream;
 
 public class MoveFromTemporaryController {
 
-    public HBox firstShelfBox;
-    public HBox secondShelfBox;
-    public HBox thirdShelfBox;
-    public HBox temporaryDepotResourceHbox;
-    public BorderPane resourceToMovePane;
+    @FXML
+    private HBox firstShelfBox;
+    @FXML
+    private HBox secondShelfBox;
+    @FXML
+    private HBox thirdShelfBox;
+    @FXML
+    private HBox temporaryDepotResourceHbox;
+    @FXML
+    private BorderPane resourceToMovePane;
+    @FXML
+    private FlowPane specialPane;
 
     @FXML
     public void initialize() {
@@ -68,6 +81,35 @@ public class MoveFromTemporaryController {
             imageView.setAccessibleText(FXGUI.getClient().getView().getReducedGameModel().getWareHouseDepot().get(2).getResourceType().toString());
             thirdShelfBox.getChildren().add(imageView);
         }
+
+       FXGUI.getClient().getView().getReducedGameModel().getSpecialDepot().forEach( (resourceType, count) -> {
+            AnchorPane anchorPane = new AnchorPane();
+            anchorPane.setCursor(Cursor.HAND);
+            anchorPane.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onSpecialClicked(resourceType));
+            ImageView imageViewBackGround = new ImageView(new Image(getClass().getResourceAsStream("/image/special/special" + resourceType.toString() + ".png")));
+            imageViewBackGround.setFitHeight(80);
+            imageViewBackGround.setFitWidth(175);
+            anchorPane.getChildren().add(imageViewBackGround);
+            HBox hBox = new HBox();
+            hBox.setAlignment(Pos.CENTER_LEFT);
+            hBox.setPrefHeight(80);
+            hBox.setPrefWidth(175);
+            hBox.setSpacing(25);
+            hBox.setPadding(new Insets(0, 0, 0, 10));
+            for (int i = 0; i < count; i++) {
+                ImageView imageResourceSpecial = new ImageView(new Image(getClass().getResourceAsStream("/image/resources/" + resourceType.toString() + ".png")));
+                imageResourceSpecial.setFitWidth(65);
+                imageResourceSpecial.setFitHeight(65);
+                hBox.getChildren().add(imageResourceSpecial);
+            }
+            anchorPane.getChildren().add(hBox);
+            specialPane.getChildren().add(anchorPane);
+        });
+    }
+
+    private void onSpecialClicked(ResourceType resourceType) {
+        new FXGUI().getClient().sendMessage(new ReallocateResourceMessage(FXGUI.getClient().getNickName(), resourceType, "Temporary",
+                "Special", -1, -1));
     }
 
     public void onShelfClicked(ActionEvent event) {

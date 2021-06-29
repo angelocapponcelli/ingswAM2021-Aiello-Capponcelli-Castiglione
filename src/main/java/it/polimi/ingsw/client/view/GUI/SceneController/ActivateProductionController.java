@@ -86,19 +86,19 @@ public class ActivateProductionController {
             firstDevelopmentCardImage.setImage(new Image(getClass().getResourceAsStream("/image/cards/" + String.valueOf(FXGUI.getClient().getView().getReducedGameModel().getPersonalDevelopmentBoard().get(0).getId()) + ".png")));
         } catch (NullPointerException e) {
             firstDevelopmentCardCheckBox.setDisable(true);
-            System.err.println("Invalid url or card stack empty");
+            //System.err.println("Invalid url or card stack empty");
         }
         try {
             secondDevelopmentCardImage.setImage(new Image(getClass().getResourceAsStream("/image/cards/" + String.valueOf(FXGUI.getClient().getView().getReducedGameModel().getPersonalDevelopmentBoard().get(1).getId()) + ".png")));
         } catch (NullPointerException e) {
             secondDevelopmentCardCheckBox.setDisable(true);
-            System.err.println("Invalid url or card stack empty");
+            //System.err.println("Invalid url or card stack empty");
         }
         try {
             thirdDevelopmentCardImage.setImage(new Image(getClass().getResourceAsStream("/image/cards/" + String.valueOf(FXGUI.getClient().getView().getReducedGameModel().getPersonalDevelopmentBoard().get(2).getId()) + ".png")));
         } catch (NullPointerException e) {
             thirdDevelopmentCardCheckBox.setDisable(true);
-            System.err.println("Invalid url or card stack empty");
+            //System.err.println("Invalid url or card stack empty");
         }
         for (int i = 0; i < FXGUI.getClient().getView().getReducedGameModel().getStrongBoxDepot().size(); i++) {
             ReducedContainer reducedContainer = FXGUI.getClient().getView().getReducedGameModel().getStrongBoxDepot().get(i);

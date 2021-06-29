@@ -26,7 +26,7 @@ public class BuyDevCardController {
                 try {
                     imageView.setImage(new Image(getClass().getResourceAsStream("/image/cards/" + developmentCardsGrid[i][j].getId() + ".png")));
                 } catch (NullPointerException e) {
-                    System.err.println("Invalid url or card stack empty");
+                    System.err.println("Invalid url or card stack empty: " + developmentCardsGrid[i][j].getId());
                 }
                 count++;
             }

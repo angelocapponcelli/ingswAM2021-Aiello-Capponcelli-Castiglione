@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="565.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.GUI.SceneController.TakeFromMarketController">
+<AnchorPane prefHeight="565.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.GUI.SceneController.TakeFromMarketController">
     <ImageView fitHeight="575.0" fitWidth="455.0" layoutX="-4.0" layoutY="-4.0">
         <image>
             <Image url="@../image/marketTray/marketTrayBoard.png" />

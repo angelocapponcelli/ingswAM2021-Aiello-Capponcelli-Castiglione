@@ -19,6 +19,9 @@ public class ReducedGameModel {
     private Integer playerTurnPosition;
     private Map<SpecialAbilityType, ResourceType> activatedSpecialAbilities;
     private List<ReducedFaithCell> faithTrack;
+    private List<ReducedVaticanReportSection> flippedVaticanReportSections = new ArrayList<>();
+
+
 
     public ReducedGameModel() {
         marketTray = new ReducedMarketTray();
@@ -117,8 +120,6 @@ public class ReducedGameModel {
         this.specialDepot = specialDepot;
     }
 
-
-
     public Map<ResourceType, Integer> getProductionPowerInputBoard() {
         return productionPower.getProductionPowerInput();
     }
@@ -141,8 +142,15 @@ public class ReducedGameModel {
     public List<ReducedFaithCell> getFaithTrack() {
         return faithTrack;
     }
-
     public void setFaithTrack(List<ReducedFaithCell> faithTrack) {
         this.faithTrack = faithTrack;
+    }
+
+
+    public List<ReducedVaticanReportSection> getFlippedVaticanReportSections() {
+        return flippedVaticanReportSections;
+    }
+    public void setFlippedVaticanReportSections(List<ReducedVaticanReportSection> flippedVaticanReportSections) {
+        this.flippedVaticanReportSections = flippedVaticanReportSections;
     }
 }

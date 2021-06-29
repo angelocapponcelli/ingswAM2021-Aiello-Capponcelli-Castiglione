@@ -83,7 +83,16 @@ public class FaithTrack extends Observable {
     public List<ReducedFaithCell> toReduced(){
         List<ReducedFaithCell> reduced = new ArrayList<>();
 
-        track.forEach(cell -> reduced.add(new ReducedFaithCell(cell.getVictoryPoints(), getVaticanReportSectionFromCell(cell) != null ? getVaticanReportSectionFromCell(cell).getVictoryPoints():0)));
+        track.forEach(cell -> {
+            String cellType = "NORMAL";
+            if(cell instanceof PopeSpaceCell) cellType = "POPE";
+            if (cell instanceof FinalCell) cellType = "FINAL";
+
+            reduced.add(new ReducedFaithCell(cell.getVictoryPoints(),
+                    getVaticanReportSectionFromCell(cell) != null ? getVaticanReportSectionFromCell(cell).getVictoryPoints():0,
+                    cellType
+                    ));
+        });
         return reduced;
     }
 

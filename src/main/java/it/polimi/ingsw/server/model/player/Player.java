@@ -5,6 +5,7 @@ import it.polimi.ingsw.networking.messages.serverMessage.TurnPositionMessage;
 import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.server.model.globalBoard.faithTrack.VaticanReportSection;
 import it.polimi.ingsw.utils.observer.Observable;
+import it.polimi.ingsw.utils.observer.Observer;
 
 public abstract class Player extends Observable {
 
@@ -75,5 +76,10 @@ public abstract class Player extends Observable {
         notifyObserver(new TurnPositionMessage(turnPosition));
     }
 
+    @Override
+    public void addObserver(Observer obs) {
+        super.addObserver(obs);
+        vaticanReportStatus.addObserver(obs);
+    }
 }
 

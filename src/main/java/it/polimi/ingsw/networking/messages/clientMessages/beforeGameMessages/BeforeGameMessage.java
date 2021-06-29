@@ -8,5 +8,4 @@ import it.polimi.ingsw.networking.messages.Message;
  */
 public abstract class BeforeGameMessage extends Message {
 
-    public abstract Boolean check();
 }

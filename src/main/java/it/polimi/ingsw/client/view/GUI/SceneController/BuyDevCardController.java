@@ -13,7 +13,8 @@ import javafx.scene.layout.GridPane;
 
 public class BuyDevCardController {
 
-    public GridPane gridCard;
+    @FXML
+    private GridPane gridCard;
 
     @FXML
     public void initialize() {

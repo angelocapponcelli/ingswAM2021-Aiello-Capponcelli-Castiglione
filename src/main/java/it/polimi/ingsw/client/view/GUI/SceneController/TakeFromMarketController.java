@@ -26,8 +26,10 @@ public class TakeFromMarketController {
     private Scene scene;
     private Parent root;
 
-    public GridPane marketTrayGrid;
-    public ImageView slideImage;
+    @FXML
+    private GridPane marketTrayGrid;
+    @FXML
+    private ImageView slideImage;
 
     @FXML
     public void initialize() {

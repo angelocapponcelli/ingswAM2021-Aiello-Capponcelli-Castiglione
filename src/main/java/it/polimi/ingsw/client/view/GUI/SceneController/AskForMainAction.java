@@ -3,24 +3,31 @@ package it.polimi.ingsw.client.view.GUI.SceneController;
 import it.polimi.ingsw.client.controller.MY_TURN;
 import it.polimi.ingsw.client.view.GUI.FXGUI;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedContainer;
+import it.polimi.ingsw.client.view.reducedGameModel.ReducedDevelopmentCard;
+import it.polimi.ingsw.client.view.reducedGameModel.ReducedMarketTray;
+import it.polimi.ingsw.client.view.reducedGameModel.ReducedPlayer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 
+import java.util.List;
 import java.util.Objects;
 
 public class AskForMainAction {
 
+    @FXML
+    private AnchorPane faithTrackPane;
+    @FXML
+    private GridPane gridCard;
+    @FXML
+    private GridPane marketTrayGrid;
+    @FXML
+    private ImageView slideImage;
     @FXML
     private FlowPane specialPane;
     @FXML
@@ -77,17 +84,17 @@ public class AskForMainAction {
         try {
             firstDevelopmentCardImage.setImage(new Image(getClass().getResourceAsStream("/image/cards/" + String.valueOf(FXGUI.getClient().getView().getReducedGameModel().getPersonalDevelopmentBoard().get(0).getId()) + ".png")));
         } catch (NullPointerException e) {
-            System.err.println("Invalid url or card stack empty");
+           // System.err.println("Invalid url or card stack empty");
         }
         try {
             secondDevelopmentCardImage.setImage(new Image(getClass().getResourceAsStream("/image/cards/" + String.valueOf(FXGUI.getClient().getView().getReducedGameModel().getPersonalDevelopmentBoard().get(1).getId()) + ".png")));
         } catch (NullPointerException e) {
-            System.err.println("Invalid url or card stack empty");
+           // System.err.println("Invalid url or card stack empty");
         }
         try {
             thirdDevelopmentCardImage.setImage(new Image(getClass().getResourceAsStream("/image/cards/" + String.valueOf(FXGUI.getClient().getView().getReducedGameModel().getPersonalDevelopmentBoard().get(2).getId()) + ".png")));
         } catch (NullPointerException e) {
-            System.err.println("Invalid url or card stack empty");
+           // System.err.println("Invalid url or card stack empty");
         }
         for (int i = 0; i < FXGUI.getClient().getView().getReducedGameModel().getStrongBoxDepot().size(); i++) {
             ReducedContainer reducedContainer = FXGUI.getClient().getView().getReducedGameModel().getStrongBoxDepot().get(i);
@@ -122,23 +129,60 @@ public class AskForMainAction {
             AnchorPane anchorPane = new AnchorPane();
             ImageView imageViewBackGround = new ImageView(new Image(getClass().getResourceAsStream("/image/special/special" + resourceType.toString() + ".png")));
             imageViewBackGround.setFitHeight(50);
-            imageViewBackGround.setFitWidth(110);
+            imageViewBackGround.setFitWidth(105);
             anchorPane.getChildren().add(imageViewBackGround);
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER_LEFT);
             hBox.setPrefHeight(50);
-            hBox.setPrefWidth(110);
-            hBox.setSpacing(16);
-            hBox.setPadding(new Insets(0, 0, 0, 6));
+            hBox.setPrefWidth(105);
+            hBox.setSpacing(18);
+            hBox.setPadding(new Insets(0, 0, 0, 8));
             for (int i = 0; i < count; i++) {
                 ImageView imageResourceSpecial = new ImageView(new Image(getClass().getResourceAsStream("/image/resources/" + resourceType.toString() + ".png")));
-                imageResourceSpecial.setFitWidth(40);
-                imageResourceSpecial.setFitHeight(40);
+                imageResourceSpecial.setFitWidth(35);
+                imageResourceSpecial.setFitHeight(35);
                 hBox.getChildren().add(imageResourceSpecial);
             }
             anchorPane.getChildren().add(hBox);
             specialPane.getChildren().add(anchorPane);
         });
+
+        ReducedMarketTray marketTray = FXGUI.getClient().getView().getReducedGameModel().getMarketTray();
+        int count = 0;
+        for (int i = 0; i < marketTray.getMarketTray().length; i++) {
+            for (int j = 0; j < marketTray.getMarketTray()[i].length; j++) {
+                ImageView imageView = (ImageView) marketTrayGrid.getChildren().get(count);
+                imageView.setImage(new Image(getClass().getResourceAsStream("/image/marketTray/" + marketTray.getMarketTray()[i][j].toString() + ".png")));
+                count++;
+            }
+        }
+        slideImage.setImage(new Image(getClass().getResourceAsStream("/image/marketTray/" + FXGUI.getClient().getView().getReducedGameModel().getMarketTray().getSlide().toString() + ".png")));
+
+        ReducedDevelopmentCard[][] developmentCardsGrid = FXGUI.getClient().getView().getReducedGameModel().getDevelopmentCardsGrid();
+        count = 0;
+        for (int i = 0; i < developmentCardsGrid.length; i++) {
+            for (int j = 0; j < developmentCardsGrid[i].length; j++) {
+                BorderPane borderPane = (BorderPane) gridCard.getChildren().get(count);
+                ImageView imageView = (ImageView) borderPane.getCenter();
+                try {
+                    imageView.setImage(new Image(getClass().getResourceAsStream("/image/cards/" + developmentCardsGrid[i][j].getId() + ".png")));
+                } catch (NullPointerException e) {
+                    System.err.println("Invalid url or card stack empty: " + developmentCardsGrid[i][j].getId());
+                }
+                count++;
+            }
+        }
+
+        List<ReducedPlayer> players = FXGUI.getClient().getView().getReducedGameModel().getPlayers();
+        for (int i = 0; i < players.size(); i++) {
+            FlowPane cellPain = (FlowPane) faithTrackPane.getChildren().get( players.get(i).getFaithPosition() );
+            ImageView playerImage = new ImageView(new Image(getClass().getResourceAsStream("/image/players/player" + i + ".png")));
+            playerImage.setFitHeight(35);
+            playerImage.setFitWidth(27);
+            cellPain.getChildren().add(playerImage);
+        }
+
+
     }
 
     public void onTakeFromMarket(ActionEvent actionEvent) {

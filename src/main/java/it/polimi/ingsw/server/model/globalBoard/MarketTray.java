@@ -4,7 +4,7 @@ import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.Updat
 import it.polimi.ingsw.server.model.resources.Resource;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.utils.observer.Observable;
-import it.polimi.ingsw.utils.parsers.MarketTrayParser;
+import it.polimi.ingsw.utils.parsers.SettingsParser;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class MarketTray extends Observable {
     }
 
     public MarketTray() throws FileNotFoundException {
-        MarketTray temp = MarketTrayParser.getMarketTray();
+        MarketTray temp = SettingsParser.getInstance().getMarketTray();
         this.marketTray = temp.getMarketTray();
         this.slide = temp.getSlide();
     }

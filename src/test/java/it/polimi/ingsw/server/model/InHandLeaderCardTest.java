@@ -3,7 +3,6 @@ package it.polimi.ingsw.server.model;
 import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
 import it.polimi.ingsw.server.model.cards.LeaderRequirements;
-import it.polimi.ingsw.server.model.globalBoard.faithTrack.FaithTrack;
 import it.polimi.ingsw.server.model.personalBoard.InHandLeaderCard;
 import it.polimi.ingsw.server.model.player.RealPlayer;
 import it.polimi.ingsw.server.model.resources.Coin;
@@ -29,8 +28,8 @@ class InHandLeaderCardTest {
         inHandLeaderCard = new InHandLeaderCard();
         LeaderRequirements leaderRequirements = new LeaderRequirements();
         leaderRequirements.add(Coin.getInstance(), 1);
-        LeaderCard leaderCard1 = new LeaderCard(1, leaderRequirements, 1, new SpecialDiscount(Coin.getInstance()));
-        LeaderCard leaderCard2 = new LeaderCard(2, new LeaderRequirements(), 3, new SpecialWhiteMarble(Servant.getInstance()));
+        LeaderCard leaderCard1 = new LeaderCard(1, leaderRequirements, 1, new SpecialDiscount(Coin.getInstance(),1));
+        LeaderCard leaderCard2 = new LeaderCard(2, new LeaderRequirements(), 3, new SpecialWhiteMarble(Servant.getInstance(),1));
         inHandLeaderCard.getInHandLeaderCards().add(leaderCard1);
         inHandLeaderCard.getInHandLeaderCards().add(leaderCard2);
         realPlayer.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.COIN, 3);
@@ -67,8 +66,8 @@ class InHandLeaderCardTest {
     @Test
     void remove(){
         int tmp;
-        LeaderCard leaderCard3 = new LeaderCard(3, new LeaderRequirements(), 3, new SpecialWhiteMarble(Servant.getInstance()));
-        LeaderCard leaderCard4 = new LeaderCard(4, new LeaderRequirements(), 5, new SpecialDiscount(Coin.getInstance()));
+        LeaderCard leaderCard3 = new LeaderCard(3, new LeaderRequirements(), 3, new SpecialWhiteMarble(Servant.getInstance(),1));
+        LeaderCard leaderCard4 = new LeaderCard(4, new LeaderRequirements(), 5, new SpecialDiscount(Coin.getInstance(),1));
         List<Integer> removeList= new ArrayList<>();
         inHandLeaderCard.getInHandLeaderCards().add(leaderCard3);
         inHandLeaderCard.getInHandLeaderCards().add(leaderCard4);
@@ -104,8 +103,8 @@ class InHandLeaderCardTest {
 
     @Test
     void addCard(){
-        LeaderCard leaderCard3 = new LeaderCard(3, new LeaderRequirements(), 3, new SpecialWhiteMarble(Servant.getInstance()));
-        LeaderCard leaderCard4 = new LeaderCard(4, new LeaderRequirements(), 5, new SpecialDiscount(Coin.getInstance()));
+        LeaderCard leaderCard3 = new LeaderCard(3, new LeaderRequirements(), 3, new SpecialWhiteMarble(Servant.getInstance(),1));
+        LeaderCard leaderCard4 = new LeaderCard(4, new LeaderRequirements(), 5, new SpecialDiscount(Coin.getInstance(),1));
         InHandLeaderCard testHand= new InHandLeaderCard();
         List<LeaderCard> tmp= new ArrayList<>();
         tmp.add(leaderCard3);

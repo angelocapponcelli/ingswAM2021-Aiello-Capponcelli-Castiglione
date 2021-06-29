@@ -40,4 +40,48 @@ public enum Colors {
 
     }
 
+
+    public String getBGColor() {
+
+        switch (this) {
+            case WHITE:
+                return CLIColors.getAnsiWhiteBackground();
+            case BLUE:
+                return CLIColors.getAnsiBlueBackground();
+            case GREY:
+                return CLIColors.getAnsiBrightBlackBackground();
+            case YELLOW:
+                return CLIColors.getAnsiYellowBackground();
+            case PURPLE:
+                return CLIColors.getAnsiPurpleBackground();
+            case RED:
+                return CLIColors.getAnsiRedBackground();
+            case GREEN:
+                return CLIColors.getAnsiGreenBackground();
+            default:
+                return CLIColors.ANSI_RESET;
+        }
+
+    }
+
+    public static Colors parse(String string){
+        switch (string){
+            case "WHITE":
+                return WHITE;
+            case "BLUE":
+                return BLUE;
+            case "GREY":
+                return GREY;
+            case "YELLOW":
+                return YELLOW;
+            case "PURPLE":
+                return PURPLE;
+            case "RED":
+                return RED;
+            case "GREEN":
+                return GREEN;
+            default:
+                return null;
+        }
+    }
 }

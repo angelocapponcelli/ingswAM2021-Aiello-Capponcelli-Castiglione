@@ -35,7 +35,6 @@ class ProductionPowerOutputTest {
         assertEquals(realPlayer.getPersonalBoard().getStrongBoxDepot().getSpecificResourceCount(ResourceType.SHIELD), 1);
         assertEquals(realPlayer.getPersonalBoard().getStrongBoxDepot().getSpecificResourceCount(ResourceType.SERVANT), 0);
 
-
     }
 
     @Test

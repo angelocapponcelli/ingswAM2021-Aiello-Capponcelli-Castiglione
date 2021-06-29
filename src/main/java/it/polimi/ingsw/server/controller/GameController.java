@@ -18,13 +18,14 @@ import it.polimi.ingsw.server.model.game.Game;
 import it.polimi.ingsw.server.model.game.MultiplayerGame;
 import it.polimi.ingsw.server.model.game.SinglePlayerGame;
 import it.polimi.ingsw.server.model.personalBoard.PersonalBoard;
+import it.polimi.ingsw.server.model.player.Lorenzo;
 import it.polimi.ingsw.server.model.player.Player;
 import it.polimi.ingsw.server.model.player.RealPlayer;
 import it.polimi.ingsw.server.model.productionPower.ProductionPowerInput;
 import it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.utils.exceptions.DepotException;
-import it.polimi.ingsw.utils.parsers.LeaderCardParser;
+import it.polimi.ingsw.utils.parsers.SettingsParser;
 
 import java.io.IOException;
 import java.util.*;
@@ -40,11 +41,18 @@ public class GameController {
     private GameState currentGameState;
     private int currentPlayer = 0;
 
-    public GameController(Integer maxPlayersNumber, Integer gameID) {
+    public GameController(Integer playersNumber, Integer gameID) {
         this.gameID = gameID;
         currentGameState = GameState.LOGIN;
-        this.maxPlayersNumber = maxPlayersNumber;
-        gameModel = maxPlayersNumber == 1 ? new SinglePlayerGame() : new MultiplayerGame(maxPlayersNumber);
+        this.maxPlayersNumber = playersNumber;
+
+        if(playersNumber == 1){
+            gameModel = new SinglePlayerGame();
+            playerList.add(new Lorenzo(this));
+
+        }
+        else gameModel = new MultiplayerGame(playersNumber);
+
     }
 
 
@@ -72,7 +80,7 @@ public class GameController {
         realPlayer.addObserver(inGameConnectedClient);
         playerList.add(realPlayer);
         gameModel.addObserver(inGameConnectedClient);
-        if (inGameConnectedClients.size() == maxPlayersNumber) {
+        if ( (gameModel instanceof MultiplayerGame && inGameConnectedClients.size() == maxPlayersNumber ) || (gameModel instanceof SinglePlayerGame && playerList.size() == 2) ) {
             updateGameState(GameState.IN_GAME);
             initializeGame();
             sendBroadCastMessage(new GamePhaseUpdateMessage(MessageType.ALL_PLAYERS_JOINED));
@@ -90,6 +98,7 @@ public class GameController {
     private void initializeGame() {
 
         Collections.shuffle(playerList);
+        if(playerList.get(0).getNickName().equals("Lorenzo")) Collections.swap(playerList,0,1);
         IntStream.range(0, playerList.size()).forEach(i -> playerList.get(i).setTurnPosition(i + 1));
         if (playerList.size() > 2) {
             playerList.get(2).setFaithPosition(1);
@@ -102,6 +111,7 @@ public class GameController {
         for (Player player : playerList) {
             reducedPlayers.add(new ReducedPlayer(player));
         }
+
         sendBroadCastMessage(new InitViewMessage(
                         reducedPlayers,
                         gameModel.getGlobalBoard().getMarketTray(),
@@ -112,7 +122,8 @@ public class GameController {
         );
 
 
-        List<LeaderCard> leaderCardsDeck = LeaderCardParser.getLeaderCards();
+        List<LeaderCard> leaderCardsDeck = SettingsParser.getInstance().getLeaderCards();
+        Collections.shuffle(leaderCardsDeck);
         IntStream.range(0, playerList.size())
                 .filter(i -> playerList.get(i) instanceof RealPlayer)
                 .forEach(i -> {
@@ -197,7 +208,6 @@ public class GameController {
     }
 
     private void reallocateResource(ReallocateResourceMessage reallocateResourceMessage) {
-        System.out.println("kswkmw");
         RealPlayer realPlayer = (RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(reallocateResourceMessage.getNickname()))
                 .findFirst().orElse(null);
         PersonalBoard personalBoard = Objects.requireNonNull(realPlayer).getPersonalBoard();
@@ -381,6 +391,13 @@ public class GameController {
     }
 
     private void lorenzoTurn(){
+        playerList.stream()
+                .filter(player -> player.getNickName().equals("Lorenzo"))
+                .findFirst().
+                map(x -> (Lorenzo)x)
+                .get()
+                .reveal();
+
 
     }
 

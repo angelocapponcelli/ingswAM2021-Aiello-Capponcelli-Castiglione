@@ -16,6 +16,7 @@ import java.util.List;
 public class AskForInitialResources {
 
     private List<ResourceType> initialResources = new ArrayList<>();
+
     private int numOfResources = 4;
     @FXML
     private Button btn1;

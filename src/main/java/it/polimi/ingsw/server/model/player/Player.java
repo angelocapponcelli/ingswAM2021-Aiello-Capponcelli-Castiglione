@@ -5,6 +5,7 @@ import it.polimi.ingsw.networking.messages.serverMessage.TurnPositionMessage;
 import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.server.model.globalBoard.faithTrack.VaticanReportSection;
 import it.polimi.ingsw.utils.observer.Observable;
+import it.polimi.ingsw.utils.observer.Observer;
 
 /**
  * Player is an abstract class. there can be two types of player: the real player and Lorenzo.
@@ -12,7 +13,7 @@ import it.polimi.ingsw.utils.observer.Observable;
 public abstract class Player extends Observable {
 
     protected GameController gameController;
-    protected String nickName;
+    protected final String nickName;
     protected Integer faithPosition;
     protected VaticanReportStatus vaticanReportStatus;
     protected Integer turnPosition;
@@ -108,5 +109,10 @@ public abstract class Player extends Observable {
         notifyObserver(new TurnPositionMessage(turnPosition));
     }
 
+    @Override
+    public void addObserver(Observer obs) {
+        super.addObserver(obs);
+        vaticanReportStatus.addObserver(obs);
+    }
 }
 

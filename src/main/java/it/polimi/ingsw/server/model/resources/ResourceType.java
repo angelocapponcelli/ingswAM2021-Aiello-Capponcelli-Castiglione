@@ -14,11 +14,6 @@ public enum ResourceType implements ReducedRequirement {
     FAITH,
     ANY;
 
-    /**
-     * Gets the resource correspondent to the resource type put in input.
-     * @param resourceType that is going to be used to get the correspondent resource
-     * @return resource
-     */
     public static Resource getResourceClass(ResourceType resourceType) {
         switch (resourceType.toString()) {
             case "COIN":
@@ -38,6 +33,25 @@ public enum ResourceType implements ReducedRequirement {
         }
     }
 
+    public static ResourceType parse(String string){
+        switch (string) {
+            case "COIN":
+                return COIN;
+            case "STONE":
+                return STONE;
+            case "SHIELD":
+                return SHIELD;
+            case "SERVANT":
+                return SERVANT;
+            case "FAITH":
+                return FAITH;
+            case "ANY":
+                return ANY;
+            default:
+                return null;
+        }
+
+    }
 
     public static boolean contains(String test) {
 
@@ -50,10 +64,6 @@ public enum ResourceType implements ReducedRequirement {
         return false;
     }
 
-    /**
-     * Gets color correspondent to the resource type
-     * @return color of the resource
-     */
     public String getColor() {
         switch (this.toString()) {
             case "COIN":
@@ -73,10 +83,6 @@ public enum ResourceType implements ReducedRequirement {
         }
     }
 
-    /**
-     * Method used by the cli
-     * @return string for the cli
-     */
     public String toCLI() {
         switch (this.toString()) {
             case "COIN":

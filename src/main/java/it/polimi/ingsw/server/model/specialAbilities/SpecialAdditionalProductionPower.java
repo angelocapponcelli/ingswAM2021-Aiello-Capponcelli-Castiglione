@@ -7,16 +7,10 @@ import it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput;
 import it.polimi.ingsw.server.model.resources.Resource;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 
-/**
- * Special Additional Production Power class. It extends Special Ability.
- */
+
 public class SpecialAdditionalProductionPower extends SpecialAbility {
     ProductionPower productionPower;
 
-    /**
-     * Class constructor. Instantiates a new Special Additional Production Power.
-     * @param resource which characterizes this ability
-     */
     public SpecialAdditionalProductionPower(Resource resource) {
         this.resource = resource;
         ProductionPowerInput productionPowerInput = new ProductionPowerInput();
@@ -27,18 +21,16 @@ public class SpecialAdditionalProductionPower extends SpecialAbility {
 
     }
 
-    /**
-     * Class constructor. Instantiates a new Special Additional Production Power.
-     * @param productionPower of this Special Production Power Ability
-     */
+    public SpecialAdditionalProductionPower(Resource resource, ProductionPower productionPower) {
+        this.resource = resource;
+        this.productionPower = productionPower;
+
+    }
+
     public SpecialAdditionalProductionPower(ProductionPower productionPower) {
         this.productionPower = productionPower;
     }
 
-    /**
-     * Adds the production power to the personal board of the player
-     * @param player that activates this special ability
-     */
     @Override
     public void onActivation(RealPlayer player) {
         player.getPersonalBoard().addProductionPower(productionPower);

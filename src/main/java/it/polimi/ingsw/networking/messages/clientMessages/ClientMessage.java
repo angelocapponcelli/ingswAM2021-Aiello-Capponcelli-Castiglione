@@ -9,10 +9,6 @@ public abstract class ClientMessage extends Message {
         this.nickname = nickname;
     }
 
-    public Boolean check() {
-        return true;
-    }
-
     public String getNickname() {
         return this.nickname;
     }

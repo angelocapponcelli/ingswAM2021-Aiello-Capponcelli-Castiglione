@@ -15,16 +15,6 @@ public class SwapShelvesClientMessage extends ClientMessage {
         this.messageType = MessageType.SWAP_SHELVES;
     }
 
-    @Override
-    public Boolean check() {
-        if (this.shelves1 == this.shelves2) {
-            return false;
-        }
-        if (this.shelves1 < 0 || this.shelves1 > 2) {
-            return false;
-        }
-        return this.shelves2 >= 0 && this.shelves2 <= 2;
-    }
 
     public Integer getShelves1() {
         return shelves1;

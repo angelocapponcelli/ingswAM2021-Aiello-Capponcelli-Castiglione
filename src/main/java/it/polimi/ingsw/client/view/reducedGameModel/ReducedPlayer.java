@@ -4,12 +4,14 @@ import it.polimi.ingsw.server.model.misc.Colors;
 import it.polimi.ingsw.server.model.player.Player;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ReducedPlayer implements Serializable {
     private int faithPosition;
     private Colors playerColor;
     private String nickName;
     private Integer turnPosition;
+    private List<ReducedVaticanReportSection> vaticanReportSections;
 
     public ReducedPlayer(Player player) {
         this.faithPosition = player.getFaithPosition();

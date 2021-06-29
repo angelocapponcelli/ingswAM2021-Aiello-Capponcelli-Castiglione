@@ -3,26 +3,18 @@ package it.polimi.ingsw.server.model.globalBoard.faithTrack;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedFaithCell;
 import it.polimi.ingsw.utils.observer.Observable;
 import it.polimi.ingsw.utils.observer.Observer;
-import it.polimi.ingsw.utils.parsers.FaithTrackParser;
-
-import java.io.FileNotFoundException;
+import it.polimi.ingsw.utils.parsers.SettingsParser;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Faith Track class. It is composed by a list of Cells and a list of Vatican Report Sections
- */
 
 public class FaithTrack extends Observable {
     private final List<Cell> track;
     private final List<VaticanReportSection> vaticanReportSectionList;
 
-    /**
-     * Class constructor. Instantiates a new FaithTrack.
-     * @throws FileNotFoundException if the JSON file is not found
-     */
-    public FaithTrack() throws FileNotFoundException {
-        FaithTrack temp = FaithTrackParser.getFaithTrack();
+
+    public FaithTrack(){
+        FaithTrack temp = SettingsParser.getInstance().getFaithTrack();
         this.track = temp.getTrack();
         this.vaticanReportSectionList = temp.getVaticanReportSectionList();
     }
@@ -40,7 +32,6 @@ public class FaithTrack extends Observable {
 
 
     /**
-     * Gets the Vatican report sections that contains the cell. If the cell isn't in any Vatican Report Section it returns null.
      * @param cell The cell contained in the VaticanReportSection.
      * @return Vatican report section that contains the cell.
      */
@@ -89,16 +80,19 @@ public class FaithTrack extends Observable {
         }
     }
 
-    /**
-     * Gets the reduced version of the faith track
-     * @return a list of a reduced version of the cells of the track
-     */
-
     public List<ReducedFaithCell> toReduced(){
         List<ReducedFaithCell> reduced = new ArrayList<>();
 
-        track.stream()
-                .forEach(cell -> reduced.add(new ReducedFaithCell(cell.getVictoryPoints(), getVaticanReportSectionFromCell(cell) != null ? getVaticanReportSectionFromCell(cell).getVictoryPoints():0)));
+        track.forEach(cell -> {
+            String cellType = "NORMAL";
+            if(cell instanceof PopeSpaceCell) cellType = "POPE";
+            if (cell instanceof FinalCell) cellType = "FINAL";
+
+            reduced.add(new ReducedFaithCell(cell.getVictoryPoints(),
+                    getVaticanReportSectionFromCell(cell) != null ? getVaticanReportSectionFromCell(cell).getVictoryPoints():0,
+                    cellType
+                    ));
+        });
         return reduced;
     }
 

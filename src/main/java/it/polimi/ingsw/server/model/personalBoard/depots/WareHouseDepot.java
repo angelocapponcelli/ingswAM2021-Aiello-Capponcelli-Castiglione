@@ -1,7 +1,6 @@
 package it.polimi.ingsw.server.model.personalBoard.depots;
 
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedContainer;
-import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedMarketTrayMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedWareHouseMessage;
 import it.polimi.ingsw.server.model.personalBoard.resourceContainers.WareHouseContainer;
 import it.polimi.ingsw.server.model.resources.ResourceType;

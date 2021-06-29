@@ -23,8 +23,8 @@ import java.net.SocketException;
 public class ServerToClientHandler implements Runnable {
     private String nickName;
     private GameController gameController;
-    private ConnectionIO connectionIO;
-    private Socket socket;
+    private final ConnectionIO connectionIO;
+    private final Socket socket;
 
     public ServerToClientHandler(Socket socket) throws IOException {
         this.socket = socket;
@@ -70,7 +70,7 @@ public class ServerToClientHandler implements Runnable {
 
                 case NICKNAME:
                     NicknameMessage nicknameMessage = (NicknameMessage) message;
-                    if(Server.getConnectedClient().stream().noneMatch(x -> x.getNickName().equals(nicknameMessage.getNickname()))) {
+                    if(Server.getConnectedClient().stream().noneMatch(x -> x.getNickName().equals(nicknameMessage.getNickname())) && !nicknameMessage.getNickname().equalsIgnoreCase("LORENZO")) {
                         nickName = nicknameMessage.getNickname();
                         Server.getConnectedClient().add(this);
                         sendMessage(new ActionEndedMessage());

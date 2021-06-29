@@ -1,22 +1,10 @@
 package it.polimi.ingsw.server.model;
 
 import it.polimi.ingsw.server.controller.GameController;
-import it.polimi.ingsw.server.model.globalBoard.DevelopmentCardGrid;
-import it.polimi.ingsw.server.model.globalBoard.GlobalBoard;
-import it.polimi.ingsw.server.model.globalBoard.MarketTray;
-import it.polimi.ingsw.server.model.globalBoard.faithTrack.FaithTrack;
 import it.polimi.ingsw.server.model.player.Lorenzo;
-import it.polimi.ingsw.server.model.productionPower.ProductionPower;
-import it.polimi.ingsw.server.model.productionPower.ProductionPowerInput;
-import it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput;
-import it.polimi.ingsw.server.model.resources.Coin;
-import it.polimi.ingsw.server.model.resources.Resource;
-import it.polimi.ingsw.server.model.soloToken.BlackCross1;
 import it.polimi.ingsw.server.model.soloToken.BlackCross2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.FileNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,8 +16,7 @@ class BlackCross2Test {
     @BeforeEach
     void init() {
 
-        lorenzo = new Lorenzo("lorenzo", new GameController(1, 1));
-        lorenzo.setSoloTokenDeck();
+        lorenzo = new Lorenzo(new GameController(1, 1));
         blackCross2 = new BlackCross2();
     }
 

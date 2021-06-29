@@ -1,12 +1,9 @@
 package it.polimi.ingsw.server.model;
 
-import it.polimi.ingsw.client.view.reducedGameModel.ReducedContainer;
 import it.polimi.ingsw.server.model.personalBoard.depots.StrongBoxDepot;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.utils.exceptions.DepotException;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

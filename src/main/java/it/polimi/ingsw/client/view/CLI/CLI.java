@@ -205,10 +205,7 @@ public class CLI extends View {
     public void drawDevCardGrid() {
         System.out.println("+++++DEV_CARD_GRID+++++");
         for (ReducedDevelopmentCard[] row : reducedGameModel.getDevelopmentCardsGrid()) {
-            for (ReducedDevelopmentCard card : row) {
-                System.out.printf("%-3d", card.getId());
-            }
-            System.out.println();
+            drawDevelopmentCardRow(Arrays.asList(row));
         }
     }
 
@@ -222,6 +219,44 @@ public class CLI extends View {
         }
         System.out.println();
     }
+
+    private void drawDevelopmentCardRow(List<ReducedDevelopmentCard> developmentCards){
+        int width = 18;
+        developmentCards.forEach(x -> {
+            System.out.print("╔");
+            IntStream.range(0,width).forEach(y -> System.out.print("═"));
+            System.out.print("╗");
+        });
+        System.out.println();
+
+        developmentCards.forEach(x -> System.out.print("║"+Utils.getAlignedToCenter(" |"+x.getId()+"|",width)+"║"));
+        System.out.println();
+
+        developmentCards.forEach(x -> System.out.print("║"+Utils.getAlignedToCenter(x.costToCLI(),width)+"║"));
+        System.out.println();
+
+        developmentCards.forEach(x -> System.out.print("║"+Utils.getAlignedToBothSide(x.getTypeLevel().toCLI(),width)+"║"));
+        System.out.println();
+
+        developmentCards.forEach(x -> System.out.print("║"+Utils.getAlignedToCenter(" ",width)+"║"));
+        System.out.println();
+
+        developmentCards.forEach(x -> System.out.print("║"+Utils.getAlignedToCenter(x.productionPowerInputToCli()+" → "+x.productionPowerOutputToCli(),width)+"║"));
+        System.out.println();
+
+        developmentCards.forEach(x -> System.out.print("║"+Utils.getAlignedToCenter(CLIColors.getAnsiYellowBackground()+"{"+x.getVictoryPoints()+"}"+CLIColors.getAnsiReset(),width)+"║"));
+        System.out.println();
+
+
+        developmentCards.forEach(x -> {
+            System.out.print("╚");
+            IntStream.range(0,width).forEach(y -> System.out.print("═"));
+            System.out.print("╝");
+        });
+        System.out.println();
+
+    }
+
 
     @Override
     public void drawStrongBox() {
@@ -238,6 +273,10 @@ public class CLI extends View {
             if(i> 0 && reducedGameModel.getFaithTrack().get(i).getVictoryPoints() != reducedGameModel.getFaithTrack().get(i-1).getVictoryPoints()){
                 System.out.print(CLIColors.ANSI_YELLOW_BACKGROUND+ "["+reducedGameModel.getFaithTrack().get(i).getVictoryPoints()+"]"+ CLIColors.getAnsiReset());
             }
+            if(reducedGameModel.getFaithTrack().get(i).getCellType().equals("POPE") || reducedGameModel.getFaithTrack().get(i).getCellType().equals("FINAL") ) {
+                System.out.print(CLIColors.ANSI_RED_BACKGROUND+ "["+i+"]"+ CLIColors.getAnsiReset());
+            }
+
             else System.out.print("[ ]"+CLIColors.getAnsiReset());
         }
         System.out.println();
@@ -418,7 +457,7 @@ public class CLI extends View {
         }
         client.setNickName(nickName);
         client.sendMessage(new NicknameMessage(nickName));
-        clear();
+
     }
 
 
@@ -446,6 +485,7 @@ public class CLI extends View {
 
     @Override
     public void askForCreateOrJoinGame() {
+        clear();
         List<String> validInput = Arrays.asList("c", "j");
         String input = null;
         do {
@@ -471,8 +511,6 @@ public class CLI extends View {
                 }while (!validPlayersNumber.contains(playersNumber));
 
                 client.sendMessage(new NewGameMessage(Integer.parseInt(Objects.requireNonNull(playersNumber))));
-                clear();
-
             } else if (Objects.equals(input, "j")) {
                 System.out.println("Insert GameID");
                 String tmp = null;
@@ -482,8 +520,9 @@ public class CLI extends View {
                     e.printStackTrace();
                 }
                 client.sendMessage(new JoinGameMessage(Integer.parseInt(Objects.requireNonNull(tmp))));
-                clear();
             }
+            clear();
+            System.out.println("Waiting for all players to join...");
 
     }
 
@@ -518,39 +557,39 @@ public class CLI extends View {
 
     @Override
     public void drawInHandLeaderCards() {
-        int width = 15;
+        int width = 14;
         System.out.println("++++++++++LeaderCard++++++++++");
         List<ReducedLeaderCard> inHandLeaderCards = reducedGameModel.getReducedInHandLeaderCards().getInHandLeaderCards();
 
         inHandLeaderCards.forEach(x -> {
-            System.out.print(" ╔");
+            System.out.print("╔");
             IntStream.range(0,width).forEach(y -> System.out.print("═"));
-            System.out.print("╗ ");
+            System.out.print("╗");
         });
         System.out.println();
 
-        inHandLeaderCards.forEach(x -> System.out.print(" ║"+Utils.getAlignedToCenter(" |"+x.getId()+"|",width)+"║ "));
+        inHandLeaderCards.forEach(x -> System.out.print("║"+Utils.getAlignedToCenter(" |"+x.getId()+"|",width)+"║"));
         System.out.println();
 
-        inHandLeaderCards.forEach(x -> System.out.print(" ║"+Utils.getAlignedToLeft(x.requirementsToCLI(),width)+"║ "));
+        inHandLeaderCards.forEach(x -> System.out.print("║"+Utils.getAlignedToLeft(x.requirementsToCLI(),width)+"║"));
         System.out.println();
 
-        inHandLeaderCards.forEach(x -> System.out.print(" ║"+Utils.getAlignedToLeft(" ",width)+"║ "));
+        inHandLeaderCards.forEach(x -> System.out.print("║"+Utils.getAlignedToLeft(" ",width)+"║"));
         System.out.println();
 
-        inHandLeaderCards.forEach(x -> System.out.print(" ║"+Utils.getAlignedToCenter(x.victoryPointsToCLI(),width)+"║ "));
+        inHandLeaderCards.forEach(x -> System.out.print("║"+Utils.getAlignedToCenter(x.victoryPointsToCLI(),width)+"║"));
         System.out.println();
 
-        inHandLeaderCards.forEach(x -> System.out.print(" ║"+Utils.getAlignedToLeft(" ",width)+"║ "));
+        inHandLeaderCards.forEach(x -> System.out.print("║"+Utils.getAlignedToLeft(" ",width)+"║"));
         System.out.println();
 
-        inHandLeaderCards.forEach(x -> System.out.print(" ║"+Utils.getAlignedToCenter(x.specialAbilityToCLI(),width)+"║ "));
+        inHandLeaderCards.forEach(x -> System.out.print("║"+Utils.getAlignedToCenter(x.specialAbilityToCLI(),width)+"║"));
         System.out.println();
 
         inHandLeaderCards.forEach(x -> {
-            System.out.print(" ╚");
+            System.out.print("╚");
             IntStream.range(0,width).forEach(y -> System.out.print("═"));
-            System.out.print("╝ ");
+            System.out.print("╝");
         });
         System.out.println();
 
@@ -559,6 +598,7 @@ public class CLI extends View {
 
     @Override
     public void askForLeaderCardsToDiscard() {
+        clear();
         List<String> validInput = reducedGameModel.getReducedInHandLeaderCards().getInHandLeaderCards().stream().map(x -> String.valueOf(x.getId())).collect(Collectors.toList());
         drawInHandLeaderCards();
         String id1 = null;

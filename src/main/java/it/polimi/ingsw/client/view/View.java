@@ -3,8 +3,8 @@ package it.polimi.ingsw.client.view;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedGameModel;
 public abstract class View {
-    protected Client client;
-    protected ReducedGameModel reducedGameModel;
+    protected final Client client;
+    protected final ReducedGameModel reducedGameModel;
 
     public View(Client client) {
         this.client = client;

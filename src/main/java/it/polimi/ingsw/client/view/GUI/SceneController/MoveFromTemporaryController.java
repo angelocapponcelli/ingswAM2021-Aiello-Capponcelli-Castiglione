@@ -7,12 +7,10 @@ import it.polimi.ingsw.server.model.resources.ResourceType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 import java.util.Objects;
 import java.util.stream.IntStream;
@@ -33,7 +31,7 @@ public class MoveFromTemporaryController {
                     ImageView imageView = new ImageView();
                     imageView.setFitHeight(50);
                     imageView.setFitWidth(50);
-                    imageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/image/resources/" + resourceType.toString() + ".png"))));
+                    imageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/image/resources/" + resourceType + ".png"))));
                     imageView.setAccessibleText(resourceType.toString());
                     temporaryDepotResourceHbox.getChildren().add(imageView);
                 }));

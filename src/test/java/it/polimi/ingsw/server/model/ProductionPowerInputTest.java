@@ -19,7 +19,7 @@ class ProductionPowerInputTest {
         player.getPersonalBoard().getWareHouseDepot().addResource(ResourceType.COIN, 2, 2);
         player.getPersonalBoard().getWareHouseDepot().addResource(ResourceType.SHIELD, 1, 1);
         player.getPersonalBoard().getWareHouseDepot().addResource(ResourceType.SERVANT, 1, 0);
-        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.SHIELD);
+        player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.SHIELD,2);
         player.getPersonalBoard().getSpecialDepots().addResources(ResourceType.SHIELD, 1);
         player.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.COIN, 10);
     }

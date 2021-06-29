@@ -3,7 +3,6 @@ package it.polimi.ingsw.server.model.personalBoard.depots;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedContainer;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedStrongBoxMessage;
 import it.polimi.ingsw.server.model.personalBoard.resourceContainers.StrongBoxContainer;
-import it.polimi.ingsw.server.model.personalBoard.resourceContainers.WareHouseContainer;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.utils.exceptions.DepotException;
 

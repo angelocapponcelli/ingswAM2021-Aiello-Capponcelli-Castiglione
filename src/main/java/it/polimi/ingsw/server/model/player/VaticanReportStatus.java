@@ -9,9 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * List of the vatican sections. Every player has it because it is the way to keep track of the situation
+ * of the update of the vatican report section
+ */
 public class VaticanReportStatus extends Observable {
     private final List<VaticanReportSection> flippedVaticanReportSections;
 
+    /**
+     * Class construction.
+     */
     public VaticanReportStatus() {
         this.flippedVaticanReportSections = new ArrayList<>();
     }
@@ -38,6 +45,10 @@ public class VaticanReportStatus extends Observable {
 
     }
 
+    /**
+     * Gets a reduced version of the list
+     * @return list of reduced vatican report section
+     */
     public List<ReducedVaticanReportSection> toReduced(){
         return flippedVaticanReportSections.stream().map(ReducedVaticanReportSection::new).collect(Collectors.toList());
     }

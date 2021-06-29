@@ -7,12 +7,17 @@ import it.polimi.ingsw.utils.parsers.SettingsParser;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Faith track. The track where the players have their position. It is composed by a list of cells and a list of
+ * vatican report section
+ */
 public class FaithTrack extends Observable {
     private final List<Cell> track;
     private final List<VaticanReportSection> vaticanReportSectionList;
 
-
+    /**
+     * Class constructor. Instantiates a new FaithTrack
+     */
     public FaithTrack(){
         FaithTrack temp = SettingsParser.getInstance().getFaithTrack();
         this.track = temp.getTrack();
@@ -80,6 +85,10 @@ public class FaithTrack extends Observable {
         }
     }
 
+    /**
+     * Gets a reduced version of the faithtrack
+     * @return reduced version of faith track
+     */
     public List<ReducedFaithCell> toReduced(){
         List<ReducedFaithCell> reduced = new ArrayList<>();
 

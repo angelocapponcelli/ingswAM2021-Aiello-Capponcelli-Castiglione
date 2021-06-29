@@ -3,10 +3,18 @@ package it.polimi.ingsw.server.model.specialAbilities;
 import it.polimi.ingsw.server.model.player.RealPlayer;
 import it.polimi.ingsw.server.model.resources.Resource;
 
+/**
+ * It's one of the four abilities. It guarantees a discount on a certain resource when it is the moment of payment
+ */
 public class SpecialDiscount extends SpecialAbility {
 
     private final int discount;
 
+    /**
+     * Class constructor.
+     * @param resource the resource on which it is applied the discount
+     * @param discount the quantity of the discount
+     */
     public SpecialDiscount(Resource resource, int discount) {
         this.resource = resource;
         this.discount = discount;
@@ -19,6 +27,9 @@ public class SpecialDiscount extends SpecialAbility {
     public void onActivation(RealPlayer player) {
     }
 
+    /**
+     * @return resource
+     */
     public Resource getResource() {
         return resource;
     }

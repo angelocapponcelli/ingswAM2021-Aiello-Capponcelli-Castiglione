@@ -273,6 +273,10 @@ public class CLI extends View {
             if(i> 0 && reducedGameModel.getFaithTrack().get(i).getVictoryPoints() != reducedGameModel.getFaithTrack().get(i-1).getVictoryPoints()){
                 System.out.print(CLIColors.ANSI_YELLOW_BACKGROUND+ "["+reducedGameModel.getFaithTrack().get(i).getVictoryPoints()+"]"+ CLIColors.getAnsiReset());
             }
+            if(reducedGameModel.getFaithTrack().get(i).getCellType().equals("POPE") || reducedGameModel.getFaithTrack().get(i).getCellType().equals("FINAL") ) {
+                System.out.print(CLIColors.ANSI_RED_BACKGROUND+ "["+i+"]"+ CLIColors.getAnsiReset());
+            }
+
             else System.out.print("[ ]"+CLIColors.getAnsiReset());
         }
         System.out.println();

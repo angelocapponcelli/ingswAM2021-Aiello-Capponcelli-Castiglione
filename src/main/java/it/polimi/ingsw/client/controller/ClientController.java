@@ -202,6 +202,10 @@ public class ClientController implements Runnable {
                 view.getReducedGameModel().getReducedInHandLeaderCards().update(updatedInHandLeaderCardMessage.getInHandLeaderCard());
                 //view.refresh();
                 break;
+            case UPDATED_VATICAN_REPORT_SECTION:
+                UpdatedVaticanReportMessage updatedVaticanReportMessage = (UpdatedVaticanReportMessage) message;
+                view.getReducedGameModel().setFlippedVaticanReportSections(updatedVaticanReportMessage.getUpdatedVaticanReportSections());
+                break;
             case TURN_POSITION_MESSAGE:
                 TurnPositionMessage playerTurnPositionMessage = (TurnPositionMessage) message;
                 view.getReducedGameModel().setPlayerTurnPosition(playerTurnPositionMessage.getTurnPosition());

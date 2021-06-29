@@ -14,8 +14,4 @@ public class JoinGameMessage extends BeforeGameMessage {
         return gameID;
     }
 
-    @Override
-    public Boolean check() {
-        return this.gameID >= 0;
-    }
 }

@@ -4,24 +4,38 @@ import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.server.model.personalBoard.PersonalBoard;
 import it.polimi.ingsw.utils.observer.Observer;
 
+/**
+ * Real player extends player. it is a type of player.
+ */
 public class RealPlayer extends Player {
     private final PersonalBoard personalBoard;
     private final Integer victoryPoint;
 
-
+    /**
+     * Class construction. Instantiates a new Real Player
+     * @param nickName the name of the player
+     * @param gameController the game controller which manages the game that contains the player
+     */
     public RealPlayer(String nickName, GameController gameController) {
         super(nickName, gameController);
         this.personalBoard = new PersonalBoard();
         this.victoryPoint = 0;
     }
 
+    /**
+     * Class construction. Instantiates a new Real Player
+     * @param nickName the name of the player
+     */
     public RealPlayer(String nickName) {
         super(nickName);
         this.personalBoard = new PersonalBoard();
         this.victoryPoint = 0;
     }
 
-
+    /**
+     * Performs the sum of the victory points that the player gets during the game
+     * @return total of victory points
+     */
     public Integer getVictoryPoint() {
         int sum = 0;
         /* points from leaderCard*/
@@ -39,9 +53,14 @@ public class RealPlayer extends Player {
         return sum;
     }
 
+    /**
+     * Gets personal board of the player
+     * @return personal board
+     */
     public PersonalBoard getPersonalBoard() {
         return this.personalBoard;
     }
+
 
     @Override
     public void addObserver(Observer obs) {

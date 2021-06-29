@@ -16,21 +16,36 @@ import java.util.Map;
 public class ProductionPowerInput implements Checkable, Payable {
     private final Map<Resource, Integer> productionPowerInput;
 
+    /**
+     * Class constructor. Instantiates a new Production Power Input.
+     */
     public ProductionPowerInput() {
         this.productionPowerInput = new HashMap<>();
     }
 
+    /**
+     * Class construction. Instantiates a new Production Power Input.
+     * @param input map that represents the resources and quantity that characterizes the production power
+     */
     public ProductionPowerInput(Map<ResourceType, Integer> input) {
         Map<Resource, Integer> tmpInput = new HashMap<>();
         input.forEach( (k,v) -> tmpInput.put(ResourceType.getResourceClass(k), v));
         productionPowerInput = tmpInput;
     }
 
-
+    /**
+     * Gets the map that represents the resources and quantity that the player has to pay
+     * @return map
+     */
     public Map<Resource, Integer> getProductionPowerInput() {
         return productionPowerInput;
     }
 
+    /**
+     * Adds a new requirement to the map
+     * @param resource the resource of the new requirement
+     * @param multiplicity the quantity that the player needs to pay
+     */
     public void add(Resource resource, Integer multiplicity) {
         productionPowerInput.put(resource, multiplicity);
     }

@@ -7,6 +7,10 @@ import it.polimi.ingsw.server.model.resources.ResourceType;
  */
 public class SpecialContainer extends ResourceContainer {
 
+    /**
+     * Class constructor. Instantiates a new Special container
+     * @param resource the resource that characterizes the container
+     */
     public SpecialContainer(ResourceType resource) {
         super(resource, 2);
     }

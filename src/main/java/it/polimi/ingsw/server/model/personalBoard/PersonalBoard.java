@@ -25,6 +25,12 @@ public class PersonalBoard extends Observable {
     private final InHandLeaderCard inHandLeaderCards;
     private final List<ProductionPower> productionPowers;
 
+
+    /**
+     * Class constructor. Instantiates a new Personal Board.
+     * It instantiates a new Warehouse depot, a new Special depot, a new temporary depot, a new strongbox, a new personal
+     * development board, a new in hand leader card, a new list of production power.
+     */
     public PersonalBoard() {
         wareHouseDepot = new WareHouseDepot();
         specialDepot = new SpecialDepot();
@@ -54,26 +60,50 @@ public class PersonalBoard extends Observable {
         return temporaryDepot;
     }
 
+    /**
+     * Gets special depot
+     * @return special depot
+     */
     public SpecialDepot getSpecialDepots() {
         return specialDepot;
     }
 
+    /**
+     * Gets warehouse depot of the player
+     * @return warehouse depot
+     */
     public WareHouseDepot getWareHouseDepot() {
         return wareHouseDepot;
     }
 
+    /**
+     * Gets personal development board
+     * @return personal development board of the player
+     */
     public PersonalDevelopmentBoard getPersonalDevelopmentBoard() {
         return personalDevelopmentBoard;
     }
 
+    /**
+     * Gets in hand leader card
+     * @return leader cards of the player
+     */
     public InHandLeaderCard getInHandLeaderCards() {
         return inHandLeaderCards;
     }
 
+    /**
+     * Gets list of the production power
+     * @return list of possible production power
+     */
     public List<ProductionPower> getProductionPowers() {
         return productionPowers;
     }
 
+    /**
+     * Gets strongbox
+     * @return strongbox
+     */
     public StrongBoxDepot getStrongBoxDepot() {
         return strongBoxDepot;
     }

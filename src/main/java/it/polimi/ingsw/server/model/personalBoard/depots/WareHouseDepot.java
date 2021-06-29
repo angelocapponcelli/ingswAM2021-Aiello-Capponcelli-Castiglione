@@ -19,6 +19,10 @@ import java.util.List;
 public class WareHouseDepot extends Depot {
     private final List<WareHouseContainer> wareHouseContainers;
 
+    /**
+     * Class constructor. Instantiates a new Warehouse depot. It creates three warehouse containers setting them
+     * with different and crescent capacity.
+     */
     public WareHouseDepot() {
         wareHouseContainers = new ArrayList<>();
         wareHouseContainers.add(new WareHouseContainer(1));
@@ -26,6 +30,13 @@ public class WareHouseDepot extends Depot {
         wareHouseContainers.add(new WareHouseContainer(3));
     }
 
+    /**
+     * Adds the resource and the quantity to the selected resource container
+     * @param resource the resource that needs to be added
+     * @param numResource the quantity of the resource
+     * @param indexShelf the position of the warehouse container
+     * @throws DepotException if the addition it is not possible
+     */
     public void addResource(ResourceType resource, int numResource, int indexShelf) throws DepotException {
         if (wareHouseContainers.get(indexShelf).getType() == resource)
             wareHouseContainers.get(indexShelf).addResource(numResource);
@@ -47,6 +58,12 @@ public class WareHouseDepot extends Depot {
 
     }
 
+    /**
+     * RemRemoves the resource selected
+     * @param resourceType the resource to be removed
+     * @param numResources the amount of the resource that has to be removed
+     * @throws DepotException if the count of the resources is less than numResource
+     */
     @Override
     public void removeResources(ResourceType resourceType, int numResources) throws DepotException {
         boolean notExist = true;
@@ -61,6 +78,13 @@ public class WareHouseDepot extends Depot {
         notifyObserver(new UpdatedWareHouseMessage(toReduced()));
     }
 
+    /**
+     * Performs the swap of position between two shelves and it sets the new shelf's capacity according to their new
+     * position in the list.
+     * @param shelf1 the first shelf to be swapped
+     * @param shelf2 the second shelf to be swapped
+     * @throws DepotException if it is impossible to perform the swap
+     */
     public void swap(int shelf1, int shelf2) throws DepotException {
         int tmpCapacity;
         if (shelf1 > shelf2) {
@@ -76,6 +100,10 @@ public class WareHouseDepot extends Depot {
         notifyObserver(new UpdatedWareHouseMessage(toReduced()));
     }
 
+    /**
+     * Gets the sum of every resource in the depot
+     * @return sum of reources
+     */
     @Override
     public int getAllResourceCount() {
         int count = 0;
@@ -85,6 +113,11 @@ public class WareHouseDepot extends Depot {
         return count;
     }
 
+    /**
+     * Gets the count of a specific resource of the depot
+     * @param resourceType the resource
+     * @return count of resource
+     */
     @Override
     public int getSpecificResourceCount(ResourceType resourceType) {
         int count = 0;
@@ -95,7 +128,10 @@ public class WareHouseDepot extends Depot {
         return count;
     }
 
-
+    /**
+     * Performs the reduction of the depot
+     * @return reduced version of the depot
+     */
     private List<ReducedContainer> toReduced(){
         List<ReducedContainer> reduced = new ArrayList<>();
         for(WareHouseContainer wareHouseContainer: wareHouseContainers){

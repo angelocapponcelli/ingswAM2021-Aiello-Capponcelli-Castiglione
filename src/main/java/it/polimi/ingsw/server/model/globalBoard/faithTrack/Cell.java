@@ -11,7 +11,7 @@ public class Cell extends Observable {
     private final Integer victoryPoints;
 
     /**
-     * Instantiates a new Cell.
+     * Class constructor. Instantiates a new Cell.
      *
      * @param victoryPoints the victory points of the cell
      */
@@ -29,7 +29,7 @@ public class Cell extends Observable {
     }
 
     /**
-     * On occupy.
+     * onOccupy. This method is called when a player steps on this cell.
      *
      * @param player the player who steps into the cell.
      */

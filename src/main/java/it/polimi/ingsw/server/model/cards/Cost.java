@@ -17,7 +17,9 @@ import java.util.Map;
  */
 public class Cost implements Checkable, Payable {
     private final Map<Resource, Integer> cost;
-
+    /**
+     * Constructor
+     */
     public Cost() {
         this.cost = new HashMap<>();
     }
@@ -59,7 +61,7 @@ public class Cost implements Checkable, Payable {
     /**
      * This method remove resources from RealPlayer Depot
      *
-     * @parameter realPlayer which resources are removed from
+     * @parameter realPlayer whom resources are removed from
      */
     @Override
     public void pay(RealPlayer realPlayer) throws DepotException {

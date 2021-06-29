@@ -12,14 +12,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Discarder solo Token. Implements Revealable.
+ */
+
 public class Discarder implements Revealable {
     private final Colors type;
 
+    /**
+     * Class constructor. Instantiates a new Discarder.
+     * @param type the color of the discarder.
+     */
     public Discarder(Colors type) {
         this.type = type;
     }
 
-
+    /**
+     * Discard two development card of the same color in the decks in the grid.
+     * @param lorenzo The "AI" player.
+     */
     @Override
     public void onReveal(Lorenzo lorenzo) {
         List<DevelopmentCard> tmp= new ArrayList<>();

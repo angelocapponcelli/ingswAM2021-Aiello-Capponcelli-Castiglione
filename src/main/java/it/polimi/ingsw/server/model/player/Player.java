@@ -6,6 +6,9 @@ import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.server.model.globalBoard.faithTrack.VaticanReportSection;
 import it.polimi.ingsw.utils.observer.Observable;
 
+/**
+ * Player is an abstract class. there can be two types of player: the real player and Lorenzo.
+ */
 public abstract class Player extends Observable {
 
     protected GameController gameController;
@@ -14,6 +17,11 @@ public abstract class Player extends Observable {
     protected VaticanReportStatus vaticanReportStatus;
     protected Integer turnPosition;
 
+    /**
+     * Class constructor.
+     * @param nickName of the player
+     * @param gameController of the game in which he plays
+     */
     public Player(String nickName, GameController gameController) {
         this.nickName = nickName;
         this.faithPosition = 0;
@@ -21,16 +29,28 @@ public abstract class Player extends Observable {
         this.gameController = gameController;
     }
 
+    /**
+     * Class constructor
+     * @param nickName of the player
+     */
     public Player(String nickName) {
         this.nickName = nickName;
         this.faithPosition = 0;
         this.vaticanReportStatus = new VaticanReportStatus();
     }
 
+    /**
+     * Gets the game controller
+     * @return game controller
+     */
     public GameController getGameController() {
         return gameController;
     }
 
+    /**
+     * Gets nickname
+     * @return nickname
+     */
     public String getNickName() {
         return nickName;
     }
@@ -44,6 +64,11 @@ public abstract class Player extends Observable {
         return faithPosition;
     }
 
+
+    /**
+     * Sets the faith position
+     * @param faithPosition the position of the player on the faith track
+     */
     public void setFaithPosition(Integer faithPosition){
         this.faithPosition = faithPosition;
     }
@@ -66,10 +91,18 @@ public abstract class Player extends Observable {
         }
     }
 
+    /**
+     * Gets turn position
+     * @return turn position
+     */
     public Integer getTurnPosition() {
         return turnPosition;
     }
 
+    /**
+     * Sets turn position
+     * @param turnPosition of the player
+     */
     public void setTurnPosition(Integer turnPosition) {
         this.turnPosition = turnPosition;
         notifyObserver(new TurnPositionMessage(turnPosition));

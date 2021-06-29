@@ -10,6 +10,7 @@ import it.polimi.ingsw.server.model.resources.Resource;
 public class SpecialExtraDepot extends SpecialAbility {
 
     /**
+     * Class constructor. Instantiates a new Special Extra Depot.
      * @param resource Specify the special resource type
      */
     public SpecialExtraDepot(Resource resource) {

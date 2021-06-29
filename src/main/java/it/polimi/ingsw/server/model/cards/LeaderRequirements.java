@@ -15,13 +15,28 @@ import java.util.Map;
 public class LeaderRequirements implements Checkable {
     private final Map<Requirement, Integer> leaderRequirements;
 
+    /**
+     * Class constructor.
+     */
+
     public LeaderRequirements() {
         this.leaderRequirements = new HashMap<>();
     }
 
+    /**
+     * Gets leader requirements of this card.
+     * @return leaderRequirements
+     */
+
     public Map<Requirement, Integer> getLeaderRequirements() {
         return leaderRequirements;
     }
+
+    /**
+     * Adds requirements to the map of this class.
+     * @param requirement
+     * @param multiplicity
+     */
 
     public void add(Requirement requirement, Integer multiplicity) {
         if (multiplicity > 0)

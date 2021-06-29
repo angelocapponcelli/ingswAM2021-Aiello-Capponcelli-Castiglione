@@ -9,12 +9,18 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Faith Track class. It is composed by a list of Cells and a list of Vatican Report Sections
+ */
 
 public class FaithTrack extends Observable {
     private final List<Cell> track;
     private final List<VaticanReportSection> vaticanReportSectionList;
 
-
+    /**
+     * Class constructor. Instantiates a new FaithTrack.
+     * @throws FileNotFoundException if the JSON file is not found
+     */
     public FaithTrack() throws FileNotFoundException {
         FaithTrack temp = FaithTrackParser.getFaithTrack();
         this.track = temp.getTrack();
@@ -34,6 +40,7 @@ public class FaithTrack extends Observable {
 
 
     /**
+     * Gets the Vatican report sections that contains the cell. If the cell isn't in any Vatican Report Section it returns null.
      * @param cell The cell contained in the VaticanReportSection.
      * @return Vatican report section that contains the cell.
      */
@@ -81,6 +88,11 @@ public class FaithTrack extends Observable {
             cell.removeObserver(obs);
         }
     }
+
+    /**
+     * Gets the reduced version of the faith track
+     * @return a list of a reduced version of the cells of the track
+     */
 
     public List<ReducedFaithCell> toReduced(){
         List<ReducedFaithCell> reduced = new ArrayList<>();

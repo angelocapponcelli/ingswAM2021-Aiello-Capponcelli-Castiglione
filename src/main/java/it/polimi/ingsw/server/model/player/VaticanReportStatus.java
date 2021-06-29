@@ -5,6 +5,9 @@ import it.polimi.ingsw.server.model.globalBoard.faithTrack.VaticanReportSection;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is an attribute of each player. It has a list of every vatican report section that the player manages to flip
+ */
 public class VaticanReportStatus {
     private final List<VaticanReportSection> flippedVaticanReportSections;
 

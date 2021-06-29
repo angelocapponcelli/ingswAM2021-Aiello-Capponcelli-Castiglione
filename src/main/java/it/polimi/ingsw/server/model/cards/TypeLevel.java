@@ -14,6 +14,12 @@ public class TypeLevel implements Requirement, ReducedRequirement, Serializable 
     private final Colors type;
     private final int level;
 
+    /**
+     * Class constructor.
+     * @param type the color of the banner on the card
+     * @param level of the card
+     */
+
     public TypeLevel(Colors type, int level) {
         this.type = type;
         this.level = level;

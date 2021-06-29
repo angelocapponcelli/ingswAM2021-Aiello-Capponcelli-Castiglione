@@ -7,7 +7,7 @@ import it.polimi.ingsw.server.model.player.Player;
  */
 public class SinglePlayerGame extends Game {
     /**
-     * Instantiates a new Single player game.
+     * Class constructor. Instantiates a new Single player game.
      */
     public SinglePlayerGame() {
         super(2);

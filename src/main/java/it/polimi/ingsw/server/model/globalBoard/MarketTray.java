@@ -138,6 +138,10 @@ public class MarketTray extends Observable {
         slide = toSlide;
     }
 
+    /**
+     * Gets reduced version of the market tray.
+     * @return reduced version of the market tray
+     */
     public ResourceType[][] toReduced(){
 
         int row = marketTray.length;

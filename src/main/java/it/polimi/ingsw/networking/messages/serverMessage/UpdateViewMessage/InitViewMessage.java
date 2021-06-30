@@ -1,9 +1,7 @@
 package it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage;
 
-import it.polimi.ingsw.client.view.reducedGameModel.ReducedDevelopmentCard;
-import it.polimi.ingsw.client.view.reducedGameModel.ReducedFaithCell;
-import it.polimi.ingsw.client.view.reducedGameModel.ReducedPlayer;
-import it.polimi.ingsw.client.view.reducedGameModel.ReducedProductionPower;
+import it.polimi.ingsw.client.view.reducedGameModel.*;
+import it.polimi.ingsw.client.view.reducedGameModel.reducedFaithTrack.ReducedFaithTrack;
 import it.polimi.ingsw.networking.messages.MessageType;
 import it.polimi.ingsw.networking.messages.serverMessage.ServerMessage;
 import it.polimi.ingsw.server.model.globalBoard.MarketTray;
@@ -17,13 +15,13 @@ public class InitViewMessage extends ServerMessage {
     private final ResourceType slide;
     private final ReducedDevelopmentCard[][] developmentCardGrid;
     private final ReducedProductionPower productionPower;
-    private final List<ReducedFaithCell> faithTrack;
+    private final ReducedFaithTrack faithTrack;
 
     public InitViewMessage(List<ReducedPlayer> players,
                            MarketTray marketTray,
                            ReducedDevelopmentCard[][] developmentCardGrid,
                            ReducedProductionPower productionPower,
-                           List<ReducedFaithCell> faithTrack) {
+                           ReducedFaithTrack faithTrack) {
         this.reducedPlayers = players;
         messageType= MessageType.INIT_VIEW;
         this.marketTray = marketTray.toReduced();
@@ -56,7 +54,7 @@ public class InitViewMessage extends ServerMessage {
         return productionPower;
     }
 
-    public List<ReducedFaithCell> getFaithTrack() {
+    public ReducedFaithTrack getFaithTrack() {
         return faithTrack;
     }
 }

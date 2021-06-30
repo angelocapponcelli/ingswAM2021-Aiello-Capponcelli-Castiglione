@@ -1,4 +1,4 @@
-package it.polimi.ingsw.client.view.reducedGameModel;
+package it.polimi.ingsw.client.view.reducedGameModel.reducedFaithTrack;
 
 import java.io.Serializable;
 

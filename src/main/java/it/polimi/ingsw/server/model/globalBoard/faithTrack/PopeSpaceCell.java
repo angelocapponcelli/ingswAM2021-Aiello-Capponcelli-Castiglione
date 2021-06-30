@@ -13,8 +13,8 @@ public class PopeSpaceCell extends Cell {
      * Class constructor. Instantiates a new Pope Space Cell.
      * @param victoryPoints the points that are associated with the cell.
      */
-    public PopeSpaceCell(Integer victoryPoints) {
-        super(victoryPoints);
+    public PopeSpaceCell(Integer victoryPoints, int id) {
+        super(victoryPoints,id);
         this.alreadyOccupied = false;
     }
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.specialAbilities;
 
+import it.polimi.ingsw.client.view.reducedGameModel.SpecialAbilityType;
 import it.polimi.ingsw.server.model.player.RealPlayer;
 import it.polimi.ingsw.server.model.resources.Resource;
 
@@ -15,6 +16,7 @@ public class SpecialExtraDepot extends SpecialAbility {
      * @param resource Specify the special resource type
      */
     public SpecialExtraDepot(Resource resource, int capacity) {
+        specialAbilityType = SpecialAbilityType.EXTRADEPOT;
         this.resource = resource;
         this.capacity = capacity;
     }
@@ -26,6 +28,7 @@ public class SpecialExtraDepot extends SpecialAbility {
      */
     @Override
     public void onActivation(RealPlayer player) {
+        super.onActivation(player);
         player.getPersonalBoard().getSpecialDepots().addSpecialContainer(resource.getResourceType(),capacity);
     }
 }

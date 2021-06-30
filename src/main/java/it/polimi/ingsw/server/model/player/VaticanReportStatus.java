@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.player;
 
-import it.polimi.ingsw.client.view.reducedGameModel.ReducedVaticanReportSection;
+import it.polimi.ingsw.client.view.reducedGameModel.reducedFaithTrack.ReducedVaticanReportSection;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedVaticanReportMessage;
 import it.polimi.ingsw.server.model.globalBoard.faithTrack.VaticanReportSection;
 import it.polimi.ingsw.utils.observer.Observable;

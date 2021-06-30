@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.specialAbilities;
 
+import it.polimi.ingsw.client.view.reducedGameModel.SpecialAbilityType;
 import it.polimi.ingsw.server.model.player.RealPlayer;
 import it.polimi.ingsw.server.model.resources.Resource;
 
@@ -16,6 +17,7 @@ public class SpecialWhiteMarble extends SpecialAbility {
      * @param multiplicity
      */
     public SpecialWhiteMarble(Resource resource, int multiplicity) {
+        specialAbilityType = SpecialAbilityType.WHITE_MARBLE;
         this.resource = resource;
         this.multiplicity = multiplicity;
     }

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.server.model.globalBoard.faithTrack;
 
 
+import it.polimi.ingsw.client.view.reducedGameModel.reducedFaithTrack.ReducedVaticanReportSection;
+
 import java.util.List;
 
 /**
@@ -38,6 +40,16 @@ public class VaticanReportSection {
 
     public Integer getVictoryPoints() {
         return victoryPoints;
+    }
+
+    /**
+     * Gets a lightweight version of a vatican report section.
+     *
+     * @return the reduced vatican report section
+     */
+    public ReducedVaticanReportSection toReduced(){
+
+        return new ReducedVaticanReportSection(this);
     }
 
 }

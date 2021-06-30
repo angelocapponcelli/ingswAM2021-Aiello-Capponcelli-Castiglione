@@ -13,12 +13,12 @@
    <children>
       <Pane prefHeight="402.0" prefWidth="884.0">
          <children>
-            <Label layoutX="298.0" layoutY="121.0" text="Containers' Capacity" textAlignment="CENTER">
+            <Label layoutX="308.0" layoutY="120.0" text="Number Of Output" textAlignment="CENTER">
                <font>
                   <Font size="32.0" />
                </font>
             </Label>
-            <TextField layoutX="368.0" layoutY="216.0" />
+            <TextField layoutX="368.0" layoutY="211.0" />
          </children>
       </Pane>
       <ButtonBar buttonMinWidth="200.0" prefHeight="116.0" prefWidth="584.0">

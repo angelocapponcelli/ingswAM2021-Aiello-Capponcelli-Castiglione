@@ -119,5 +119,10 @@ public class InHandLeaderCard extends Observable{
         }
         return tmp;
     }
+
+    public void playCard(int id, RealPlayer realPlayer){
+        inHandLeaderCards.stream().filter(leaderCard -> leaderCard.getId() == id).findFirst().get().playCard(realPlayer);
+        notifyObserver(new UpdatedInHandLeaderCardMessage(inHandLeaderCards.stream().map(ReducedLeaderCard::new).collect(Collectors.toList())));
+    }
 }
 

@@ -30,6 +30,14 @@ public class PersonalDevelopmentBoard extends Observable {
     }
 
     /**
+     * @param id the id of the requested card
+     * @return the requested development card
+     */
+    public DevelopmentCard getTopCard(int id){
+        return board.stream().map(deck -> deck.peek()).filter(card -> card.getId() == id).findFirst().get();
+    }
+
+    /**
      * Adds a card to one of the three decks of the board
      * @param deck            The deck where the development card will be pushed on.
      * @param developmentCard The development card to be added.
@@ -100,7 +108,7 @@ public class PersonalDevelopmentBoard extends Observable {
      * Gets the list of every card in the board
      * @return list of all bought cards
      */
-    public List<DevelopmentCard> getALlCards() {
+    public List<DevelopmentCard> getAllCards() {
         List<DevelopmentCard> allCards = new ArrayList<>();
         for (Deck deck : board) {
             allCards.addAll(deck.getDeck());

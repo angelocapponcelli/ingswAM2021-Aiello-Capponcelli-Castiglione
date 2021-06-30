@@ -82,11 +82,11 @@ public class MoveFromTemporaryController {
             thirdShelfBox.getChildren().add(imageView);
         }
 
-       FXGUI.getClient().getView().getReducedGameModel().getSpecialDepot().forEach( (resourceType, count) -> {
+       FXGUI.getClient().getView().getReducedGameModel().getSpecialDepot().forEach( reducedContainer -> {
             AnchorPane anchorPane = new AnchorPane();
             anchorPane.setCursor(Cursor.HAND);
-            anchorPane.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onSpecialClicked(resourceType));
-            ImageView imageViewBackGround = new ImageView(new Image(getClass().getResourceAsStream("/image/special/special" + resourceType.toString() + ".png")));
+            anchorPane.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onSpecialClicked(reducedContainer.getResourceType()));
+            ImageView imageViewBackGround = new ImageView(new Image(getClass().getResourceAsStream("/image/special/special" + reducedContainer.getResourceType().toString() + ".png")));
             imageViewBackGround.setFitHeight(80);
             imageViewBackGround.setFitWidth(175);
             anchorPane.getChildren().add(imageViewBackGround);
@@ -96,8 +96,8 @@ public class MoveFromTemporaryController {
             hBox.setPrefWidth(175);
             hBox.setSpacing(25);
             hBox.setPadding(new Insets(0, 0, 0, 10));
-            for (int i = 0; i < count; i++) {
-                ImageView imageResourceSpecial = new ImageView(new Image(getClass().getResourceAsStream("/image/resources/" + resourceType.toString() + ".png")));
+            for (int i = 0; i < reducedContainer.getCount(); i++) {
+                ImageView imageResourceSpecial = new ImageView(new Image(getClass().getResourceAsStream("/image/resources/" + reducedContainer.getResourceType().toString() + ".png")));
                 imageResourceSpecial.setFitWidth(65);
                 imageResourceSpecial.setFitHeight(65);
                 hBox.getChildren().add(imageResourceSpecial);

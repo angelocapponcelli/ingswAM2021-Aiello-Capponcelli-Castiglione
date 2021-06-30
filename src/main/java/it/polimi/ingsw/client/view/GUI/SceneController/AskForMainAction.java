@@ -125,9 +125,9 @@ public class AskForMainAction {
             }
         }
 
-        FXGUI.getClient().getView().getReducedGameModel().getSpecialDepot().forEach( (resourceType, count) -> {
+        FXGUI.getClient().getView().getReducedGameModel().getSpecialDepot().forEach( reducedContainer -> {
             AnchorPane anchorPane = new AnchorPane();
-            ImageView imageViewBackGround = new ImageView(new Image(getClass().getResourceAsStream("/image/special/special" + resourceType.toString() + ".png")));
+            ImageView imageViewBackGround = new ImageView(new Image(getClass().getResourceAsStream("/image/special/special" + reducedContainer.getResourceType().toString() + ".png")));
             imageViewBackGround.setFitHeight(50);
             imageViewBackGround.setFitWidth(105);
             anchorPane.getChildren().add(imageViewBackGround);
@@ -137,8 +137,8 @@ public class AskForMainAction {
             hBox.setPrefWidth(105);
             hBox.setSpacing(18);
             hBox.setPadding(new Insets(0, 0, 0, 8));
-            for (int i = 0; i < count; i++) {
-                ImageView imageResourceSpecial = new ImageView(new Image(getClass().getResourceAsStream("/image/resources/" + resourceType.toString() + ".png")));
+            for (int i = 0; i < reducedContainer.getCount(); i++) {
+                ImageView imageResourceSpecial = new ImageView(new Image(getClass().getResourceAsStream("/image/resources/" + reducedContainer.getResourceType().toString() + ".png")));
                 imageResourceSpecial.setFitWidth(35);
                 imageResourceSpecial.setFitHeight(35);
                 hBox.getChildren().add(imageResourceSpecial);

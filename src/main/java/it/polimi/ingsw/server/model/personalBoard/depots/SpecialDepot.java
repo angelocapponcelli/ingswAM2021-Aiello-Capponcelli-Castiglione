@@ -1,6 +1,10 @@
 package it.polimi.ingsw.server.model.personalBoard.depots;
 
+import it.polimi.ingsw.client.view.reducedGameModel.ReducedContainer;
+import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedSpecialDepotMessage;
+import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedWareHouseMessage;
 import it.polimi.ingsw.server.model.personalBoard.resourceContainers.SpecialContainer;
+import it.polimi.ingsw.server.model.personalBoard.resourceContainers.WareHouseContainer;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 import it.polimi.ingsw.utils.exceptions.DepotException;
 
@@ -28,6 +32,7 @@ public class SpecialDepot extends Depot {
      */
     public void addSpecialContainer(ResourceType resourceType, int capacity) {
         specialContainers.add(new SpecialContainer(resourceType, capacity));
+        notifyObserver(new UpdatedSpecialDepotMessage(toReduced()));
     }
 
     /**
@@ -47,6 +52,7 @@ public class SpecialDepot extends Depot {
             }
         }
         if (notExist) throw new DepotException("Impossible to add resources, SpecialDepot not active");
+        notifyObserver(new UpdatedSpecialDepotMessage(toReduced()));
     }
 
     /**
@@ -66,6 +72,7 @@ public class SpecialDepot extends Depot {
             }
         }
         if (notExist) throw new DepotException("Impossible to remove resources, SpecialDepot not active");
+        notifyObserver(new UpdatedSpecialDepotMessage(toReduced()));
     }
 
     /**
@@ -99,5 +106,19 @@ public class SpecialDepot extends Depot {
      */
     public List<SpecialContainer> getSpecialContainers(){
         return this.specialContainers;
+    }
+
+    /**
+     * Performs the reduction of the depot
+     * @return reduced version of the depot
+     */
+    private List<ReducedContainer> toReduced(){
+        List<ReducedContainer> reduced = new ArrayList<>();
+        for(SpecialContainer specialContainer: specialContainers){
+            reduced.add(new ReducedContainer(specialContainer.getType(), specialContainer.getCount()));
+        }
+
+        return reduced;
+
     }
 }

@@ -61,7 +61,7 @@ class PersonalDevelopmentBoardTest {
         developmentBoard.addCard(0, developmentCard5);
 
 
-        for (DevelopmentCard developmentCard1 : developmentBoard.getALlCards()) {
+        for (DevelopmentCard developmentCard1 : developmentBoard.getAllCards()) {
             developmentBoard.increaseCardCount();
         }
         assertEquals(9, developmentBoard.getCardsCount());
@@ -91,7 +91,7 @@ class PersonalDevelopmentBoardTest {
 
     @Test
     void getAllCards(){
-        List<DevelopmentCard> cards= developmentBoard.getALlCards();
+        List<DevelopmentCard> cards= developmentBoard.getAllCards();
         int count=0;
 
         for(int i=0; i>=0 && i<cards.size(); i++){
@@ -103,7 +103,7 @@ class PersonalDevelopmentBoardTest {
         assertEquals(6, cards.size());
 
         developmentBoard.addCard(0,new DevelopmentCard(4, new Cost(), new TypeLevel(Colors.GREEN, 1), new ProductionPower(new ProductionPowerInput(), new ProductionPowerOutput()), 3));
-        cards= developmentBoard.getALlCards();
+        cards= developmentBoard.getAllCards();
 
         assertEquals(7,cards.size());
 

@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.controller;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.networking.messages.ErrorMessage;
 import it.polimi.ingsw.networking.messages.Message;
+import it.polimi.ingsw.networking.messages.serverMessage.ItIsMyTurnMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.TurnPositionMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.*;
 import it.polimi.ingsw.client.view.CLI.CLIColors;
@@ -15,7 +16,7 @@ public class ClientController implements Runnable {
     private LOGIN loginState = LOGIN.NICKNAME;
     private INIT initState = INIT.DISCARD_LEADER;
     private IN_GAME inGameState = IN_GAME.NO_MY_TURN;
-    private MY_TURN myTurnState;
+    private MY_TURN myTurnState = MY_TURN.ACTIVATE_LEADER_CARD;
     private final View view;
 
     public void setMyTurnState(MY_TURN myTurnState) {
@@ -102,6 +103,7 @@ public class ClientController implements Runnable {
                             case MY_TURN:
                                 System.out.println("your turn");
                                 view.refresh();
+                                if (myTurnState == MY_TURN.ACTIVATE_LEADER_CARD) view.activateLeaderCard();
                                 view.askForMainAction();
                                 switch (myTurnState) {
                                     case TAKE_FROM_MARKET:
@@ -189,7 +191,8 @@ public class ClientController implements Runnable {
                 view.getReducedGameModel().setDevelopmentCardsGrid(initViewMessage.getDevelopmentCardGrid());
                 view.getReducedGameModel().setProductionPowerInputBoard(initViewMessage.getProductionPower().getProductionPowerInput());
                 view.getReducedGameModel().setProductionPowerOutputBoard(initViewMessage.getProductionPower().getProductionPowerOutput());
-                view.getReducedGameModel().setFaithTrack(initViewMessage.getFaithTrack());
+                view.getReducedGameModel().getFaithTrack().setTrack(initViewMessage.getFaithTrack().getTrack());
+                view.getReducedGameModel().getFaithTrack().setVaticanReportSections(initViewMessage.getFaithTrack().getVaticanReportSections());
                 break;
             case UPDATED_MARKET_TRAY:
                 UpdatedMarketTrayMessage updatedMarketTray = (UpdatedMarketTrayMessage) message;
@@ -224,6 +227,11 @@ public class ClientController implements Runnable {
                 view.getReducedGameModel().setWareHouseDepot(updatedWareHouseMessage.getWareHouse());
                 //view.refresh();
                 break;
+            case UPDATED_SPECIALDEPOT:
+                UpdatedSpecialDepotMessage updatedSpecialDepotMessage = (UpdatedSpecialDepotMessage) message;
+                view.getReducedGameModel().setSpecialDepot(updatedSpecialDepotMessage.getSepcialDepot());
+                //view.refresh();
+                break;
             case UPDATED_STRONG_BOX:
                 UpdatedStrongBoxMessage updatedStrongBoxMessage = (UpdatedStrongBoxMessage) message;
                 view.getReducedGameModel().setStrongBoxDepot(updatedStrongBoxMessage.getStrongBox());
@@ -240,7 +248,11 @@ public class ClientController implements Runnable {
                 //view.refresh();
                 break;
             case MY_TURN_MESSAGE:
+                ItIsMyTurnMessage itIsMyTurnMessage = (ItIsMyTurnMessage) message;
                 inGameState = IN_GAME.MY_TURN;
+                if (itIsMyTurnMessage.getCanPlayLeaderCard())
+                    myTurnState = MY_TURN.ACTIVATE_LEADER_CARD;
+                else myTurnState = null;
                 /* If player is not moving resources to not stop him in his action
                  * He will wake up by the end of the action
                  */

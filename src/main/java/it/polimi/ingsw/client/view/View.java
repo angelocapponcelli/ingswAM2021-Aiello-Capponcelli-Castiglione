@@ -44,6 +44,5 @@ public abstract class View {
     public abstract void activateProduction();
 
 
-
-
+    public abstract void activateLeaderCard();
 }

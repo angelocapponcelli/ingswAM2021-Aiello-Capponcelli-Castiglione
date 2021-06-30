@@ -8,6 +8,7 @@ import it.polimi.ingsw.utils.observer.Observable;
  * The type Cell. Basic cell.
  */
 public class Cell extends Observable {
+    private final int id;
     private final Integer victoryPoints;
 
     /**
@@ -15,7 +16,8 @@ public class Cell extends Observable {
      *
      * @param victoryPoints the victory points of the cell
      */
-    public Cell(Integer victoryPoints) {
+    public Cell(Integer victoryPoints, int id) {
+        this.id = id;
         this.victoryPoints = victoryPoints;
     }
 
@@ -35,5 +37,9 @@ public class Cell extends Observable {
      */
     public void onOccupy(Player player) {
         notifyObserver(new UpdatedFaithPositionMessage(player.getNickName(), player.getFaithPosition()));
+    }
+
+    public int getId() {
+        return id;
     }
 }

@@ -1,8 +1,15 @@
 package it.polimi.ingsw.server.model.player;
 
+import it.polimi.ingsw.client.view.reducedGameModel.SpecialAbilityType;
 import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.server.model.personalBoard.PersonalBoard;
+import it.polimi.ingsw.server.model.resources.ResourceType;
+import it.polimi.ingsw.server.model.specialAbilities.SpecialAbility;
 import it.polimi.ingsw.utils.observer.Observer;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Real player extends player. it is a type of player.
@@ -10,6 +17,7 @@ import it.polimi.ingsw.utils.observer.Observer;
 public class RealPlayer extends Player {
     private final PersonalBoard personalBoard;
     private final Integer victoryPoint;
+    private final Map<SpecialAbilityType, ResourceType> activatedSpecialAbilities = new HashMap<>();
 
     /**
      * Class construction. Instantiates a new Real Player
@@ -61,6 +69,10 @@ public class RealPlayer extends Player {
         return this.personalBoard;
     }
 
+
+    public void addActivatedSpecialAbility(SpecialAbility specialAbility){
+        activatedSpecialAbilities.put( specialAbility.getSpecialAbilityType(), specialAbility.getResource().getResourceType());
+    }
 
     @Override
     public void addObserver(Observer obs) {

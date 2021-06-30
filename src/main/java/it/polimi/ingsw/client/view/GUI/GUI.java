@@ -250,4 +250,25 @@ public class GUI extends View {
         });
     }
 
+    @Override
+    public void activateLeaderCard() {
+        Platform.runLater(()-> {
+            try {
+                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/FXML/activateLeaderCard.fxml")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            stage = FXGUI.getStage();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+            /* to center stage */
+            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+        });
+        client.getClientController().pause();
+    }
+
 }

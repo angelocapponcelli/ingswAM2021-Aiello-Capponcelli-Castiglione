@@ -175,18 +175,53 @@
                      <children>
                         <Pane prefHeight="74.0" prefWidth="471.0">
                            <children>
-                              <Label layoutX="162.0" layoutY="25.0" text="Special Ability" textAlignment="CENTER">
+                              <Label layoutX="162.0" layoutY="7.0" text="Special Ability" textAlignment="CENTER">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
                            </children>
                         </Pane>
-                        <Pane prefHeight="54.0" prefWidth="471.0">
+                        <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <ChoiceBox layoutX="161.0" layoutY="14.0" prefWidth="150.0" />
+                              <VBox prefHeight="78.0" prefWidth="127.0">
+                                 <children>
+                                    <Pane prefHeight="200.0" prefWidth="200.0">
+                                       <children>
+                                          <Button layoutX="28.0" layoutY="21.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="63.0" text="Discount" />
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="78.0" prefWidth="118.0">
+                                 <children>
+                                    <Pane prefHeight="78.0" prefWidth="113.0">
+                                       <children>
+                                          <Button layoutX="14.0" layoutY="21.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="63.0" text="Depot" />
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="78.0" prefWidth="136.0">
+                                 <children>
+                                    <Pane prefHeight="78.0" prefWidth="126.0">
+                                       <children>
+                                          <Button layoutY="21.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="123.0" text="Production Power" />
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="78.0" prefWidth="127.0">
+                                 <children>
+                                    <Pane prefHeight="200.0" prefWidth="200.0">
+                                       <children>
+                                          <Button layoutX="14.0" layoutY="21.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="97.0" text="White Marble" />
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </VBox>
                            </children>
-                        </Pane>
+                        </HBox>
                         <VBox prefHeight="191.0" prefWidth="326.0">
                            <children>
                               <Pane prefHeight="50.0" prefWidth="471.0">
@@ -292,5 +327,6 @@
             <Insets right="30.0" />
          </padding>
       </ButtonBar>
+      <Label text="Label" />
    </children>
 </VBox>

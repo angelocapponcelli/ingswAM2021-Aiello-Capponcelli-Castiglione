@@ -132,6 +132,7 @@ public class PersonalBoard extends Observable {
         inHandLeaderCards.addObserver(obs);
         temporaryDepot.addObserver(obs);
         wareHouseDepot.addObserver(obs);
+        specialDepot.addObserver(obs);
         personalDevelopmentBoard.addObserver(obs);
         strongBoxDepot.addObserver(obs);
     }

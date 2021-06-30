@@ -1,6 +1,6 @@
 package it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage;
 
-import it.polimi.ingsw.client.view.reducedGameModel.ReducedVaticanReportSection;
+import it.polimi.ingsw.client.view.reducedGameModel.reducedFaithTrack.ReducedVaticanReportSection;
 import it.polimi.ingsw.networking.messages.MessageType;
 import it.polimi.ingsw.networking.messages.serverMessage.ServerMessage;
 

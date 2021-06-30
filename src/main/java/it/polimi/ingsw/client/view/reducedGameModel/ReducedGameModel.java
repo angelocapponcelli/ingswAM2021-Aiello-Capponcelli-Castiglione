@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client.view.reducedGameModel;
 
+import it.polimi.ingsw.client.view.reducedGameModel.reducedFaithTrack.ReducedFaithTrack;
+import it.polimi.ingsw.client.view.reducedGameModel.reducedFaithTrack.ReducedVaticanReportSection;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 
 import java.util.*;
@@ -9,17 +11,18 @@ public class ReducedGameModel {
     private final ReducedInHandLeaderCards inHandLeaderCards;
     private List<ReducedPlayer> players;
     private ReducedDevelopmentCard[][] developmentCardsGrid;
-    private Boolean[] popeSpaceFlipped;
     private List<ReducedDevelopmentCard> personalDevelopmentBoard;
     private Map<ResourceType, Integer> temporaryDepot;
     private List<ReducedContainer> wareHouseDepot;
     private List<ReducedContainer> strongBoxDepot;
-    private Map<ResourceType, Integer> specialDepot;
+    private List<ReducedContainer> specialDepot;
     private final ReducedProductionPower productionPower = new ReducedProductionPower();
     private Integer playerTurnPosition;
     private Map<SpecialAbilityType, ResourceType> activatedSpecialAbilities;
-    private List<ReducedFaithCell> faithTrack;
+    private final ReducedFaithTrack faithTrack;
     private List<ReducedVaticanReportSection> flippedVaticanReportSections = new ArrayList<>();
+    private final List<Boolean> flipped = Arrays.asList(false,false,false);
+
 
 
 
@@ -27,8 +30,8 @@ public class ReducedGameModel {
         marketTray = new ReducedMarketTray();
         inHandLeaderCards = new ReducedInHandLeaderCards();
         developmentCardsGrid = new ReducedDevelopmentCard[3][4];
-        popeSpaceFlipped = new Boolean[]{false, false, false};
         personalDevelopmentBoard = Arrays.asList(null,null,null);
+        faithTrack = new ReducedFaithTrack();
         wareHouseDepot = new ArrayList<>();
         temporaryDepot = new HashMap<>();
         wareHouseDepot = Arrays.asList(new ReducedContainer(null, 0),
@@ -41,7 +44,7 @@ public class ReducedGameModel {
                 new ReducedContainer(ResourceType.SHIELD, 0),
                 new ReducedContainer(ResourceType.SERVANT, 0)
         );
-        specialDepot = new HashMap<>();
+        specialDepot = new ArrayList<>();
         activatedSpecialAbilities = new HashMap<>();
     }
 
@@ -85,12 +88,6 @@ public class ReducedGameModel {
         this.developmentCardsGrid = developmentCardsGrid;
     }
 
-    public Boolean[] getPopeSpaceFlipped() {
-        return popeSpaceFlipped;
-    }
-    public void setPopeSpaceFlipped(Boolean[] popeSpaceFlipped) {
-        this.popeSpaceFlipped = popeSpaceFlipped;
-    }
 
     public List<ReducedDevelopmentCard> getPersonalDevelopmentBoard() {
         return personalDevelopmentBoard;
@@ -113,10 +110,10 @@ public class ReducedGameModel {
         this.strongBoxDepot = strongBoxDepot;
     }
 
-    public Map<ResourceType, Integer> getSpecialDepot() {
+    public List<ReducedContainer> getSpecialDepot() {
         return specialDepot;
     }
-    public void setSpecialDepot(Map<ResourceType, Integer> specialDepot) {
+    public void setSpecialDepot(List<ReducedContainer> specialDepot) {
         this.specialDepot = specialDepot;
     }
 
@@ -139,18 +136,16 @@ public class ReducedGameModel {
         return marketTray;
     }
 
-    public List<ReducedFaithCell> getFaithTrack() {
-        return faithTrack;
-    }
-    public void setFaithTrack(List<ReducedFaithCell> faithTrack) {
-        this.faithTrack = faithTrack;
-    }
-
 
     public List<ReducedVaticanReportSection> getFlippedVaticanReportSections() {
         return flippedVaticanReportSections;
     }
     public void setFlippedVaticanReportSections(List<ReducedVaticanReportSection> flippedVaticanReportSections) {
         this.flippedVaticanReportSections = flippedVaticanReportSections;
+    }
+
+
+    public ReducedFaithTrack getFaithTrack() {
+        return faithTrack;
     }
 }

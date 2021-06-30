@@ -62,7 +62,7 @@ public class LeaderRequirements implements Checkable {
             }
             if (entry.getKey() instanceof TypeLevel) {
                 countCard = entry.getValue();
-                for (DevelopmentCard developmentCard : realPlayer.getPersonalBoard().getPersonalDevelopmentBoard().getALlCards()) {
+                for (DevelopmentCard developmentCard : realPlayer.getPersonalBoard().getPersonalDevelopmentBoard().getAllCards()) {
                     if (developmentCard.getTypeLevel().getType() == ((TypeLevel) entry.getKey()).getType() &&
                             ((((TypeLevel) entry.getKey()).getLevel() == 0) ||
                                     ((TypeLevel) entry.getKey()).getLevel() == developmentCard.getTypeLevel().getLevel()))

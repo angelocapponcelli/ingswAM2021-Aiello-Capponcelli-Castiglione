@@ -189,7 +189,8 @@ public class ClientController implements Runnable {
                 view.getReducedGameModel().setDevelopmentCardsGrid(initViewMessage.getDevelopmentCardGrid());
                 view.getReducedGameModel().setProductionPowerInputBoard(initViewMessage.getProductionPower().getProductionPowerInput());
                 view.getReducedGameModel().setProductionPowerOutputBoard(initViewMessage.getProductionPower().getProductionPowerOutput());
-                view.getReducedGameModel().setFaithTrack(initViewMessage.getFaithTrack());
+                view.getReducedGameModel().getFaithTrack().setTrack(initViewMessage.getFaithTrack().getTrack());
+                view.getReducedGameModel().getFaithTrack().setVaticanReportSections(initViewMessage.getFaithTrack().getVaticanReportSections());
                 break;
             case UPDATED_MARKET_TRAY:
                 UpdatedMarketTrayMessage updatedMarketTray = (UpdatedMarketTrayMessage) message;

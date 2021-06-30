@@ -148,10 +148,10 @@ public class GameController {
                 BuyDevCardMessage buyDevCardMessage = (BuyDevCardMessage) message;
                 buyDevCard(buyDevCardMessage);
                 break;
-            case ACTIVATE_PRODUCTION:
+            /*case ACTIVATE_PRODUCTION:
                 ActivateProductionMessage activateProductionMessage = (ActivateProductionMessage) message;
                 activateProduction(activateProductionMessage);
-                break;
+                break;*/
             case ACTIVATE_BASIC_PRODUCTION:
                 ActivateBasicProductionMessage activateBasicProductionMessage = (ActivateBasicProductionMessage) message;
                 activateBasicProduction(activateBasicProductionMessage);
@@ -176,9 +176,29 @@ public class GameController {
                 DiscardResourceMessage discardResourceMessage = (DiscardResourceMessage) message;
                 discardResource(discardResourceMessage);
                 break;
+            case ACTIVATE_DEV_CARD_PRODUCTION:
+                ActivateDevelopmentCardProductionMessage activateDevelopmentCardProductionMessage = (ActivateDevelopmentCardProductionMessage) message;
+                activateDevelopmentCardProductionMessage(activateDevelopmentCardProductionMessage);
 
 
         }
+    }
+
+
+    private void activateDevelopmentCardProductionMessage(ActivateDevelopmentCardProductionMessage activateDevelopmentCardProductionMessage){
+        DevelopmentCard card = getRealPlayer(activateDevelopmentCardProductionMessage)
+                .getPersonalBoard()
+                .getPersonalDevelopmentBoard()
+                .getTopCard(activateDevelopmentCardProductionMessage.getDevelopmentCardID());
+
+        try {
+            card.getProductionPower().getProductionInput().pay(getRealPlayer(activateDevelopmentCardProductionMessage));
+        } catch (DepotException e) {
+            e.printStackTrace();
+        }
+        card.getProductionPower().getProductionOutput().onActivation(getRealPlayer(activateDevelopmentCardProductionMessage));
+        sendPrivateMessage(activateDevelopmentCardProductionMessage.getNickname(), new ActionEndedMessage());
+        nextPlayerTurn();
     }
 
 
@@ -314,7 +334,7 @@ public class GameController {
         nextPlayerTurn();
     }
 
-    private void activateProduction(ActivateProductionMessage activateProductionMessage) {
+    /*private void activateProduction(ActivateProductionMessage activateProductionMessage) {
         RealPlayer realPlayer = getRealPlayer(activateProductionMessage);
         try {
             gameModel.getGlobalBoard().getBasicProductionPower().getProductionInput().pay(realPlayer);
@@ -323,7 +343,7 @@ public class GameController {
         }
         gameModel.getGlobalBoard().getBasicProductionPower().getProductionOutput().onActivation(realPlayer);
         nextPlayerTurn();
-    }
+    }*/
 
     private void activateBasicProduction(ActivateBasicProductionMessage activateBasicProductionMessage) {
         RealPlayer realPlayer = getRealPlayer(activateBasicProductionMessage);

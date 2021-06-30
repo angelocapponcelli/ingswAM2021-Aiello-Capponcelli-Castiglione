@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.specialAbilities;
 
+import it.polimi.ingsw.client.view.reducedGameModel.SpecialAbilityType;
 import it.polimi.ingsw.server.model.player.RealPlayer;
 import it.polimi.ingsw.server.model.resources.Resource;
 
@@ -16,6 +17,7 @@ public class SpecialDiscount extends SpecialAbility {
      * @param discount the quantity of the discount
      */
     public SpecialDiscount(Resource resource, int discount) {
+        specialAbilityType = SpecialAbilityType.DISCOUNT;
         this.resource = resource;
         this.discount = discount;
     }
@@ -25,6 +27,7 @@ public class SpecialDiscount extends SpecialAbility {
      */
     @Override
     public void onActivation(RealPlayer player) {
+        super.onActivation(player);
     }
 
     /**

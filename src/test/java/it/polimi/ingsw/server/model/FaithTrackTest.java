@@ -49,9 +49,9 @@ class FaithTrackTest {
     void getTrack(){
         List<Cell> cells= faithTrack.getTrack();
         assertEquals(25, cells.size());
-        PopeSpaceCell popeSpaceCell= new PopeSpaceCell(5);
+        PopeSpaceCell popeSpaceCell= new PopeSpaceCell(5,8);
         assertEquals(popeSpaceCell.getClass(), cells.get(8).getClass());
-        FinalCell finalCell= new FinalCell(7);
+        FinalCell finalCell= new FinalCell(7,24);
         assertEquals(finalCell.getClass(), faithTrack.getTrack().get(24).getClass());
     }
 

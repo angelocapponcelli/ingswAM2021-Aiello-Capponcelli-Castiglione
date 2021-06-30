@@ -6,6 +6,7 @@ import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedDevelopmentCard;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedLeaderCard;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedPlayer;
+import it.polimi.ingsw.client.view.reducedGameModel.reducedFaithTrack.ReducedVaticanReportSection;
 import it.polimi.ingsw.networking.messages.clientMessages.*;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.JoinGameMessage;
 import it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages.NewGameMessage;
@@ -212,11 +213,7 @@ public class CLI extends View {
     @Override
     public void drawPersonalDevelopmentBoard() {
         System.out.println("+++++PersonalDevelopmentBoard+++++");
-        for (int i = 0; i < 3; i++) {
-            if (reducedGameModel.getPersonalDevelopmentBoard().get(i) != null) {
-                System.out.print("[" + reducedGameModel.getPersonalDevelopmentBoard().get(i).getId() + "]");
-            } else System.out.print("[]");
-        }
+        drawDevelopmentCardRow(reducedGameModel.getPersonalDevelopmentBoard());
         System.out.println();
     }
 
@@ -229,22 +226,49 @@ public class CLI extends View {
         });
         System.out.println();
 
-        developmentCards.forEach(x -> System.out.print("║"+Utils.getAlignedToCenter(" |"+x.getId()+"|",width)+"║"));
+        developmentCards.forEach(x -> {
+            System.out.print("║");
+            String s = x != null ? Utils.getAlignedToCenter(" |"+x.getId()+"|",width) : Utils.getAlignedToCenter(" ",width);
+            System.out.print(s);
+            System.out.print("║");
+        });
         System.out.println();
 
-        developmentCards.forEach(x -> System.out.print("║"+Utils.getAlignedToCenter(x.costToCLI(),width)+"║"));
+        developmentCards.forEach(x -> {
+            System.out.print("║");
+            String s = x != null ? Utils.getAlignedToCenter(x.costToCLI(),width) : Utils.getAlignedToCenter(" ",width);
+            System.out.print(s);
+            System.out.print("║");
+        });
         System.out.println();
 
-        developmentCards.forEach(x -> System.out.print("║"+Utils.getAlignedToBothSide(x.getTypeLevel().toCLI(),width)+"║"));
+        developmentCards.forEach(x -> {
+            System.out.print("║");
+            String s = x != null ? Utils.getAlignedToBothSide(x.getTypeLevel().toCLI(),width) : Utils.getAlignedToCenter(" ",width);
+            System.out.print(s);
+            System.out.print("║");
+        });
         System.out.println();
 
-        developmentCards.forEach(x -> System.out.print("║"+Utils.getAlignedToCenter(" ",width)+"║"));
+        developmentCards.forEach(x -> {
+            System.out.print("║" + Utils.getAlignedToCenter(" ",width) +"║");
+        });
         System.out.println();
 
-        developmentCards.forEach(x -> System.out.print("║"+Utils.getAlignedToCenter(x.productionPowerInputToCli()+" → "+x.productionPowerOutputToCli(),width)+"║"));
+        developmentCards.forEach(x -> {
+            System.out.print("║");
+            String s = x != null ? Utils.getAlignedToCenter(x.productionPowerInputToCli()+" → "+x.productionPowerOutputToCli(),width) : Utils.getAlignedToCenter(" ",width);
+            System.out.print(s);
+            System.out.print("║");
+        });
         System.out.println();
 
-        developmentCards.forEach(x -> System.out.print("║"+Utils.getAlignedToCenter(CLIColors.getAnsiYellowBackground()+"{"+x.getVictoryPoints()+"}"+CLIColors.getAnsiReset(),width)+"║"));
+        developmentCards.forEach(x -> {
+            System.out.print("║");
+            String s = x != null ? Utils.getAlignedToCenter(CLIColors.getAnsiYellowBackground()+"{"+x.getVictoryPoints()+"}"+CLIColors.getAnsiReset(),width) : Utils.getAlignedToCenter(" ",width);
+            System.out.print(s);
+            System.out.print("║");
+        });
         System.out.println();
 
 
@@ -257,7 +281,6 @@ public class CLI extends View {
 
     }
 
-
     @Override
     public void drawStrongBox() {
         System.out.println("+++++STRONG_BOX+++++");
@@ -269,21 +292,43 @@ public class CLI extends View {
     @Override
     public void drawFaithTrack() {
 
-        for(int i = 0; i< reducedGameModel.getFaithTrack().size(); i++){
-            if(i> 0 && reducedGameModel.getFaithTrack().get(i).getVictoryPoints() != reducedGameModel.getFaithTrack().get(i-1).getVictoryPoints()){
-                System.out.print(CLIColors.ANSI_YELLOW_BACKGROUND+ "["+reducedGameModel.getFaithTrack().get(i).getVictoryPoints()+"]"+ CLIColors.getAnsiReset());
+        //Vatican Report Sections
+        for (int i = 0; i < reducedGameModel.getFaithTrack().getVaticanReportSections().size(); i++){
+            int previousEnding = 0;
+            if (i > 0) previousEnding = reducedGameModel.getFaithTrack().getVaticanReportSections().get(i - 1).getEndCell() +  1;
+            for (int j = 0; j < reducedGameModel.getFaithTrack().getVaticanReportSections().get(i).getStartCell() - previousEnding; j++ ){
+                System.out.print("    ");
             }
-            if(reducedGameModel.getFaithTrack().get(i).getCellType().equals("POPE") || reducedGameModel.getFaithTrack().get(i).getCellType().equals("FINAL") ) {
-                System.out.print(CLIColors.ANSI_RED_BACKGROUND+ "["+i+"]"+ CLIColors.getAnsiReset());
-            }
+            for (int j = 0; j < ( reducedGameModel.getFaithTrack().getVaticanReportSections().get(i).getEndCell() + 1 ) - ( reducedGameModel.getFaithTrack().getVaticanReportSections().get(i).getStartCell() ) ; j++ ){
+                if(reducedGameModel.getFlippedVaticanReportSections().stream()
+                        .map(ReducedVaticanReportSection::getStartCell)
+                        .collect(Collectors.toList())
+                        .contains(reducedGameModel.getFaithTrack().getVaticanReportSections().get(i).getStartCell())){
+                    System.out.print(CLIColors.ANSI_CYAN_BACKGROUND);
 
-            else System.out.print("[ ]"+CLIColors.getAnsiReset());
+                }
+                else System.out.print(CLIColors.ANSI_BRIGHT_BLACK_BACKGROUND);
+                System.out.print("____");
+            }
+            System.out.print(CLIColors.getAnsiReset());
+        }
+
+        //Track
+        System.out.println();
+        for(int i = 0; i< reducedGameModel.getFaithTrack().getTrack().size(); i++){
+            if(reducedGameModel.getFaithTrack().getTrack().get(i).getCellType().equals("POPE") || reducedGameModel.getFaithTrack().getTrack().get(i).getCellType().equals("FINAL") ) {
+                System.out.printf(CLIColors.ANSI_RED_BACKGROUND+ "[" + "%2d" +"]" + CLIColors.getAnsiReset(),i);
+            }
+            else if(i> 0 && reducedGameModel.getFaithTrack().getTrack().get(i).getVictoryPoints() != reducedGameModel.getFaithTrack().getTrack().get(i-1).getVictoryPoints()){
+                System.out.printf(CLIColors.ANSI_YELLOW_BACKGROUND + "[" + "%2d" +  "]" + CLIColors.getAnsiReset(),reducedGameModel.getFaithTrack().getTrack().get(i).getVictoryPoints());
+            }
+            else System.out.print("[  ]"+CLIColors.getAnsiReset());
         }
         System.out.println();
         for(ReducedPlayer player: getReducedGameModel().getPlayers()){
 
             for(int i = 0; i< player.getFaithPosition(); i++){
-                System.out.print("   ");
+                System.out.print("    ");
             }
             System.out.println(" ↑"+player.getNickName());
         }
@@ -373,7 +418,6 @@ public class CLI extends View {
         }
     }
 
-    //Todo: TO COMPLETE
     @Override
     public void activateProduction() {
         clear();
@@ -432,8 +476,19 @@ public class CLI extends View {
                     client.sendMessage(new ActivateBasicProductionMessage(client.getNickName(),input,output));
 
 
-                }else if(productionType.equals("2")){
+                }
+                else if(productionType.equals("2")){
                     inputOK = true;
+                    List<Integer> validInput = reducedGameModel.getPersonalDevelopmentBoard().stream().filter(Objects::nonNull).map(ReducedDevelopmentCard::getId).collect(Collectors.toList());
+                    String id;
+                    do {
+                        clear();
+                        drawPersonalDevelopmentBoard();
+                        System.out.println("Select the card of which activate the production");
+                        id = stdIn.readLine();
+                    }while (!validInput.contains(Integer.parseInt(id)));
+
+                    client.sendMessage(new ActivateDevelopmentCardProductionMessage(client.getNickName(),Integer.parseInt(id)));
 
                 }
 

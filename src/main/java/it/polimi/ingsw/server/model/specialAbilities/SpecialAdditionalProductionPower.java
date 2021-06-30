@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.specialAbilities;
 
+import it.polimi.ingsw.client.view.reducedGameModel.SpecialAbilityType;
 import it.polimi.ingsw.server.model.player.RealPlayer;
 import it.polimi.ingsw.server.model.productionPower.ProductionPower;
 import it.polimi.ingsw.server.model.productionPower.ProductionPowerInput;
@@ -19,6 +20,7 @@ public class SpecialAdditionalProductionPower extends SpecialAbility {
      * @param resource the resource to which is applied this production power
      */
     public SpecialAdditionalProductionPower(Resource resource) {
+        specialAbilityType = SpecialAbilityType.PRODUCTION_POWER;
         this.resource = resource;
         ProductionPowerInput productionPowerInput = new ProductionPowerInput();
         productionPowerInput.add(resource, 1);

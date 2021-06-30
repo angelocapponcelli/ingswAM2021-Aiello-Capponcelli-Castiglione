@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.view.reducedGameModel;
 
+import it.polimi.ingsw.client.view.reducedGameModel.reducedFaithTrack.ReducedVaticanReportSection;
 import it.polimi.ingsw.server.model.misc.Colors;
 import it.polimi.ingsw.server.model.player.Player;
 

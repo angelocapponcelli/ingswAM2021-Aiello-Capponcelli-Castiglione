@@ -9,33 +9,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="526.0" prefWidth="884.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="526.0" prefWidth="884.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.GUI.SceneController.Editor.VaticanReportSectionEditController">
    <children>
-      <Pane prefHeight="202.0" prefWidth="884.0">
+      <Pane prefHeight="405.0" prefWidth="884.0">
          <children>
-            <TextField layoutX="174.0" layoutY="151.0" prefHeight="25.0" prefWidth="96.0" />
-            <Label layoutX="174.0" layoutY="26.0" prefHeight="66.0" prefWidth="447.0" text="Vatican Report Section" textAlignment="CENTER">
-               <font>
-                  <Font size="44.0" />
-               </font>
-            </Label>
-            <TextField layoutX="525.0" layoutY="151.0" prefHeight="25.0" prefWidth="96.0" />
-            <Label layoutX="174.0" layoutY="101.0" prefHeight="35.0" prefWidth="96.0" text="First Cell" textAlignment="CENTER">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="525.0" layoutY="101.0" prefHeight="35.0" prefWidth="96.0" text="Last Cell" textAlignment="CENTER">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Pane prefHeight="202.0" prefWidth="884.0">
-         <children>
-            <TextField layoutX="323.0" layoutY="130.0" />
-            <Label layoutX="261.0" layoutY="29.0" prefHeight="66.0" prefWidth="272.0" text="Victory Points" textAlignment="CENTER">
+            <TextField fx:id="points" layoutX="323.0" layoutY="256.0" />
+            <Label layoutX="261.0" layoutY="137.0" prefHeight="66.0" prefWidth="272.0" text="Victory Points" textAlignment="CENTER">
                <font>
                   <Font size="44.0" />
                </font>
@@ -44,7 +23,7 @@
       </Pane>
       <ButtonBar buttonMinWidth="200.0" prefHeight="115.0" prefWidth="884.0">
         <buttons>
-            <Button mnemonicParsing="false" style="-fx-background-color: GREEN;" text="OK" textFill="WHITE">
+            <Button fx:id="okButton" mnemonicParsing="false" onAction="#insertedVictoryPoints" style="-fx-background-color: GREEN;" text="OK" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>

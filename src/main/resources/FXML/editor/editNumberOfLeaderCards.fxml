@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="526.0" prefWidth="884.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="526.0" prefWidth="884.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.GUI.SceneController.Editor.LeaderCardsCountEdit">
    <children>
       <Pane prefHeight="402.0" prefWidth="884.0">
          <children>
@@ -18,12 +18,12 @@
                   <Font size="32.0" />
                </font>
             </Label>
-            <TextField layoutX="367.0" layoutY="222.0" />
+            <TextField fx:id="cardsCount" layoutX="367.0" layoutY="222.0" />
          </children>
       </Pane>
       <ButtonBar buttonMinWidth="200.0" prefHeight="116.0" prefWidth="584.0">
         <buttons>
-            <Button mnemonicParsing="false" style="-fx-background-color: GREEN;" text="OK" textFill="WHITE">
+            <Button fx:id="okButton" mnemonicParsing="false" onAction="#insertedCount" style="-fx-background-color: GREEN;" text="OK" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>

@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.view.reducedGameModel.SpecialAbilityType;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedLeaderCard;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedInHandLeaderCardMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.UpdatedSpecialDepotMessage;
+import it.polimi.ingsw.client.view.reducedGameModel.SpecialAbilityType;
 import it.polimi.ingsw.server.model.player.RealPlayer;
 import it.polimi.ingsw.server.model.resources.Resource;
 import it.polimi.ingsw.utils.observer.Observable;

@@ -148,10 +148,10 @@ public class GameController {
                 BuyDevCardMessage buyDevCardMessage = (BuyDevCardMessage) message;
                 buyDevCard(buyDevCardMessage);
                 break;
-            case ACTIVATE_PRODUCTION:
+            /*case ACTIVATE_PRODUCTION:
                 ActivateProductionMessage activateProductionMessage = (ActivateProductionMessage) message;
                 activateProduction(activateProductionMessage);
-                break;
+                break;*/
             case ACTIVATE_BASIC_PRODUCTION:
                 ActivateBasicProductionMessage activateBasicProductionMessage = (ActivateBasicProductionMessage) message;
                 activateBasicProduction(activateBasicProductionMessage);
@@ -176,9 +176,39 @@ public class GameController {
                 DiscardResourceMessage discardResourceMessage = (DiscardResourceMessage) message;
                 discardResource(discardResourceMessage);
                 break;
+            case ACTIVATE_DEV_CARD_PRODUCTION:
+                ActivateDevelopmentCardProductionMessage activateDevelopmentCardProductionMessage = (ActivateDevelopmentCardProductionMessage) message;
+                activateDevelopmentCardProductionMessage(activateDevelopmentCardProductionMessage);
+            case ACTIVATE_LEADER_CARD:
+                ActivateLeaderCardMessage activateLeaderCardMessage = (ActivateLeaderCardMessage) message;
+                activateLeaderCard(activateLeaderCardMessage);
+                break;
 
 
         }
+    }
+
+    private void activateLeaderCard(ActivateLeaderCardMessage activateLeaderCardMessage) {
+        RealPlayer realPlayer = (RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(activateLeaderCardMessage.getNickname()))
+                .findFirst().orElse(null);
+        realPlayer.getPersonalBoard().getInHandLeaderCards().playCard(activateLeaderCardMessage.getId(), realPlayer);
+    }
+
+
+    private void activateDevelopmentCardProductionMessage(ActivateDevelopmentCardProductionMessage activateDevelopmentCardProductionMessage){
+        DevelopmentCard card = getRealPlayer(activateDevelopmentCardProductionMessage)
+                .getPersonalBoard()
+                .getPersonalDevelopmentBoard()
+                .getTopCard(activateDevelopmentCardProductionMessage.getDevelopmentCardID());
+
+        try {
+            card.getProductionPower().getProductionInput().pay(getRealPlayer(activateDevelopmentCardProductionMessage));
+        } catch (DepotException e) {
+            e.printStackTrace();
+        }
+        card.getProductionPower().getProductionOutput().onActivation(getRealPlayer(activateDevelopmentCardProductionMessage));
+        sendPrivateMessage(activateDevelopmentCardProductionMessage.getNickname(), new ActionEndedMessage());
+        nextPlayerTurn();
     }
 
 
@@ -314,7 +344,7 @@ public class GameController {
         nextPlayerTurn();
     }
 
-    private void activateProduction(ActivateProductionMessage activateProductionMessage) {
+    /*private void activateProduction(ActivateProductionMessage activateProductionMessage) {
         RealPlayer realPlayer = getRealPlayer(activateProductionMessage);
         try {
             gameModel.getGlobalBoard().getBasicProductionPower().getProductionInput().pay(realPlayer);
@@ -323,7 +353,7 @@ public class GameController {
         }
         gameModel.getGlobalBoard().getBasicProductionPower().getProductionOutput().onActivation(realPlayer);
         nextPlayerTurn();
-    }
+    }*/
 
     private void activateBasicProduction(ActivateBasicProductionMessage activateBasicProductionMessage) {
         RealPlayer realPlayer = getRealPlayer(activateBasicProductionMessage);
@@ -379,7 +409,17 @@ public class GameController {
             } else currentPlayer++;
         }
         else lorenzoTurn();
-        sendPrivateMessage(playerList.get(currentPlayer).getNickName(), new ItIsMyTurnMessage());
+
+        Boolean playLeaderCard = false;
+        RealPlayer realPlayer = (RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(playerList.get(currentPlayer).getNickName()))
+                .findFirst().orElse(null);
+        for (LeaderCard leaderCard : realPlayer.getPersonalBoard().getInHandLeaderCards().getInHandLeaderCards() ) {
+            if (!leaderCard.isPlayed() && leaderCard.getRequirements().check(realPlayer)) {
+                playLeaderCard = true;
+                break;
+            }
+        }
+        sendPrivateMessage(playerList.get(currentPlayer).getNickName(), new ItIsMyTurnMessage(playLeaderCard));
     }
 
 
@@ -400,7 +440,5 @@ public class GameController {
 
 
     }
-
-
 
 }

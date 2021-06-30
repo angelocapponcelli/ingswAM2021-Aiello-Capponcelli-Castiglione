@@ -85,7 +85,6 @@ public class MoveFromTemporaryController {
        FXGUI.getClient().getView().getReducedGameModel().getSpecialDepot().forEach( reducedContainer -> {
             AnchorPane anchorPane = new AnchorPane();
             anchorPane.setCursor(Cursor.HAND);
-            anchorPane.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onSpecialClicked(reducedContainer.getResourceType()));
             ImageView imageViewBackGround = new ImageView(new Image(getClass().getResourceAsStream("/image/special/special" + reducedContainer.getResourceType().toString() + ".png")));
             imageViewBackGround.setFitHeight(80);
             imageViewBackGround.setFitWidth(175);
@@ -103,13 +102,24 @@ public class MoveFromTemporaryController {
                 hBox.getChildren().add(imageResourceSpecial);
             }
             anchorPane.getChildren().add(hBox);
+            anchorPane.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onSpecialClicked(reducedContainer.getResourceType(), hBox));
             specialPane.getChildren().add(anchorPane);
         });
     }
 
-    private void onSpecialClicked(ResourceType resourceType) {
+    private void onSpecialClicked(ResourceType resourceType, HBox hBox) {
+        ImageView imageResourceSpecial = (ImageView) resourceToMovePane.getCenter();
+        imageResourceSpecial.setFitWidth(65);
+        imageResourceSpecial.setFitHeight(65);
+        hBox.getChildren().add(imageResourceSpecial);
         new FXGUI().getClient().sendMessage(new ReallocateResourceMessage(FXGUI.getClient().getNickName(), resourceType, "Temporary",
                 "Special", -1, -1));
+        if (temporaryDepotResourceHbox.getChildren().size() > 0) {
+            resourceToMovePane.setCenter(temporaryDepotResourceHbox.getChildren().get(0));
+            ImageView imageView = (ImageView) resourceToMovePane.getCenter();
+            imageView.setFitWidth(78);
+            imageView.setFitHeight(78);
+        }
     }
 
     public void onShelfClicked(ActionEvent event) {

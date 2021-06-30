@@ -184,13 +184,13 @@ public class SettingsParser {
             String type = tmpTrack.get(i).getAsJsonObject().get("type").getAsString();
             switch (type) {
                 case "NORMAL":
-                    track.add(new Cell(tmpTrack.get(i).getAsJsonObject().get("victoryPoints").getAsInt()));
+                    track.add(new Cell(tmpTrack.get(i).getAsJsonObject().get("victoryPoints").getAsInt(), i));
                     break;
                 case "POPE":
-                    track.add(new PopeSpaceCell(tmpTrack.get(i).getAsJsonObject().get("victoryPoints").getAsInt()));
+                    track.add(new PopeSpaceCell(tmpTrack.get(i).getAsJsonObject().get("victoryPoints").getAsInt(),i));
                     break;
                 case "FINAL":
-                    track.add(new FinalCell(tmpTrack.get(i).getAsJsonObject().get("victoryPoints").getAsInt()));
+                    track.add(new FinalCell(tmpTrack.get(i).getAsJsonObject().get("victoryPoints").getAsInt(), i));
                     break;
             }
         }
@@ -236,7 +236,7 @@ public class SettingsParser {
             //Special Ability
             SpecialAbility specialAbility = null;
             try {
-                specialAbility = getSpecialAbility(element.getAsJsonObject().get("specialAbility").getAsJsonObject().get("resource").getAsString(), "src/main/resources/JSONs/settings.json");
+                specialAbility = getSpecialAbility(element.getAsJsonObject().get("specialAbility").getAsJsonObject().get("type").getAsString(), element.getAsJsonObject().get("specialAbility").getAsJsonObject().get("resource").getAsString());
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -257,7 +257,6 @@ public class SettingsParser {
 
         JsonObject SpecialAbilityAttribute = JsonParser.parseReader(new FileReader(json)).getAsJsonObject()
                 .get("SpecialAbilities").getAsJsonObject();
-
 
         switch (specialAbilityType){
             case "DISCOUNT":

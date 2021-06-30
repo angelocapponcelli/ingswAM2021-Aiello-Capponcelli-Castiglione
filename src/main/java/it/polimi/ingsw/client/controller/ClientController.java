@@ -16,7 +16,7 @@ public class ClientController implements Runnable {
     private LOGIN loginState = LOGIN.NICKNAME;
     private INIT initState = INIT.DISCARD_LEADER;
     private IN_GAME inGameState = IN_GAME.NO_MY_TURN;
-    private MY_TURN myTurnState = MY_TURN.ACTIVATE_LEADER_CARD;
+    private MY_TURN myTurnState;
     private final View view;
 
     public void setMyTurnState(MY_TURN myTurnState) {

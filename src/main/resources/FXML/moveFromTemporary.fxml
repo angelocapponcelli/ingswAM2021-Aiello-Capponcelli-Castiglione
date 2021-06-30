@@ -11,30 +11,39 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="508.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.GUI.SceneController.MoveFromTemporaryController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="508.0"
+            xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.polimi.ingsw.client.view.GUI.SceneController.MoveFromTemporaryController">
     <ImageView fitHeight="575.0" fitWidth="508.0">
         <image>
-            <Image url="@../image/warehouseBackground.png" />
+            <Image url="@../image/warehouseBackground.png"/>
         </image>
     </ImageView>
-    <Label layoutX="24.0" layoutY="8.0" prefHeight="66.0" prefWidth="326.0" text="Select where you want put resource" wrapText="true">
+    <Label layoutX="24.0" layoutY="8.0" prefHeight="66.0" prefWidth="326.0" text="Select where you want put resource"
+           wrapText="true">
         <font>
-            <Font name="18thCentury" size="32.0" />
+            <Font name="18thCentury" size="32.0"/>
         </font>
     </Label>
-    <HBox fx:id="temporaryDepotResourceHbox" layoutX="12.0" layoutY="116.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="51.0" prefWidth="190.0" spacing="10.0" />
+    <HBox fx:id="temporaryDepotResourceHbox" layoutX="12.0" layoutY="116.0" nodeOrientation="RIGHT_TO_LEFT"
+          prefHeight="51.0" prefWidth="190.0" spacing="10.0"/>
     <BorderPane fx:id="resourceToMovePane" layoutX="215.0" layoutY="102.0" prefHeight="78.0" prefWidth="78.0">
         <center>
         </center>
     </BorderPane>
-    <Button fx:id="firstShelfButton" layoutX="9.0" layoutY="231.0" mnemonicParsing="false" onAction="#onShelfClicked" text="1° shelf" />
-    <HBox fx:id="firstShelfBox" alignment="CENTER" layoutX="81.0" layoutY="218.0" prefHeight="51.0" prefWidth="118.0" />
-    <Button fx:id="secondShelfButton" layoutX="9.0" layoutY="285.0" mnemonicParsing="false" onAction="#onShelfClicked" text="2° shelf" />
-    <HBox fx:id="secondShelfBox" alignment="CENTER" layoutX="81.0" layoutY="272.0" prefHeight="51.0" prefWidth="118.0" />
-    <Button fx:id="thirdShelfButton" layoutX="9.0" layoutY="344.0" mnemonicParsing="false" onAction="#onShelfClicked" text="3° shelf" />
-    <HBox fx:id="thirdShelfBox" alignment="CENTER" layoutX="57.0" layoutY="331.0" prefHeight="51.0" prefWidth="166.0" />
-    <Button fx:id="discardButton" layoutX="9.0" layoutY="398.0" mnemonicParsing="false" onAction="#onDiscardClicked" text="Discard" />
-    <ScrollPane hbarPolicy="NEVER" layoutX="285.0" layoutY="216.0" prefHeight="320.0" prefWidth="180.0" style="-fx-background: transparent; -fx-background-color: transparent; ">
+    <Button fx:id="firstShelfButton" layoutX="9.0" layoutY="231.0" mnemonicParsing="false" onAction="#onShelfClicked"
+            text="1° shelf"/>
+    <HBox fx:id="firstShelfBox" alignment="CENTER" layoutX="81.0" layoutY="218.0" prefHeight="51.0" prefWidth="118.0"/>
+    <Button fx:id="secondShelfButton" layoutX="9.0" layoutY="285.0" mnemonicParsing="false" onAction="#onShelfClicked"
+            text="2° shelf"/>
+    <HBox fx:id="secondShelfBox" alignment="CENTER" layoutX="81.0" layoutY="272.0" prefHeight="51.0" prefWidth="118.0"/>
+    <Button fx:id="thirdShelfButton" layoutX="9.0" layoutY="344.0" mnemonicParsing="false" onAction="#onShelfClicked"
+            text="3° shelf"/>
+    <HBox fx:id="thirdShelfBox" alignment="CENTER" layoutX="57.0" layoutY="331.0" prefHeight="51.0" prefWidth="166.0"/>
+    <Button fx:id="discardButton" layoutX="9.0" layoutY="398.0" mnemonicParsing="false" onAction="#onDiscardClicked"
+            text="Discard"/>
+    <ScrollPane hbarPolicy="NEVER" layoutX="285.0" layoutY="216.0" prefHeight="320.0" prefWidth="180.0"
+                style="-fx-background: transparent; -fx-background-color: transparent; ">
         <content>
             <AnchorPane>
                 <children>

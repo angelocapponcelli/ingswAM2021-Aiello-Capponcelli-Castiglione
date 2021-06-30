@@ -24,6 +24,9 @@ public enum MessageType {
     UPDATED_IN_HAND_LEADER_CARD,
     TURN_POSITION_MESSAGE,
     CHOSEN_INITIAL_RESOURCES,
+    ACTIVATE_DEV_CARD_PRODUCTION,
+
+    ACTIVATE_LEADER_CARD,
 
     /**
      * view's update
@@ -35,6 +38,7 @@ public enum MessageType {
     UPDATED_DEV_CARD_GRID,
     UPDATED_FAITH_POSITION,
     UPDATED_STRONG_BOX,
+    UPDATED_SPECIALDEPOT,
     UPDATED_VATICAN_REPORT_SECTION,
 
     ALL_PLAYERS_JOINED,
@@ -43,6 +47,7 @@ public enum MessageType {
 
 
     MY_TURN_MESSAGE,
+    GAME_ENDED,
 
 
 

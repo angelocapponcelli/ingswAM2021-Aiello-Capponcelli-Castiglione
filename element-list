@@ -1,0 +1,14 @@
+it.polimi.ingsw.server.model.cards
+it.polimi.ingsw.server.model.game
+it.polimi.ingsw.server.model.globalBoard
+it.polimi.ingsw.server.model.globalBoard.faithTrack
+it.polimi.ingsw.server.model.interfaces
+it.polimi.ingsw.server.model.misc
+it.polimi.ingsw.server.model.personalBoard
+it.polimi.ingsw.server.model.personalBoard.depots
+it.polimi.ingsw.server.model.personalBoard.resourceContainers
+it.polimi.ingsw.server.model.player
+it.polimi.ingsw.server.model.productionPower
+it.polimi.ingsw.server.model.resources
+it.polimi.ingsw.server.model.soloToken
+it.polimi.ingsw.server.model.specialAbilities

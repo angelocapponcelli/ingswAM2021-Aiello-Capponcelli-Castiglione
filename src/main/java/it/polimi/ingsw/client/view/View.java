@@ -42,9 +42,6 @@ public abstract class View {
     public abstract void takeFromMarket();
     public abstract void buyDevCard();
     public abstract void activateProduction();
-
-    public abstract void askForLeaderActivation();
-
     public abstract void activateLeaderCard();
 
     public abstract void gameEnding();

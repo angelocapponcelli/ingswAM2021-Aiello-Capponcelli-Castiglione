@@ -384,7 +384,8 @@ public class CLI extends View {
         }
 
     }
-    public void askForLeaderActivation(){
+    @Override
+    public void activateLeaderCard(){
         List<String> validInput = Arrays.asList("Y","N");
         String input = null;
         do {
@@ -528,11 +529,6 @@ public class CLI extends View {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void activateLeaderCard() {
-
     }
 
     @Override

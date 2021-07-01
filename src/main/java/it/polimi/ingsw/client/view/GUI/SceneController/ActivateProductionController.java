@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.view.GUI.SceneController;
 import it.polimi.ingsw.client.view.GUI.FXGUI;
 import it.polimi.ingsw.client.view.reducedGameModel.ReducedContainer;
 import it.polimi.ingsw.client.view.reducedGameModel.SpecialAbilityType;
+import it.polimi.ingsw.networking.messages.clientMessages.ActivateDevelopmentCardProductionMessage;
 import it.polimi.ingsw.server.model.resources.ResourceType;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -217,9 +218,12 @@ public class ActivateProductionController {
     }
 
     public void onConfirmProduction(ActionEvent event) {
-        if (firstDevelopmentCardCheckBox.isSelected()) ;//todo activate first card production
-        if (secondDevelopmentCardCheckBox.isSelected()) ;//todo activate second card production
-        if (thirdDevelopmentCardCheckBox.isSelected()) ;//todo activate third card production
+        if (firstDevelopmentCardCheckBox.isSelected())
+            FXGUI.getClient().sendMessage(new ActivateDevelopmentCardProductionMessage(FXGUI.getClient().getNickName(),FXGUI.getClient().getView().getReducedGameModel().getPersonalDevelopmentBoard().get(0).getId()));
+        if (secondDevelopmentCardCheckBox.isSelected())
+            FXGUI.getClient().sendMessage(new ActivateDevelopmentCardProductionMessage(FXGUI.getClient().getNickName(),FXGUI.getClient().getView().getReducedGameModel().getPersonalDevelopmentBoard().get(1).getId()));
+        if (thirdDevelopmentCardCheckBox.isSelected())
+            FXGUI.getClient().sendMessage(new ActivateDevelopmentCardProductionMessage(FXGUI.getClient().getNickName(),FXGUI.getClient().getView().getReducedGameModel().getPersonalDevelopmentBoard().get(2).getId()));
         if (baseProduction.isSelected()) {
             Platform.runLater(() -> {
                 try {

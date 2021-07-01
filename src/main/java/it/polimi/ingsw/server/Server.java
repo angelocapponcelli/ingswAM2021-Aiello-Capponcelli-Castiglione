@@ -20,6 +20,7 @@ public class Server {
     private static final List<ServerToClientHandler> connectedClient = new ArrayList<>();
     private static Integer nextGameID = 1;
 
+
     /**
      * Starts the Server by creating a pool of threads and waiting for the clients to connect
      *

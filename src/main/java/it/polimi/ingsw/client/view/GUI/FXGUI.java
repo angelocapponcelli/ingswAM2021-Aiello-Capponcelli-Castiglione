@@ -3,11 +3,14 @@ package it.polimi.ingsw.client.view.GUI;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.controller.ClientController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
+import java.beans.EventHandler;
 import java.io.IOException;
 
 public class FXGUI extends Application {
@@ -18,6 +21,13 @@ public class FXGUI extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+
+        Platform.setImplicitExit(true);
+        stage.setOnCloseRequest((ae) -> {
+            Platform.exit();
+            System.exit(0);
+        });
+
         FXGUI.stage = stage;
         scene = new Scene(loadFXML("nickName"));
         stage.setScene(scene);
@@ -53,4 +63,6 @@ public class FXGUI extends Application {
     public static Stage getStage() {
         return stage;
     }
+
+
 }

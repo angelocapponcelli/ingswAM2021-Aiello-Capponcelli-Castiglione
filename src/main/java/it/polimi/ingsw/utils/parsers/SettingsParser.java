@@ -14,9 +14,7 @@ import it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput;
 import it.polimi.ingsw.server.model.resources.*;
 import it.polimi.ingsw.server.model.specialAbilities.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,7 +23,7 @@ import java.util.Objects;
 public class SettingsParser {
     private final static SettingsParser INSTANCE = new SettingsParser();
 
-    private String json =  "src/main/resources/JSONs/settings.json";
+    private String json = "JSONs/settings.json";
 
     private SettingsParser() {
     }
@@ -40,14 +38,16 @@ public class SettingsParser {
 
     public MarketTray getMarketTray() throws FileNotFoundException {
 
+        InputStream inputStream = SettingsParser.class.getClassLoader().getResourceAsStream(json);
+        JsonParser parser = new JsonParser();
+        JsonObject jsonObject = parser.parse(new InputStreamReader(inputStream)).getAsJsonObject();
 
-
-        JsonObject jsonObject = JsonParser.parseReader(new FileReader(json)).getAsJsonObject().get("MarketTray").getAsJsonObject();
+        JsonObject marketTrayObject = jsonObject.get("MarketTray").getAsJsonObject();
 
         List<ResourceType> marblesList = new ArrayList<>();
         ResourceType slide;
 
-        jsonObject.get("marbles").getAsJsonObject().entrySet().forEach( entry -> {
+        marketTrayObject.get("marbles").getAsJsonObject().entrySet().forEach(entry -> {
                     for (int i = 0; i < entry.getValue().getAsInt(); i++) {
                         marblesList.add(ResourceType.parse(entry.getKey()));
                     }
@@ -56,8 +56,8 @@ public class SettingsParser {
 
         Collections.shuffle(marblesList);
 
-        int nRows = jsonObject.get("nRows").getAsInt();
-        int nCols = jsonObject.get("nCols").getAsInt();
+        int nRows = marketTrayObject.get("nRows").getAsInt();
+        int nCols = marketTrayObject.get("nCols").getAsInt();
         Resource[][] tmpMarketTray = new Resource[nRows][nCols];
         for (int i = 0; i < nRows; i++) {
             for (int j = 0; j < nCols; j++) {
@@ -73,7 +73,12 @@ public class SettingsParser {
     public List<DevelopmentCard> getDevelopmentCards() throws FileNotFoundException {
         List<DevelopmentCard> developmentCards = new ArrayList<>();
 
-        JsonArray tempDeck = JsonParser.parseReader(new FileReader(json)).getAsJsonObject().getAsJsonArray("DevelopmentCards");
+        InputStream inputStream = SettingsParser.class.getClassLoader().getResourceAsStream(json);
+        JsonParser parser = new JsonParser();
+        JsonObject jsonObject = parser.parse(new InputStreamReader(inputStream)).getAsJsonObject();
+
+
+        JsonArray tempDeck = jsonObject.getAsJsonArray("DevelopmentCards");
 
         for(JsonElement element: tempDeck){
 
@@ -112,9 +117,15 @@ public class SettingsParser {
 
     public ProductionPower getBasicProductionPower() throws FileNotFoundException {
 
-        JsonObject jsonObject = JsonParser.parseReader(new FileReader(json)).getAsJsonObject().getAsJsonObject("BoardBasicProductionPower");
-        JsonArray tmpInput = jsonObject.getAsJsonArray("productionPowerInput");
-        JsonArray tmpOutput = jsonObject.getAsJsonArray("productionPowerOutput");
+        InputStream inputStream = SettingsParser.class.getClassLoader().getResourceAsStream(json);
+        JsonParser parser = new JsonParser();
+        JsonObject jsonObject = parser.parse(new InputStreamReader(inputStream)).getAsJsonObject();
+
+
+
+        JsonObject productionObject = jsonObject.getAsJsonObject("BoardBasicProductionPower");
+        JsonArray tmpInput = productionObject.getAsJsonArray("productionPowerInput");
+        JsonArray tmpOutput = productionObject.getAsJsonArray("productionPowerOutput");
 
         ProductionPowerInput input = new ProductionPowerInput();
         ProductionPowerOutput output = new ProductionPowerOutput();
@@ -171,14 +182,14 @@ public class SettingsParser {
         List<Cell> track = new ArrayList<>();
         List<VaticanReportSection> reportSections = new ArrayList<>();
 
-        JsonObject jsonObject = null;
-        try {
-            jsonObject = JsonParser.parseReader(new FileReader(json)).getAsJsonObject().getAsJsonObject("FaithTrack");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        JsonArray tmpTrack = jsonObject.getAsJsonArray("track");
-        JsonArray tmpReport = jsonObject.getAsJsonArray("vaticanReportSections");
+        InputStream inputStream = SettingsParser.class.getClassLoader().getResourceAsStream(json);
+        JsonParser parser = new JsonParser();
+        JsonObject jsonObject = parser.parse(new InputStreamReader(inputStream)).getAsJsonObject();
+
+
+        JsonObject faithTackObject = jsonObject.getAsJsonObject("FaithTrack");
+        JsonArray tmpTrack = faithTackObject.getAsJsonArray("track");
+        JsonArray tmpReport = faithTackObject.getAsJsonArray("vaticanReportSections");
 
         for (int i = 0; i < tmpTrack.size(); i++) {
             String type = tmpTrack.get(i).getAsJsonObject().get("type").getAsString();
@@ -211,12 +222,11 @@ public class SettingsParser {
     public List<LeaderCard> getLeaderCards(){
         List<LeaderCard> leaderCards = new ArrayList<>();
 
-        JsonArray tempDeck = null;
-        try {
-            tempDeck = JsonParser.parseReader(new FileReader(json)).getAsJsonObject().getAsJsonArray("LeaderCards");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        InputStream inputStream = SettingsParser.class.getClassLoader().getResourceAsStream(json);
+        JsonParser parser = new JsonParser();
+        JsonObject jsonObject = parser.parse(new InputStreamReader(inputStream)).getAsJsonObject();
+
+        JsonArray tempDeck = jsonObject.getAsJsonArray("LeaderCards");
 
         for(JsonElement element: Objects.requireNonNull(tempDeck)) {
 
@@ -247,16 +257,17 @@ public class SettingsParser {
 
         }
 
-
-
-
         return leaderCards;
     }
 
     public SpecialAbility getSpecialAbility(String specialAbilityType, String  resourceType) throws FileNotFoundException {
 
-        JsonObject SpecialAbilityAttribute = JsonParser.parseReader(new FileReader(json)).getAsJsonObject()
-                .get("SpecialAbilities").getAsJsonObject();
+
+        InputStream inputStream = SettingsParser.class.getClassLoader().getResourceAsStream(json);
+        JsonParser parser = new JsonParser();
+        JsonObject jsonObject = parser.parse(new InputStreamReader(inputStream)).getAsJsonObject();
+
+        JsonObject SpecialAbilityAttribute = jsonObject.get("SpecialAbilities").getAsJsonObject();
 
         switch (specialAbilityType){
             case "DISCOUNT":

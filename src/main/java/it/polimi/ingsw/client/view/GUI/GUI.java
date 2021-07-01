@@ -251,6 +251,11 @@ public class GUI extends View {
     }
 
     @Override
+    public void askForLeaderActivation() {
+
+    }
+
+    @Override
     public void activateLeaderCard() {
         Platform.runLater(()-> {
             try {
@@ -269,6 +274,11 @@ public class GUI extends View {
             stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
         });
         client.getClientController().pause();
+    }
+
+    @Override
+    public void gameEnding() {
+
     }
 
 }

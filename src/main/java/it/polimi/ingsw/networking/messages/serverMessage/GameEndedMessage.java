@@ -9,4 +9,8 @@ public class GameEndedMessage extends ServerMessage{
         messageType = MessageType.GAME_ENDED;
         this.winner = winner;
     }
+
+    public String getWinner() {
+        return winner;
+    }
 }

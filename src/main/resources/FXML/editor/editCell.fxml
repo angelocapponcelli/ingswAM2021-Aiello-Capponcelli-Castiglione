@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="526.0" prefWidth="884.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.GUI.SceneController.Editor.CellEditController">
+<VBox prefHeight="526.0" prefWidth="884.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.editor.CellEditController">
    <children>
       <Pane prefHeight="355.0" prefWidth="884.0">
          <children>

@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.editor.EditorController">
    <children>
-      <Pane prefHeight="300.0" prefWidth="600.0">
+      <Pane prefHeight="101.0" prefWidth="600.0">
          <children>
-            <Label layoutX="172.0" layoutY="54.0" text="Choose a field to edit">
+            <Label layoutX="172.0" layoutY="27.0" text="Choose a field to edit">
                <font>
                   <Font size="24.0" />
                </font></Label>
          </children>
       </Pane>
-      <HBox prefHeight="427.0" prefWidth="600.0">
+      <HBox prefHeight="259.0" prefWidth="600.0">
          <children>
             <VBox prefHeight="264.0" prefWidth="290.0">
                <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
+                  <Pane prefHeight="130.0" prefWidth="287.0">
                      <children>
                         <Button fx:id="devCards" layoutX="70.0" layoutY="53.0" mnemonicParsing="false" onAction="#editDevCards" text="Development Cards" />
                      </children>
                   </Pane>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
+                  <Pane prefHeight="130.0" prefWidth="200.0">
                      <children>
                         <Button fx:id="boardProductionPower" layoutX="51.0" layoutY="53.0" mnemonicParsing="false" onAction="#editBoardProductionPower" text="Board's Production Power" />
                      </children>
@@ -32,12 +33,12 @@
             </VBox>
             <VBox prefHeight="264.0" prefWidth="317.0">
                <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
+                  <Pane prefHeight="130.0" prefWidth="314.0">
                      <children>
                         <Button fx:id="leaderCards" layoutX="105.0" layoutY="53.0" mnemonicParsing="false" onAction="#editLeaderCards" text="Leader Cards" />
                      </children>
                   </Pane>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
+                  <Pane prefHeight="130.0" prefWidth="200.0">
                      <children>
                         <Button fx:id="faithTrack" layoutX="112.0" layoutY="53.0" mnemonicParsing="false" onAction="#editFaithTrack" text="Faith Track" />
                      </children>
@@ -45,5 +46,23 @@
                </children>
             </VBox>
          </children></HBox>
+      <ButtonBar prefHeight="104.0" prefWidth="600.0">
+        <buttons>
+            <Button mnemonicParsing="false" style="-fx-background-color: red;" text="Discard" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font></Button>
+          <Button mnemonicParsing="false" style="-fx-background-color: green;" text="OK" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font></Button>
+        </buttons>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets right="30.0" />
+         </padding>
+      </ButtonBar>
    </children>
 </VBox>

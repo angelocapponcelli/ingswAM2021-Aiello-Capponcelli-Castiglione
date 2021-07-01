@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.controller;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.networking.messages.ErrorMessage;
 import it.polimi.ingsw.networking.messages.Message;
+import it.polimi.ingsw.networking.messages.serverMessage.GameEndedMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.ItIsMyTurnMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.TurnPositionMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.*;
@@ -17,6 +18,7 @@ public class ClientController implements Runnable {
     private INIT initState = INIT.DISCARD_LEADER;
     private IN_GAME inGameState = IN_GAME.NO_MY_TURN;
     private MY_TURN myTurnState;
+    boolean canActivateLeader = true;
     private final View view;
 
     public void setMyTurnState(MY_TURN myTurnState) {
@@ -101,13 +103,12 @@ public class ClientController implements Runnable {
                     case IN_GAME:
                         switch (inGameState) {
                             case MY_TURN:
-                                System.out.println("your turn");
                                 view.refresh();
                                 if (myTurnState == MY_TURN.ACTIVATE_LEADER_CARD) view.activateLeaderCard();
+                                if(canActivateLeader) view.askForLeaderActivation();
                                 view.askForMainAction();
                                 switch (myTurnState) {
                                     case TAKE_FROM_MARKET:
-                                        System.out.println("takeFrom");
                                         view.takeFromMarket();
                                         try {
                                             wait();
@@ -118,24 +119,24 @@ public class ClientController implements Runnable {
                                         break;
 
                                     case ACTIVATE_PRODUCTION:
-                                        System.out.println("Activate");
                                         view.activateProduction();
                                         try {
                                             wait();
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
                                         }
+                                        if(canActivateLeader) view.askForLeaderActivation();
                                         inGameState = IN_GAME.NO_MY_TURN;
                                         break;
 
                                     case BUY_DEV_CARD:
-                                        System.out.println("buydev");
                                         view.buyDevCard();
                                         try {
                                             wait();
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
                                         }
+                                        if(canActivateLeader) view.askForLeaderActivation();
                                         inGameState = IN_GAME.NO_MY_TURN;
                                         break;
                                 }
@@ -143,7 +144,7 @@ public class ClientController implements Runnable {
 
                             case NO_MY_TURN:
                                 view.refresh();
-                                System.out.println("not your turn");
+                                System.out.println("Wait for other players to complete their turn");
                                 try {
                                     wait();
                                 } catch (InterruptedException e) {
@@ -161,6 +162,8 @@ public class ClientController implements Runnable {
                             e.printStackTrace();
                         }
                         currentState = ClientState.IN_GAME;
+                        view.refresh();
+                        if(canActivateLeader) view.askForLeaderActivation();
                         break;
 
                     case RESOURCE_REPLACEMENT:
@@ -248,6 +251,7 @@ public class ClientController implements Runnable {
                 //view.refresh();
                 break;
             case MY_TURN_MESSAGE:
+                canActivateLeader = true;
                 ItIsMyTurnMessage itIsMyTurnMessage = (ItIsMyTurnMessage) message;
                 inGameState = IN_GAME.MY_TURN;
                 if (itIsMyTurnMessage.getCanPlayLeaderCard())
@@ -268,6 +272,10 @@ public class ClientController implements Runnable {
                 Objects.requireNonNull(view.getReducedGameModel().getPlayers().stream()
                         .filter(reducedPlayer -> reducedPlayer.getNickName().equals(updatedFaithPositionMessage.getNickname()))
                         .findFirst().orElse(null)).setFaithPosition(updatedFaithPositionMessage.getFaithPosition());
+                break;
+            case GAME_ENDED:
+                view.gameEnding();
+                break;
 
         }
     }

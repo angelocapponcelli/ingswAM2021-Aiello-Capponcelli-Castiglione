@@ -250,9 +250,7 @@ public class CLI extends View {
         });
         System.out.println();
 
-        developmentCards.forEach(x -> {
-            System.out.print("║" + Utils.getAlignedToCenter(" ",width) +"║");
-        });
+        developmentCards.forEach(x -> System.out.print("║" + Utils.getAlignedToCenter(" ",width) +"║"));
         System.out.println();
 
         developmentCards.forEach(x -> {
@@ -295,11 +293,32 @@ public class CLI extends View {
         //Vatican Report Sections
         for (int i = 0; i < reducedGameModel.getFaithTrack().getVaticanReportSections().size(); i++){
             int previousEnding = 0;
+            int reportSize = (reducedGameModel.getFaithTrack().getVaticanReportSections().get(i).getEndCell() + 1 ) - ( reducedGameModel.getFaithTrack().getVaticanReportSections().get(i).getStartCell() ) - 1;
             if (i > 0) previousEnding = reducedGameModel.getFaithTrack().getVaticanReportSections().get(i - 1).getEndCell() +  1;
+
             for (int j = 0; j < reducedGameModel.getFaithTrack().getVaticanReportSections().get(i).getStartCell() - previousEnding; j++ ){
                 System.out.print("    ");
             }
-            for (int j = 0; j < ( reducedGameModel.getFaithTrack().getVaticanReportSections().get(i).getEndCell() + 1 ) - ( reducedGameModel.getFaithTrack().getVaticanReportSections().get(i).getStartCell() ) ; j++ ){
+
+            if(reducedGameModel.getFlippedVaticanReportSections().stream()
+                    .map(ReducedVaticanReportSection::getStartCell)
+                    .collect(Collectors.toList())
+                    .contains(reducedGameModel.getFaithTrack().getVaticanReportSections().get(i).getStartCell())){
+                System.out.print(CLIColors.ANSI_CYAN_BACKGROUND);
+
+            }
+                else System.out.print(CLIColors.ANSI_BRIGHT_BLACK_BACKGROUND);
+
+
+            for (int j = 0; j < reportSize/2; j++){
+                System.out.print("    ");
+            }
+            System.out.printf("%2d%2s",reducedGameModel.getFaithTrack().getVaticanReportSections().get(i).getVictoryPoints()," ");
+            for (int j = 0; j < reportSize - reportSize/2; j++){
+                System.out.print("    ");
+            }
+
+            /*for (int j = 0; j < reportSize ; j++ ){
                 if(reducedGameModel.getFlippedVaticanReportSections().stream()
                         .map(ReducedVaticanReportSection::getStartCell)
                         .collect(Collectors.toList())
@@ -309,7 +328,7 @@ public class CLI extends View {
                 }
                 else System.out.print(CLIColors.ANSI_BRIGHT_BLACK_BACKGROUND);
                 System.out.print("____");
-            }
+            }*/
             System.out.print(CLIColors.getAnsiReset());
         }
 
@@ -364,6 +383,18 @@ public class CLI extends View {
                 break;
         }
 
+    }
+    public void askForLeaderActivation(){
+        List<String> validInput = Arrays.asList("Y","N");
+        String input = null;
+        do {
+            System.out.println("Do you want to activate a leader card? Y/N");
+            try {
+                input = stdIn.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }while (!validInput.contains(Objects.requireNonNull(input).toUpperCase(Locale.ROOT)));
     }
 
     public void takeFromMarket() {
@@ -502,6 +533,20 @@ public class CLI extends View {
     @Override
     public void activateLeaderCard() {
 
+    }
+
+    @Override
+    public void gameEnding() {
+        clear();
+
+        System.out.println("Game ended");
+        while (true){
+            clear();
+            System.out.println("Game ended");
+            waitMilliseconds(100);
+            clear();
+            waitMilliseconds(100);
+        }
     }
 
 

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.client.view.GUI.SceneController.Editor;
+package it.polimi.ingsw.editor;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;

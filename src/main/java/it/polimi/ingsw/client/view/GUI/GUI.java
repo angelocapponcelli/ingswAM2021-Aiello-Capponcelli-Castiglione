@@ -250,6 +250,7 @@ public class GUI extends View {
         });
     }
 
+
     @Override
     public void activateLeaderCard() {
         Platform.runLater(()-> {

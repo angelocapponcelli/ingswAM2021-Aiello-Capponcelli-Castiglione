@@ -318,17 +318,6 @@ public class CLI extends View {
                 System.out.print("    ");
             }
 
-            /*for (int j = 0; j < reportSize ; j++ ){
-                if(reducedGameModel.getFlippedVaticanReportSections().stream()
-                        .map(ReducedVaticanReportSection::getStartCell)
-                        .collect(Collectors.toList())
-                        .contains(reducedGameModel.getFaithTrack().getVaticanReportSections().get(i).getStartCell())){
-                    System.out.print(CLIColors.ANSI_CYAN_BACKGROUND);
-
-                }
-                else System.out.print(CLIColors.ANSI_BRIGHT_BLACK_BACKGROUND);
-                System.out.print("____");
-            }*/
             System.out.print(CLIColors.getAnsiReset());
         }
 
@@ -381,22 +370,13 @@ public class CLI extends View {
             case "3":
                 client.getClientController().setMyTurnState(MY_TURN.BUY_DEV_CARD);
                 break;
+            case "4":
+                client.getClientController().setMyTurnState(MY_TURN.ACTIVATE_LEADER_CARD);
+                break;
         }
 
     }
-    @Override
-    public void activateLeaderCard(){
-        List<String> validInput = Arrays.asList("Y","N");
-        String input = null;
-        do {
-            System.out.println("Do you want to activate a leader card? Y/N");
-            try {
-                input = stdIn.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }while (!validInput.contains(Objects.requireNonNull(input).toUpperCase(Locale.ROOT)));
-    }
+
 
     public void takeFromMarket() {
         clear();
@@ -529,6 +509,25 @@ public class CLI extends View {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void activateLeaderCard() {
+        clear();
+        drawInHandLeaderCards();
+        List<Integer> validInput = reducedGameModel.getReducedInHandLeaderCards().getInHandLeaderCards().stream().map(ReducedLeaderCard::getId).collect(Collectors.toList());
+        String input = null;
+        do {
+            System.out.println("Which leader do you want to activate?");
+            try {
+                input = stdIn.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }while (!validInput.contains(Integer.parseInt(input)));
+
+        client.sendMessage(new ActivateLeaderCardMessage(client.getNickName(),Integer.parseInt(input)));
+
     }
 
     @Override

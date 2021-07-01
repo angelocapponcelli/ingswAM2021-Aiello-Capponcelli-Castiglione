@@ -1,5 +1,8 @@
 package it.polimi.ingsw.networking.messages;
 
+/**
+ * Possible messages from the server to the client
+ */
 public enum MessageType {
     NEW_GAME,
     JOIN_GAME,

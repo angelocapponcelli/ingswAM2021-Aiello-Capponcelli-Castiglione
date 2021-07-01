@@ -207,7 +207,7 @@ public class ActivateProductionController {
     }
 
     private void onResourceLeaderPowerClicked(HBox rowLeaderPower, ResourceType specialResourceType, ResourceType resourceChoosen) {
-        //sendMessage( input specialResourceType, output faith+resourceChoosen ) //TODO 
+        //sendMessage( input specialResourceType, output faith+resourceChoosen ) //TODO
         rowLeaderPower.getChildren().remove(1, rowLeaderPower.getChildren().size());
         ImageView resourcePowerImage = new ImageView(new Image(getClass().getResourceAsStream("/image/resources/" + resourceChoosen.toString() + ".png")));
         resourcePowerImage.setFitWidth(60);

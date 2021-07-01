@@ -19,7 +19,6 @@ public class ClientController implements Runnable {
     private INIT initState = INIT.DISCARD_LEADER;
     private IN_GAME inGameState = IN_GAME.NO_MY_TURN;
     private MY_TURN myTurnState;
-    boolean canActivateLeader = true;
     private final View view;
 
     public void setMyTurnState(MY_TURN myTurnState) {
@@ -107,8 +106,7 @@ public class ClientController implements Runnable {
                                 int inHandLeaderCardNumber = (int) view.getReducedGameModel().getReducedInHandLeaderCards().getInHandLeaderCards().stream().filter( reducedLeaderCard -> reducedLeaderCard.getPlayed()==false ).count();
                                 System.out.println("your turn");
                                 view.refresh();
-                                if(canActivateLeader) view.askForLeaderActivation();
-                                view.activateLeaderCard();
+                                if (myTurnState == MY_TURN.ACTIVATE_LEADER_CARD) view.activateLeaderCard();
                                 view.askForMainAction();
                                 switch (myTurnState) {
                                     case TAKE_FROM_MARKET:
@@ -132,7 +130,6 @@ public class ClientController implements Runnable {
                                             e.printStackTrace();
                                         }
                                         if (inHandLeaderCardNumber != (int) view.getReducedGameModel().getReducedInHandLeaderCards().getInHandLeaderCards().stream().filter( reducedLeaderCard -> reducedLeaderCard.getPlayed()==false ).count()) view.activateLeaderCard();
-                                        if(canActivateLeader) view.askForLeaderActivation();
                                         inGameState = IN_GAME.NO_MY_TURN;
                                         break;
 
@@ -145,7 +142,6 @@ public class ClientController implements Runnable {
                                             e.printStackTrace();
                                         }
                                         if (inHandLeaderCardNumber != (int) view.getReducedGameModel().getReducedInHandLeaderCards().getInHandLeaderCards().stream().filter( reducedLeaderCard -> reducedLeaderCard.getPlayed()==false ).count()) view.activateLeaderCard();
-                                        if(canActivateLeader) view.askForLeaderActivation();
                                         inGameState = IN_GAME.NO_MY_TURN;
                                         break;
                                 }
@@ -172,7 +168,6 @@ public class ClientController implements Runnable {
                         }
                         currentState = ClientState.IN_GAME;
                         view.refresh();
-                        if(canActivateLeader) view.askForLeaderActivation();
                         break;
 
                     case RESOURCE_REPLACEMENT:
@@ -260,12 +255,14 @@ public class ClientController implements Runnable {
                 //view.refresh();
                 break;
             case MY_TURN_MESSAGE:
-                canActivateLeader = true;
                 ItIsMyTurnMessage itIsMyTurnMessage = (ItIsMyTurnMessage) message;
                 inGameState = IN_GAME.MY_TURN;
-                if (itIsMyTurnMessage.getCanPlayLeaderCard())
+                if (itIsMyTurnMessage.getCanPlayLeaderCard()) {
                     myTurnState = MY_TURN.ACTIVATE_LEADER_CARD;
-                else myTurnState = null;
+                }
+                else {
+                    myTurnState = null;
+                }
                 /* If player is not moving resources to not stop him in his action
                  * He will wake up by the end of the action
                  */

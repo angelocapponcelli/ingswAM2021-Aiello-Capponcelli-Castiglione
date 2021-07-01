@@ -318,17 +318,6 @@ public class CLI extends View {
                 System.out.print("    ");
             }
 
-            /*for (int j = 0; j < reportSize ; j++ ){
-                if(reducedGameModel.getFlippedVaticanReportSections().stream()
-                        .map(ReducedVaticanReportSection::getStartCell)
-                        .collect(Collectors.toList())
-                        .contains(reducedGameModel.getFaithTrack().getVaticanReportSections().get(i).getStartCell())){
-                    System.out.print(CLIColors.ANSI_CYAN_BACKGROUND);
-
-                }
-                else System.out.print(CLIColors.ANSI_BRIGHT_BLACK_BACKGROUND);
-                System.out.print("____");
-            }*/
             System.out.print(CLIColors.getAnsiReset());
         }
 
@@ -357,11 +346,11 @@ public class CLI extends View {
 
     @Override
     public void askForMainAction() {
-        List<String> validInputs = Arrays.asList("1","2","3");
+        List<String> validInputs = Arrays.asList("1","2","3","4");
         String mainAction = null;
 
         do {
-            System.out.println("> (1)TakeFromMarket (2)ActivateProduction (3)BuyDevCard");
+            System.out.println("> (1)TakeFromMarket (2)ActivateProduction (3)BuyDevCard (4) Activate Leader");
 
             try {
                 mainAction = stdIn.readLine();
@@ -381,21 +370,13 @@ public class CLI extends View {
             case "3":
                 client.getClientController().setMyTurnState(MY_TURN.BUY_DEV_CARD);
                 break;
+            case "4":
+                client.getClientController().setMyTurnState(MY_TURN.ACTIVATE_LEADER_CARD);
+                break;
         }
 
     }
-    public void askForLeaderActivation(){
-        List<String> validInput = Arrays.asList("Y","N");
-        String input = null;
-        do {
-            System.out.println("Do you want to activate a leader card? Y/N");
-            try {
-                input = stdIn.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }while (!validInput.contains(Objects.requireNonNull(input).toUpperCase(Locale.ROOT)));
-    }
+
 
     public void takeFromMarket() {
         clear();
@@ -532,6 +513,20 @@ public class CLI extends View {
 
     @Override
     public void activateLeaderCard() {
+        clear();
+        drawInHandLeaderCards();
+        List<Integer> validInput = reducedGameModel.getReducedInHandLeaderCards().getInHandLeaderCards().stream().map(ReducedLeaderCard::getId).collect(Collectors.toList());
+        String input = null;
+        do {
+            System.out.println("Which leader do you want to activate?");
+            try {
+                input = stdIn.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }while (!validInput.contains(Integer.parseInt(input)));
+
+        client.sendMessage(new ActivateLeaderCardMessage(client.getNickName(),Integer.parseInt(input)));
 
     }
 

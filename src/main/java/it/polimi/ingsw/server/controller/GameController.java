@@ -174,10 +174,6 @@ public class GameController {
                 BuyDevCardMessage buyDevCardMessage = (BuyDevCardMessage) message;
                 buyDevCard(buyDevCardMessage);
                 break;
-            /*case ACTIVATE_PRODUCTION:
-                ActivateProductionMessage activateProductionMessage = (ActivateProductionMessage) message;
-                activateProduction(activateProductionMessage);
-                break;*/
             case ACTIVATE_BASIC_PRODUCTION:
                 ActivateBasicProductionMessage activateBasicProductionMessage = (ActivateBasicProductionMessage) message;
                 activateBasicProduction(activateBasicProductionMessage);
@@ -222,6 +218,7 @@ public class GameController {
         RealPlayer realPlayer = (RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(activateLeaderCardMessage.getNickname()))
                 .findFirst().orElse(null);
         realPlayer.getPersonalBoard().getInHandLeaderCards().playCard(activateLeaderCardMessage.getId(), realPlayer);
+        sendPrivateMessage(activateLeaderCardMessage.getNickname(), new ActionEndedMessage());
     }
 
     /**

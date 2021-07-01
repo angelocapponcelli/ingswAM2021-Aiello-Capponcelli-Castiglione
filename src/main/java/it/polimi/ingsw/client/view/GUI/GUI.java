@@ -250,10 +250,6 @@ public class GUI extends View {
         });
     }
 
-    @Override
-    public void askForLeaderActivation() {
-
-    }
 
     @Override
     public void activateLeaderCard() {

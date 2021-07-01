@@ -24,6 +24,12 @@ import java.util.stream.IntStream;
 public class MoveFromTemporaryController {
 
     @FXML
+    private Button firstShelfButton;
+    @FXML
+    private Button secondShelfButton;
+    @FXML
+    private Button thirdShelfButton;
+    @FXML
     private HBox firstShelfBox;
     @FXML
     private HBox secondShelfBox;
@@ -82,7 +88,7 @@ public class MoveFromTemporaryController {
             thirdShelfBox.getChildren().add(imageView);
         }
 
-       FXGUI.getClient().getView().getReducedGameModel().getSpecialDepot().forEach( reducedContainer -> {
+        FXGUI.getClient().getView().getReducedGameModel().getSpecialDepot().forEach(reducedContainer -> {
             AnchorPane anchorPane = new AnchorPane();
             anchorPane.setCursor(Cursor.HAND);
             ImageView imageViewBackGround = new ImageView(new Image(getClass().getResourceAsStream("/image/special/special" + reducedContainer.getResourceType().toString() + ".png")));
@@ -105,6 +111,18 @@ public class MoveFromTemporaryController {
             anchorPane.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> onSpecialClicked(reducedContainer.getResourceType(), hBox));
             specialPane.getChildren().add(anchorPane);
         });
+
+        if (resourceToMovePane.getCenter() != null) {
+            if (firstShelfBox.getChildren().size() == 1 || (!firstShelfBox.getChildren().isEmpty() && !((ImageView) firstShelfBox.getChildren().get(0)).getAccessibleText().equals(resourceToMovePane.getCenter().getAccessibleText()))) {
+                firstShelfButton.setDisable(true);
+            } else firstShelfButton.setDisable(false);
+            if (secondShelfBox.getChildren().size() == 2 || (!secondShelfBox.getChildren().isEmpty() && !((ImageView) secondShelfBox.getChildren().get(0)).getAccessibleText().equals(resourceToMovePane.getCenter().getAccessibleText()))) {
+                secondShelfButton.setDisable(true);
+            } else secondShelfButton.setDisable(false);
+            if (thirdShelfBox.getChildren().size() == 3 || (!thirdShelfBox.getChildren().isEmpty() && !((ImageView) thirdShelfBox.getChildren().get(0)).getAccessibleText().equals(resourceToMovePane.getCenter().getAccessibleText()))) {
+                thirdShelfButton.setDisable(true);
+            } else thirdShelfButton.setDisable(false);
+        }
     }
 
     private void onSpecialClicked(ResourceType resourceType, HBox hBox) {
@@ -119,6 +137,18 @@ public class MoveFromTemporaryController {
             ImageView imageView = (ImageView) resourceToMovePane.getCenter();
             imageView.setFitWidth(78);
             imageView.setFitHeight(78);
+        }
+
+        if (resourceToMovePane.getCenter() != null) {
+            if (firstShelfBox.getChildren().size() == 1 || (!firstShelfBox.getChildren().isEmpty() && !((ImageView) firstShelfBox.getChildren().get(0)).getAccessibleText().equals(resourceToMovePane.getCenter().getAccessibleText()))) {
+                firstShelfButton.setDisable(true);
+            } else firstShelfButton.setDisable(false);
+            if (secondShelfBox.getChildren().size() == 2 || (!secondShelfBox.getChildren().isEmpty() && !((ImageView) secondShelfBox.getChildren().get(0)).getAccessibleText().equals(resourceToMovePane.getCenter().getAccessibleText()))) {
+                secondShelfButton.setDisable(true);
+            } else secondShelfButton.setDisable(false);
+            if (thirdShelfBox.getChildren().size() == 3 || (!thirdShelfBox.getChildren().isEmpty() && !((ImageView) thirdShelfBox.getChildren().get(0)).getAccessibleText().equals(resourceToMovePane.getCenter().getAccessibleText()))) {
+                thirdShelfButton.setDisable(true);
+            } else thirdShelfButton.setDisable(false);
         }
     }
 
@@ -154,6 +184,18 @@ public class MoveFromTemporaryController {
             imageView.setFitWidth(78);
             imageView.setFitHeight(78);
         }
+
+        if (resourceToMovePane.getCenter() != null) {
+            if (firstShelfBox.getChildren().size() == 1 || (!firstShelfBox.getChildren().isEmpty() && !((ImageView) firstShelfBox.getChildren().get(0)).getAccessibleText().equals(resourceToMovePane.getCenter().getAccessibleText()))) {
+                firstShelfButton.setDisable(true);
+            } else firstShelfButton.setDisable(false);
+            if (secondShelfBox.getChildren().size() == 2 || (!secondShelfBox.getChildren().isEmpty() && !((ImageView) secondShelfBox.getChildren().get(0)).getAccessibleText().equals(resourceToMovePane.getCenter().getAccessibleText()))) {
+                secondShelfButton.setDisable(true);
+            } else secondShelfButton.setDisable(false);
+            if (thirdShelfBox.getChildren().size() == 3 || (!thirdShelfBox.getChildren().isEmpty() && !((ImageView) thirdShelfBox.getChildren().get(0)).getAccessibleText().equals(resourceToMovePane.getCenter().getAccessibleText()))) {
+                thirdShelfButton.setDisable(true);
+            } else thirdShelfButton.setDisable(false);
+        }
     }
 
     public void onDiscardClicked(ActionEvent event) {
@@ -166,6 +208,18 @@ public class MoveFromTemporaryController {
             imageView = (ImageView) resourceToMovePane.getCenter();
             imageView.setFitWidth(78);
             imageView.setFitHeight(78);
+        }
+
+        if (resourceToMovePane.getCenter() != null) {
+            if (firstShelfBox.getChildren().size() == 1 || (!firstShelfBox.getChildren().isEmpty() && !((ImageView) firstShelfBox.getChildren().get(0)).getAccessibleText().equals(resourceToMovePane.getCenter().getAccessibleText()))) {
+                firstShelfButton.setDisable(true);
+            } else firstShelfButton.setDisable(false);
+            if (secondShelfBox.getChildren().size() == 2 || (!secondShelfBox.getChildren().isEmpty() && !((ImageView) secondShelfBox.getChildren().get(0)).getAccessibleText().equals(resourceToMovePane.getCenter().getAccessibleText()))) {
+                secondShelfButton.setDisable(true);
+            } else secondShelfButton.setDisable(false);
+            if (thirdShelfBox.getChildren().size() == 3 || (!thirdShelfBox.getChildren().isEmpty() && !((ImageView) thirdShelfBox.getChildren().get(0)).getAccessibleText().equals(resourceToMovePane.getCenter().getAccessibleText()))) {
+                thirdShelfButton.setDisable(true);
+            } else thirdShelfButton.setDisable(false);
         }
     }
 }

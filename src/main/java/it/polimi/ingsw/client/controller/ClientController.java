@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.controller;
 
+import it.polimi.ingsw.client.view.GUI.FXGUI;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.networking.messages.ErrorMessage;
 import it.polimi.ingsw.networking.messages.Message;
@@ -101,9 +102,10 @@ public class ClientController implements Runnable {
                     case IN_GAME:
                         switch (inGameState) {
                             case MY_TURN:
+                                int inHandLeaderCardNumber = (int) view.getReducedGameModel().getReducedInHandLeaderCards().getInHandLeaderCards().stream().filter( reducedLeaderCard -> reducedLeaderCard.getPlayed()==false ).count();
                                 System.out.println("your turn");
                                 view.refresh();
-                                if (myTurnState == MY_TURN.ACTIVATE_LEADER_CARD) view.activateLeaderCard();
+                                view.activateLeaderCard();
                                 view.askForMainAction();
                                 switch (myTurnState) {
                                     case TAKE_FROM_MARKET:
@@ -114,6 +116,7 @@ public class ClientController implements Runnable {
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
                                         }
+                                        if (inHandLeaderCardNumber != (int) view.getReducedGameModel().getReducedInHandLeaderCards().getInHandLeaderCards().stream().filter( reducedLeaderCard -> reducedLeaderCard.getPlayed()==false ).count()) view.activateLeaderCard();
                                         inGameState = IN_GAME.NO_MY_TURN;
                                         break;
 
@@ -125,6 +128,7 @@ public class ClientController implements Runnable {
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
                                         }
+                                        if (inHandLeaderCardNumber != (int) view.getReducedGameModel().getReducedInHandLeaderCards().getInHandLeaderCards().stream().filter( reducedLeaderCard -> reducedLeaderCard.getPlayed()==false ).count()) view.activateLeaderCard();
                                         inGameState = IN_GAME.NO_MY_TURN;
                                         break;
 
@@ -136,6 +140,7 @@ public class ClientController implements Runnable {
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
                                         }
+                                        if (inHandLeaderCardNumber != (int) view.getReducedGameModel().getReducedInHandLeaderCards().getInHandLeaderCards().stream().filter( reducedLeaderCard -> reducedLeaderCard.getPlayed()==false ).count()) view.activateLeaderCard();
                                         inGameState = IN_GAME.NO_MY_TURN;
                                         break;
                                 }

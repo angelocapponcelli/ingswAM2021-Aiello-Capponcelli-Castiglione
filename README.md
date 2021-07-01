@@ -19,7 +19,7 @@ I seguenti diagrammi delle classi rappresentano rispettivamente i primi diagramm
 
 ### JavaDoc
 La seguente documentazione include una descrizione per la maggior parte delle classi e dei metodi usati.
-* [JavaDoc](https://github.com/pasqualecastiglione/ingswAM2021-Aiello-Capponcelli-Castiglione/blob/master/index.html)
+* [JavaDoc](https://github.com/pasqualecastiglione/ingswAM2021-Aiello-Capponcelli-Castiglione/tree/master/JavaDoc)
 
 ### Librerie e Plugins
 

@@ -18,7 +18,7 @@ public class MaestriDelRinascimento {
     private static final AtomicBoolean GUI = new AtomicBoolean(true);
     private static final AtomicReference<String> hostName = new AtomicReference<>("127.0.0.1");
     private static final AtomicInteger portNumber = new AtomicInteger(1234);
-    private static final AtomicReference<String> settings = new AtomicReference<>("src/main/resources/JSONs/settings.json");
+    private static final AtomicReference<String> settings = new AtomicReference<>("JSONs/settings.json");
     public static void main(String[] args) {
 
         switch (args[0]){

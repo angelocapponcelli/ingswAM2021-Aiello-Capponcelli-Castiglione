@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="526.0" prefWidth="884.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.GUI.SceneController.Editor.AdditionalProductionPowerEditController">
+<VBox prefHeight="526.0" prefWidth="884.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.editor.AdditionalProductionPowerEditController">
    <children>
       <HBox prefHeight="420.0" prefWidth="736.0">
          <children>

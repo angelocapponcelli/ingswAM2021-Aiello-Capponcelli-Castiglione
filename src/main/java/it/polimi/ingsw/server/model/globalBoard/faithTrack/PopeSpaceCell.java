@@ -2,6 +2,8 @@ package it.polimi.ingsw.server.model.globalBoard.faithTrack;
 
 import it.polimi.ingsw.server.model.player.Player;
 
+import java.util.List;
+
 /**
  * The type Pope space cell. When a Faith Marker reaches a Pope
  * space cell, a Vatican Report occurs.
@@ -43,7 +45,7 @@ public class PopeSpaceCell extends Cell {
     public void onOccupy(Player player) {
         super.onOccupy(player);
         if (!alreadyOccupied) {
-            for (Player player1 : player.getGameController().getGameModel().getPlayers()) {
+            for (Player player1 : player.getGameController().getPlayerList()) {
                 player1.doVaticanReportUpdate(player.getGameController().getGameModel().getGlobalBoard().getFaithTrack().getVaticanReportSectionFromCell(this));
             }
             setAlreadyOccupied();

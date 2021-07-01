@@ -1,4 +1,4 @@
-package it.polimi.ingsw.client.view.GUI.SceneController.Editor;
+package it.polimi.ingsw.editor;
 
 import it.polimi.ingsw.server.model.interfaces.Producible;
 import it.polimi.ingsw.server.model.resources.*;

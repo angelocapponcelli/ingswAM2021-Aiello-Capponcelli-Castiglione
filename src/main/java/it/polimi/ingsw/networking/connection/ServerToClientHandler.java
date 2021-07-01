@@ -26,14 +26,24 @@ public class ServerToClientHandler implements Runnable {
     private final ConnectionIO connectionIO;
     private final Socket socket;
 
+    /**
+     * Class constructor
+     * @param socket the socket
+     * @throws IOException
+     */
     public ServerToClientHandler(Socket socket) throws IOException {
         this.socket = socket;
         connectionIO = new ConnectionIO(socket);
     }
 
+    /**
+     *
+     * @return nickname
+     */
     public String getNickName() {
         return nickName;
     }
+
 
     @Override
     public void run() {

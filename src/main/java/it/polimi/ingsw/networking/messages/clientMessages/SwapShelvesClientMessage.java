@@ -3,6 +3,9 @@ package it.polimi.ingsw.networking.messages.clientMessages;
 
 import it.polimi.ingsw.networking.messages.MessageType;
 
+/**
+ * Swap shelves message
+ */
 public class SwapShelvesClientMessage extends ClientMessage {
     private final Integer shelves1;
     private final Integer shelves2;

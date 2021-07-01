@@ -19,7 +19,7 @@ I seguenti diagrammi delle classi rappresentano rispettivamente i primi diagramm
 
 ### JavaDoc
 La seguente documentazione include una descrizione per la maggior parte delle classi e dei metodi usati.
-* [JavaDoc]()
+* [JavaDoc](https://github.com/pasqualecastiglione/ingswAM2021-Aiello-Capponcelli-Castiglione/blob/master/index.html)
 
 ### Librerie e Plugins
 
@@ -85,6 +85,10 @@ Per specificare il percorso di un file settings.json personalizzato:
 
 Per specificare la porta sulla quale il server si mette in ascolto:
 > -p=, --port=
+
+###Editor
+Per far partire l'editor dei parametri
+> --editor
 
 
 ### Componenti del gruppo

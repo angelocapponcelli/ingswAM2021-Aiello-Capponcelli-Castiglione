@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="526.0" prefWidth="884.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.GUI.SceneController.Editor.DevelopmentCardEdit">
+<VBox prefHeight="526.0" prefWidth="884.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.editor.DevelopmentCardEdit">
    <children>
       <HBox prefHeight="420.0" prefWidth="736.0">
          <children>
@@ -112,7 +112,7 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Pane fx:id="points" prefHeight="108.0" prefWidth="344.0">
+                  <Pane prefHeight="108.0" prefWidth="344.0">
                      <children>
                         <TextField layoutX="87.0" layoutY="46.0" />
                      </children>

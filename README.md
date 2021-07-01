@@ -47,31 +47,46 @@ I seguenti jar sono stati usati per la realizzazione di questo progetto.
 
 ### Funzionalità Aggiuntive
 
- * Editor dei parametri
  * Partite multiple 
+ * Editor dei parametri (riusciamo a leggere da file esterno)
+
 
 ## Esecuzione
 
 ### Client
 Il client è eseguito scegliendo l'interfaccia con cui giocare. Può scegliere se usare CLI o GUI
 #### CLI
-Per lanciare il client in modalità CLI digitare il seguente comando:
+Il seguente comando lancia il client in modalità CLI:
 
->
+> --c, --cli
+
+Per specificare l'indirizzo:
+> -a=, --address=
+
+Per specificare la porta:
+> -p=, --port=
 
 #### GUI
-Per lanciare il client con l'interfaccia grafica è possibile digitare il seguente codice dariga di comando
->
+Il seguente comando lancia il client in modalità GUI:
+> --client 
+
+Per specificare l'indirizzo:
+> -a=, --address=
+
+Per specificare la porta:
+> -p=, --port=
 
 ### Server
 Per lanciare il server è necessario digitare da terminale il seguente comando:
->
+> --server
 
-### Parametri
-*
-*
-*
-*
+Per specificare il percorso di un file settings.json personalizzato:
+> -s=, --settings=
+
+Per specificare la porta sulla quale il server si mette in ascolto:
+> -p=, --port=
+
+
 ### Componenti del gruppo
 * [Pasquale Castiglione](https://github.com/pasqualecastiglione)
 * [Angelo Capponcelli](https://github.com/angelocapponcelli)

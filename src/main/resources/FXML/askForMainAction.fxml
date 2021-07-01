@@ -19,26 +19,32 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minWidth="-Infinity" prefHeight="779.0" prefWidth="1461.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.GUI.SceneController.AskForMainAction">
+<AnchorPane minWidth="-Infinity" prefHeight="779.0" prefWidth="1461.0" xmlns="http://javafx.com/javafx/15.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.polimi.ingsw.client.view.GUI.SceneController.AskForMainAction">
     <ImageView fitHeight="796.0" fitWidth="1462.0" layoutX="-1.0">
-        <Image url="@../image/mainActionBackground.png" />
+        <Image url="@../image/mainActionBackground.png"/>
     </ImageView>
-    <Button layoutX="265.0" layoutY="138.0" mnemonicParsing="false" onAction="#onTakeFromMarket" prefHeight="55.0" prefWidth="174.0" text="Take from market" textAlignment="CENTER" wrapText="true">
+    <Button layoutX="265.0" layoutY="138.0" mnemonicParsing="false" onAction="#onTakeFromMarket" prefHeight="55.0"
+            prefWidth="174.0" text="Take from market" textAlignment="CENTER" wrapText="true">
         <font>
-            <Font name="18thCentury" size="20.0" />
+            <Font name="18thCentury" size="20.0"/>
         </font>
     </Button>
-    <Button layoutX="448.0" layoutY="137.0" mnemonicParsing="false" onAction="#onActivateProduction" prefHeight="55.0" prefWidth="174.0" text="Activate production" textAlignment="CENTER" wrapText="true">
+    <Button layoutX="448.0" layoutY="137.0" mnemonicParsing="false" onAction="#onActivateProduction" prefHeight="55.0"
+            prefWidth="174.0" text="Activate production" textAlignment="CENTER" wrapText="true">
         <font>
-            <Font name="18thCentury" size="20.0" />
+            <Font name="18thCentury" size="20.0"/>
         </font>
     </Button>
-    <Button layoutX="629.0" layoutY="138.0" mnemonicParsing="false" onAction="#onBuyDevCard" prefHeight="55.0" prefWidth="186.0" text="Buy development card" textAlignment="CENTER" wrapText="true">
+    <Button layoutX="629.0" layoutY="138.0" mnemonicParsing="false" onAction="#onBuyDevCard" prefHeight="55.0"
+            prefWidth="186.0" text="Buy development card" textAlignment="CENTER" wrapText="true">
         <font>
-            <Font name="18thCentury" size="20.0" />
+            <Font name="18thCentury" size="20.0"/>
         </font>
     </Button>
-    <ScrollPane hbarPolicy="NEVER" layoutX="171.0" layoutY="443.0" prefHeight="180.0" prefWidth="118.0" style="-fx-background: transparent; -fx-background-color: transparent; ">
+    <ScrollPane hbarPolicy="NEVER" layoutX="171.0" layoutY="443.0" prefHeight="180.0" prefWidth="118.0"
+                style="-fx-background: transparent; -fx-background-color: transparent; ">
         <AnchorPane>
             <FlowPane fx:id="specialPane" hgap="20.0" layoutY="2.0" prefWidth="100.0" vgap="10.0">
 
@@ -48,75 +54,81 @@
 
     <Label layoutX="759.0" layoutY="435.0" prefHeight="42.0" prefWidth="240.0" text="Your leader card activated">
         <font>
-            <Font name="18thCentury" size="27.0" />
+            <Font name="18thCentury" size="27.0"/>
         </font>
     </Label>
-    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="283.0" layoutY="20.0" prefHeight="77.0" prefWidth="482.0" text="Choose an action you want do in this turn" textAlignment="CENTER" wrapText="true">
+    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="283.0" layoutY="20.0" prefHeight="77.0" prefWidth="482.0"
+           text="Choose an action you want do in this turn" textAlignment="CENTER" wrapText="true">
         <font>
-            <Font name="18thCentury" size="31.0" />
+            <Font name="18thCentury" size="31.0"/>
         </font>
     </Label>
 
-    <HBox fx:id="firstShelfBox" alignment="CENTER" layoutX="39.0" layoutY="459.0" prefHeight="51.0" prefWidth="118.0" />
-    <HBox fx:id="secondShelfBox" alignment="CENTER" layoutX="35.0" layoutY="513.0" prefHeight="51.0" prefWidth="118.0" />
-    <HBox fx:id="thirdShelfBox" alignment="CENTER" layoutX="8.0" layoutY="567.0" prefHeight="51.0" prefWidth="166.0" />
-    <Rectangle arcHeight="5.0" arcWidth="5.0" height="161.0" layoutX="9.0" layoutY="626.0" stroke="#ffffff00" strokeType="INSIDE" width="186.0">
+    <HBox fx:id="firstShelfBox" alignment="CENTER" layoutX="39.0" layoutY="459.0" prefHeight="51.0" prefWidth="118.0"/>
+    <HBox fx:id="secondShelfBox" alignment="CENTER" layoutX="35.0" layoutY="513.0" prefHeight="51.0" prefWidth="118.0"/>
+    <HBox fx:id="thirdShelfBox" alignment="CENTER" layoutX="8.0" layoutY="567.0" prefHeight="51.0" prefWidth="166.0"/>
+    <Rectangle arcHeight="5.0" arcWidth="5.0" height="161.0" layoutX="9.0" layoutY="626.0" stroke="#ffffff00"
+               strokeType="INSIDE" width="186.0">
         <fill>
             <LinearGradient endY="0.5381679471212488" startX="0.0801526908656113" startY="0.5000000145599133">
                 <stops>
                     <Stop>
                         <color>
-                            <Color red="0.8588235378265381" green="0.8078431487083435" blue="0.6705882549285889" />
+                            <Color red="0.8588235378265381" green="0.8078431487083435" blue="0.6705882549285889"/>
                         </color>
                     </Stop>
                     <Stop offset="1.0">
                         <color>
-                            <Color red="1.0" green="1.0" blue="1.0" opacity="0.0" />
+                            <Color red="1.0" green="1.0" blue="1.0" opacity="0.0"/>
                         </color>
                     </Stop>
                 </stops>
             </LinearGradient>
         </fill>
     </Rectangle>
-    <Label fx:id="coinLabel" graphicTextGap="0.0" layoutX="54.0" layoutY="626.0" prefHeight="30.0" prefWidth="90.0" text="x 0">
+    <Label fx:id="coinLabel" graphicTextGap="0.0" layoutX="54.0" layoutY="626.0" prefHeight="30.0" prefWidth="90.0"
+           text="x 0">
         <font>
-            <Font name="18thCentury" size="38.0" />
+            <Font name="18thCentury" size="38.0"/>
         </font>
     </Label>
 
     <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="13.0" layoutY="630.0">
         <image>
-            <Image url="@../image/resources/COIN.png" />
+            <Image url="@../image/resources/COIN.png"/>
         </image>
     </ImageView>
-    <Label fx:id="stoneLabel" graphicTextGap="0.0" layoutX="54.0" layoutY="664.0" prefHeight="30.0" prefWidth="90.0" text="x 0">
+    <Label fx:id="stoneLabel" graphicTextGap="0.0" layoutX="54.0" layoutY="664.0" prefHeight="30.0" prefWidth="90.0"
+           text="x 0">
         <font>
-            <Font name="18thCentury" size="38.0" />
+            <Font name="18thCentury" size="38.0"/>
         </font>
     </Label>
     <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="13.0" layoutY="668.0">
         <image>
-            <Image url="@../image/resources/STONE.png" />
+            <Image url="@../image/resources/STONE.png"/>
         </image>
     </ImageView>
-    <Label fx:id="shieldLabel" graphicTextGap="0.0" layoutX="54.0" layoutY="704.0" prefHeight="30.0" prefWidth="90.0" text="x 0">
+    <Label fx:id="shieldLabel" graphicTextGap="0.0" layoutX="54.0" layoutY="704.0" prefHeight="30.0" prefWidth="90.0"
+           text="x 0">
         <font>
-            <Font name="18thCentury" size="38.0" />
+            <Font name="18thCentury" size="38.0"/>
         </font>
     </Label>
     <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="13.0" layoutY="709.0">
         <image>
-            <Image url="@../image/resources/SHIELD.png" />
+            <Image url="@../image/resources/SHIELD.png"/>
         </image>
     </ImageView>
-    <Label fx:id="servantLabel" graphicTextGap="0.0" layoutX="54.0" layoutY="742.0" prefHeight="30.0" prefWidth="90.0" text="x 0">
+    <Label fx:id="servantLabel" graphicTextGap="0.0" layoutX="54.0" layoutY="742.0" prefHeight="30.0" prefWidth="90.0"
+           text="x 0">
         <font>
-            <Font name="18thCentury" size="38.0" />
+            <Font name="18thCentury" size="38.0"/>
         </font>
     </Label>
     <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="14.0" layoutY="747.0">
         <image>
-            <Image url="@../image/resources/SERVANT.png" />
+            <Image url="@../image/resources/SERVANT.png"/>
         </image>
     </ImageView>
     <ImageView fx:id="firstDevelopmentCardImage" fitHeight="200.0" fitWidth="132.0" layoutX="294.0" layoutY="490.0">
@@ -125,7 +137,8 @@
     </ImageView>
     <ImageView fx:id="thirdDevelopmentCardImage" fitHeight="200.0" fitWidth="132.0" layoutX="589.0" layoutY="494.0">
     </ImageView>
-    <ScrollPane hbarPolicy="NEVER" layoutX="735.0" layoutY="513.0" prefHeight="230.0" prefWidth="302.0" style="-fx-background: transparent; -fx-background-color: transparent; ">
+    <ScrollPane hbarPolicy="NEVER" layoutX="735.0" layoutY="513.0" prefHeight="230.0" prefWidth="302.0"
+                style="-fx-background: transparent; -fx-background-color: transparent; ">
         <content>
             <AnchorPane>
                 <children>
@@ -137,45 +150,47 @@
         </content>
     </ScrollPane>
 
-    <GridPane fx:id="marketTrayGrid" gridLinesVisible="true" layoutX="1140.0" layoutY="116.0" prefHeight="180.0" prefWidth="240.0">
+    <GridPane fx:id="marketTrayGrid" gridLinesVisible="true" layoutX="1140.0" layoutY="116.0" prefHeight="180.0"
+              prefWidth="240.0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
         </rowConstraints>
-        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+        <ImageView fitHeight="60.0" fitWidth="60.0" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
     </GridPane>
     <ImageView fx:id="slideImage" fitHeight="60.0" fitWidth="60.0" layoutX="1140.0" layoutY="46.0">
     </ImageView>
 
-    <GridPane fx:id="gridCard" alignment="CENTER" layoutX="1064.0" layoutY="371.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="410.0" prefWidth="382.0">
+    <GridPane fx:id="gridCard" alignment="CENTER" layoutX="1064.0" layoutY="371.0" nodeOrientation="LEFT_TO_RIGHT"
+              prefHeight="410.0" prefWidth="382.0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
         </rowConstraints>
         <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
@@ -255,30 +270,30 @@
     <AnchorPane fx:id="faithTrackPane" layoutX="2.0" layoutY="206.0" prefHeight="206.0" prefWidth="1054.0">
         <children>
             <FlowPane layoutX="32.0" layoutY="132.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
-            <FlowPane layoutX="87.0" layoutY="132.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="136.0" layoutY="132.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="136.0" layoutY="84.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="136.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="189.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="242.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="294.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="345.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="398.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="398.0" layoutY="84.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="396.0" layoutY="132.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="449.0" layoutY="132.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="502.0" layoutY="132.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="553.0" layoutY="132.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="605.0" layoutY="132.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="657.0" layoutY="132.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="657.0" layoutY="84.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="657.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="708.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="760.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="813.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="865.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="916.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
-            <FlowPane layoutX="968.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0" />
+            <FlowPane layoutX="87.0" layoutY="132.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="136.0" layoutY="132.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="136.0" layoutY="84.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="136.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="189.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="242.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="294.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="345.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="398.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="398.0" layoutY="84.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="396.0" layoutY="132.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="449.0" layoutY="132.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="502.0" layoutY="132.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="553.0" layoutY="132.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="605.0" layoutY="132.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="657.0" layoutY="132.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="657.0" layoutY="84.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="657.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="708.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="760.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="813.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="865.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="916.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
+            <FlowPane layoutX="968.0" layoutY="32.0" maxWidth="54.0" prefHeight="64.0" prefWidth="54.0"/>
             <VBox fx:id="playersListPane" prefHeight="127.0" prefWidth="126.0">
 
             </VBox>

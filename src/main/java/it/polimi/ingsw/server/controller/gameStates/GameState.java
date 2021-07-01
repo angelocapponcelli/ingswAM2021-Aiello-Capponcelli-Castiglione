@@ -1,5 +1,8 @@
 package it.polimi.ingsw.server.controller.gameStates;
 
+/**
+ * Possible states of he game.
+ */
 public enum GameState {
     LOGIN, //wait for all the players to join the game
     INIT, // initial phase of the game

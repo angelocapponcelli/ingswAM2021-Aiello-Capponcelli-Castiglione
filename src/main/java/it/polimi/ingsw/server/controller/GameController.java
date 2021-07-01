@@ -31,6 +31,9 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.IntStream;
 
+/**
+ * Game controller
+ */
 public class GameController {
 
     private final Integer gameID;
@@ -41,6 +44,11 @@ public class GameController {
     private GameState currentGameState;
     private int currentPlayer = 0;
 
+    /**
+     * Class constructor
+     * @param playersNumber the number of player that can play the game
+     * @param gameID the unique number that identifies the game
+     */
     public GameController(Integer playersNumber, Integer gameID) {
         this.gameID = gameID;
         currentGameState = GameState.LOGIN;
@@ -56,24 +64,41 @@ public class GameController {
     }
 
 
-    //+++++++ Getter +++++++
+    /**
+     * @return the game id
+     */
     public Integer getGameID() {
         return gameID;
     }
 
+    /**
+     *
+     * @return the players number
+     */
     public Integer getMaxPlayersNumber() {
         return maxPlayersNumber;
     }
 
+    /**
+     *
+     * @return the list of players connected
+     */
     public List<InGameConnectedClient> getInGameConnectedClients() {
         return inGameConnectedClients;
     }
 
+    /**
+     *
+     * @return the game model associated to this game controller
+     */
     public Game getGameModel() {
         return gameModel;
     }
-    //+++++++++++++++++++++
 
+    /**
+     * Adds a connected client to the game
+     * @param inGameConnectedClient the client connected
+     */
     public void addConnectedClient(InGameConnectedClient inGameConnectedClient) {
         inGameConnectedClients.add(inGameConnectedClient);
         RealPlayer realPlayer = new RealPlayer(inGameConnectedClient.getNickName(), this);
@@ -88,13 +113,20 @@ public class GameController {
         }
     }
 
+    /**
+     * Removes a client to the game
+     * @param inGameConnectedClient the list of  connected clients
+     */
     public void removeConnectedClient(InGameConnectedClient inGameConnectedClient) {
         gameModel.removeObserver(inGameConnectedClient);
         playerList.remove(playerList.stream().filter(x -> x.getNickName().equals(inGameConnectedClient.getNickName())).findFirst().orElse(null));
         inGameConnectedClients.remove(inGameConnectedClient);
     }
 
-
+    /**
+     * Initializes the game. Selects the player's turn. Sends the players the messages with part of the model. Distributes
+     * the leader cards.
+     */
     private void initializeGame() {
 
         Collections.shuffle(playerList);
@@ -137,7 +169,10 @@ public class GameController {
 
     }
 
-
+    /**
+     * Manages the different type of message that he receives
+     * @param message the message the player has sent
+     */
     public void manageReceivedMessage(Message message) {
         switch (message.getMessageType()) {
             case TAKE_FROM_MARKET:
@@ -188,13 +223,20 @@ public class GameController {
         }
     }
 
+    /**
+     * Activates the leaderCard
+     * @param activateLeaderCardMessage the message where it is specified which leader card to activate
+     */
     private void activateLeaderCard(ActivateLeaderCardMessage activateLeaderCardMessage) {
         RealPlayer realPlayer = (RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(activateLeaderCardMessage.getNickname()))
                 .findFirst().orElse(null);
         realPlayer.getPersonalBoard().getInHandLeaderCards().playCard(activateLeaderCardMessage.getId(), realPlayer);
     }
 
-
+    /**
+     * Activates and performs the production
+     * @param activateDevelopmentCardProductionMessage the message where it is specified which card to use to activate the production.
+     */
     private void activateDevelopmentCardProductionMessage(ActivateDevelopmentCardProductionMessage activateDevelopmentCardProductionMessage){
         DevelopmentCard card = getRealPlayer(activateDevelopmentCardProductionMessage)
                 .getPersonalBoard()
@@ -211,7 +253,10 @@ public class GameController {
         nextPlayerTurn();
     }
 
-
+    /**
+     * Discards at the beginning of the game the leader cards selected
+     * @param discardedLeaderCardsMessage the message where it is specified which cards to discard
+     */
     private void discardInitialLeaderCards(DiscardedLeaderCardsMessage discardedLeaderCardsMessage) {
         Objects.requireNonNull(playerList.stream()
                 .filter(player -> player
@@ -225,6 +270,10 @@ public class GameController {
         sendPrivateMessage(discardedLeaderCardsMessage.getNickname(), new ActionEndedMessage());
     }
 
+    /**
+     * Replaces resource
+     * @param selectResourceReplacementMessage the message where it is specified which resource
+     */
     private void selectResourceReplacement(SelectResourceReplacementMessage selectResourceReplacementMessage) {
         try {
             ((RealPlayer) Objects.requireNonNull(playerList.stream().filter(player -> player.getNickName().equals(selectResourceReplacementMessage.getNickname()))
@@ -237,6 +286,12 @@ public class GameController {
 
     }
 
+    /**
+     * Reallocates the resource in the selected depot
+     * @param reallocateResourceMessage the message where it is specified which
+     *                                  is the depot where to take the resource and the one
+     *                                  where to put them
+     */
     private void reallocateResource(ReallocateResourceMessage reallocateResourceMessage) {
         RealPlayer realPlayer = (RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(reallocateResourceMessage.getNickname()))
                 .findFirst().orElse(null);
@@ -268,6 +323,10 @@ public class GameController {
             sendPrivateMessage(reallocateResourceMessage.getNickname(), new ActionEndedMessage());
     }
 
+    /**
+     * Discards the resource. Increases the position of other players
+     * @param discardResourceMessage the message where it is specified which resource to discard
+     */
     private void discardResource(DiscardResourceMessage discardResourceMessage) {
         RealPlayer realPlayer = (RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(discardResourceMessage.getNickname()))
                 .findFirst().orElse(null);
@@ -286,7 +345,11 @@ public class GameController {
             sendPrivateMessage(discardResourceMessage.getNickname(), new ActionEndedMessage());
     }
 
-
+    /**
+     * Distributes the initial resources to the player according to their turn position.
+     * @param chosenInitialResourcesMessage the message where it is specified which resource the player has
+     *                                      selected
+     */
     private void distributeInitialResources(ChosenInitialResourcesMessage chosenInitialResourcesMessage) {
 
         RealPlayer realPlayer = (RealPlayer) playerList.stream().filter(player -> player.getNickName().equals(chosenInitialResourcesMessage.getNickname())).findFirst().orElse(null);
@@ -297,6 +360,11 @@ public class GameController {
     }
 
     //****** MAIN ACTION ***********
+
+    /**
+     * Main Action: Takes a development card from the grid and performs the payment
+     * @param buyDevCardMessage the message where it is specified which card to buy from the grid
+     */
     private void buyDevCard(BuyDevCardMessage buyDevCardMessage) {
         int cardId = buyDevCardMessage.getCardID();
         DevelopmentCard developmentCard;
@@ -327,6 +395,10 @@ public class GameController {
 
     }
 
+    /**
+     * Main Action: takes the resources from the market
+     * @param takeFromMarketMessage the message where it is specified which row or column to take from the market
+     */
     private void takeFromMarket(TakeFromMarketMessage takeFromMarketMessage) {
 
         String rowOrColumn = takeFromMarketMessage.getRowOrColumn();
@@ -355,6 +427,10 @@ public class GameController {
         nextPlayerTurn();
     }*/
 
+    /**
+     * Main Action: activates the basic production
+     * @param activateBasicProductionMessage the message where it is specified which resource to give and which resource to take
+     */
     private void activateBasicProduction(ActivateBasicProductionMessage activateBasicProductionMessage) {
         RealPlayer realPlayer = getRealPlayer(activateBasicProductionMessage);
 
@@ -373,11 +449,18 @@ public class GameController {
     }
     //*******************
 
-
+    /**
+     * Updates the game state
+     * @param nextState the next state where the game will be
+     */
     private void updateGameState(GameState nextState) {
         currentGameState = nextState;
     }
 
+    /**
+     * Sends a message to all he players
+     * @param message the message that has to be sent
+     */
     public void sendBroadCastMessage(Message message) {
 
         inGameConnectedClients.forEach(inGameConnectedClient -> {
@@ -401,7 +484,9 @@ public class GameController {
         serverToClientHandler.sendMessage(message);
     }
 
-
+    /**
+     * Allerts the next player to play
+     */
     private void nextPlayerTurn() {
         if(gameModel instanceof MultiplayerGame) {
             if (currentPlayer + 1 == playerList.size()) {
@@ -422,7 +507,11 @@ public class GameController {
         sendPrivateMessage(playerList.get(currentPlayer).getNickName(), new ItIsMyTurnMessage(playLeaderCard));
     }
 
-
+    /**
+     * Gets the player from the message
+     * @param message the message where it is specified the nickname of the player
+     * @return the real player whose nickname was specified in the message
+     */
     private RealPlayer getRealPlayer(ClientMessage message) {
 
         return (RealPlayer) playerList.stream()
@@ -430,6 +519,9 @@ public class GameController {
                 .findFirst().orElse(null);
     }
 
+    /**
+     * Performs lorenzo's turn
+     */
     private void lorenzoTurn(){
         playerList.stream()
                 .filter(player -> player.getNickName().equals("Lorenzo"))

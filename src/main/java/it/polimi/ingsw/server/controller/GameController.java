@@ -72,6 +72,11 @@ public class GameController {
     public Game getGameModel() {
         return gameModel;
     }
+
+    public List<Player> getPlayerList() {
+        return playerList;
+    }
+
     //+++++++++++++++++++++
 
     public void addConnectedClient(InGameConnectedClient inGameConnectedClient) {

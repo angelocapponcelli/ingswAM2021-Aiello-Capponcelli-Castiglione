@@ -304,10 +304,10 @@ public class CLI extends View {
                     .map(ReducedVaticanReportSection::getStartCell)
                     .collect(Collectors.toList())
                     .contains(reducedGameModel.getFaithTrack().getVaticanReportSections().get(i).getStartCell())){
-                System.out.print(CLIColors.ANSI_CYAN_BACKGROUND);
+                System.out.print("\u001b[48;5;202m");
 
             }
-                else System.out.print(CLIColors.ANSI_BRIGHT_BLACK_BACKGROUND);
+                else System.out.print("\u001b[48;5;248m");
 
 
             for (int j = 0; j < reportSize/2; j++){

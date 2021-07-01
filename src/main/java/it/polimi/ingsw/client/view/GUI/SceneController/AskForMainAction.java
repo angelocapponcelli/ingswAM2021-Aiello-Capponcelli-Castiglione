@@ -14,12 +14,15 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 
 import java.util.List;
 import java.util.Objects;
 
 public class AskForMainAction {
 
+    @FXML
+    private VBox playersListPane;
     @FXML
     private AnchorPane faithTrackPane;
     @FXML
@@ -180,8 +183,20 @@ public class AskForMainAction {
             playerImage.setFitHeight(35);
             playerImage.setFitWidth(27);
             cellPain.getChildren().add(playerImage);
-        }
 
+            playerImage = new ImageView(new Image(getClass().getResourceAsStream("/image/players/player" + i + ".png")));
+            playerImage.setFitHeight(35);
+            playerImage.setFitWidth(27);
+            Label playerName = new Label(players.get(i).getNickName());
+            playerName.setFont(Font.font("18thCentury", 25));
+            HBox rowPlayers = new HBox();
+            rowPlayers.setPrefHeight(35);
+            rowPlayers.setPrefWidth(100);
+            rowPlayers.setSpacing(5);
+            rowPlayers.getChildren().add(playerImage);
+            rowPlayers.getChildren().add(playerName);
+            playersListPane.getChildren().add(rowPlayers);
+        }
 
     }
 

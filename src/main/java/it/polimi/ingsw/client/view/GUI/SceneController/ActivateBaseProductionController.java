@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.view.GUI.SceneController;
 import it.polimi.ingsw.client.view.GUI.FXGUI;
 import it.polimi.ingsw.networking.messages.clientMessages.ActivateBasicProductionMessage;
 import it.polimi.ingsw.server.model.resources.ResourceType;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
@@ -114,5 +115,9 @@ public class ActivateBaseProductionController {
         outputClicked ++;
         if (outputCount == outputClicked)
             FXGUI.getClient().sendMessage(new ActivateBasicProductionMessage(FXGUI.getClient().getNickName(), input, output));
+    }
+
+    public void onCancel(ActionEvent event) {
+        FXGUI.getClient().sendMessage(new ActivateBasicProductionMessage(FXGUI.getClient().getNickName(), null, null));
     }
 }

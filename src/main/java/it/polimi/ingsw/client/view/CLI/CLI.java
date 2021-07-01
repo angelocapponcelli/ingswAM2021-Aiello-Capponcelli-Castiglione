@@ -500,7 +500,7 @@ public class CLI extends View {
                         id = stdIn.readLine();
                     }while (!validInput.contains(Integer.parseInt(id)));
 
-                    client.sendMessage(new ActivateDevelopmentCardProductionMessage(client.getNickName(),Integer.parseInt(id)));
+                    client.sendMessage(new ActivateDevelopmentCardProductionMessage(client.getNickName(),Integer.parseInt(id), false));
 
                 }
 

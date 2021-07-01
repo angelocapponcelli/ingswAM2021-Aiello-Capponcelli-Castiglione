@@ -219,11 +219,11 @@ public class ActivateProductionController {
 
     public void onConfirmProduction(ActionEvent event) {
         if (firstDevelopmentCardCheckBox.isSelected())
-            FXGUI.getClient().sendMessage(new ActivateDevelopmentCardProductionMessage(FXGUI.getClient().getNickName(),FXGUI.getClient().getView().getReducedGameModel().getPersonalDevelopmentBoard().get(0).getId()));
+            FXGUI.getClient().sendMessage(new ActivateDevelopmentCardProductionMessage(FXGUI.getClient().getNickName(),FXGUI.getClient().getView().getReducedGameModel().getPersonalDevelopmentBoard().get(0).getId(),baseProduction.isSelected() || secondDevelopmentCardCheckBox.isSelected() || thirdDevelopmentCardCheckBox.isSelected()));
         if (secondDevelopmentCardCheckBox.isSelected())
-            FXGUI.getClient().sendMessage(new ActivateDevelopmentCardProductionMessage(FXGUI.getClient().getNickName(),FXGUI.getClient().getView().getReducedGameModel().getPersonalDevelopmentBoard().get(1).getId()));
+            FXGUI.getClient().sendMessage(new ActivateDevelopmentCardProductionMessage(FXGUI.getClient().getNickName(),FXGUI.getClient().getView().getReducedGameModel().getPersonalDevelopmentBoard().get(1).getId(), baseProduction.isSelected() || thirdDevelopmentCardCheckBox.isSelected()));
         if (thirdDevelopmentCardCheckBox.isSelected())
-            FXGUI.getClient().sendMessage(new ActivateDevelopmentCardProductionMessage(FXGUI.getClient().getNickName(),FXGUI.getClient().getView().getReducedGameModel().getPersonalDevelopmentBoard().get(2).getId()));
+            FXGUI.getClient().sendMessage(new ActivateDevelopmentCardProductionMessage(FXGUI.getClient().getNickName(),FXGUI.getClient().getView().getReducedGameModel().getPersonalDevelopmentBoard().get(2).getId(), baseProduction.isSelected()));
         if (baseProduction.isSelected()) {
             Platform.runLater(() -> {
                 try {
@@ -236,6 +236,6 @@ public class ActivateProductionController {
                 stage.setScene(scene);
                 stage.show();
             });
-        }
+        } else FXGUI.getClient().getClientController().update();
     }
 }

@@ -58,9 +58,9 @@ public class ServerToClientHandler implements Runnable {
                         .filter(inGameConnectedClient -> inGameConnectedClient.getNickName().equals(nickName))
                         .findFirst()
                         .orElse(null));
+                gameController.sendBroadCastMessage(new ErrorMessage(ErrorType.PLAYER_DISCONNECTED));
             }
             System.out.println(CLIColors.getAnsiRed() + "Client Removed" + CLIColors.getAnsiReset());
-            gameController.sendBroadCastMessage(new ErrorMessage(ErrorType.PLAYER_DISCONNECTED));
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

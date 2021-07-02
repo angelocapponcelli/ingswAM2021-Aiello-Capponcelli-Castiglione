@@ -30,7 +30,7 @@ public class CellEditController {
             JsonObject object= (JsonObject)array.get(Integer.parseInt(cellNumber.getText()));
             object.addProperty("victoryPoints", Integer.parseInt(points.getText()));
 
-            FileWriter writer= new FileWriter("src/main/resources/JSON/settings.json");
+            FileWriter writer= new FileWriter("src/main/resources/JSONs/settings.json");
             writer.write(jsonObject.toString());
             writer.close();
 

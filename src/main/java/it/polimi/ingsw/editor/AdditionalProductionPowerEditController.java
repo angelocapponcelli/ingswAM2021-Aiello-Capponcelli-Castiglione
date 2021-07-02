@@ -15,17 +15,23 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class that manages the edit of the special ability of the production.
+ *
+ */
 public class AdditionalProductionPowerEditController {
 
     public TextField anyNumber;
-    public Integer anyNumbers;
+    public TextField faithNumber;
+
+
 
     /**
      * Personalizes the output of "ANY" marbles
      * @param event the click on okButton
      */
     public void insertedOutput(ActionEvent event){
-        anyNumbers= Integer.parseInt(anyNumber.getText());
+
         Gson gson= new Gson();
         try {
             FileReader reader= new FileReader("src/main/resources/JSONs/settings.json");
@@ -33,6 +39,7 @@ public class AdditionalProductionPowerEditController {
             JsonObject object= jsonObject.getAsJsonObject("SpecialAbilities").getAsJsonObject("PRODUCTION_POWER").getAsJsonObject("output");
 
             object.addProperty("ANY", Integer.parseInt(anyNumber.getText()));
+            object.addProperty("FAITH",Integer.parseInt(faithNumber.getText()) );
 
             FileWriter writer= new FileWriter("src/main/resources/JSONs/settings.json");
             writer.write(jsonObject.toString());

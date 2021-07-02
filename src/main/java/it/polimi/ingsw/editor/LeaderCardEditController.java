@@ -141,7 +141,7 @@ public class LeaderCardEditController {
             JsonObject jsonObject= gson.fromJson(reader,JsonObject.class);
             JsonArray listOfCards= jsonObject.getAsJsonArray("LeaderCards");
             JsonObject cardSelected;
-            if(idCard<listOfCards.size()-1 && idCard>48) {
+            if(idCard<listOfCards.size()+48 && idCard>48) {
                 cardSelected = (JsonObject) listOfCards.get(idCard - 49);
 
                 cardSelected.remove("requirements");
@@ -149,6 +149,7 @@ public class LeaderCardEditController {
             else {
                 cardSelected= new JsonObject();
                 cardSelected.addProperty("id", idCard);
+                listOfCards.add(cardSelected);
             }
 
             JsonObject specials= new JsonObject();
@@ -169,12 +170,7 @@ public class LeaderCardEditController {
 
             cardSelected.addProperty("victoryPoints", victoryPoints);
 
-            if (idCard<listOfCards.size()-1 && idCard>48){
 
-            }
-            else {
-                listOfCards.add(cardSelected);
-            }
 
             FileWriter writer= new FileWriter("src/main/resources/JSONs/settings.json");
             writer.write(jsonObject.toString());

@@ -9,6 +9,7 @@ import it.polimi.ingsw.networking.messages.serverMessage.ItIsMyTurnMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.TurnPositionMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.*;
 import it.polimi.ingsw.client.view.CLI.CLIColors;
+import it.polimi.ingsw.server.model.resources.ResourceType;
 
 import java.util.Objects;
 
@@ -168,11 +169,14 @@ public class ClientController implements Runnable {
                         break;
 
                     case MOVE_FROM_TEMPORARY:
-                        view.moveFromTemporary();
-                        try {
-                            wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                        if (view.getReducedGameModel().getTemporaryDepot().entrySet().stream().anyMatch(entry -> !entry.getKey().equals(ResourceType.ANY) && entry.getValue()>0)) {
+
+                            view.moveFromTemporary();
+                            try {
+                                wait();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         }
                         currentState = ClientState.IN_GAME;
                         view.refresh();
@@ -343,7 +347,10 @@ public class ClientController implements Runnable {
                 System.out.println(CLIColors.getAnsiRed() + "NickName already taken" + CLIColors.getAnsiReset());
                 notifyAll();
                 break;
-
+            case PLAYER_DISCONNECTED:
+                System.out.println(CLIColors.getAnsiRed() + "Player disconnected" + CLIColors.getAnsiReset());
+                notifyAll();
+                break;
         }
     }
 

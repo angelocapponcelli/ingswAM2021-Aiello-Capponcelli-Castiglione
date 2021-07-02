@@ -33,14 +33,22 @@ public class SettingsParser {
     }
 
     public void setJson(String json) {
-        this.json = json;
+       this.json = json;
     }
 
     public MarketTray getMarketTray() throws FileNotFoundException {
 
-        InputStream inputStream = SettingsParser.class.getClassLoader().getResourceAsStream(json);
-        JsonParser parser = new JsonParser();
-        JsonObject jsonObject = parser.parse(new InputStreamReader(inputStream)).getAsJsonObject();
+        JsonObject jsonObject;
+        if(json.equals("JSONs/settings.json")) {
+
+            InputStream inputStream = SettingsParser.class.getClassLoader().getResourceAsStream(json);
+            JsonParser parser = new JsonParser();
+            jsonObject = parser.parse(new InputStreamReader(inputStream)).getAsJsonObject();
+        }
+        else {
+            jsonObject = JsonParser.parseReader(new FileReader(json)).getAsJsonObject();
+        }
+
 
         JsonObject marketTrayObject = jsonObject.get("MarketTray").getAsJsonObject();
 
@@ -73,10 +81,17 @@ public class SettingsParser {
     public List<DevelopmentCard> getDevelopmentCards() throws FileNotFoundException {
         List<DevelopmentCard> developmentCards = new ArrayList<>();
 
-        InputStream inputStream = SettingsParser.class.getClassLoader().getResourceAsStream(json);
-        JsonParser parser = new JsonParser();
-        JsonObject jsonObject = parser.parse(new InputStreamReader(inputStream)).getAsJsonObject();
+        JsonObject jsonObject;
+        if(json.equals("JSONs/settings.json")) {
 
+            InputStream inputStream = SettingsParser.class.getClassLoader().getResourceAsStream(json);
+            JsonParser parser = new JsonParser();
+            jsonObject = parser.parse(new InputStreamReader(inputStream)).getAsJsonObject();
+        }
+        else
+        {
+            jsonObject = JsonParser.parseReader(new FileReader(json)).getAsJsonObject();
+        }
 
         JsonArray tempDeck = jsonObject.getAsJsonArray("DevelopmentCards");
 
@@ -117,10 +132,15 @@ public class SettingsParser {
 
     public ProductionPower getBasicProductionPower() throws FileNotFoundException {
 
-        InputStream inputStream = SettingsParser.class.getClassLoader().getResourceAsStream(json);
-        JsonParser parser = new JsonParser();
-        JsonObject jsonObject = parser.parse(new InputStreamReader(inputStream)).getAsJsonObject();
-
+        JsonObject jsonObject;
+        if(json.equals("JSONs/settings.json")) {
+            InputStream inputStream = SettingsParser.class.getClassLoader().getResourceAsStream(json);
+            JsonParser parser = new JsonParser();
+            jsonObject = parser.parse(new InputStreamReader(inputStream)).getAsJsonObject();
+        }
+        else {
+            jsonObject = JsonParser.parseReader(new FileReader(json)).getAsJsonObject();
+        }
 
 
         JsonObject productionObject = jsonObject.getAsJsonObject("BoardBasicProductionPower");
@@ -182,10 +202,19 @@ public class SettingsParser {
         List<Cell> track = new ArrayList<>();
         List<VaticanReportSection> reportSections = new ArrayList<>();
 
-        InputStream inputStream = SettingsParser.class.getClassLoader().getResourceAsStream(json);
-        JsonParser parser = new JsonParser();
-        JsonObject jsonObject = parser.parse(new InputStreamReader(inputStream)).getAsJsonObject();
-
+        JsonObject jsonObject = null;
+        if(json.equals("JSONs/settings.json")) {
+            InputStream inputStream = SettingsParser.class.getClassLoader().getResourceAsStream(json);
+            JsonParser parser = new JsonParser();
+            jsonObject = parser.parse(new InputStreamReader(inputStream)).getAsJsonObject();
+        }
+        else{
+            try {
+                jsonObject = JsonParser.parseReader(new FileReader(json)).getAsJsonObject();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
 
         JsonObject faithTackObject = jsonObject.getAsJsonObject("FaithTrack");
         JsonArray tmpTrack = faithTackObject.getAsJsonArray("track");
@@ -222,9 +251,20 @@ public class SettingsParser {
     public List<LeaderCard> getLeaderCards(){
         List<LeaderCard> leaderCards = new ArrayList<>();
 
-        InputStream inputStream = SettingsParser.class.getClassLoader().getResourceAsStream(json);
-        JsonParser parser = new JsonParser();
-        JsonObject jsonObject = parser.parse(new InputStreamReader(inputStream)).getAsJsonObject();
+        JsonObject jsonObject = null;
+        if(json.equals("JSONs/settings.json")) {
+            InputStream inputStream = SettingsParser.class.getClassLoader().getResourceAsStream(json);
+            JsonParser parser = new JsonParser();
+            jsonObject = parser.parse(new InputStreamReader(inputStream)).getAsJsonObject();
+        }
+        else {
+            try {
+                jsonObject = JsonParser.parseReader(new FileReader(json)).getAsJsonObject();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
 
         JsonArray tempDeck = jsonObject.getAsJsonArray("LeaderCards");
 
@@ -262,10 +302,15 @@ public class SettingsParser {
 
     public SpecialAbility getSpecialAbility(String specialAbilityType, String  resourceType) throws FileNotFoundException {
 
-
-        InputStream inputStream = SettingsParser.class.getClassLoader().getResourceAsStream(json);
-        JsonParser parser = new JsonParser();
-        JsonObject jsonObject = parser.parse(new InputStreamReader(inputStream)).getAsJsonObject();
+        JsonObject jsonObject;
+        if(json.equals("JSONs/settings.json")) {
+            InputStream inputStream = SettingsParser.class.getClassLoader().getResourceAsStream(json);
+            JsonParser parser = new JsonParser();
+            jsonObject = parser.parse(new InputStreamReader(inputStream)).getAsJsonObject();
+        }
+        else {
+            jsonObject = JsonParser.parseReader(new FileReader(json)).getAsJsonObject();
+       }
 
         JsonObject SpecialAbilityAttribute = jsonObject.get("SpecialAbilities").getAsJsonObject();
 

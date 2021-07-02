@@ -22,6 +22,12 @@ import java.util.Objects;
 public class AskForMainAction {
 
     @FXML
+    private ImageView vaticanReport1;
+    @FXML
+    private ImageView vaticanReport2;
+    @FXML
+    private ImageView vaticanReport3;
+    @FXML
     private VBox playersListPane;
     @FXML
     private AnchorPane faithTrackPane;
@@ -197,6 +203,14 @@ public class AskForMainAction {
             rowPlayers.getChildren().add(playerName);
             playersListPane.getChildren().add(rowPlayers);
         }
+
+        FXGUI.getClient().getView().getReducedGameModel().getFlippedVaticanReportSections().forEach(reducedVaticanReportSection -> {
+            System.out.println("section flipped: " + reducedVaticanReportSection.getStartCell());
+            if (reducedVaticanReportSection.getStartCell() == 5) vaticanReport1.setVisible(true);
+            else if (reducedVaticanReportSection.getStartCell() == 12) vaticanReport2.setVisible(true);
+            else if (reducedVaticanReportSection.getStartCell() == 19) vaticanReport3.setVisible(true);
+
+        });
 
     }
 

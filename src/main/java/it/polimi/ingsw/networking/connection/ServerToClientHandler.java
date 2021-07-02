@@ -60,6 +60,7 @@ public class ServerToClientHandler implements Runnable {
                         .orElse(null));
             }
             System.out.println(CLIColors.getAnsiRed() + "Client Removed" + CLIColors.getAnsiReset());
+            gameController.sendBroadCastMessage(new ErrorMessage(ErrorType.PLAYER_DISCONNECTED));
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

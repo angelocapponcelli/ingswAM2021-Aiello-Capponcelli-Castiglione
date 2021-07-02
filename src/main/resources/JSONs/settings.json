@@ -1351,12 +1351,12 @@
     "nRows": 3,
     "nCols": 4,
     "marbles": {
-      "FAITH": 1,
-      "SERVANT": 2,
-      "ANY": 4,
-      "COIN": 2,
-      "SHIELD": 2,
-      "STONE": 2
+      "FAITH": 0,
+      "SERVANT": 0,
+      "ANY": 13,
+      "COIN": 0,
+      "SHIELD": 0,
+      "STONE": 0
     }
   }
 

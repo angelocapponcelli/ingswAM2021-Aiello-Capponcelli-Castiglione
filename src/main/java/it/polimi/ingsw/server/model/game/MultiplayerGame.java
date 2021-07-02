@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.model.game;
 
 
 import it.polimi.ingsw.networking.messages.serverMessage.LastTurnMessage;
+import it.polimi.ingsw.server.controller.gameStates.GameState;
 import it.polimi.ingsw.server.model.player.Player;
 
 /**
@@ -25,8 +26,9 @@ public class MultiplayerGame extends Game {
      */
     @Override
     public void endGame(Player player) {
+        gameController.setCurrentGameState(GameState.END);
         if(!gameIsEnded){
-            notifyObserver(new LastTurnMessage(player.getNickName()));
+            //notifyObserver(new LastTurnMessage(player.getNickName()));
             gameIsEnded=true;
         }
 

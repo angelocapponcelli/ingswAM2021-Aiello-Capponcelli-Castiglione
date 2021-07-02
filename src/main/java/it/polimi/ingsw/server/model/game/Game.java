@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.model.game;
 
+import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.server.model.globalBoard.GlobalBoard;
 import it.polimi.ingsw.server.model.player.Player;
 import it.polimi.ingsw.utils.exceptions.PlayerWithSameNameException;
@@ -21,6 +22,7 @@ public abstract class Game extends Observable {
     private final GlobalBoard globalBoard;
     private Player winner;
     private Player currentPlayer;
+    protected GameController gameController;
 
     /**
      * Class constructor. The class is abstract.
@@ -125,4 +127,9 @@ public abstract class Game extends Observable {
         super.removeObserver(obs);
         globalBoard.removeObserver(obs);
     }
+
+    public void addGameController(GameController gameController){
+        this.gameController = gameController;
+    }
+
 }

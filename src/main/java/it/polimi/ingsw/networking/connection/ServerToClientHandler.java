@@ -58,7 +58,10 @@ public class ServerToClientHandler implements Runnable {
                         .filter(inGameConnectedClient -> inGameConnectedClient.getNickName().equals(nickName))
                         .findFirst()
                         .orElse(null));
+
                 gameController.sendBroadCastMessage(new ErrorMessage(ErrorType.PLAYER_DISCONNECTED));
+
+                Server.removeOnGoingGame(gameController);
             }
             System.out.println(CLIColors.getAnsiRed() + "Client Removed" + CLIColors.getAnsiReset());
         } catch (IOException | ClassNotFoundException e) {
@@ -124,11 +127,7 @@ public class ServerToClientHandler implements Runnable {
      * @param message The message to be sent.
      */
     public void sendMessage(Message message) {
-        try {
             connectionIO.sendMessage(message);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 }

@@ -44,10 +44,6 @@ public class InGameConnectedClient implements Observer {
      */
     @Override
     public void update(Message message) {
-        try {
             connectionIO.sendMessage(message);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

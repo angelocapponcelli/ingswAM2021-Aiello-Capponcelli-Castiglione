@@ -41,7 +41,7 @@ public class GameController {
     private final Integer maxPlayersNumber;
     private final List<InGameConnectedClient> inGameConnectedClients = new ArrayList<>();
     private final List<Player> playerList = new ArrayList<>();
-    private GameState currentGameState;
+    private GameState currentGameState = GameState.IN_GAME;
     private int currentPlayer = 0;
 
     /**
@@ -60,6 +60,7 @@ public class GameController {
             playerList.add(new Lorenzo(this));
 
         } else gameModel = new MultiplayerGame(playersNumber);
+        gameModel.addGameController(this);
 
     }
 
@@ -208,7 +209,9 @@ public class GameController {
                 ActivateLeaderCardMessage activateLeaderCardMessage = (ActivateLeaderCardMessage) message;
                 activateLeaderCard(activateLeaderCardMessage);
                 break;
-
+            case ACTIVATE_PRODUCTION:
+                ActivateProductionMessage activateProductionMessage = (ActivateProductionMessage) message;
+                activateProduction(activateProductionMessage);
 
         }
     }
@@ -411,10 +414,14 @@ public class GameController {
             gameModel.getGlobalBoard().getMarketTray().selectColumn(number).forEach(marble -> marble.onTaking(realPlayer));
         } else System.out.println("Error");
         sendPrivateMessage(takeFromMarketMessage.getNickname(), new ActionEndedMessage());
-        nextPlayerTurn();
+        //if (currentGameState != GameState.END) nextPlayerTurn();
+        if(currentGameState == GameState.END && currentPlayer==playerList.size()-1){
+            System.out.println("a fessa");
+        }
+        else nextPlayerTurn();
     }
 
-    /*private void activateProduction(ActivateProductionMessage activateProductionMessage) {
+    private void activateProduction(ActivateProductionMessage activateProductionMessage) {
         RealPlayer realPlayer = getRealPlayer(activateProductionMessage);
         try {
             gameModel.getGlobalBoard().getBasicProductionPower().getProductionInput().pay(realPlayer);
@@ -422,8 +429,8 @@ public class GameController {
             e.printStackTrace();
         }
         gameModel.getGlobalBoard().getBasicProductionPower().getProductionOutput().onActivation(realPlayer);
-        nextPlayerTurn();
-    }*/
+        //nextPlayerTurn();
+    }
 
     /**
      * Activates the production using the basic production power
@@ -467,11 +474,7 @@ public class GameController {
     public void sendBroadCastMessage(Message message) {
 
         inGameConnectedClients.forEach(inGameConnectedClient -> {
-            try {
                 inGameConnectedClient.getConnectionIO().sendMessage(message);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         });
     }
 
@@ -507,6 +510,7 @@ public class GameController {
         sendPrivateMessage(playerList.get(currentPlayer).getNickName(), new ItIsMyTurnMessage(playLeaderCard));
     }
 
+
     /**
      * Gets the real player from the nickname contained in the message
      *
@@ -532,6 +536,17 @@ public class GameController {
                 .reveal();
 
 
+    }
+
+
+    public void getWinner(){
+        playerList.stream().map(player -> (RealPlayer) player).forEach(RealPlayer::calculateVictoryPoint);
+        RealPlayer winner = playerList.stream().map(player -> (RealPlayer) player).max(Comparator.comparing(RealPlayer::getVictoryPoint)).get();
+
+    }
+
+    public void setCurrentGameState(GameState gameState){
+        this.currentGameState = gameState;
     }
 
 }

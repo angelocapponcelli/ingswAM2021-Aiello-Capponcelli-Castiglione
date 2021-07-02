@@ -535,13 +535,6 @@ public class CLI extends View {
         clear();
 
         System.out.println("Game ended");
-        while (true){
-            clear();
-            System.out.println("Game ended");
-            waitMilliseconds(100);
-            clear();
-            waitMilliseconds(100);
-        }
     }
 
 

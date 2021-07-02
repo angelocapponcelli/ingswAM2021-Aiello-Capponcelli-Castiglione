@@ -84,6 +84,12 @@ public class Server {
         }
     }
 
+    public static void removeOnGoingGame(GameController toBeDeleted){
+        synchronized (onGoingGames){
+            onGoingGames.remove(toBeDeleted);
+        }
+    }
+
 
     /**
      * Find a game by its ID.

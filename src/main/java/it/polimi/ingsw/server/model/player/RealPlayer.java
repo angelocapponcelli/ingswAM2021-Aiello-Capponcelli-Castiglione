@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public class RealPlayer extends Player {
     private final PersonalBoard personalBoard;
-    private final Integer victoryPoint;
+    private Integer victoryPoint;
     private final Map<SpecialAbilityType, ResourceType> activatedSpecialAbilities = new HashMap<>();
 
     /**
@@ -42,9 +42,9 @@ public class RealPlayer extends Player {
 
     /**
      * Performs the sum of the victory points that the player gets during the game
-     * @return total of victory points
+     * //@return total of victory points
      */
-    public Integer getVictoryPoint() {
+    public void calculateVictoryPoint() {
         int sum = 0;
         /* points from leaderCard*/
         sum = sum + this.getPersonalBoard().getInHandLeaderCards().getVictoryPoint();
@@ -58,7 +58,11 @@ public class RealPlayer extends Player {
         sum = sum + this.vaticanReportStatus.getVictoryPoint();
         /* points from the faithPosition*/
         sum = sum + gameController.getGameModel().getGlobalBoard().getFaithTrack().getTrack().get(faithPosition).getVictoryPoints();
-        return sum;
+        victoryPoint = sum;
+    }
+
+    public Integer getVictoryPoint() {
+        return victoryPoint;
     }
 
     /**

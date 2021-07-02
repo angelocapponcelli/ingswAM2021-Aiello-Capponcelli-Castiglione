@@ -1,10 +1,8 @@
 package it.polimi.ingsw.client.controller;
 
-import it.polimi.ingsw.client.view.GUI.FXGUI;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.networking.messages.ErrorMessage;
 import it.polimi.ingsw.networking.messages.Message;
-import it.polimi.ingsw.networking.messages.serverMessage.GameEndedMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.ItIsMyTurnMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.TurnPositionMessage;
 import it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage.*;
@@ -100,7 +98,6 @@ public class ClientController implements Runnable {
 
                         }
                         break;
-
                     case IN_GAME:
                         switch (inGameState) {
                             case MY_TURN:
@@ -196,6 +193,11 @@ public class ClientController implements Runnable {
         }
     }
 
+    /**
+     * Manages the received message
+     *
+     * @param message the message to manage
+     */
     public synchronized void manageReceivedMessage(Message message) {
         switch (message.getMessageType()) {
             case ERROR:
@@ -217,12 +219,10 @@ public class ClientController implements Runnable {
                 UpdatedMarketTrayMessage updatedMarketTray = (UpdatedMarketTrayMessage) message;
                 view.getReducedGameModel().getMarketTray().setMarketTray(updatedMarketTray.getMarketTray());
                 view.getReducedGameModel().getMarketTray().setSlide(updatedMarketTray.getSlide());
-                //view.refresh();
                 break;
             case UPDATED_IN_HAND_LEADER_CARD:
                 UpdatedInHandLeaderCardMessage updatedInHandLeaderCardMessage = (UpdatedInHandLeaderCardMessage) message;
                 view.getReducedGameModel().getReducedInHandLeaderCards().update(updatedInHandLeaderCardMessage.getInHandLeaderCard());
-                //view.refresh();
                 break;
             case UPDATED_VATICAN_REPORT_SECTION:
                 UpdatedVaticanReportMessage updatedVaticanReportMessage = (UpdatedVaticanReportMessage) message;
@@ -244,27 +244,22 @@ public class ClientController implements Runnable {
             case UPDATED_WAREHOUSE:
                 UpdatedWareHouseMessage updatedWareHouseMessage = (UpdatedWareHouseMessage) message;
                 view.getReducedGameModel().setWareHouseDepot(updatedWareHouseMessage.getWareHouse());
-                //view.refresh();
                 break;
-            case UPDATED_SPECIALDEPOT:
+            case UPDATED_SPECIAL_DEPOT:
                 UpdatedSpecialDepotMessage updatedSpecialDepotMessage = (UpdatedSpecialDepotMessage) message;
                 view.getReducedGameModel().setSpecialDepot(updatedSpecialDepotMessage.getSepcialDepot());
-                //view.refresh();
                 break;
             case UPDATED_STRONG_BOX:
                 UpdatedStrongBoxMessage updatedStrongBoxMessage = (UpdatedStrongBoxMessage) message;
                 view.getReducedGameModel().setStrongBoxDepot(updatedStrongBoxMessage.getStrongBox());
-                //view.refresh();
                 break;
             case UPDATED_DEV_CARD_GRID:
                 UpdatedDevelopmentCardGridMessage updatedDevelopmentCardGridMessage = (UpdatedDevelopmentCardGridMessage) message;
                 view.getReducedGameModel().setDevelopmentCardsGrid(updatedDevelopmentCardGridMessage.getDevelopmentCardGrid());
-                //view.refresh();
                 break;
             case UPDATED_PERSONAL_DEVELOPMENT_BOARD:
                 UpdatedPersonalDevelopmentBoardMessage updatedPersonalDevelopmentBoardMessage = (UpdatedPersonalDevelopmentBoardMessage) message;
                 view.getReducedGameModel().setPersonalDevelopmentBoard(updatedPersonalDevelopmentBoardMessage.getDevelopmentCards());
-                //view.refresh();
                 break;
             case MY_TURN_MESSAGE:
                 ItIsMyTurnMessage itIsMyTurnMessage = (ItIsMyTurnMessage) message;
@@ -283,7 +278,6 @@ public class ClientController implements Runnable {
             case ACTION_ENDED:
                 evolve();
                 notifyAll();
-
                 break;
             case UPDATED_FAITH_POSITION:
                 UpdatedFaithPositionMessage updatedFaithPositionMessage = (UpdatedFaithPositionMessage) message;
@@ -293,8 +287,8 @@ public class ClientController implements Runnable {
                 break;
             case GAME_ENDED:
                 view.gameEnding();
+                System.exit(0);
                 break;
-
         }
     }
 
@@ -310,14 +304,6 @@ public class ClientController implements Runnable {
         DISCARD_LEADER,
         CHOOSE_RESOURCES,
     }
-    /*public enum MY_TURN{
-        ACTIVATE_PRODUCTION,
-        BUY_DEV_CARD,
-        TAKE_FROM_MARKET,
-        DISCARD_LEADER_CARD,
-        ACTIVATE_LEADER_CARD
-    }*/
-
 
     public enum IN_GAME {
         NO_MY_TURN,
@@ -349,6 +335,7 @@ public class ClientController implements Runnable {
                 break;
             case PLAYER_DISCONNECTED:
                 System.out.println(CLIColors.getAnsiRed() + "Player disconnected" + CLIColors.getAnsiReset());
+                System.exit(0);
                 notifyAll();
                 break;
         }

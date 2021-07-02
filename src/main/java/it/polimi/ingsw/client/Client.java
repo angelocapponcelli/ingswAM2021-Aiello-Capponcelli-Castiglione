@@ -95,11 +95,7 @@ public class Client {
      * @param message the message to be sent
      */
     public void sendMessage(Message message) {
-        try {
             connectionIO.sendMessage(message);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 

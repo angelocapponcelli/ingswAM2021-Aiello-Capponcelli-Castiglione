@@ -10,7 +10,7 @@ public class UpdatedSpecialDepotMessage extends ServerMessage {
     private final List<ReducedContainer> specialDepot;
 
     public UpdatedSpecialDepotMessage(List<ReducedContainer> specialDepot) {
-        messageType = MessageType.UPDATED_SPECIALDEPOT;
+        messageType = MessageType.UPDATED_SPECIAL_DEPOT;
         this.specialDepot = specialDepot;
     }
 

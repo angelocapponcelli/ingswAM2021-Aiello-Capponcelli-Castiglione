@@ -31,8 +31,12 @@ public class ConnectionIO {
      * @param message the message sent
      * @throws IOException
      */
-    public void sendMessage(Message message) throws IOException {
-        socketOut.writeObject(message);
+    public void sendMessage(Message message){
+        try {
+            socketOut.writeObject(message);
+        } catch (IOException e) {
+            System.out.println("Error");
+        }
     }
 
     /**

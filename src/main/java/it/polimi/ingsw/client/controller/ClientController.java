@@ -113,45 +113,45 @@ public class ClientController implements Runnable {
                                     case TAKE_FROM_MARKET:
                                         System.out.println("takeFrom");
                                         view.takeFromMarket();
+                                        inGameState = IN_GAME.NO_MY_TURN;
                                         try {
                                             wait();
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
                                         }
                                         if (inHandLeaderCardNumber != (int) view.getReducedGameModel().getReducedInHandLeaderCards().getInHandLeaderCards().stream().filter( reducedLeaderCard -> reducedLeaderCard.getPlayed()==false ).count()) view.activateLeaderCard();
-                                        inGameState = IN_GAME.NO_MY_TURN;
                                         break;
 
                                     case ACTIVATE_PRODUCTION:
                                         System.out.println("Activate");
                                         view.activateProduction();
+                                        inGameState = IN_GAME.NO_MY_TURN;
                                         try {
                                             wait();
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
                                         }
                                         if (inHandLeaderCardNumber != (int) view.getReducedGameModel().getReducedInHandLeaderCards().getInHandLeaderCards().stream().filter( reducedLeaderCard -> reducedLeaderCard.getPlayed()==false ).count()) view.activateLeaderCard();
-                                        inGameState = IN_GAME.NO_MY_TURN;
                                         break;
 
                                     case BUY_DEV_CARD:
                                         view.buyDevCard();
+                                        inGameState = IN_GAME.NO_MY_TURN;
                                         try {
                                             wait();
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
                                         }
                                         if (inHandLeaderCardNumber != (int) view.getReducedGameModel().getReducedInHandLeaderCards().getInHandLeaderCards().stream().filter( reducedLeaderCard -> reducedLeaderCard.getPlayed()==false ).count()) view.activateLeaderCard();
-                                        inGameState = IN_GAME.NO_MY_TURN;
                                         break;
                                     case ACTIVATE_LEADER_CARD:
                                         view.activateLeaderCard();
+                                        inGameState = IN_GAME.MY_TURN;
                                         try {
                                             wait();
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
                                         }
-                                        inGameState = IN_GAME.MY_TURN;
                                         break;
                                 }
                                 break;

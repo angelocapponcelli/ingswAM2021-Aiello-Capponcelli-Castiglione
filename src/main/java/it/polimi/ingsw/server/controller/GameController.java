@@ -208,7 +208,9 @@ public class GameController {
                 ActivateLeaderCardMessage activateLeaderCardMessage = (ActivateLeaderCardMessage) message;
                 activateLeaderCard(activateLeaderCardMessage);
                 break;
-
+            case ACTIVATE_PRODUCTION:
+                ActivateProductionMessage activateProductionMessage = (ActivateProductionMessage) message;
+                activateProduction(activateProductionMessage);
 
         }
     }
@@ -414,7 +416,7 @@ public class GameController {
         nextPlayerTurn();
     }
 
-    /*private void activateProduction(ActivateProductionMessage activateProductionMessage) {
+    private void activateProduction(ActivateProductionMessage activateProductionMessage) {
         RealPlayer realPlayer = getRealPlayer(activateProductionMessage);
         try {
             gameModel.getGlobalBoard().getBasicProductionPower().getProductionInput().pay(realPlayer);
@@ -422,8 +424,8 @@ public class GameController {
             e.printStackTrace();
         }
         gameModel.getGlobalBoard().getBasicProductionPower().getProductionOutput().onActivation(realPlayer);
-        nextPlayerTurn();
-    }*/
+        //nextPlayerTurn();
+    }
 
     /**
      * Activates the production using the basic production power

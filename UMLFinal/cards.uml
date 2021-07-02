@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.server.model.cards</OriginalElement>
+  <nodes>
+    <node x="0.9340277777777715" y="194.0">it.polimi.ingsw.server.model.cards.DevelopmentCard</node>
+    <node x="158.64930555555554" y="454.0">it.polimi.ingsw.server.model.cards.LeaderRequirements</node>
+    <node x="109.93402777777777" y="626.0">it.polimi.ingsw.server.model.cards.LeaderCard</node>
+    <node x="0.0" y="0.0">it.polimi.ingsw.server.model.cards.Cost</node>
+    <node x="259.97916666666663" y="11.0">it.polimi.ingsw.server.model.cards.TypeLevel</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.server.model.cards.LeaderRequirements" target="it.polimi.ingsw.server.model.cards.TypeLevel">
+      <point x="73.0" y="-61.0" />
+      <point x="377.64930555555554" y="429.0" />
+      <point x="410.43402777777777" y="429.0" />
+      <point x="410.43402777777777" y="169.0" />
+      <point x="398.3125" y="169.0" />
+      <point x="55.33333333333337" y="61.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.LeaderCard" target="it.polimi.ingsw.server.model.cards.LeaderRequirements">
+      <point x="-97.75" y="-105.5" />
+      <point x="207.68402777777777" y="601.0" />
+      <point x="231.64930555555554" y="601.0" />
+      <point x="-73.0" y="61.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.DevelopmentCard" target="it.polimi.ingsw.server.model.cards.Cost">
+      <point x="-149.625" y="-105.0" />
+      <point x="50.80902777777777" y="169.0" />
+      <point x="54.75" y="169.0" />
+      <point x="-54.75" y="72.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.DevelopmentCard" target="it.polimi.ingsw.server.model.cards.TypeLevel">
+      <point x="49.875" y="-105.0" />
+      <point x="250.30902777777777" y="169.0" />
+      <point x="287.6458333333333" y="169.0" />
+      <point x="-55.333333333333314" y="61.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.LeaderRequirements" target="it.polimi.ingsw.server.model.cards.DevelopmentCard">
+      <point x="-73.0" y="-61.0" />
+      <point x="231.64930555555554" y="429.0" />
+      <point x="200.43402777777777" y="429.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.46674445740956827" x="250.5" y="418.5" />
+  <SelectedNodes>
+    <node>it.polimi.ingsw.server.model.cards.DevelopmentCard</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.client</OriginalElement>
+  <nodes>
+    <node x="206.0" y="315.0">it.polimi.ingsw.client.controller.ClientController.INIT</node>
+    <node x="427.33333333333326" y="579.0">it.polimi.ingsw.client.controller.ClientController</node>
+    <node x="778.0" y="360.5">it.polimi.ingsw.client.view</node>
+    <node x="0.0" y="282.0">it.polimi.ingsw.client.controller.MY_TURN</node>
+    <node x="380.0" y="304.0">it.polimi.ingsw.client.controller.ClientController.LOGIN</node>
+    <node x="766.8214285714287" y="0.0">it.polimi.ingsw.client.Client</node>
+    <node x="568.0" y="282.0">it.polimi.ingsw.client.controller.ClientController.ClientState</node>
+    <node x="468.33333333333326" y="950.0">it.polimi.ingsw.client.controller.ClientController.IN_GAME</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.client.controller.ClientController" target="it.polimi.ingsw.client.controller.ClientController.LOGIN">
+      <point x="-41.40624999999994" y="-160.5" />
+      <point x="518.4270833333334" y="509.0" />
+      <point x="408.0" y="509.0" />
+      <point x="-56.0" y="71.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.controller.ClientController.LOGIN" target="it.polimi.ingsw.client.controller.ClientController">
+      <point x="56.0" y="71.5" />
+      <point x="520.0" y="489.0" />
+      <point x="551.5520833333334" y="489.0" />
+      <point x="-8.281249999999943" y="-160.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.controller.ClientController" target="it.polimi.ingsw.client.controller.MY_TURN">
+      <point x="-124.21874999999994" y="-160.5" />
+      <point x="435.61458333333337" y="559.0" />
+      <point x="46.5" y="559.0" />
+      <point x="-46.5" y="93.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.controller.ClientController.INIT" target="it.polimi.ingsw.client.controller.ClientController">
+      <point x="51.33333333333337" y="60.5" />
+      <point x="334.33333333333337" y="519.0" />
+      <point x="501.86458333333337" y="519.0" />
+      <point x="-57.96874999999994" y="-160.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.controller.ClientController" target="it.polimi.ingsw.client.controller.ClientController.ClientState">
+      <point x="8.281250000000057" y="-160.5" />
+      <point x="568.1145833333334" y="489.0" />
+      <point x="599.6666666666667" y="489.0" />
+      <point x="-63.333333333333314" y="93.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.controller.ClientController" target="it.polimi.ingsw.client.controller.ClientController.IN_GAME">
+      <point x="0.0" y="160.5" />
+      <point x="0.0" y="-60.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.view" target="it.polimi.ingsw.client.Client">
+      <point x="-48.0" y="-15.0" />
+      <point x="794.0" y="257.0" />
+      <point x="781.2500000000001" y="257.0" />
+      <point x="-86.57142857142856" y="116.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.Client" target="it.polimi.ingsw.client.view">
+      <point x="-28.85714285714289" y="116.0" />
+      <point x="838.9642857142858" y="257.0" />
+      <point x="858.0" y="257.0" />
+      <point x="16.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.controller.ClientController.ClientState" target="it.polimi.ingsw.client.controller.ClientController">
+      <point x="63.33333333333337" y="93.5" />
+      <point x="726.3333333333334" y="509.0" />
+      <point x="601.2395833333334" y="509.0" />
+      <point x="41.40625000000006" y="-160.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.Client" target="it.polimi.ingsw.client.controller.ClientController">
+      <point x="86.57142857142844" y="116.0" />
+      <point x="954.3928571428571" y="257.0" />
+      <point x="938.5" y="257.0" />
+      <point x="938.5" y="559.0" />
+      <point x="684.0520833333334" y="559.0" />
+      <point x="124.21875000000006" y="-160.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.controller.ClientController" target="it.polimi.ingsw.client.view">
+      <point x="57.96875000000006" y="-160.5" />
+      <point x="617.8020833333334" y="519.0" />
+      <point x="810.0" y="519.0" />
+      <point x="-32.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.controller.ClientController.IN_GAME" target="it.polimi.ingsw.client.controller.ClientController">
+      <point x="-61.0" y="-60.5" />
+      <point x="498.83333333333326" y="925.0" />
+      <point x="471.5" y="925.0" />
+      <point x="-88.33333333333331" y="160.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.client.controller.ClientController" target="it.polimi.ingsw.client.controller.ClientController.INIT">
+      <point x="-91.09374999999994" y="-160.5" />
+      <point x="468.73958333333337" y="539.0" />
+      <point x="231.66666666666663" y="539.0" />
+      <point x="-51.33333333333334" y="60.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.36663611365719523" x="484.5" y="535.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

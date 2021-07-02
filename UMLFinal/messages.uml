@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.networking.messages</OriginalElement>
+  <nodes>
+    <node x="307.0" y="104.0">it.polimi.ingsw.networking.messages.ErrorMessage</node>
+    <node x="728.0" y="127.5">it.polimi.ingsw.networking.messages.clientMessages</node>
+    <node x="519.0" y="0.0">it.polimi.ingsw.networking.messages.Message</node>
+    <node x="508.0" y="127.5">it.polimi.ingsw.networking.messages.serverMessage</node>
+    <node x="981.0" y="0.0">it.polimi.ingsw.networking.messages.ErrorType</node>
+    <node x="0.0" y="0.0">it.polimi.ingsw.networking.messages.MessageType</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.networking.messages.ErrorMessage" target="it.polimi.ingsw.networking.messages.Message">
+      <point x="0.0" y="-38.5" />
+      <point x="397.5" y="79.0" />
+      <point x="548.6666666666666" y="79.0" />
+      <point x="-59.33333333333337" y="27.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.networking.messages.serverMessage" target="it.polimi.ingsw.networking.messages.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.networking.messages.clientMessages" target="it.polimi.ingsw.networking.messages.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="832.0" y="79.0" />
+      <point x="667.3333333333334" y="79.0" />
+      <point x="59.33333333333337" y="27.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.4094165813715456" x="582.0" y="478.49999999999994" />
+  <SelectedNodes>
+    <node>it.polimi.ingsw.networking.messages.serverMessage</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

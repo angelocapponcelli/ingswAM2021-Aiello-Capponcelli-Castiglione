@@ -1,0 +1,1033 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.server</OriginalElement>
+  <nodes>
+    <node x="1578.957251913654" y="860.0">it.polimi.ingsw.server.model.productionPower.ProductionPowerInput</node>
+    <node x="1986.0216443761565" y="390.0">it.polimi.ingsw.server.model.resources.ResourceType</node>
+    <node x="1982.5896394026502" y="860.0">it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput</node>
+    <node x="1029.0449712118998" y="990.0">it.polimi.ingsw.server.model.cards.Cost</node>
+    <node x="658.7776653171389" y="1500.0">it.polimi.ingsw.server.model.interfaces.Revealable</node>
+    <node x="1625.457251913654" y="680.0">it.polimi.ingsw.server.model.interfaces.Payable</node>
+    <node x="854.6603558272844" y="590.0">it.polimi.ingsw.server.model.interfaces.Takeable</node>
+    <node x="1233.4177782294437" y="1990.0">it.polimi.ingsw.server.model.player</node>
+    <node x="204.0" y="2320.0">it.polimi.ingsw.server.model.specialAbilities.SpecialWhiteMarble</node>
+    <node x="1378.957251913654" y="990.0">it.polimi.ingsw.server.model.productionPower.ProductionPower</node>
+    <node x="2254.4126732916206" y="170.0">it.polimi.ingsw.server.model.resources.Stone</node>
+    <node x="1996.8616811387383" y="80.0">it.polimi.ingsw.server.model.resources.ConcreteResource</node>
+    <node x="1799.7716443761565" y="170.0">it.polimi.ingsw.server.model.resources.Any</node>
+    <node x="712.6603558272844" y="1210.0">it.polimi.ingsw.server.model.misc</node>
+    <node x="1339.457251913654" y="1500.0">it.polimi.ingsw.server.model.game</node>
+    <node x="846.7776653171389" y="1500.0">it.polimi.ingsw.server.model.personalBoard</node>
+    <node x="182.93959182454387" y="1210.0">it.polimi.ingsw.server.model.cards.LeaderRequirements</node>
+    <node x="824.5449712118998" y="860.0">it.polimi.ingsw.server.model.specialAbilities.SpecialDiscount</node>
+    <node x="1567.3630659760768" y="1740.0">it.polimi.ingsw.server.controller</node>
+    <node x="434.02109220206705" y="0.0">it.polimi.ingsw.server.model.interfaces.Requirement</node>
+    <node x="2020.1754905300027" y="590.0">it.polimi.ingsw.server.model.interfaces.Producible</node>
+    <node x="1521.457251913654" y="1500.0">it.polimi.ingsw.server.Server</node>
+    <node x="1995.797288676236" y="170.0">it.polimi.ingsw.server.model.resources.Servant</node>
+    <node x="2469.694903735516" y="2320.0">it.polimi.ingsw.server.model.specialAbilities.SpecialAdditionalProductionPower</node>
+    <node x="0.0" y="2320.0">it.polimi.ingsw.server.model.specialAbilities.SpecialExtraDepot</node>
+    <node x="2315.706417980844" y="680.0">it.polimi.ingsw.server.model.interfaces.Activable</node>
+    <node x="995.0449712118998" y="1110.0">it.polimi.ingsw.server.model.cards.DevelopmentCard</node>
+    <node x="246.93959182454387" y="1340.0">it.polimi.ingsw.server.model.cards.LeaderCard</node>
+    <node x="706.6603558272844" y="990.0">it.polimi.ingsw.server.model.cards.TypeLevel</node>
+    <node x="334.93959182454364" y="1740.0">it.polimi.ingsw.server.model.soloToken</node>
+    <node x="828.9103558272844" y="680.0">it.polimi.ingsw.server.model.interfaces.Checkable</node>
+    <node x="2154.4126732916206" y="170.0">it.polimi.ingsw.server.model.resources.Coin</node>
+    <node x="1691.7716443761565" y="170.0">it.polimi.ingsw.server.model.resources.Faith</node>
+    <node x="147.08333333333326" y="2160.0">it.polimi.ingsw.server.model.specialAbilities.SpecialAbility</node>
+    <node x="2362.41267329162" y="170.0">it.polimi.ingsw.server.model.resources.Shield</node>
+    <node x="968.9103558272844" y="680.0">it.polimi.ingsw.server.model.resources.Resource</node>
+    <node x="1265.457251913654" y="1340.0">it.polimi.ingsw.server.model.globalBoard</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.server.model.cards.LeaderRequirements" target="it.polimi.ingsw.server.model.cards.TypeLevel">
+      <point x="48.0" y="-15.0" />
+      <point x="326.93959182454387" y="1160.0" />
+      <point x="413.0210922020673" y="1160.0" />
+      <point x="413.0210922020673" y="1080.0" />
+      <point x="718.6603558272844" y="1080.0" />
+      <point x="-48.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.DevelopmentCard" target="it.polimi.ingsw.server.model.interfaces.Takeable">
+      <point x="24.0" y="-15.0" />
+      <point x="1103.0449712118998" y="1050.0" />
+      <point x="1141.8783045452333" y="1050.0" />
+      <point x="1141.8783045452333" y="640.0" />
+      <point x="947.9936891606179" y="640.0" />
+      <point x="37.333333333333485" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.controller" target="it.polimi.ingsw.server.Server">
+      <point x="-23.466666666666697" y="-15.0" />
+      <point x="1631.89639930941" y="1650.0" />
+      <point x="1533.457251913654" y="1650.0" />
+      <point x="-36.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.productionPower.ProductionPowerInput" target="it.polimi.ingsw.server.model.interfaces.Payable">
+      <point x="41.60000000000002" y="-15.0" />
+      <point x="1724.5572519136542" y="750.0" />
+      <point x="1677.457251913654" y="750.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Coin" target="it.polimi.ingsw.server.model.resources.ResourceType">
+      <point x="0.0" y="15.0" />
+      <point x="2194.4126732916206" y="290.0" />
+      <point x="2078.0216443761565" y="290.0" />
+      <point x="20.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialAbility" target="it.polimi.ingsw.server.model.resources.Resource">
+      <point x="-56.0" y="-15.0" />
+      <point x="171.08333333333326" y="2130.0" />
+      <point x="77.35052299863332" y="2130.0" />
+      <point x="77.35052299863332" y="950.0" />
+      <point x="291.28865660369524" y="950.0" />
+      <point x="291.28865660369524" y="830.0" />
+      <point x="999.0642019811306" y="830.0" />
+      <point x="-25.84615384615381" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.soloToken" target="it.polimi.ingsw.server.model.player">
+      <point x="42.0" y="15.0" />
+      <point x="460.93959182454364" y="1900.0" />
+      <point x="1261.8388308610226" y="1900.0" />
+      <point x="-43.57894736842104" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.ConcreteResource" target="it.polimi.ingsw.server.model.resources.Resource">
+      <point x="-44.0" y="15.0" />
+      <point x="2040.8616811387383" y="150.0" />
+      <point x="977.1603558272844" y="150.0" />
+      <point x="977.1603558272844" y="650.0" />
+      <point x="992.9103558272844" y="650.0" />
+      <point x="-32.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialExtraDepot" target="it.polimi.ingsw.server.model.specialAbilities.SpecialAbility">
+      <point x="23.0" y="-15.0" />
+      <point x="115.0" y="2280.0" />
+      <point x="187.08333333333326" y="2280.0" />
+      <point x="-40.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput" target="it.polimi.ingsw.server.model.interfaces.Producible">
+      <point x="-32.40000000000009" y="-15.0" />
+      <point x="2058.18963940265" y="780.0" />
+      <point x="2089.1754905300027" y="780.0" />
+      <point x="2089.1754905300027" y="660.0" />
+      <point x="2068.1754905300027" y="660.0" />
+      <point x="-16.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.player" target="it.polimi.ingsw.server.model.personalBoard">
+      <point x="-13.263157894736878" y="-15.0" />
+      <point x="1292.1546203347068" y="1820.0" />
+      <point x="967.3624606387763" y="1820.0" />
+      <point x="967.3624606387763" y="1720.0" />
+      <point x="1013.4443319838057" y="1720.0" />
+      <point x="66.66666666666674" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialDiscount" target="it.polimi.ingsw.server.model.resources.Resource">
+      <point x="0.0" y="-15.0" />
+      <point x="908.5449712118998" y="840.0" />
+      <point x="1007.6795865965152" y="840.0" />
+      <point x="-17.230769230769283" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.LeaderRequirements" target="it.polimi.ingsw.server.model.interfaces.Checkable">
+      <point x="16.0" y="-15.0" />
+      <point x="294.93959182454387" y="1190.0" />
+      <point x="302.28865660369524" y="1190.0" />
+      <point x="302.28865660369524" y="790.0" />
+      <point x="873.9103558272844" y="790.0" />
+      <point x="-15.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Servant" target="it.polimi.ingsw.server.model.resources.ResourceType">
+      <point x="0.0" y="15.0" />
+      <point x="2047.797288676236" y="270.0" />
+      <point x="2054.0216443761565" y="270.0" />
+      <point x="-4.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput" target="it.polimi.ingsw.server.model.resources.Faith">
+      <point x="-97.19999999999982" y="-15.0" />
+      <point x="1993.3896394026503" y="840.0" />
+      <point x="1808.457251913654" y="840.0" />
+      <point x="1808.457251913654" y="360.0" />
+      <point x="1735.7716443761565" y="360.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.game" target="it.polimi.ingsw.server.model.player">
+      <point x="-18.28571428571422" y="15.0" />
+      <point x="1385.1715376279399" y="1710.0" />
+      <point x="1381.9730576441102" y="1710.0" />
+      <point x="1381.9730576441102" y="1800.0" />
+      <point x="1311.1019887557595" y="1800.0" />
+      <point x="5.684210526315837" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialAdditionalProductionPower" target="it.polimi.ingsw.server.model.player">
+      <point x="-82.90909090909099" y="-15.0" />
+      <point x="2538.785812826425" y="2210.0" />
+      <point x="1361.4177782294437" y="2210.0" />
+      <point x="1361.4177782294437" y="2140.0" />
+      <point x="1368.4177782294437" y="2140.0" />
+      <point x="63.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.LeaderRequirements" target="it.polimi.ingsw.server.model.cards.DevelopmentCard">
+      <point x="80.0" y="-15.0" />
+      <point x="358.93959182454387" y="1170.0" />
+      <point x="1007.0449712118998" y="1170.0" />
+      <point x="-72.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Resource" target="it.polimi.ingsw.server.model.interfaces.Producible">
+      <point x="48.0" y="-15.0" />
+      <point x="1072.9103558272845" y="660.0" />
+      <point x="2036.1754905300027" y="660.0" />
+      <point x="-48.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialWhiteMarble" target="it.polimi.ingsw.server.model.resources.Resource">
+      <point x="-72.0" y="-15.0" />
+      <point x="228.0" y="2260.0" />
+      <point x="52.792830690940946" y="2260.0" />
+      <point x="52.792830690940946" y="930.0" />
+      <point x="139.24563457706654" y="930.0" />
+      <point x="139.24563457706654" y="810.0" />
+      <point x="981.8334327503613" y="810.0" />
+      <point x="-43.076923076923094" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.productionPower.ProductionPowerInput" target="it.polimi.ingsw.server.model.interfaces.Checkable">
+      <point x="-83.19999999999993" y="-15.0" />
+      <point x="1599.7572519136543" y="780.0" />
+      <point x="933.9103558272844" y="780.0" />
+      <point x="45.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Servant" target="it.polimi.ingsw.server.model.resources.ConcreteResource">
+      <point x="0.0" y="-15.0" />
+      <point x="2047.797288676236" y="150.0" />
+      <point x="2070.1950144720718" y="150.0" />
+      <point x="-14.666666666666515" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialAdditionalProductionPower" target="it.polimi.ingsw.server.model.productionPower.ProductionPower">
+      <point x="-27.636363636363512" y="-15.0" />
+      <point x="2594.058540099152" y="2300.0" />
+      <point x="2610.694903735516" y="2300.0" />
+      <point x="2610.694903735516" y="1080.0" />
+      <point x="1536.457251913654" y="1080.0" />
+      <point x="73.5" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.interfaces.Revealable" target="it.polimi.ingsw.server.model.player">
+      <point x="-16.0" y="15.0" />
+      <point x="706.7776653171389" y="1880.0" />
+      <point x="1269.4177782294437" y="1880.0" />
+      <point x="-36.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialWhiteMarble" target="it.polimi.ingsw.server.model.specialAbilities.SpecialAbility">
+      <point x="24.0" y="-15.0" />
+      <point x="324.0" y="2240.0" />
+      <point x="240.41666666666674" y="2240.0" />
+      <point x="13.333333333333371" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.personalBoard" target="it.polimi.ingsw.server.model.player">
+      <point x="44.44444444444434" y="15.0" />
+      <point x="991.2221097615833" y="1710.0" />
+      <point x="963.5729869545659" y="1710.0" />
+      <point x="963.5729869545659" y="1830.0" />
+      <point x="1288.3651466504964" y="1830.0" />
+      <point x="-17.052631578947285" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.personalBoard" target="it.polimi.ingsw.server.model.resources.Faith">
+      <point x="-50.0" y="-15.0" />
+      <point x="896.7776653171389" y="1460.0" />
+      <point x="696.1603558272844" y="1460.0" />
+      <point x="696.1603558272844" y="440.0" />
+      <point x="909.5448549824384" y="440.0" />
+      <point x="909.5448549824384" y="350.0" />
+      <point x="1710.6287872332991" y="350.0" />
+      <point x="-25.142857142857338" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.globalBoard" target="it.polimi.ingsw.server.model.productionPower.ProductionPower">
+      <point x="50.181818181818244" y="-15.0" />
+      <point x="1407.6390700954726" y="1300.0" />
+      <point x="1489.457251913654" y="1300.0" />
+      <point x="1489.457251913654" y="1090.0" />
+      <point x="1494.457251913654" y="1090.0" />
+      <point x="31.5" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.personalBoard" target="it.polimi.ingsw.server.model.personalBoard">
+      <point x="-88.88888888888891" y="15.0" />
+      <point x="857.88877642825" y="1550.0" />
+      <point x="826.7776653171389" y="1550.0" />
+      <point x="826.7776653171389" y="1525.0" />
+      <point x="-100.0" y="10.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.player" target="it.polimi.ingsw.server.model.player">
+      <point x="-63.0" y="15.0" />
+      <point x="1242.4177782294437" y="2040.0" />
+      <point x="1213.4177782294437" y="2040.0" />
+      <point x="1213.4177782294437" y="2015.0" />
+      <point x="-72.0" y="10.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.personalBoard" target="it.polimi.ingsw.server.model.productionPower.ProductionPower">
+      <point x="70.0" y="-15.0" />
+      <point x="1016.7776653171389" y="1470.0" />
+      <point x="1185.3783045452333" y="1470.0" />
+      <point x="1185.3783045452333" y="1080.0" />
+      <point x="1431.457251913654" y="1080.0" />
+      <point x="-31.5" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Coin" target="it.polimi.ingsw.server.model.player">
+      <point x="32.0" y="15.0" />
+      <point x="2226.4126732916206" y="240.0" />
+      <point x="2470.2685867710716" y="240.0" />
+      <point x="2470.2685867710716" y="1950.0" />
+      <point x="1367.9440940189174" y="1950.0" />
+      <point x="62.526315789473756" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput" target="it.polimi.ingsw.server.model.resources.Shield">
+      <point x="75.59999999999991" y="-15.0" />
+      <point x="2166.18963940265" y="830.0" />
+      <point x="2276.3616811387383" y="830.0" />
+      <point x="2276.3616811387383" y="370.0" />
+      <point x="2429.61267329162" y="370.0" />
+      <point x="19.199999999999818" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Any" target="it.polimi.ingsw.server.model.resources.Resource">
+      <point x="-18.0" y="15.0" />
+      <point x="1817.7716443761565" y="370.0" />
+      <point x="1855.457251913654" y="370.0" />
+      <point x="1855.457251913654" y="460.0" />
+      <point x="1024.9103558272845" y="460.0" />
+      <point x="0.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.globalBoard" target="it.polimi.ingsw.server.model.cards.DevelopmentCard">
+      <point x="-33.454545454545496" y="-15.0" />
+      <point x="1324.0027064591086" y="1270.0" />
+      <point x="1280.707251913654" y="1270.0" />
+      <point x="1280.707251913654" y="1180.0" />
+      <point x="1127.0449712118998" y="1180.0" />
+      <point x="48.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.controller" target="it.polimi.ingsw.server.model.player">
+      <point x="73.33333333333326" y="15.0" />
+      <point x="1728.69639930941" y="1870.0" />
+      <point x="1337.628304545233" y="1870.0" />
+      <point x="32.210526315789366" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.DevelopmentCard" target="it.polimi.ingsw.server.model.cards.TypeLevel">
+      <point x="-48.0" y="-15.0" />
+      <point x="1031.0449712118998" y="1070.0" />
+      <point x="814.6603558272844" y="1070.0" />
+      <point x="48.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.game" target="it.polimi.ingsw.server.model.globalBoard">
+      <point x="42.66666666666674" y="-15.0" />
+      <point x="1446.123918580321" y="1480.0" />
+      <point x="1434.1239185803206" y="1480.0" />
+      <point x="76.66666666666652" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.LeaderCard" target="it.polimi.ingsw.server.model.player">
+      <point x="-10.666666666666742" y="15.0" />
+      <point x="300.2729251578769" y="1920.0" />
+      <point x="1254.2598834926016" y="1920.0" />
+      <point x="-51.15789473684208" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.Cost" target="it.polimi.ingsw.server.model.resources.ResourceType">
+      <point x="20.0" y="-15.0" />
+      <point x="1089.0449712118998" y="960.0" />
+      <point x="1113.2949712118998" y="960.0" />
+      <point x="1113.2949712118998" y="490.0" />
+      <point x="2013.713952068464" y="490.0" />
+      <point x="-44.30769230769238" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.player" target="it.polimi.ingsw.server.model.soloToken">
+      <point x="-47.36842105263145" y="-15.0" />
+      <point x="1258.0493571768122" y="1910.0" />
+      <point x="376.93959182454364" y="1910.0" />
+      <point x="-42.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.Cost" target="it.polimi.ingsw.server.model.specialAbilities.SpecialDiscount">
+      <point x="-33.33333333333337" y="-15.0" />
+      <point x="1035.7116378785663" y="970.0" />
+      <point x="929.5449712118998" y="970.0" />
+      <point x="21.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.ResourceType" target="it.polimi.ingsw.server.model.resources.Servant">
+      <point x="-20.0" y="-15.0" />
+      <point x="2038.0216443761565" y="290.0" />
+      <point x="2006.197288676236" y="290.0" />
+      <point x="-41.59999999999991" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.player" target="it.polimi.ingsw.server.model.interfaces.Revealable">
+      <point x="-32.210526315789366" y="-15.0" />
+      <point x="1273.2072519136543" y="1870.0" />
+      <point x="710.5671390013496" y="1870.0" />
+      <point x="710.5671390013496" y="1690.0" />
+      <point x="738.7776653171389" y="1690.0" />
+      <point x="16.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Faith" target="it.polimi.ingsw.server.model.player">
+      <point x="-37.71428571428578" y="15.0" />
+      <point x="1698.0573586618707" y="340.0" />
+      <point x="258.28865660369524" y="340.0" />
+      <point x="258.28865660369524" y="440.0" />
+      <point x="119.63024996168201" y="440.0" />
+      <point x="119.63024996168201" y="910.0" />
+      <point x="143.35052299863332" y="910.0" />
+      <point x="143.35052299863332" y="1970.0" />
+      <point x="1235.3125150715491" y="1970.0" />
+      <point x="-70.10526315789457" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.player" target="it.polimi.ingsw.server.model.resources.ResourceType">
+      <point x="54.947368421052715" y="-15.0" />
+      <point x="1360.3651466504964" y="1930.0" />
+      <point x="2446.206417980844" y="1930.0" />
+      <point x="2446.206417980844" y="570.0" />
+      <point x="2113.4062597607717" y="570.0" />
+      <point x="55.384615384615245" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.personalBoard" target="it.polimi.ingsw.server.model.resources.ResourceType">
+      <point x="50.0" y="-15.0" />
+      <point x="996.7776653171389" y="1460.0" />
+      <point x="1174.3783045452333" y="1460.0" />
+      <point x="1174.3783045452333" y="500.0" />
+      <point x="2024.7908751453874" y="500.0" />
+      <point x="-33.230769230769056" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.interfaces.Activable" target="it.polimi.ingsw.server.model.player">
+      <point x="30.0" y="15.0" />
+      <point x="2405.706417980844" y="1920.0" />
+      <point x="1356.5756729662858" y="1920.0" />
+      <point x="51.15789473684208" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.globalBoard" target="it.polimi.ingsw.server.model.misc">
+      <point x="-50.181818181818244" y="-15.0" />
+      <point x="1307.275433731836" y="1280.0" />
+      <point x="833.5492447161733" y="1280.0" />
+      <point x="56.888888888888914" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput" target="it.polimi.ingsw.server.model.resources.Servant">
+      <point x="10.800000000000182" y="-15.0" />
+      <point x="2101.3896394026506" y="800.0" />
+      <point x="2158.6754905300027" y="800.0" />
+      <point x="2158.6754905300027" y="260.0" />
+      <point x="2068.597288676236" y="260.0" />
+      <point x="20.800000000000182" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.LeaderRequirements" target="it.polimi.ingsw.server.model.interfaces.Requirement">
+      <point x="-48.0" y="-15.0" />
+      <point x="230.93959182454387" y="1180.0" />
+      <point x="269.28865660369524" y="1180.0" />
+      <point x="269.28865660369524" y="60.0" />
+      <point x="485.02109220206705" y="60.0" />
+      <point x="-17.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.personalBoard" target="it.polimi.ingsw.server.model.cards.LeaderCard">
+      <point x="-70.0" y="-15.0" />
+      <point x="876.7776653171389" y="1470.0" />
+      <point x="342.93959182454387" y="1470.0" />
+      <point x="32.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialAdditionalProductionPower" target="it.polimi.ingsw.server.model.resources.ResourceType">
+      <point x="138.18181818181802" y="-15.0" />
+      <point x="2759.876721917334" y="2260.0" />
+      <point x="2676.694903735516" y="2260.0" />
+      <point x="2676.694903735516" y="560.0" />
+      <point x="2124.483182837695" y="560.0" />
+      <point x="66.46153846153857" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.player" target="it.polimi.ingsw.server.model.specialAbilities.SpecialAbility">
+      <point x="9.0" y="15.0" />
+      <point x="1314.4177782294437" y="2140.0" />
+      <point x="299.08333333333326" y="2140.0" />
+      <point x="72.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.personalBoard" target="it.polimi.ingsw.server.model.specialAbilities.SpecialAbility">
+      <point x="-22.22222222222217" y="15.0" />
+      <point x="924.5554430949168" y="1710.0" />
+      <point x="513.4395918245436" y="1710.0" />
+      <point x="513.4395918245436" y="2120.0" />
+      <point x="267.08333333333326" y="2120.0" />
+      <point x="40.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Servant" target="it.polimi.ingsw.server.model.player">
+      <point x="41.59999999999991" y="15.0" />
+      <point x="2089.397288676236" y="250.0" />
+      <point x="2449.995891665054" y="250.0" />
+      <point x="2449.995891665054" y="1940.0" />
+      <point x="1364.1546203347068" y="1940.0" />
+      <point x="58.73684210526312" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput" target="it.polimi.ingsw.server.model.resources.ResourceType">
+      <point x="-54.0" y="-15.0" />
+      <point x="2036.5896394026502" y="820.0" />
+      <point x="2009.6754905300027" y="820.0" />
+      <point x="2009.6754905300027" y="560.0" />
+      <point x="2091.2524136069255" y="560.0" />
+      <point x="33.230769230769056" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.ConcreteResource" target="it.polimi.ingsw.server.model.interfaces.Requirement">
+      <point x="0.0" y="-15.0" />
+      <point x="2084.8616811387383" y="50.0" />
+      <point x="553.021092202067" y="50.0" />
+      <point x="51.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.DevelopmentCard" target="it.polimi.ingsw.server.model.cards.Cost">
+      <point x="0.0" y="-15.0" />
+      <point x="10.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialDiscount" target="it.polimi.ingsw.server.model.specialAbilities.SpecialAbility">
+      <point x="-63.0" y="15.0" />
+      <point x="845.5449712118998" y="960.0" />
+      <point x="88.35052299863332" y="960.0" />
+      <point x="88.35052299863332" y="2120.0" />
+      <point x="187.08333333333326" y="2120.0" />
+      <point x="-40.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput" target="it.polimi.ingsw.server.model.resources.Stone">
+      <point x="54.0" y="-15.0" />
+      <point x="2144.5896394026504" y="820.0" />
+      <point x="2217.498524418973" y="820.0" />
+      <point x="2217.498524418973" y="330.0" />
+      <point x="2316.0126732916206" y="330.0" />
+      <point x="17.59999999999991" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Shield" target="it.polimi.ingsw.server.model.resources.ResourceType">
+      <point x="0.0" y="15.0" />
+      <point x="2410.41267329162" y="360.0" />
+      <point x="2126.0216443761565" y="360.0" />
+      <point x="68.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.Cost" target="it.polimi.ingsw.server.model.specialAbilities.SpecialAbility">
+      <point x="-30.0" y="15.0" />
+      <point x="1039.0449712118998" y="1090.0" />
+      <point x="110.35052299863332" y="1090.0" />
+      <point x="110.35052299863332" y="2100.0" />
+      <point x="219.08333333333326" y="2100.0" />
+      <point x="-8.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Any" target="it.polimi.ingsw.server.model.player">
+      <point x="-30.0" y="15.0" />
+      <point x="1805.7716443761565" y="370.0" />
+      <point x="1465.5994801818006" y="370.0" />
+      <point x="1465.5994801818006" y="450.0" />
+      <point x="164.86064445612305" y="450.0" />
+      <point x="164.86064445612305" y="1960.0" />
+      <point x="1239.1019887557595" y="1960.0" />
+      <point x="-66.31578947368416" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.productionPower.ProductionPower" target="it.polimi.ingsw.server.model.productionPower.ProductionPowerInput">
+      <point x="0.0" y="-15.0" />
+      <point x="1462.957251913654" y="950.0" />
+      <point x="1623.5286804850828" y="950.0" />
+      <point x="-59.428571428571445" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.LeaderRequirements" target="it.polimi.ingsw.server.model.player">
+      <point x="-64.0" y="15.0" />
+      <point x="214.93959182454387" y="1320.0" />
+      <point x="233.28865660369524" y="1320.0" />
+      <point x="233.28865660369524" y="1930.0" />
+      <point x="1250.4704098083912" y="1930.0" />
+      <point x="-54.94736842105249" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.ResourceType" target="it.polimi.ingsw.server.model.resources.Stone">
+      <point x="28.0" y="-15.0" />
+      <point x="2086.0216443761565" y="300.0" />
+      <point x="2263.212673291621" y="300.0" />
+      <point x="-35.19999999999982" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialAdditionalProductionPower" target="it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput">
+      <point x="55.27272727272748" y="-15.0" />
+      <point x="2676.967631008243" y="2290.0" />
+      <point x="2643.694903735516" y="2290.0" />
+      <point x="2643.694903735516" y="920.0" />
+      <point x="2152.3039251169357" y="920.0" />
+      <point x="61.71428571428578" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialExtraDepot" target="it.polimi.ingsw.server.model.resources.Resource">
+      <point x="-69.0" y="-15.0" />
+      <point x="23.0" y="2300.0" />
+      <point x="28.526510854707567" y="2300.0" />
+      <point x="28.526510854707567" y="920.0" />
+      <point x="130.630249961682" y="920.0" />
+      <point x="130.630249961682" y="800.0" />
+      <point x="973.2180481349768" y="800.0" />
+      <point x="-51.69230769230762" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.Cost" target="it.polimi.ingsw.server.model.player">
+      <point x="30.0" y="15.0" />
+      <point x="1099.0449712118998" y="1040.0" />
+      <point x="1211.1677782294437" y="1040.0" />
+      <point x="1211.1677782294437" y="1800.0" />
+      <point x="1299.7335677031278" y="1800.0" />
+      <point x="-5.684210526315837" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput" target="it.polimi.ingsw.server.model.resources.Coin">
+      <point x="32.40000000000009" y="-15.0" />
+      <point x="2122.98963940265" y="810.0" />
+      <point x="2203.420227372108" y="810.0" />
+      <point x="2203.420227372108" y="290.0" />
+      <point x="2210.4126732916206" y="290.0" />
+      <point x="16.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialDiscount" target="it.polimi.ingsw.server.model.player">
+      <point x="63.0" y="15.0" />
+      <point x="971.5449712118998" y="950.0" />
+      <point x="1214.957251913654" y="950.0" />
+      <point x="1214.957251913654" y="1790.0" />
+      <point x="1303.5230413873385" y="1790.0" />
+      <point x="-1.8947368421052033" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.productionPower.ProductionPowerInput" target="it.polimi.ingsw.server.model.resources.Resource">
+      <point x="0.0" y="-15.0" />
+      <point x="1682.957251913654" y="760.0" />
+      <point x="1067.9872789042074" y="760.0" />
+      <point x="43.076923076923094" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput" target="it.polimi.ingsw.server.model.interfaces.Activable">
+      <point x="97.19999999999982" y="-15.0" />
+      <point x="2187.78963940265" y="840.0" />
+      <point x="2345.706417980844" y="840.0" />
+      <point x="-30.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.ResourceType" target="it.polimi.ingsw.server.model.resources.Any">
+      <point x="-44.0" y="-15.0" />
+      <point x="2014.0216443761565" y="320.0" />
+      <point x="1841.7716443761565" y="320.0" />
+      <point x="6.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Stone" target="it.polimi.ingsw.server.model.player">
+      <point x="35.19999999999982" y="15.0" />
+      <point x="2333.6126732916205" y="230.0" />
+      <point x="2479.131094344252" y="230.0" />
+      <point x="2479.131094344252" y="1960.0" />
+      <point x="1371.7335677031278" y="1960.0" />
+      <point x="66.31578947368416" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialWhiteMarble" target="it.polimi.ingsw.server.model.player">
+      <point x="72.0" y="-15.0" />
+      <point x="372.0" y="2300.0" />
+      <point x="1350.4177782294437" y="2300.0" />
+      <point x="45.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.misc" target="it.polimi.ingsw.server.model.cards.DevelopmentCard">
+      <point x="48.0" y="-15.0" />
+      <point x="824.6603558272844" y="1190.0" />
+      <point x="1055.0449712118998" y="1190.0" />
+      <point x="-24.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.LeaderCard" target="it.polimi.ingsw.server.model.cards.LeaderRequirements">
+      <point x="32.0" y="-15.0" />
+      <point x="64.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.controller" target="it.polimi.ingsw.server.model.productionPower.ProductionPowerInput">
+      <point x="46.933333333333394" y="-15.0" />
+      <point x="1702.2963993094102" y="1590.0" />
+      <point x="1673.6001090565114" y="1590.0" />
+      <point x="1673.6001090565114" y="950.0" />
+      <point x="1682.957251913654" y="950.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Stone" target="it.polimi.ingsw.server.model.resources.ConcreteResource">
+      <point x="0.0" y="-15.0" />
+      <point x="2298.4126732916206" y="140.0" />
+      <point x="2128.8616811387383" y="140.0" />
+      <point x="44.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.personalBoard" target="it.polimi.ingsw.server.model.misc">
+      <point x="10.0" y="-15.0" />
+      <point x="956.7776653171389" y="1480.0" />
+      <point x="952.8781883157718" y="1480.0" />
+      <point x="952.8781883157718" y="1310.0" />
+      <point x="790.8825780495066" y="1310.0" />
+      <point x="14.222222222222172" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.globalBoard" target="it.polimi.ingsw.server.model.resources.ResourceType">
+      <point x="83.63636363636351" y="-15.0" />
+      <point x="1441.0936155500176" y="1320.0" />
+      <point x="1568.457251913654" y="1320.0" />
+      <point x="1568.457251913654" y="530.0" />
+      <point x="2058.0216443761565" y="530.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.interfaces.Payable" target="it.polimi.ingsw.server.model.player">
+      <point x="34.66666666666663" y="15.0" />
+      <point x="1712.1239185803208" y="740.0" />
+      <point x="2209.0896394026504" y="740.0" />
+      <point x="2209.0896394026504" y="1900.0" />
+      <point x="1348.9967255978647" y="1900.0" />
+      <point x="43.57894736842104" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.productionPower.ProductionPower" target="it.polimi.ingsw.server.model.resources.ResourceType">
+      <point x="-67.19999999999982" y="-15.0" />
+      <point x="1395.7572519136543" y="930.0" />
+      <point x="1462.957251913654" y="930.0" />
+      <point x="1462.957251913654" y="510.0" />
+      <point x="2035.8677982223103" y="510.0" />
+      <point x="-22.15384615384619" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.ResourceType" target="it.polimi.ingsw.server.model.resources.Shield">
+      <point x="52.0" y="-15.0" />
+      <point x="2110.0216443761565" y="340.0" />
+      <point x="2372.0126732916206" y="340.0" />
+      <point x="-38.40000000000009" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.player" target="it.polimi.ingsw.server.model.misc">
+      <point x="-39.78947368421041" y="-15.0" />
+      <point x="1265.6283045452333" y="1890.0" />
+      <point x="560.2948549824384" y="1890.0" />
+      <point x="560.2948549824384" y="1320.0" />
+      <point x="748.2159113828401" y="1320.0" />
+      <point x="-28.444444444444343" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput" target="it.polimi.ingsw.server.model.resources.Any">
+      <point x="-75.59999999999991" y="-15.0" />
+      <point x="2014.9896394026503" y="830.0" />
+      <point x="1866.457251913654" y="830.0" />
+      <point x="1866.457251913654" y="360.0" />
+      <point x="1829.7716443761565" y="360.0" />
+      <point x="-6.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.productionPower.ProductionPowerInput" target="it.polimi.ingsw.server.model.resources.ResourceType">
+      <point x="83.20000000000005" y="-15.0" />
+      <point x="1766.1572519136544" y="840.0" />
+      <point x="1739.957251913654" y="840.0" />
+      <point x="1739.957251913654" y="540.0" />
+      <point x="2069.0985674530793" y="540.0" />
+      <point x="11.076923076922867" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.soloToken" target="it.polimi.ingsw.server.model.misc">
+      <point x="0.0" y="-15.0" />
+      <point x="418.93959182454364" y="1720.0" />
+      <point x="396.43959182454364" y="1720.0" />
+      <point x="396.43959182454364" y="1310.0" />
+      <point x="733.9936891606177" y="1310.0" />
+      <point x="-42.66666666666674" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.interfaces.Checkable" target="it.polimi.ingsw.server.model.player">
+      <point x="-45.0" y="15.0" />
+      <point x="843.9103558272844" y="780.0" />
+      <point x="258.28865660369524" y="780.0" />
+      <point x="258.28865660369524" y="940.0" />
+      <point x="172.43959182454387" y="940.0" />
+      <point x="172.43959182454387" y="1940.0" />
+      <point x="1246.6809361241806" y="1940.0" />
+      <point x="-58.73684210526312" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.ResourceType" target="it.polimi.ingsw.server.model.resources.Coin">
+      <point x="4.0" y="-15.0" />
+      <point x="2062.0216443761565" y="270.0" />
+      <point x="2162.4126732916206" y="270.0" />
+      <point x="-32.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.controller" target="it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput">
+      <point x="70.40000000000009" y="-15.0" />
+      <point x="1725.7630659760769" y="1710.0" />
+      <point x="2046.8317458407796" y="1710.0" />
+      <point x="2046.8317458407796" y="970.0" />
+      <point x="2059.7324965455073" y="970.0" />
+      <point x="-30.857142857142662" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.soloToken" target="it.polimi.ingsw.server.model.interfaces.Revealable">
+      <point x="56.0" y="-15.0" />
+      <point x="474.93959182454364" y="1700.0" />
+      <point x="674.7776653171389" y="1700.0" />
+      <point x="-48.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.DevelopmentCard" target="it.polimi.ingsw.server.model.productionPower.ProductionPower">
+      <point x="72.0" y="-15.0" />
+      <point x="1151.0449712118998" y="1070.0" />
+      <point x="1410.457251913654" y="1070.0" />
+      <point x="-52.5" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.controller" target="it.polimi.ingsw.server.model.cards.LeaderCard">
+      <point x="-35.200000000000045" y="-15.0" />
+      <point x="1620.1630659760767" y="1660.0" />
+      <point x="1510.957251913654" y="1660.0" />
+      <point x="1510.957251913654" y="1430.0" />
+      <point x="364.2729251578771" y="1430.0" />
+      <point x="53.33333333333326" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.productionPower.ProductionPowerInput" target="it.polimi.ingsw.server.model.player">
+      <point x="29.714285714285666" y="15.0" />
+      <point x="1712.6715376279399" y="950.0" />
+      <point x="2109.623473989116" y="950.0" />
+      <point x="2109.623473989116" y="1880.0" />
+      <point x="1341.4177782294437" y="1880.0" />
+      <point x="36.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialExtraDepot" target="it.polimi.ingsw.server.model.player">
+      <point x="69.0" y="-15.0" />
+      <point x="161.0" y="2290.0" />
+      <point x="1339.4177782294437" y="2290.0" />
+      <point x="1339.4177782294437" y="2140.0" />
+      <point x="1332.4177782294437" y="2140.0" />
+      <point x="27.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.controller" target="it.polimi.ingsw.server.model.cards.DevelopmentCard">
+      <point x="23.466666666666697" y="-15.0" />
+      <point x="1678.8297326427435" y="1610.0" />
+      <point x="1627.957251913654" y="1610.0" />
+      <point x="1627.957251913654" y="1170.0" />
+      <point x="1151.0449712118998" y="1170.0" />
+      <point x="72.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.DevelopmentCard" target="it.polimi.ingsw.server.model.player">
+      <point x="24.0" y="15.0" />
+      <point x="1103.0449712118998" y="1190.0" />
+      <point x="1207.3783045452333" y="1190.0" />
+      <point x="1207.3783045452333" y="1810.0" />
+      <point x="1295.9440940189174" y="1810.0" />
+      <point x="-9.473684210526244" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.LeaderRequirements" target="it.polimi.ingsw.server.model.resources.ConcreteResource">
+      <point x="-16.0" y="-15.0" />
+      <point x="262.93959182454387" y="1190.0" />
+      <point x="280.28865660369524" y="1190.0" />
+      <point x="280.28865660369524" y="140.0" />
+      <point x="2011.5283478054048" y="140.0" />
+      <point x="-73.33333333333348" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.interfaces.Takeable" target="it.polimi.ingsw.server.model.player">
+      <point x="-37.333333333333485" y="15.0" />
+      <point x="873.327022493951" y="660.0" />
+      <point x="168.65011814033346" y="660.0" />
+      <point x="168.65011814033346" y="1950.0" />
+      <point x="1242.8914624399702" y="1950.0" />
+      <point x="-62.52631578947353" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Stone" target="it.polimi.ingsw.server.model.resources.ResourceType">
+      <point x="0.0" y="15.0" />
+      <point x="2298.4126732916206" y="320.0" />
+      <point x="2102.0216443761565" y="320.0" />
+      <point x="44.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.LeaderCard" target="it.polimi.ingsw.server.model.specialAbilities.SpecialAbility">
+      <point x="-32.0" y="15.0" />
+      <point x="278.93959182454387" y="1480.0" />
+      <point x="132.35052299863332" y="1480.0" />
+      <point x="132.35052299863332" y="2080.0" />
+      <point x="251.08333333333326" y="2080.0" />
+      <point x="24.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.ResourceType" target="it.polimi.ingsw.server.model.resources.Faith">
+      <point x="-68.0" y="-15.0" />
+      <point x="1990.0216443761565" y="350.0" />
+      <point x="1748.343072947585" y="350.0" />
+      <point x="12.571428571428442" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialAdditionalProductionPower" target="it.polimi.ingsw.server.model.resources.Resource">
+      <point x="110.5454545454545" y="-15.0" />
+      <point x="2732.24035828097" y="2270.0" />
+      <point x="2665.694903735516" y="2270.0" />
+      <point x="2665.694903735516" y="730.0" />
+      <point x="1076.6026635195922" y="730.0" />
+      <point x="51.69230769230762" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.controller" target="it.polimi.ingsw.server.model.game">
+      <point x="-46.933333333333394" y="-15.0" />
+      <point x="1608.4297326427434" y="1670.0" />
+      <point x="1458.3143947707972" y="1670.0" />
+      <point x="54.85714285714289" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.personalBoard" target="it.polimi.ingsw.server.model.cards.DevelopmentCard">
+      <point x="30.0" y="-15.0" />
+      <point x="976.7776653171389" y="1450.0" />
+      <point x="1079.0449712118998" y="1450.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Faith" target="it.polimi.ingsw.server.model.resources.Resource">
+      <point x="-12.571428571428442" y="15.0" />
+      <point x="1723.200215804728" y="360.0" />
+      <point x="1003.6246415415702" y="360.0" />
+      <point x="1003.6246415415702" y="660.0" />
+      <point x="1008.9103558272844" y="660.0" />
+      <point x="-16.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.TypeLevel" target="it.polimi.ingsw.server.model.interfaces.Requirement">
+      <point x="0.0" y="-15.0" />
+      <point x="766.6603558272844" y="60.0" />
+      <point x="519.021092202067" y="60.0" />
+      <point x="17.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.interfaces.Producible" target="it.polimi.ingsw.server.model.player">
+      <point x="48.0" y="15.0" />
+      <point x="2132.1754905300027" y="660.0" />
+      <point x="2305.206417980844" y="660.0" />
+      <point x="2305.206417980844" y="1910.0" />
+      <point x="1352.7861992820754" y="1910.0" />
+      <point x="47.368421052631675" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.player" target="it.polimi.ingsw.server.controller">
+      <point x="20.84210526315792" y="-15.0" />
+      <point x="1326.2598834926016" y="1840.0" />
+      <point x="1640.69639930941" y="1840.0" />
+      <point x="-14.666666666666742" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialAdditionalProductionPower" target="it.polimi.ingsw.server.model.specialAbilities.SpecialAbility">
+      <point x="-138.18181818181802" y="-15.0" />
+      <point x="2483.513085553698" y="2230.0" />
+      <point x="267.08333333333326" y="2230.0" />
+      <point x="40.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Shield" target="it.polimi.ingsw.server.model.resources.ConcreteResource">
+      <point x="0.0" y="-15.0" />
+      <point x="2410.41267329162" y="130.0" />
+      <point x="2158.1950144720718" y="130.0" />
+      <point x="73.33333333333348" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.controller" target="it.polimi.ingsw.server.model.personalBoard">
+      <point x="-82.13333333333321" y="-15.0" />
+      <point x="1573.2297326427436" y="1700.0" />
+      <point x="1035.6665542060277" y="1700.0" />
+      <point x="88.88888888888891" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.ResourceType" target="it.polimi.ingsw.server.model.resources.Resource">
+      <point x="-55.384615384615245" y="15.0" />
+      <point x="2002.6370289915412" y="480.0" />
+      <point x="1063.6603558272845" y="480.0" />
+      <point x="1063.6603558272845" y="660.0" />
+      <point x="1056.9103558272845" y="660.0" />
+      <point x="32.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.TypeLevel" target="it.polimi.ingsw.server.model.misc">
+      <point x="0.0" y="15.0" />
+      <point x="766.6603558272844" y="1080.0" />
+      <point x="760.6603558272844" y="1080.0" />
+      <point x="-16.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput" target="it.polimi.ingsw.server.model.player">
+      <point x="30.857142857142662" y="15.0" />
+      <point x="2121.4467822597926" y="970.0" />
+      <point x="2113.412947673327" y="970.0" />
+      <point x="2113.412947673327" y="1890.0" />
+      <point x="1345.2072519136543" y="1890.0" />
+      <point x="39.789473684210634" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Any" target="it.polimi.ingsw.server.model.resources.ResourceType">
+      <point x="30.0" y="15.0" />
+      <point x="1865.7716443761565" y="300.0" />
+      <point x="2030.0216443761565" y="300.0" />
+      <point x="-28.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Faith" target="it.polimi.ingsw.server.model.resources.ResourceType">
+      <point x="37.71428571428578" y="15.0" />
+      <point x="1773.4859300904423" y="330.0" />
+      <point x="2006.0216443761565" y="330.0" />
+      <point x="-52.0" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialAdditionalProductionPower" target="it.polimi.ingsw.server.model.productionPower.ProductionPowerInput">
+      <point x="27.636363636363512" y="-15.0" />
+      <point x="2649.331267371879" y="2300.0" />
+      <point x="2632.694903735516" y="2300.0" />
+      <point x="2632.694903735516" y="930.0" />
+      <point x="1772.1001090565114" y="930.0" />
+      <point x="89.14285714285711" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.Cost" target="it.polimi.ingsw.server.model.resources.Resource">
+      <point x="-6.666666666666686" y="-15.0" />
+      <point x="1062.378304545233" y="970.0" />
+      <point x="1063.5449712118998" y="970.0" />
+      <point x="1063.5449712118998" y="840.0" />
+      <point x="1016.2949712118999" y="840.0" />
+      <point x="-8.615384615384528" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.globalBoard" target="it.polimi.ingsw.server.model.globalBoard">
+      <point x="-76.66666666666669" y="15.0" />
+      <point x="1280.7905852469876" y="1390.0" />
+      <point x="1245.457251913654" y="1390.0" />
+      <point x="1245.457251913654" y="1365.0" />
+      <point x="-92.0" y="10.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.Cost" target="it.polimi.ingsw.server.model.interfaces.Checkable">
+      <point x="-20.0" y="-15.0" />
+      <point x="1049.0449712118998" y="960.0" />
+      <point x="1003.0449712118998" y="960.0" />
+      <point x="1003.0449712118998" y="790.0" />
+      <point x="903.9103558272844" y="790.0" />
+      <point x="15.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Shield" target="it.polimi.ingsw.server.model.player">
+      <point x="38.40000000000009" y="15.0" />
+      <point x="2448.8126732916207" y="220.0" />
+      <point x="2482.920568028462" y="220.0" />
+      <point x="2482.920568028462" y="1970.0" />
+      <point x="1375.5230413873385" y="1970.0" />
+      <point x="70.1052631578948" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.game" target="it.polimi.ingsw.server.model.game">
+      <point x="-54.85714285714286" y="15.0" />
+      <point x="1348.6001090565114" y="1550.0" />
+      <point x="1319.457251913654" y="1550.0" />
+      <point x="1319.457251913654" y="1515.0" />
+      <point x="-64.0" y="-0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Resource" target="it.polimi.ingsw.server.model.resources.ResourceType">
+      <point x="16.0" y="-15.0" />
+      <point x="1040.9103558272845" y="650.0" />
+      <point x="1052.6603558272845" y="650.0" />
+      <point x="1052.6603558272845" y="470.0" />
+      <point x="1991.560105914618" y="470.0" />
+      <point x="-66.46153846153857" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.globalBoard" target="it.polimi.ingsw.server.model.resources.Resource">
+      <point x="-16.727272727272748" y="-15.0" />
+      <point x="1340.7299791863816" y="1260.0" />
+      <point x="1291.707251913654" y="1260.0" />
+      <point x="1291.707251913654" y="820.0" />
+      <point x="1033.5257404426688" y="820.0" />
+      <point x="8.615384615384528" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Resource" target="it.polimi.ingsw.server.model.interfaces.Takeable">
+      <point x="-48.0" y="-15.0" />
+      <point x="976.9103558272844" y="660.0" />
+      <point x="910.6603558272844" y="660.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialAbility" target="it.polimi.ingsw.server.model.player">
+      <point x="56.0" y="-15.0" />
+      <point x="283.08333333333326" y="2130.0" />
+      <point x="1296.4177782294437" y="2130.0" />
+      <point x="-9.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.interfaces.Producible" target="it.polimi.ingsw.server.model.resources.ResourceType">
+      <point x="0.0" y="-15.0" />
+      <point x="2084.1754905300027" y="570.0" />
+      <point x="2102.329336683849" y="570.0" />
+      <point x="44.30769230769238" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.cards.Cost" target="it.polimi.ingsw.server.model.interfaces.Payable">
+      <point x="33.333333333333314" y="-15.0" />
+      <point x="1102.378304545233" y="970.0" />
+      <point x="1124.2949712118998" y="970.0" />
+      <point x="1124.2949712118998" y="840.0" />
+      <point x="1642.7905852469876" y="840.0" />
+      <point x="-34.66666666666663" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.productionPower.ProductionPower" target="it.polimi.ingsw.server.model.productionPower.ProductionPowerOutput">
+      <point x="67.19999999999982" y="-15.0" />
+      <point x="1530.157251913654" y="970.0" />
+      <point x="2028.8753536883644" y="970.0" />
+      <point x="-61.71428571428578" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.resources.Coin" target="it.polimi.ingsw.server.model.resources.ConcreteResource">
+      <point x="0.0" y="-15.0" />
+      <point x="2194.4126732916206" y="150.0" />
+      <point x="2099.528347805405" y="150.0" />
+      <point x="14.666666666666515" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.Server" target="it.polimi.ingsw.server.controller">
+      <point x="36.0" y="15.0" />
+      <point x="1605.457251913654" y="1620.0" />
+      <point x="1667.0963993094101" y="1620.0" />
+      <point x="11.733333333333348" y="-15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.controller" target="it.polimi.ingsw.server.model.resources.ResourceType">
+      <point x="58.66666666666674" y="-15.0" />
+      <point x="1714.0297326427435" y="1700.0" />
+      <point x="1797.457251913654" y="1700.0" />
+      <point x="1797.457251913654" y="550.0" />
+      <point x="2080.1754905300027" y="550.0" />
+      <point x="22.15384615384619" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.20000000000000015" x="906.6666666666665" y="1345.3333333333333" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

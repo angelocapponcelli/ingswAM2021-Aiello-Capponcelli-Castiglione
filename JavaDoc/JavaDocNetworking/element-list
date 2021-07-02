@@ -1,6 +1,0 @@
-it.polimi.ingsw.networking.connection
-it.polimi.ingsw.networking.messages
-it.polimi.ingsw.networking.messages.clientMessages
-it.polimi.ingsw.networking.messages.clientMessages.beforeGameMessages
-it.polimi.ingsw.networking.messages.serverMessage
-it.polimi.ingsw.networking.messages.serverMessage.UpdateViewMessage

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.networking</OriginalElement>
+  <nodes>
+    <node x="137.78749999999997" y="441.0">it.polimi.ingsw.networking.messages.ErrorMessage</node>
+    <node x="234.5" y="304.5">it.polimi.ingsw.networking.messages.clientMessages</node>
+    <node x="372.7568333333333" y="600.0">it.polimi.ingsw.networking.connection.ServerToClientHandler</node>
+    <node x="458.2985" y="136.0">it.polimi.ingsw.networking.messages.Message</node>
+    <node x="867.0553333333332" y="304.5">it.polimi.ingsw.networking.messages.serverMessage</node>
+    <node x="545.0553333333334" y="419.0">it.polimi.ingsw.networking.connection.InGameConnectedClient</node>
+    <node x="474.5" y="270.0">it.polimi.ingsw.networking.connection.ConnectionIO</node>
+    <node x="10.5" y="281.5">it.polimi.ingsw.networking.messages.ErrorType</node>
+    <node x="285.75683333333336" y="0.0">it.polimi.ingsw.networking.messages.MessageType</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.networking.messages.ErrorMessage" target="it.polimi.ingsw.networking.messages.Message">
+      <point x="72.40000000000003" y="-38.5" />
+      <point x="300.6875" y="399.0" />
+      <point x="464.0" y="399.0" />
+      <point x="464.0" y="250.0" />
+      <point x="543.4651666666666" y="250.0" />
+      <point x="-24.33333333333337" y="27.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.networking.messages.Message" target="it.polimi.ingsw.networking.messages.MessageType">
+      <point x="54.75" y="-27.0" />
+      <point x="622.5485" y="106.0" />
+      <point x="438.75683333333336" y="106.0" />
+      <point x="51.0" y="38.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.networking.connection.ServerToClientHandler" target="it.polimi.ingsw.networking.messages.MessageType">
+      <point x="-115.9375" y="-71.5" />
+      <point x="389.3193333333333" y="580.0" />
+      <point x="0.0" y="580.0" />
+      <point x="0.0" y="96.0" />
+      <point x="302.75683333333336" y="96.0" />
+      <point x="-85.0" y="38.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.networking.connection.ServerToClientHandler" target="it.polimi.ingsw.networking.connection.ConnectionIO">
+      <point x="-16.5625" y="-71.5" />
+      <point x="488.6943333333333" y="580.0" />
+      <point x="473.4678333333334" y="580.0" />
+      <point x="473.4678333333334" y="399.0" />
+      <point x="499.5" y="399.0" />
+      <point x="-75.0" y="49.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.networking.connection.ServerToClientHandler" target="it.polimi.ingsw.networking.messages.Message">
+      <point x="82.8125" y="-71.5" />
+      <point x="588.0693333333334" y="570.0" />
+      <point x="856.5553333333332" y="570.0" />
+      <point x="856.5553333333332" y="240.0" />
+      <point x="616.4651666666666" y="240.0" />
+      <point x="48.66666666666663" y="27.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.networking.messages.ErrorMessage" target="it.polimi.ingsw.networking.messages.MessageType">
+      <point x="0.0" y="-38.5" />
+      <point x="228.28749999999997" y="399.0" />
+      <point x="204.0" y="399.0" />
+      <point x="204.0" y="106.0" />
+      <point x="336.75683333333336" y="106.0" />
+      <point x="-51.0" y="38.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.networking.connection.ServerToClientHandler" target="it.polimi.ingsw.networking.messages.serverMessage">
+      <point x="115.9375" y="-71.5" />
+      <point x="621.1943333333334" y="580.0" />
+      <point x="967.0553333333332" y="580.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.networking.messages.clientMessages" target="it.polimi.ingsw.networking.messages.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="338.5" y="220.0" />
+      <point x="470.46516666666673" y="220.0" />
+      <point x="-97.33333333333331" y="27.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.networking.connection.ServerToClientHandler" target="it.polimi.ingsw.networking.connection.InGameConnectedClient">
+      <point x="49.6875" y="-71.5" />
+      <point x="554.9443333333334" y="560.0" />
+      <point x="695.5553333333334" y="560.0" />
+      <point x="0.0" y="60.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.networking.connection.InGameConnectedClient" target="it.polimi.ingsw.networking.connection.ConnectionIO">
+      <point x="0.0" y="-60.5" />
+      <point x="695.5553333333334" y="399.0" />
+      <point x="649.5" y="399.0" />
+      <point x="75.0" y="49.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.networking.connection.ConnectionIO" target="it.polimi.ingsw.networking.messages.Message">
+      <point x="0.0" y="-49.5" />
+      <point x="574.5" y="250.0" />
+      <point x="567.7985" y="250.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.networking.messages.clientMessages" target="it.polimi.ingsw.networking.messages.MessageType">
+      <point x="-69.33333333333331" y="-15.0" />
+      <point x="269.1666666666667" y="250.0" />
+      <point x="281.17083333333335" y="250.0" />
+      <point x="281.17083333333335" y="116.0" />
+      <point x="370.75683333333336" y="116.0" />
+      <point x="-17.0" y="38.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.networking.messages.serverMessage" target="it.polimi.ingsw.networking.messages.MessageType">
+      <point x="66.66666666666663" y="-15.0" />
+      <point x="1033.722" y="210.0" />
+      <point x="961.6345" y="210.0" />
+      <point x="961.6345" y="96.0" />
+      <point x="472.75683333333336" y="96.0" />
+      <point x="85.0" y="38.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.networking.connection.ServerToClientHandler" target="it.polimi.ingsw.networking.messages.ErrorType">
+      <point x="-82.8125" y="-71.5" />
+      <point x="422.4443333333333" y="570.0" />
+      <point x="65.08749999999998" y="570.0" />
+      <point x="65.08749999999998" y="399.0" />
+      <point x="41.0" y="399.0" />
+      <point x="-61.0" y="38.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.networking.connection.InGameConnectedClient" target="it.polimi.ingsw.networking.messages.Message">
+      <point x="100.33333333333334" y="-60.5" />
+      <point x="795.8886666666667" y="399.0" />
+      <point x="770.6345000000001" y="399.0" />
+      <point x="770.6345000000001" y="250.0" />
+      <point x="592.1318333333334" y="250.0" />
+      <point x="24.333333333333314" y="27.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.networking.messages.serverMessage" target="it.polimi.ingsw.networking.messages.Message">
+      <point x="0.0" y="-15.0" />
+      <point x="967.0553333333332" y="220.0" />
+      <point x="665.1318333333332" y="220.0" />
+      <point x="97.33333333333326" y="27.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.networking.connection.ServerToClientHandler" target="it.polimi.ingsw.networking.messages.ErrorMessage">
+      <point x="-49.6875" y="-71.5" />
+      <point x="455.5693333333333" y="560.0" />
+      <point x="228.28749999999997" y="560.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.networking.messages.ErrorMessage" target="it.polimi.ingsw.networking.messages.ErrorType">
+      <point x="-36.19999999999999" y="-38.5" />
+      <point x="192.08749999999998" y="399.0" />
+      <point x="163.0" y="399.0" />
+      <point x="61.0" y="38.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.networking.messages.clientMessages" target="it.polimi.ingsw.networking.messages.clientMessages">
+      <point x="0.0" y="15.0" />
+      <point x="338.5" y="354.5" />
+      <point x="214.5" y="354.5" />
+      <point x="214.5" y="319.5" />
+      <point x="-104.0" y="-0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5242463958060288" x="498.0" y="371.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

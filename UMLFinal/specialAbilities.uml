@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.server.model.specialAbilities</OriginalElement>
+  <nodes>
+    <node x="0.0" y="191.0">it.polimi.ingsw.server.model.specialAbilities.SpecialExtraDepot</node>
+    <node x="475.0" y="169.0">it.polimi.ingsw.server.model.specialAbilities.SpecialAdditionalProductionPower</node>
+    <node x="885.0" y="191.0">it.polimi.ingsw.server.model.specialAbilities.SpecialWhiteMarble</node>
+    <node x="373.75" y="0.0">it.polimi.ingsw.server.model.specialAbilities.SpecialAbility</node>
+    <node x="243.0" y="179.5">it.polimi.ingsw.server.model.specialAbilities.SpecialDiscount</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialAdditionalProductionPower" target="it.polimi.ingsw.server.model.specialAbilities.SpecialAbility">
+      <point x="-97.5" y="-72.0" />
+      <point x="572.5" y="149.0" />
+      <point x="501.4375" y="149.0" />
+      <point x="14.1875" y="49.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialWhiteMarble" target="it.polimi.ingsw.server.model.specialAbilities.SpecialAbility">
+      <point x="-58.25" y="-50.0" />
+      <point x="943.25" y="129.0" />
+      <point x="558.1875" y="129.0" />
+      <point x="70.9375" y="49.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialDiscount" target="it.polimi.ingsw.server.model.specialAbilities.SpecialAbility">
+      <point x="-53.0" y="-61.5" />
+      <point x="296.0" y="139.0" />
+      <point x="444.6875" y="139.0" />
+      <point x="-42.5625" y="49.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.specialAbilities.SpecialExtraDepot" target="it.polimi.ingsw.server.model.specialAbilities.SpecialAbility">
+      <point x="55.75" y="-50.0" />
+      <point x="167.25" y="129.0" />
+      <point x="416.3125" y="129.0" />
+      <point x="-70.9375" y="49.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.8453427065026362" x="559.0" y="156.5" />
+  <SelectedNodes>
+    <node>it.polimi.ingsw.server.model.specialAbilities.SpecialDiscount</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

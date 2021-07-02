@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.server.model.globalBoard</OriginalElement>
+  <nodes>
+    <node x="410.0" y="134.0">it.polimi.ingsw.server.model.globalBoard.faithTrack</node>
+    <node x="0.0" y="33.0">it.polimi.ingsw.server.model.globalBoard.DevelopmentCardGrid</node>
+    <node x="300.20000000000005" y="358.0">it.polimi.ingsw.server.model.globalBoard.GlobalBoard</node>
+    <node x="606.0" y="0.0">it.polimi.ingsw.server.model.globalBoard.MarketTray</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.server.model.globalBoard.GlobalBoard" target="it.polimi.ingsw.server.model.globalBoard.DevelopmentCardGrid">
+      <point x="-207.11111111111103" y="-105.0" />
+      <point x="326.088888888889" y="338.0" />
+      <point x="60.0" y="338.0" />
+      <point x="-120.0" y="116.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.globalBoard.GlobalBoard" target="it.polimi.ingsw.server.model.globalBoard.faithTrack">
+      <point x="-51.777777777777715" y="-105.0" />
+      <point x="481.42222222222233" y="338.0" />
+      <point x="498.0" y="338.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.globalBoard.faithTrack" target="it.polimi.ingsw.server.model.globalBoard.faithTrack">
+      <point x="-35.2" y="15.0" />
+      <point x="462.8" y="194.0" />
+      <point x="380.0" y="194.0" />
+      <point x="380.0" y="141.5" />
+      <point x="-88.0" y="-7.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.server.model.globalBoard.GlobalBoard" target="it.polimi.ingsw.server.model.globalBoard.MarketTray">
+      <point x="103.55555555555554" y="-105.0" />
+      <point x="636.7555555555556" y="338.0" />
+      <point x="645.8333333333334" y="338.0" />
+      <point x="-79.66666666666663" y="149.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6802721088435374" x="422.5" y="284.0" />
+  <SelectedNodes>
+    <node>it.polimi.ingsw.server.model.globalBoard.faithTrack</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

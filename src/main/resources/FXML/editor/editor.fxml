@@ -56,16 +56,6 @@
             </VBox>
          </children></HBox>
       <ButtonBar prefHeight="104.0" prefWidth="600.0">
-        <buttons>
-            <Button mnemonicParsing="false" style="-fx-background-color: red;" text="Discard" textFill="WHITE">
-               <font>
-                  <Font size="24.0" />
-               </font></Button>
-          <Button mnemonicParsing="false" style="-fx-background-color: green;" text="OK" textFill="WHITE">
-               <font>
-                  <Font size="24.0" />
-               </font></Button>
-        </buttons>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>

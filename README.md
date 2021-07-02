@@ -86,7 +86,7 @@ Per specificare il percorso di un file settings.json personalizzato:
 Per specificare la porta sulla quale il server si mette in ascolto:
 > -p=, --port=
 
-###Editor
+### Editor
 Per far partire l'editor dei parametri
 > --editor
 

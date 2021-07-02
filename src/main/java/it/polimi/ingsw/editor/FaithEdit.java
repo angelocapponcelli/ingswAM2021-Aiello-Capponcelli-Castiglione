@@ -4,19 +4,18 @@ import javafx.event.ActionEvent;
 
 import java.io.IOException;
 
-public class SelectCardID {
-
-    public void devCardIDSelected(ActionEvent actionEvent) {
+public class FaithEdit {
+    public void cellClick(ActionEvent event){
         try {
-            Editor.setRoot("editDevCard");
+            Editor.setRoot("editCell");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    public void leaderCardIDSelected(ActionEvent actionEvent) {
+    
+    public void vaticanClick(ActionEvent event){
         try {
-            Editor.setRoot("editLeaderCard");
+            Editor.setRoot("editVaticanReportSection");
         } catch (IOException e) {
             e.printStackTrace();
         }

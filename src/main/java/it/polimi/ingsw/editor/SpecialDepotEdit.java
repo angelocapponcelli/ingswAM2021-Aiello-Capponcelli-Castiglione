@@ -10,6 +10,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Class consents the client to change the special depot capacity
+ */
 public class SpecialDepotEdit {
     public TextField capacity;
 
@@ -21,13 +24,13 @@ public class SpecialDepotEdit {
 
         Gson gson= new Gson();
         try {
-            FileReader reader= new FileReader("src/main/resources/JSONs/settings.json");
+            FileReader reader= new FileReader("src/main/resources/JSONs/editedSettings.json");
             JsonObject jsonObject= gson.fromJson(reader,JsonObject.class);
             JsonObject object= jsonObject.getAsJsonObject("SpecialAbilities");
 
             object.addProperty("DEPOT", Integer.parseInt(capacity.getText()));
 
-            FileWriter writer= new FileWriter("src/main/resources/JSONs/settings.json");
+            FileWriter writer= new FileWriter("src/main/resources/JSONs/editedSettings.json");
             writer.write(jsonObject.toString());
             writer.close();
 

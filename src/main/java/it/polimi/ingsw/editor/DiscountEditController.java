@@ -10,6 +10,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * The user can change the amount of discount of this ability
+ */
 public class DiscountEditController {
 
     public TextField discountTxt;
@@ -22,13 +25,13 @@ public class DiscountEditController {
     public void discountInserted(ActionEvent event){
         Gson gson= new Gson();
         try {
-            FileReader reader= new FileReader("src/main/resources/JSONs/settings.json");
+            FileReader reader= new FileReader("src/main/resources/JSONs/editedSettings.json");
             JsonObject jsonObject= gson.fromJson(reader,JsonObject.class);
             JsonObject object= jsonObject.getAsJsonObject("SpecialAbilities");
 
             object.addProperty("DISCOUNT", Integer.parseInt(discountTxt.getText()));
 
-            FileWriter writer= new FileWriter("src/main/resources/JSONs/settings.json");
+            FileWriter writer= new FileWriter("src/main/resources/JSONs/editedSettings.json");
             writer.write(jsonObject.toString());
             writer.close();
 

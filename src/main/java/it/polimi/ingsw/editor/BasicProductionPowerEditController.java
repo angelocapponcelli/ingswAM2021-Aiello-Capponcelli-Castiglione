@@ -16,6 +16,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class manages to change the basic production input and output
+ */
 public class BasicProductionPowerEditController {
 
     public TextField coin;
@@ -54,7 +57,10 @@ public class BasicProductionPowerEditController {
     private Map<Producible,Integer> input= new HashMap<>();
 
 
-
+    /**
+     * Calls the methods that write the changes. It is called when the button is clicked
+     * @param event the click of the ok button
+     */
     public void inserted(ActionEvent event){
         setIntegers();
         createOutputMap();
@@ -66,6 +72,12 @@ public class BasicProductionPowerEditController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Goes back to the main stage to start to edit again doesn't save the changes
+     * @param event the click on the discard button
+     */
+
     public void discard(ActionEvent event){
         try {
             Editor.setRoot("editor");
@@ -74,6 +86,9 @@ public class BasicProductionPowerEditController {
         }
     }
 
+    /**
+     * Creates a map that represents the output production
+     */
     public void createOutputMap(){
         if (coins>0){
             output.put(Coin.getInstance(),coins);
@@ -96,6 +111,9 @@ public class BasicProductionPowerEditController {
 
     }
 
+    /**
+     * Creates a map that represents the input production
+     */
     public void createInputMap(){
         if (coinsInput>0){
             input.put(Coin.getInstance(),coinsInput);
@@ -114,17 +132,26 @@ public class BasicProductionPowerEditController {
         }
     }
 
+    /**
+     *
+     * @return map of output productin
+     */
     public Map<Producible,Integer> getOutput(){
         return this.output;
     }
 
-
+    /**
+     *
+     * @return map of input production
+     */
     public Map<Producible,Integer> getInput(){
         return this.input;
     }
 
 
-
+    /**
+     * Converts the text strings in integers
+     */
     public void setIntegers(){
         coins= Integer.parseInt(coin.getText());
         shields= Integer.parseInt(shield.getText());
@@ -142,10 +169,15 @@ public class BasicProductionPowerEditController {
 
     }
 
+    /**
+     * Writes and saves the changes on the json file
+     * @param inputMap the map that represents the input production
+     * @param outputMap the map that represents the output production
+     */
     public void writeOnFile(Map<Producible,Integer> inputMap,Map<Producible,Integer> outputMap){
         Gson gson= new Gson();
         try {
-            FileReader reader= new FileReader("src/main/resources/JSONs/settings.json");
+            FileReader reader= new FileReader("src/main/resources/JSONs/editedSettings.json");
             JsonObject jsonObject= gson.fromJson(reader,JsonObject.class);
             JsonArray powerOutput= jsonObject.getAsJsonObject("BoardBasicProductionPower").getAsJsonArray("productionPowerOutput");
             JsonArray powerInput= jsonObject.getAsJsonObject("BoardBasicProductionPower").getAsJsonArray("productionPowerInput");
@@ -173,7 +205,7 @@ public class BasicProductionPowerEditController {
 
 
 
-            FileWriter writer= new FileWriter("src/main/resources/JSONs/settings.json");
+            FileWriter writer= new FileWriter("src/main/resources/JSONs/editedSettings.json");
             writer.write(jsonObject.toString());
             writer.close();
 

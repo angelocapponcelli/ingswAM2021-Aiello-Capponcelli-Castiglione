@@ -37,7 +37,7 @@ public class Cost implements Checkable, Payable {
      * For every cost entry check if is higher or lower than the amount of same resource type in the depots
      *
      * @return true if RealPlayer has enough resources in his depots otherwise false
-     * @parameter realPlayer whose depots are checked
+     * @param realPlayer whose depots are checked
      */
     @Override
     public boolean check(RealPlayer realPlayer) {
@@ -61,7 +61,7 @@ public class Cost implements Checkable, Payable {
     /**
      * This method remove resources from RealPlayer Depot
      *
-     * @parameter realPlayer whom resources are removed from
+     * @param realPlayer whom resources are removed from
      */
     @Override
     public void pay(RealPlayer realPlayer) throws DepotException {

@@ -31,79 +31,20 @@
                            <children>
                               <VBox prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Pane prefHeight="200.0" prefWidth="200.0">
-                                       <children>
-                                          <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../image/resources/COIN.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children></Pane>
-                                    <Pane prefHeight="200.0" prefWidth="90.0">
-                                       <children>
-                                          <TextField fx:id="coin" layoutX="25.0" layoutY="25.0" prefHeight="25.0" prefWidth="50.0" />
-                                       </children>
-                                    </Pane>
+                                    <Pane prefHeight="200.0" prefWidth="200.0" />
+                                    <Pane prefHeight="200.0" prefWidth="90.0" />
                                  </children></VBox>
                               <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Pane prefHeight="200.0" prefWidth="200.0">
-                                       <children>
-                                          <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="24.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../image/resources/SHIELD.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </Pane>
-                                    <Pane prefHeight="200.0" prefWidth="200.0">
-                                       <children>
-                                          <TextField fx:id="shield" layoutX="14.0" layoutY="25.0" prefHeight="25.0" prefWidth="50.0" />
-                                       </children>
-                                    </Pane>
+                                    <Pane prefHeight="200.0" prefWidth="200.0" />
+                                    <Pane prefHeight="200.0" prefWidth="200.0" />
                                  </children>
                               </VBox>
                               <VBox layoutX="110.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
                                  <children>
                                     <Pane prefHeight="200.0" prefWidth="200.0">
                                        <children>
-                                          <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../image/resources/STONE.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </Pane>
-                                    <Pane prefHeight="200.0" prefWidth="200.0">
-                                       <children>
-                                          <TextField fx:id="stone" layoutX="25.0" layoutY="25.0" prefHeight="25.0" prefWidth="50.0" />
-                                       </children>
-                                    </Pane>
-                                 </children>
-                              </VBox>
-                              <VBox layoutX="210.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
-                                 <children>
-                                    <Pane prefHeight="200.0" prefWidth="200.0">
-                                       <children>
-                                          <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../image/resources/SERVANT.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </Pane>
-                                    <Pane prefHeight="200.0" prefWidth="200.0">
-                                       <children>
-                                          <TextField fx:id="servant" layoutX="28.0" layoutY="25.0" prefHeight="25.0" prefWidth="50.0" />
-                                       </children>
-                                    </Pane>
-                                 </children>
-                              </VBox>
-                              <VBox layoutX="310.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
-                                 <children>
-                                    <Pane prefHeight="200.0" prefWidth="200.0">
-                                       <children>
-                                          <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="36.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../image/resources/ANY.png" />
                                              </image>
@@ -112,27 +53,27 @@
                                     </Pane>
                                     <Pane prefHeight="200.0" prefWidth="200.0">
                                        <children>
-                                          <TextField fx:id="any" layoutX="25.0" layoutY="25.0" prefHeight="25.0" prefWidth="50.0" />
+                                          <TextField fx:id="anyNumber" layoutX="-7.0" layoutY="49.0" prefHeight="25.0" prefWidth="154.0" />
                                        </children>
                                     </Pane>
                                  </children>
                               </VBox>
+                              <VBox layoutX="210.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Pane prefHeight="200.0" prefWidth="200.0" />
+                                    <Pane prefHeight="200.0" prefWidth="200.0" />
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="310.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Pane prefHeight="200.0" prefWidth="200.0" />
+                                    <Pane prefHeight="200.0" prefWidth="200.0" />
+                                 </children>
+                              </VBox>
                               <VBox layoutX="410.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Pane prefHeight="200.0" prefWidth="200.0">
-                                       <children>
-                                          <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../image/resources/FAITH.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </Pane>
-                                    <Pane prefHeight="200.0" prefWidth="200.0">
-                                       <children>
-                                          <TextField fx:id="faith" layoutX="25.0" layoutY="22.0" prefHeight="25.0" prefWidth="50.0" />
-                                       </children>
-                                    </Pane>
+                                    <Pane prefHeight="200.0" prefWidth="200.0" />
+                                    <Pane prefHeight="200.0" prefWidth="200.0" />
                                  </children>
                               </VBox>
                            </children></HBox>
@@ -144,6 +85,11 @@
       </HBox>
       <ButtonBar buttonMinWidth="200.0" prefHeight="116.0" prefWidth="584.0">
         <buttons>
+            <Button fx:id="discard" mnemonicParsing="false" onAction="#discard" style="-fx-background-color: red;" text="Discard" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
             <Button fx:id="okButton" mnemonicParsing="false" onAction="#insertedOutput" style="-fx-background-color: GREEN;" text="OK" textFill="WHITE">
                <font>
                   <Font size="24.0" />

@@ -110,7 +110,8 @@
                         </Pane>
                         <Pane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="green" layoutX="26.0" layoutY="10.0" />
+                              <TextField fx:id="green" layoutX="26.0" layoutY="10.0" prefHeight="25.0" prefWidth="52.0" />
+                              <TextField fx:id="greenN" layoutX="115.0" layoutY="10.0" prefHeight="25.0" prefWidth="52.0" />
                            </children>
                         </Pane>
                      </children>
@@ -125,7 +126,8 @@
                         </Pane>
                         <Pane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="blue" layoutX="24.0" layoutY="5.0" />
+                              <TextField fx:id="blue" layoutX="24.0" layoutY="5.0" prefHeight="25.0" prefWidth="52.0" />
+                              <TextField fx:id="blueN" layoutX="114.0" layoutY="5.0" prefHeight="25.0" prefWidth="52.0" />
                            </children>
                         </Pane>
                      </children>
@@ -140,7 +142,8 @@
                         </Pane>
                         <Pane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="yellow" layoutX="26.0" layoutY="10.0" />
+                              <TextField fx:id="yellow" layoutX="26.0" layoutY="10.0" prefHeight="25.0" prefWidth="52.0" />
+                              <TextField fx:id="yellowN" layoutX="116.0" layoutY="10.0" prefHeight="25.0" prefWidth="52.0" />
                            </children>
                         </Pane>
                      </children>
@@ -155,7 +158,8 @@
                         </Pane>
                         <Pane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="purple" layoutX="26.0" layoutY="10.0" />
+                              <TextField fx:id="purple" layoutX="26.0" layoutY="10.0" prefHeight="25.0" prefWidth="52.0" />
+                              <TextField fx:id="purpleN" layoutX="115.0" layoutY="9.0" prefHeight="25.0" prefWidth="52.0" />
                            </children>
                         </Pane>
                      </children>
@@ -164,8 +168,8 @@
             </VBox>
             <Pane prefHeight="410.0" prefWidth="481.0">
                <children>
-                  <TextField fx:id="points" layoutX="166.0" layoutY="49.0" />
-                  <Label layoutX="168.0" layoutY="14.0" text="Victory Points" textAlignment="CENTER">
+                  <TextField fx:id="points" layoutX="270.0" layoutY="49.0" />
+                  <Label layoutX="272.0" layoutY="14.0" text="Victory Points" textAlignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -185,9 +189,9 @@
                            <children>
                               <VBox prefHeight="78.0" prefWidth="127.0">
                                  <children>
-                                    <Pane prefHeight="200.0" prefWidth="200.0">
+                                    <Pane fx:id="discount" prefHeight="200.0" prefWidth="200.0">
                                        <children>
-                                          <Button fx:id="discount" layoutX="28.0" layoutY="21.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="63.0" text="Discount" />
+                                          <Button fx:id="discount" layoutX="28.0" layoutY="21.0" mnemonicParsing="false" onAction="#discount" prefHeight="36.0" prefWidth="63.0" text="Discount" />
                                        </children>
                                     </Pane>
                                  </children>
@@ -196,7 +200,7 @@
                                  <children>
                                     <Pane prefHeight="78.0" prefWidth="113.0">
                                        <children>
-                                          <Button fx:id="depotSpecial" layoutX="14.0" layoutY="21.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="63.0" text="Depot" />
+                                          <Button fx:id="depotSpecial" layoutX="14.0" layoutY="21.0" mnemonicParsing="false" onAction="#depotSpecial" prefHeight="36.0" prefWidth="63.0" text="Depot" />
                                        </children>
                                     </Pane>
                                  </children>
@@ -205,7 +209,7 @@
                                  <children>
                                     <Pane prefHeight="78.0" prefWidth="126.0">
                                        <children>
-                                          <Button fx:id="additionalProductionPower" layoutY="21.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="123.0" text="Production Power" />
+                                          <Button fx:id="additionalProductionPower" layoutX="2.0" layoutY="21.0" mnemonicParsing="false" onAction="#additionalProductionPower" prefHeight="36.0" prefWidth="123.0" text="Production Power" />
                                        </children>
                                     </Pane>
                                  </children>
@@ -214,7 +218,7 @@
                                  <children>
                                     <Pane prefHeight="200.0" prefWidth="200.0">
                                        <children>
-                                          <Button fx:id="marble" layoutX="14.0" layoutY="21.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="97.0" text="White Marble" />
+                                          <Button fx:id="marble" layoutX="11.0" layoutY="21.0" mnemonicParsing="false" onAction="#marble" prefHeight="36.0" prefWidth="97.0" text="White Marble" />
                                        </children>
                                     </Pane>
                                  </children>
@@ -276,22 +280,22 @@
                                  <children>
                                     <Pane prefHeight="95.0" prefWidth="133.0">
                                        <children>
-                                          <Button fx:id="coinResource" layoutX="33.0" layoutY="35.0" mnemonicParsing="false" text="Select" />
+                                          <Button fx:id="coinResource" layoutX="33.0" layoutY="35.0" mnemonicParsing="false" onAction="#coinResource" text="Select" />
                                        </children>
                                     </Pane>
                                     <Pane prefHeight="95.0" prefWidth="133.0">
                                        <children>
-                                          <Button fx:id="shieldResource" layoutX="33.0" layoutY="35.0" mnemonicParsing="false" text="Select" />
+                                          <Button fx:id="shieldResource" layoutX="33.0" layoutY="35.0" mnemonicParsing="false" onAction="#shieldResource" text="Select" />
                                        </children>
                                     </Pane>
                                     <Pane prefHeight="95.0" prefWidth="133.0">
                                        <children>
-                                          <Button fx:id="stoneResource" layoutX="52.0" layoutY="35.0" mnemonicParsing="false" text="Select" />
+                                          <Button fx:id="stoneResource" layoutX="52.0" layoutY="35.0" mnemonicParsing="false" onAction="#stoneResource" text="Select" />
                                        </children>
                                     </Pane>
                                     <Pane prefHeight="95.0" prefWidth="133.0">
                                        <children>
-                                          <Button fx:id="servantResource" layoutX="33.0" layoutY="35.0" mnemonicParsing="false" text="Button" />
+                                          <Button fx:id="servantResource" layoutX="33.0" layoutY="35.0" mnemonicParsing="false" onAction="#servantResource" text="Button" />
                                        </children>
                                     </Pane>
                                  </children>
@@ -300,13 +304,19 @@
                         </VBox>
                      </children>
                   </VBox>
+                  <Label layoutX="56.0" layoutY="14.0" text="ID Card" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="id" layoutX="22.0" layoutY="49.0" />
                </children>
             </Pane>
          </children>
       </HBox>
       <ButtonBar buttonMinWidth="200.0" prefHeight="126.0" prefWidth="736.0">
         <buttons>
-          <Button mnemonicParsing="false" style="-fx-background-color: red;" text="Discard" textFill="WHITE">
+          <Button fx:id="discards" mnemonicParsing="false" onAction="#discard" style="-fx-background-color: red;" text="Discard" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font></Button>

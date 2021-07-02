@@ -13,8 +13,14 @@
    <children>
       <Pane prefHeight="405.0" prefWidth="884.0">
          <children>
-            <TextField fx:id="points" layoutX="323.0" layoutY="256.0" />
-            <Label layoutX="261.0" layoutY="137.0" prefHeight="66.0" prefWidth="272.0" text="Victory Points" textAlignment="CENTER">
+            <TextField fx:id="points" layoutX="534.0" layoutY="250.0" />
+            <Label layoutX="472.0" layoutY="125.0" prefHeight="66.0" prefWidth="272.0" text="Victory Points" textAlignment="CENTER">
+               <font>
+                  <Font size="44.0" />
+               </font>
+            </Label>
+            <TextField fx:id="number" layoutX="103.0" layoutY="250.0" />
+            <Label layoutX="30.0" layoutY="125.0" prefHeight="66.0" prefWidth="334.0" text="Section Number" textAlignment="CENTER">
                <font>
                   <Font size="44.0" />
                </font>
@@ -23,6 +29,11 @@
       </Pane>
       <ButtonBar buttonMinWidth="200.0" prefHeight="115.0" prefWidth="884.0">
         <buttons>
+            <Button fx:id="discard" mnemonicParsing="false" onAction="#discard" style="-fx-background-color: red;" text="Discard" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
             <Button fx:id="okButton" mnemonicParsing="false" onAction="#insertedVictoryPoints" style="-fx-background-color: GREEN;" text="OK" textFill="WHITE">
                <font>
                   <Font size="24.0" />

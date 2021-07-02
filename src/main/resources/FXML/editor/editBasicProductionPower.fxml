@@ -252,6 +252,11 @@
       </HBox>
       <ButtonBar buttonMinWidth="200.0" prefHeight="116.0" prefWidth="584.0">
         <buttons>
+            <Button fx:id="discard" mnemonicParsing="false" onAction="#discard" style="-fx-background-color: red;" text="Discard" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
             <Button fx:id="okButton" mnemonicParsing="false" onAction="#inserted" style="-fx-background-color: GREEN;" text="OK" textFill="WHITE">
                <font>
                   <Font size="24.0" />

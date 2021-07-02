@@ -1,64 +1,64 @@
 package it.polimi.ingsw.editor;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import it.polimi.ingsw.server.model.interfaces.Producible;
 import it.polimi.ingsw.server.model.resources.*;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.SepiaTone;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class AdditionalProductionPowerEditController {
 
-    public TextField coin;
-    public TextField shield;
-    public TextField servant;
-    public TextField stone;
-    public TextField any;
-    public TextField faith;
+    public TextField anyNumber;
+    public Integer anyNumbers;
 
-    private int coins;
-    private int shields;
-    private int servants;
-    private int stones;
-    private int anyNumber;
-    private int faiths;
-    private Map<Producible, Integer> output= new HashMap<>();
-
+    /**
+     * Personalizes the output of "ANY" marbles
+     * @param event the click on okButton
+     */
     public void insertedOutput(ActionEvent event){
-        coins= Integer.parseInt(coin.getText());
-        shields= Integer.parseInt(shield.getText());
-        servants= Integer.parseInt(servant.getText());
-        stones= Integer.parseInt(stone.getText());
-        faiths= Integer.parseInt(faith.getText());
-        anyNumber= Integer.parseInt(any.getText());
-    }
+        anyNumbers= Integer.parseInt(anyNumber.getText());
+        Gson gson= new Gson();
+        try {
+            FileReader reader= new FileReader("src/main/resources/JSONs/settings.json");
+            JsonObject jsonObject= gson.fromJson(reader,JsonObject.class);
+            JsonObject object= jsonObject.getAsJsonObject("SpecialAbilities").getAsJsonObject("PRODUCTION_POWER").getAsJsonObject("output");
 
-    public void createMap(){
-        if (coins>0){
-            output.put(Coin.getInstance(),coins);
+            object.addProperty("ANY", Integer.parseInt(anyNumber.getText()));
+
+            FileWriter writer= new FileWriter("src/main/resources/JSONs/settings.json");
+            writer.write(jsonObject.toString());
+            writer.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        if (shields>0){
-            output.put(Shield.getInstance(),shields);
-        }
-        if (stones>0){
-            output.put(Stone.getInstance(),stones);
-        }
-        if (anyNumber >0){
-            output.put(Any.getInstance(),anyNumber);
-        }
-        if (faiths>0){
-            output.put(Faith.getInstance(),faiths);
-        }
-        if(servants>0){
-            output.put(Servant.getInstance(), servants);
+
+        try {
+            Editor.setRoot("editor");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
-
-    public Map<Producible,Integer> getMap(){
-        return this.output;
+    public void discard(ActionEvent event){
+        try {
+            Editor.setRoot("editor");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+
 
 }

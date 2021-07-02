@@ -13,16 +13,27 @@
    <children>
       <Pane prefHeight="355.0" prefWidth="884.0">
          <children>
-            <TextField fx:id="points" layoutX="323.0" layoutY="197.0" />
-            <Label layoutX="261.0" layoutY="96.0" prefHeight="66.0" prefWidth="272.0" text="Victory Points" textAlignment="CENTER">
+            <TextField fx:id="points" layoutX="532.0" layoutY="191.0" />
+            <Label layoutX="479.0" layoutY="79.0" prefHeight="66.0" prefWidth="272.0" text="Victory Points" textAlignment="CENTER">
                <font>
                   <Font size="44.0" />
                </font>
             </Label>
+            <Label layoutX="88.0" layoutY="79.0" prefHeight="66.0" prefWidth="272.0" text="Cell Number" textAlignment="CENTER">
+               <font>
+                  <Font size="44.0" />
+               </font>
+            </Label>
+            <TextField fx:id="cellNumber" layoutX="150.0" layoutY="191.0" />
          </children>
       </Pane>
       <ButtonBar buttonMinWidth="200.0" prefHeight="173.0" prefWidth="884.0">
         <buttons>
+            <Button fx:id="discard" mnemonicParsing="false" onAction="#discard" style="-fx-background-color: red;" text="Discard" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
             <Button fx:id="okButton" mnemonicParsing="false" onAction="#insertedPoints" style="-fx-background-color: GREEN;" text="OK" textFill="WHITE">
                <font>
                   <Font size="24.0" />

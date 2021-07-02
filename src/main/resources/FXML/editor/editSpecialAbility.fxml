@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.editor.SpecialAbilityEdit">
+   <children>
+      <Pane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Label layoutX="180.0" layoutY="79.0" text="Special Ability">
+               <font>
+                  <Font size="39.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <HBox prefHeight="206.0" prefWidth="600.0">
+         <children>
+            <Pane prefHeight="203.0" prefWidth="168.0">
+               <children>
+                  <Button fx:id="discount" layoutX="47.0" layoutY="89.0" mnemonicParsing="false" onAction="#discountButton" text="Discount" />
+               </children>
+            </Pane>
+            <Pane prefHeight="203.0" prefWidth="143.0">
+               <children>
+                  <Button fx:id="marble" layoutX="28.0" layoutY="91.0" mnemonicParsing="false" onAction="#marbleButton" text="White Marble" />
+               </children>
+            </Pane>
+            <Pane prefHeight="203.0" prefWidth="184.0">
+               <children>
+                  <Button fx:id="depot" layoutX="62.0" layoutY="90.0" mnemonicParsing="false" onAction="#depotButton" text="Depot" />
+               </children>
+            </Pane>
+            <Pane prefHeight="203.0" prefWidth="196.0">
+               <children>
+                  <Button fx:id="production" layoutX="57.0" layoutY="88.0" mnemonicParsing="false" onAction="#productionButton" text="Production" />
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+   </children>
+</VBox>

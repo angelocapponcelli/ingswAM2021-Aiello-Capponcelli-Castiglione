@@ -11,11 +11,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Special extra depot test
+ */
 class SpecialExtraDepotTest {
     SpecialExtraDepot specialExtraDepot1;
     SpecialExtraDepot specialExtraDepot2;
     RealPlayer realPlayer;
 
+    /**
+     * Initializes real player and depots
+     */
     @BeforeEach
     void init(){
         realPlayer= new RealPlayer("Christian Eriksen", new GameController(3,0));
@@ -23,6 +29,9 @@ class SpecialExtraDepotTest {
         specialExtraDepot2= new SpecialExtraDepot(Shield.getInstance(),2);
     }
 
+    /**
+     * Tests on activation method
+     */
     @Test
     void onActivation(){
         int i=0;

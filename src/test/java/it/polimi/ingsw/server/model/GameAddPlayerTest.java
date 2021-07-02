@@ -20,10 +20,16 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Add player test
+ */
 class GameAddPlayerTest {
 
     Game game;
 
+    /**
+     * Initializes the game and tries to add players
+     */
     @BeforeEach
     void initializeGamePlayers() {
         game = new MultiplayerGame(4);
@@ -42,12 +48,18 @@ class GameAddPlayerTest {
 
     }
 
+    /**
+     * checks that the list of player is ok
+     */
     @Test
     void checkPlayersList() {
         List<String> playersName = new ArrayList<>(Arrays.asList("Vincent", "Jules", "Mia"));
         assertEquals(game.getPlayers().stream().map(Player::getNickName).collect(Collectors.toList()), playersName);
     }
 
+    /**
+     * Tests the case in which there too many players. So the fifth player won't be able to join
+     */
     @Test
     void maxNumberOfPlayerReached() {
         try {
@@ -58,6 +70,9 @@ class GameAddPlayerTest {
         assertThrows(ReachedMaxNumberOfPlayersException.class, () -> game.addPlayer(new RealPlayer("Butch")));
     }
 
+    /**
+     * Tests case in which two players have the same nickname. It is not accept.
+     */
     @Test
     void sameNameTest() {
 
@@ -65,12 +80,19 @@ class GameAddPlayerTest {
 
     }
 
+    /**
+     * checks get players
+     */
     @Test
     void getPlayers(){
         List<Player> players= game.getPlayers();
         assertEquals(3, players.size());
         assertEquals("Jules", players.get(1).getNickName());
     }
+
+    /**
+     * Checks current player method. It gets a current player and then sets another player as current player.
+     */
     @Test
     void currentPlayer(){
         game.setCurrentPlayer(game.getPlayers().get(1));
@@ -81,6 +103,9 @@ class GameAddPlayerTest {
         assertEquals("Mia", player.getNickName());
     }
 
+    /**
+     * Controls get global board
+     */
     @Test
     void getGlobalBoard(){
         GlobalBoard globalBoard= game.getGlobalBoard();
@@ -89,6 +114,9 @@ class GameAddPlayerTest {
         assertEquals(Colors.GREEN,grid.getDeck(0,0).getDeck().get(0).getTypeLevel().getType() );
     }
 
+    /**
+     * Checks winner method and sets winner method
+     */
     @Test
     void winner(){
         assertEquals(null, game.getWinner());

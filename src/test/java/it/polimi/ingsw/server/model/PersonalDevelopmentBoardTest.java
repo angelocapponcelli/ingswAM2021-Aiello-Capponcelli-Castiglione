@@ -17,11 +17,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+/**
+ * Personal Development Board test
+ */
 class PersonalDevelopmentBoardTest {
 
     PersonalDevelopmentBoard developmentBoard;
 
-
+    /**
+     * Initializes the personal board and populates it.
+     */
     @BeforeEach
     void init() {
         developmentBoard = new PersonalDevelopmentBoard();
@@ -39,7 +44,9 @@ class PersonalDevelopmentBoardTest {
         developmentBoard.addCard(2, developmentCard6);
     }
 
-
+    /**
+     * Checks if it gives the correct sum of victory points from every card in every deck
+     */
     @Test
     void getVictoryPoint() {
 
@@ -49,6 +56,9 @@ class PersonalDevelopmentBoardTest {
         assertEquals(42, developmentBoard.getVictoryPoint());
     }
 
+    /**
+     * Checks add Card method
+     */
     @Test
     void addCard() {
         DevelopmentCard developmentCard = new DevelopmentCard(1, new Cost(), new TypeLevel(Colors.YELLOW, 1), new ProductionPower(new ProductionPowerInput(), new ProductionPowerOutput()), 14);
@@ -68,6 +78,10 @@ class PersonalDevelopmentBoardTest {
 
     }
 
+
+    /**
+     * Checks toReduced method of the personal development board
+     */
     @Test
     void toReduced(){
         List<ReducedDevelopmentCard> cards;
@@ -89,6 +103,9 @@ class PersonalDevelopmentBoardTest {
         assertEquals(1, cards.get(2).getVictoryPoints());
     }
 
+    /**
+     * checks get card
+     */
     @Test
     void getAllCards(){
         List<DevelopmentCard> cards= developmentBoard.getAllCards();
@@ -109,6 +126,9 @@ class PersonalDevelopmentBoardTest {
 
     }
 
+    /**
+     * checks get cards count
+     */
     @Test
     void getCardsCount(){
         developmentBoard.increaseCardCount();

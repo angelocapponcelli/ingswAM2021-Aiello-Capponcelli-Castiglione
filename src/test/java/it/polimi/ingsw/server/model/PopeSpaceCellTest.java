@@ -10,12 +10,18 @@ import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Pope space cell test
+ */
 class PopeSpaceCellTest {
 
     PopeSpaceCell popeSpaceCell;
     Game game;
     int victoryPoints;
 
+    /**
+     * Initializes the game and the pope space cell
+     */
     @BeforeEach
     void setPopeSpaceCellInitialization() {
         Game game = new MultiplayerGame(4);
@@ -24,6 +30,9 @@ class PopeSpaceCellTest {
         popeSpaceCell = new PopeSpaceCell(victoryPoints,8);
     }
 
+    /**
+     * Checks victory point
+     */
     @Test
     void getVictoryPointsTest() {
         Random random= new Random();
@@ -38,6 +47,9 @@ class PopeSpaceCellTest {
 
     }
 
+    /**
+     * Checks on occupy of the pope space
+     */
     @Test
     void occupy(){
         assertEquals(false, popeSpaceCell.getAlreadyOccupied());

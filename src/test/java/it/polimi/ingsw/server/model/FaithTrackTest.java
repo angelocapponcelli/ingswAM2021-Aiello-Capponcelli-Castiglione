@@ -8,14 +8,23 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test for the faith track
+ */
 class FaithTrackTest {
     private FaithTrack faithTrack;
 
+    /**
+     * Initializes the faith track with the parser
+     */
     @BeforeEach
     void init() {
         faithTrack = new FaithTrack();
     }
 
+    /**
+     * Checks if the construction of the track was corrected
+     */
     @Test
     void checkParsing() {
         assertEquals(faithTrack.getTrack().get(0).getVictoryPoints(), 0);
@@ -38,6 +47,9 @@ class FaithTrackTest {
 
     }
 
+    /**
+     * Checks getVaticanReportFromCell method
+     */
     @Test
     void getVaticanReportSectionFromCell(){
         VaticanReportSection vc= faithTrack.getVaticanReportSectionFromCell(faithTrack.getTrack().get(8));
@@ -45,6 +57,9 @@ class FaithTrackTest {
         assertEquals(4, vc.getCells().size());
     }
 
+    /**
+     * Checks get track method
+     */
     @Test
     void getTrack(){
         List<Cell> cells= faithTrack.getTrack();

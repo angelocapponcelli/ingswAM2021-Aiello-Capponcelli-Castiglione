@@ -9,8 +9,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Resource container tests
+ */
 class ResourceContainerTest {
-
+    /**
+     *
+     * @throws DepotException if the resource can't be added
+     */
     @Test
     void StrongBoxContainer() throws DepotException {
         StrongBoxContainer strongBoxContainer = new StrongBoxContainer(ResourceType.COIN);
@@ -27,6 +33,10 @@ class ResourceContainerTest {
         assertThrows(DepotException.class, () -> strongBoxContainer.remove(2));
     }
 
+    /**
+     * Tests special depot containers
+     * @throws DepotException
+     */
     @Test
     void SpecialContainer() throws DepotException {
         SpecialContainer specialContainer = new SpecialContainer(ResourceType.SERVANT, 2);
@@ -44,6 +54,10 @@ class ResourceContainerTest {
         assertThrows(DepotException.class, () -> specialContainer.remove(2));
     }
 
+    /**
+     * checks warehouse depot containers
+     * @throws DepotException
+     */
     @Test
     void WareHouseContainer() throws DepotException {
         WareHouseContainer wareHouseContainer = new WareHouseContainer(3);

@@ -7,12 +7,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Production power tests
+ */
 class ProductionPowerOutputTest {
 
     ProductionPowerOutput productionPowerOutput;
     RealPlayer realPlayer;
 
-
+    /**
+     * Instantiates and populates depots and the production power output and runs a first set of tests
+     */
     @Test
     void test1() {
 
@@ -37,6 +42,9 @@ class ProductionPowerOutputTest {
 
     }
 
+    /**
+     * Instantiates and populates depots and the production power output and runs another set of tests
+     */
     @Test
     void test2() {
 

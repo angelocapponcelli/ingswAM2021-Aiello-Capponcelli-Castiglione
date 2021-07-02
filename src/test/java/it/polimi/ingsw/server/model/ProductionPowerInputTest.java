@@ -9,10 +9,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Production power input
+ */
 class ProductionPowerInputTest {
     RealPlayer player;
     ProductionPowerInput productionPowerInput;
 
+    /**
+     * Initializes the player and the production power input and the depots
+     * @throws DepotException if a resource can't be added to the warehouse depot
+     */
     @BeforeEach
     void init() throws DepotException {
         player = new RealPlayer("Micheal");
@@ -24,6 +31,9 @@ class ProductionPowerInputTest {
         player.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.COIN, 10);
     }
 
+    /**
+     * Tests the method check. Because a player to activate the production has to have the resource to give
+     */
     @Test
     void CheckTest() {
         productionPowerInput = new ProductionPowerInput();
@@ -40,6 +50,10 @@ class ProductionPowerInputTest {
         assertFalse(productionPowerInput.check(player));
     }
 
+    /**
+     * Tests pay for Warehouse
+     * @throws DepotException
+     */
     @Test
     void PayTestOneWareHouseElement() throws DepotException {
         productionPowerInput = new ProductionPowerInput();
@@ -50,6 +64,10 @@ class ProductionPowerInputTest {
         assertEquals(10, player.getPersonalBoard().getStrongBoxDepot().getSpecificResourceCount(ResourceType.COIN));
     }
 
+    /**
+     * Tests payment with different depots
+     * @throws DepotException
+     */
     @Test
     void PayTestMultipleElement() throws DepotException {
         productionPowerInput = new ProductionPowerInput();

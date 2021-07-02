@@ -8,8 +8,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Special Depot test
+ */
 class SpecialDepotTest {
-
+    /**
+     * Tests addition and removal of resources
+     * @throws DepotException resources can't be added
+     */
     @Test
     void multipleAddRemove() throws DepotException {
         SpecialDepot specialDepot = new SpecialDepot();

@@ -9,11 +9,16 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests the discarder solo token
+ */
 class DiscarderTest {
     Lorenzo lorenzo = new Lorenzo(new GameController(1,1));
     Revealable greenDiscarder = new Discarder(Colors.GREEN);
 
-
+    /**
+     * Tests onReveal method
+     */
     @Test
     void onReveal(){
 

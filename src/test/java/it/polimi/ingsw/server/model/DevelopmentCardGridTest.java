@@ -13,9 +13,15 @@ import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Development grid test.
+ */
 class DevelopmentCardGridTest {
     DevelopmentCardGrid developmentCardGrid;
 
+    /**
+     * Initializes the development grid using the parser
+     */
     @BeforeEach
     void init(){
         try {
@@ -25,6 +31,9 @@ class DevelopmentCardGridTest {
         }
     }
 
+    /**
+     * Tries the pop action on the decks of the grid
+     */
     @Test
     void pop() {
         DevelopmentCard developmentCard;
@@ -47,6 +56,10 @@ class DevelopmentCardGridTest {
 
     }
 
+    /**
+     * Tests the get deck method. This method takes in input a row and a column and returns the
+     * correspondent deck of cards
+     */
     @Test
     void getDeck(){
         Deck d1= developmentCardGrid.getDeck(0,0);
@@ -63,6 +76,10 @@ class DevelopmentCardGridTest {
         assertEquals(Colors.PURPLE,d4.getDeck().get(0).getTypeLevel().getType());
     }
 
+
+    /**
+     * Checks if the returned grid is the same as the one that calls the method.
+     */
     @Test
     void getDeckGrid(){
         Deck[][] grid= developmentCardGrid.getDeckGrid();
@@ -78,6 +95,9 @@ class DevelopmentCardGridTest {
 
     }
 
+    /**
+     * Checks toReduced method of the grid which is used to have a more light version of the grid.
+     */
     @Test
     void toReduced(){
         ReducedDevelopmentCard[][] deck= developmentCardGrid.toReduced();
@@ -89,6 +109,9 @@ class DevelopmentCardGridTest {
         }
     }
 
+    /**
+     * Checks that the grid returns the correct first card of a deck.
+     */
     @Test
     void peek(){
         Random rn= new Random();

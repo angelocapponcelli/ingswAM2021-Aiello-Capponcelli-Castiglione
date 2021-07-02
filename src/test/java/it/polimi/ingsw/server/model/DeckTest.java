@@ -15,10 +15,16 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test for Deck class
+ */
 class DeckTest {
     Deck deck;
     DevelopmentCard developmentCard;
 
+    /**
+     * Initializes development cards and a deck. It then adds the cards to the deck
+     */
     @BeforeEach
     void init() {
         developmentCard = new DevelopmentCard(1, new Cost(), new TypeLevel(Colors.YELLOW, 1), new ProductionPower(new ProductionPowerInput(), new ProductionPowerOutput()), 14);
@@ -31,6 +37,9 @@ class DeckTest {
 
     }
 
+    /**
+     * Verifies the sum of victory points of all the deck is correct.
+     */
     @Test
     void getVictoryPoint() {
         assertEquals(30, deck.getVictoryPoint());
@@ -40,6 +49,9 @@ class DeckTest {
 
     }
 
+    /**
+     * Verifies pop. When a card is taken away from the deck.
+     */
     @Test
     void pop(){
         assertEquals(3, deck.getDeck().size());
@@ -54,6 +66,9 @@ class DeckTest {
 
     }
 
+    /**
+     * Verifies that the card returned with the method peek is the top card of the deck
+     */
     @Test
     void peek(){
         assertEquals(3, deck.getDeck().size());
@@ -69,6 +84,9 @@ class DeckTest {
         assertEquals(2, developmentCard.getId());
     }
 
+    /**
+     * Verifies the shuffle method. the cards have to be in a casual order.
+     */
     @Test
     void shuffle(){
         int size;
@@ -86,6 +104,10 @@ class DeckTest {
         assertEquals(false, deck.getDeck().contains(card));
     }
 
+    /**
+     * verifies the list of the cards that composes the deck is the same as the one returned from the getdeck
+     * method
+     */
     @Test
     void getDeck(){
         List<DevelopmentCard> d1= deck.getDeck();

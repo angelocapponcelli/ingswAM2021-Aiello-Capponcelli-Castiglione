@@ -3,6 +3,9 @@ package it.polimi.ingsw.server.model.player;
 import it.polimi.ingsw.server.controller.GameController;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests Lorenzo
+ */
 class LorenzoTest {
 
     @Test

@@ -18,10 +18,16 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * In hand Leader Card test
+ */
 class InHandLeaderCardTest {
     RealPlayer realPlayer;
     InHandLeaderCard inHandLeaderCard;
 
+    /**
+     * Initializes the player and populates the hand leader card
+     */
     @BeforeEach
     void init() {
         realPlayer = new RealPlayer("Seth Gecko", new GameController(2,1));
@@ -36,7 +42,9 @@ class InHandLeaderCardTest {
         leaderCard1.playCard(realPlayer);
     }
 
-
+    /**
+     * Verifies the special abilities enabled list
+     */
     @Test
     void getEnabledAbilities() {
         int tmp = 0;
@@ -50,6 +58,9 @@ class InHandLeaderCardTest {
         assertEquals(1, tmp);
     }
 
+    /**
+     * Checks if the sum of victory points of the card's played is correct
+     */
     @Test
     void getVictoryPoint() {
         int tmp = 0;
@@ -63,6 +74,9 @@ class InHandLeaderCardTest {
         assertEquals(1, tmp);
     }
 
+    /**
+     * Checks when a card is removed from the in hand leader card
+     */
     @Test
     void remove(){
         int tmp;
@@ -84,6 +98,10 @@ class InHandLeaderCardTest {
 
     }
 
+
+    /**
+     * Discards in game card. Checks player's position is incremented.
+     */
     @Test
     void discardInGame(){
         int tmp= realPlayer.getFaithPosition();
@@ -94,6 +112,9 @@ class InHandLeaderCardTest {
         assertEquals(tmp+1, realPlayer.getFaithPosition());
     }
 
+    /**
+     * Checks card's count
+     */
     @Test
     void getCardsCount(){
         assertEquals(2, inHandLeaderCard.getCardsCount());
@@ -101,6 +122,9 @@ class InHandLeaderCardTest {
         assertEquals(1, inHandLeaderCard.getCardsCount());
     }
 
+    /**
+     * Checks the addition of a card to the in hand leader cards
+     */
     @Test
     void addCard(){
         LeaderCard leaderCard3 = new LeaderCard(3, new LeaderRequirements(), 3, new SpecialWhiteMarble(Servant.getInstance(),1));
@@ -115,6 +139,9 @@ class InHandLeaderCardTest {
         assertEquals(5, testHand.getInHandLeaderCards().get(1).getVictoryPoint());
     }
 
+    /**
+     * checks get card
+     */
     @Test
     void getCard(){
         assertEquals(1, inHandLeaderCard.getCard(0).getId());

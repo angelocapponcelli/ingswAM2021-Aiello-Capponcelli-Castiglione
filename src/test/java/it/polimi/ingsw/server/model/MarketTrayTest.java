@@ -14,11 +14,17 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Market Tray test
+ */
 class MarketTrayTest {
     MarketTray marketTray;
 
     ResourceType[][] reduce;
 
+    /**
+     * Populates the market tray
+     */
     @BeforeEach
     void populateMarketTray() {
         Resource[][] marketTrayTemp = new Resource[][]{
@@ -30,6 +36,9 @@ class MarketTrayTest {
 
     }
 
+    /**
+     * Checks the selection of a row
+     */
     @Test
     void randomSelectRow() {
 
@@ -63,6 +72,9 @@ class MarketTrayTest {
 
     }
 
+    /**
+     * checks the selection of a column
+     */
     @Test
     void randomSelectColumn() {
 
@@ -95,7 +107,9 @@ class MarketTrayTest {
         assertEquals(marketTray1.getSlide(), expectedColumn.get(0));
     }
 
-
+    /**
+     * Select row test and movement of all market tray
+     */
     @Test
     void selectRowTest() {
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> marketTray.selectRow(3));
@@ -109,6 +123,10 @@ class MarketTrayTest {
         assertEquals(Coin.getInstance(), marketTray.getSlide());
     }
 
+
+    /**
+     * Select column test and movement of all market tray
+     */
     @Test
     void selectColumnTest() {
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> marketTray.selectColumn(4));
@@ -122,6 +140,9 @@ class MarketTrayTest {
         assertEquals(Coin.getInstance(), marketTray.getSlide());
     }
 
+    /**
+     * Tests the method toReduced that give a reduced version of the market tray
+     */
     @Test
     void toReduce(){
         reduce= new ResourceType[3][4];

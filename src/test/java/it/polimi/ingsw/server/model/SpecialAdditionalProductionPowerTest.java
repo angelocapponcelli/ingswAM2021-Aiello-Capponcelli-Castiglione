@@ -10,11 +10,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Special Additional Production Power Test
+ */
 class SpecialAdditionalProductionPowerTest {
     SpecialAdditionalProductionPower special1;
     SpecialAdditionalProductionPower special2;
     RealPlayer realPlayer;
 
+    /**
+     * Initializes special ability and player
+     */
     @BeforeEach
     void init(){
         special1= new SpecialAdditionalProductionPower(Coin.getInstance());
@@ -23,6 +29,9 @@ class SpecialAdditionalProductionPowerTest {
 
     }
 
+    /**
+     * Tests on activation method
+     */
     @Test
     void onActivation(){
         assertEquals(0, realPlayer.getPersonalBoard().getProductionPowers().size());

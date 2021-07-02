@@ -8,11 +8,16 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests Black cross 2 solo token
+ */
 class BlackCross2Test {
     Lorenzo lorenzo;
     BlackCross2 blackCross2;
 
-
+    /**
+     * Initializes lorenzo and a black cross 2
+     */
     @BeforeEach
     void init() {
 
@@ -20,6 +25,9 @@ class BlackCross2Test {
         blackCross2 = new BlackCross2();
     }
 
+    /**
+     * checks that lorenzo advances by two positions when revealed
+     */
     @Test
     void onReveal() {
         assertEquals(0, lorenzo.getFaithPosition());

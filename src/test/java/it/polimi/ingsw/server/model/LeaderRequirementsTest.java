@@ -15,17 +15,26 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Leader Requirements test
+ */
 class LeaderRequirementsTest {
 
     LeaderRequirements leaderRequirements;
     RealPlayer player;
 
+    /**
+     * Initializes a player and a leader requirements
+     */
     @BeforeEach
     void init() {
         player = new RealPlayer("player1");
         leaderRequirements = new LeaderRequirements();
     }
 
+    /**
+     * Checks if the leader requirement's check works fine with the strong box
+     */
     @Test
     void resourceStrongboxRequirement() {
         player.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.COIN, 20);
@@ -59,6 +68,9 @@ class LeaderRequirementsTest {
         assertFalse(leaderRequirements.check(player));
     }
 
+    /**
+     * Checks if the leader requirement's check works fine with the special depot
+     */
     @Test
     void resourceSpecialDepotRequirement() throws DepotException {
         player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.COIN, 2);
@@ -79,6 +91,10 @@ class LeaderRequirementsTest {
         assertFalse(leaderRequirements.check(player));
     }
 
+    /**
+     * Checks if the leader requirement works fine no matter the resource
+     * @throws DepotException
+     */
     @Test
     void resourceRequirement() throws DepotException {
         player.getPersonalBoard().getSpecialDepots().addSpecialContainer(ResourceType.COIN, 2);
@@ -106,6 +122,9 @@ class LeaderRequirementsTest {
         assertFalse(leaderRequirements.check(player));
     }
 
+    /**
+     * Test for TypeLevel zero
+     */
     @Test
     void typeLevelTest_1() {
         player.getPersonalBoard().getPersonalDevelopmentBoard().addCard(0, new DevelopmentCard(1, null, new TypeLevel(Colors.GREEN, 1), null, 1));
@@ -126,7 +145,9 @@ class LeaderRequirementsTest {
         assertFalse(leaderRequirements.check(player));
     }
 
-
+    /**
+     * Test for TypeLevel one and 3
+     */
     @Test
     void typeLevelTest_2() {
         player.getPersonalBoard().getPersonalDevelopmentBoard().addCard(0, new DevelopmentCard(1, null, new TypeLevel(Colors.GREEN, 1), null, 1));
@@ -147,6 +168,9 @@ class LeaderRequirementsTest {
         assertFalse(leaderRequirements.check(player));
     }
 
+    /**
+     * Checks requirements' method getLeaderRequirements
+     */
     @Test
     void getRequirements(){
 

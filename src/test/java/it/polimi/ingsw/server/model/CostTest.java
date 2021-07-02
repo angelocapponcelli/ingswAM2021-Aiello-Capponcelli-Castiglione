@@ -11,10 +11,17 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Cost test
+ */
 class CostTest {
     RealPlayer player;
     Cost cost;
 
+    /**
+     * Initializes a player and the depots to check the amount of resources. It also populates some depots
+     * @throws DepotException if the resource can't be added
+     */
     @BeforeEach
     void init() throws DepotException {
         player = new RealPlayer("Fredo");
@@ -26,6 +33,9 @@ class CostTest {
         player.getPersonalBoard().getStrongBoxDepot().addResources(ResourceType.COIN, 10);
     }
 
+    /**
+     * Creates a new cost class and checks whether it could be possible to pay
+     */
     @Test
     void CheckTest() {
         cost = new Cost();
@@ -42,6 +52,10 @@ class CostTest {
         assertFalse(cost.check(player));
     }
 
+    /**
+     * Creates a cost class and tries to pay. test for the warehouse depot
+     * @throws DepotException if cost can't be paid
+     */
     @Test
     void PayTestOneWareHouseElement() throws DepotException {
         cost = new Cost();
@@ -52,6 +66,10 @@ class CostTest {
         assertEquals(10, player.getPersonalBoard().getStrongBoxDepot().getSpecificResourceCount(ResourceType.COIN));
     }
 
+    /**
+     * Creates a new cost class and tries to pay. Tests all the depots at the same time
+     * @throws DepotException if cost can't be paid
+     */
     @Test
     void PayTestMultipleElement() throws DepotException {
         cost = new Cost();
@@ -77,6 +95,9 @@ class CostTest {
         assertEquals(0, player.getPersonalBoard().getStrongBoxDepot().getSpecificResourceCount(ResourceType.STONE));
     }
 
+    /**
+     * Test for get cost
+     */
     @Test
     void getCost(){
         cost= new Cost();

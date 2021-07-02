@@ -8,8 +8,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Strongbox test
+ */
 class StrongBoxDepotTest {
-
+    /**
+     * Multiple adds and removals test.
+     * @throws DepotException resources can't be removed
+     */
     @Test
     void multipleAddRemove() throws DepotException {
         StrongBoxDepot strongBoxDepot = new StrongBoxDepot();

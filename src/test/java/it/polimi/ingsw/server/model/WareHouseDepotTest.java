@@ -8,8 +8,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Warehouse test
+ */
 class WareHouseDepotTest {
-
+    /**
+     * Multiple adds and removals test
+     * @throws DepotException resource can't be added or removed
+     */
     @Test
     void multipleAddRemove() throws DepotException {
         WareHouseDepot wareHouseDepot = new WareHouseDepot();

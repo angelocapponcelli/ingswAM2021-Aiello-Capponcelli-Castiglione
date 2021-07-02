@@ -1,7 +1,7 @@
 ![alt text](https://i2.wp.com/geek.pizza/wp-content/uploads/2020/04/Copertina-Maestri-del-Rinascimento.jpg)
 # Prova Finale Ingegneria del Software anno 2020-2021
 
-L'obbiettivo del progetto è quello di sviluppare una verisione software del gioco da tavola "Maestri del Rinascimento".
+L'obbiettivo del progetto è quello di sviluppare una versione software del gioco da tavola "Maestri del Rinascimento".
 Il progetto consiste nell'implementazione di un sistema distribuito composto da un singolo server che gestisce la partita e 
 da multipli client.
 E' stato usato il pattern architetturale Model View Controller (MVC) ed è stato seguito un approccio di programmazione orientato agli oggetti.
@@ -32,11 +32,13 @@ La seguente documentazione include una descrizione per la maggior parte delle cl
 |        JUnit       |Framework di unit testing|
 |                    |                         |
 |       JavaFx       |Libreria grafica di Java |
-
+|                    |Libreria per serializzare|
+|       Gson         |e deserializzare oggetti |
+|                    |Java su JSON.            |
 
 ### Jar
 Il seguente jar è stato usato per la realizzazione di questo progetto.
-[Jars](https://github.com/pasqualecastiglione/ingswAM2021-Aiello-Capponcelli-Castiglione/tree/master/Jar)
+[Jar](https://github.com/pasqualecastiglione/ingswAM2021-Aiello-Capponcelli-Castiglione/tree/master/Jar)
 
 
 ## Funzionalità

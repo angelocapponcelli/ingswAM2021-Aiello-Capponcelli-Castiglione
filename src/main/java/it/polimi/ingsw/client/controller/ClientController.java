@@ -347,7 +347,10 @@ public class ClientController implements Runnable {
                 System.out.println(CLIColors.getAnsiRed() + "NickName already taken" + CLIColors.getAnsiReset());
                 notifyAll();
                 break;
-
+            case PLAYER_DISCONNECTED:
+                System.out.println(CLIColors.getAnsiRed() + "Player disconnected" + CLIColors.getAnsiReset());
+                notifyAll();
+                break;
         }
     }
 

@@ -56,6 +56,7 @@ public class GUI extends View {
             stage = FXGUI.getStage();
             scene = new Scene(root);
             stage.setScene(scene);
+            stage.setTitle("Masters of Renaissance - " + FXGUI.getClient().getNickName());
             stage.show();
         });
     }

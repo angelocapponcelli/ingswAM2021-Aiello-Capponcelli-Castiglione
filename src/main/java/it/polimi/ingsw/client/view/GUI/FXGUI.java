@@ -31,6 +31,7 @@ public class FXGUI extends Application {
         FXGUI.stage = stage;
         scene = new Scene(loadFXML("nickName"));
         stage.setScene(scene);
+        stage.setTitle("Masters of Renaissance");
         stage.show();
     }
 

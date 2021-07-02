@@ -17,6 +17,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class it is used by the user to modify the development cards.
+ * Given the id of the card, the user can change the production power, the victory points, the cost.
+ */
 public class DevelopmentCardEdit {
     public TextField coin;
     public TextField shield;
@@ -61,6 +65,11 @@ public class DevelopmentCardEdit {
     private Map<Producible,Integer> input= new HashMap<>();
     private Map<ResourceType, Integer> cost= new HashMap<>();
 
+    /**
+     * this method calls the method that writes on the json file. And goes back to the main stage to continue to edit
+     *
+     * @param event the click on the ok button
+     */
     public void editedCard(ActionEvent event){
         setIntegers();
         createOutputMap();
@@ -78,7 +87,10 @@ public class DevelopmentCardEdit {
         }
 
     }
-
+    /**
+     * Goes back to the main stage to start to edit again doesn't save the changes
+     * @param event the click on the discard button
+     */
     public void discard(ActionEvent event){
         try {
             Editor.setRoot("editor");
@@ -87,6 +99,9 @@ public class DevelopmentCardEdit {
         }
     }
 
+    /**
+     * Converts the text string values i integer ready to be used by other methods
+     */
     public void setIntegers(){
         coins= Integer.parseInt(coin.getText());
         shields= Integer.parseInt(shield.getText());
@@ -104,6 +119,10 @@ public class DevelopmentCardEdit {
         numberOfStones= Integer.parseInt(stoneCost.getText());
         numberOfShields=Integer.parseInt(shieldCost.getText());
     }
+
+    /**
+     * creates the output production map
+     */
     public void createOutputMap(){
         if (coins>0){
             output.put(Coin.getInstance(),coins);
@@ -125,6 +144,10 @@ public class DevelopmentCardEdit {
         }
 
     }
+
+    /**
+     * creates the cost Map
+     */
     public void createCostMap(){
         if (numberOfCoins>0){
             cost.put(ResourceType.COIN,numberOfCoins);
@@ -137,11 +160,14 @@ public class DevelopmentCardEdit {
         }
 
         if(numberOfServants>0){
-            cost.put(ResourceType.SERVANT, numberOfStones);
+            cost.put(ResourceType.SERVANT, numberOfServants);
         }
 
     }
 
+    /**
+     * Creates the input production map
+     */
     public void createInputMap(){
 
         if (coinsInput>0){
@@ -161,10 +187,17 @@ public class DevelopmentCardEdit {
         }
     }
 
+    /**
+     * Reads from the existing json file and overwrites the changes
+     * @param inputMap input map for production
+     * @param outputMap output map for production
+     * @param victoryPoints the points of the card
+     * @param idCard the id of the card
+     */
     public void writeOnFile(Map<Producible,Integer> inputMap, Map<Producible,Integer> outputMap, Integer victoryPoints,Integer idCard){
         Gson gson= new Gson();
         try {
-            FileReader reader= new FileReader("src/main/resources/JSONs/settings.json");
+            FileReader reader= new FileReader("src/main/resources/JSONs/editedSettings.json");
             JsonObject jsonObject= gson.fromJson(reader,JsonObject.class);
             JsonArray listOfCards= jsonObject.getAsJsonArray("DevelopmentCards");
 
@@ -204,7 +237,7 @@ public class DevelopmentCardEdit {
             cardSelected.addProperty("victoryPoints", victoryPoints);
 
 
-            FileWriter writer= new FileWriter("src/main/resources/JSONs/settings.json");
+            FileWriter writer= new FileWriter("src/main/resources/JSONs/editedSettings.json");
             writer.write(jsonObject.toString());
             writer.close();
 
@@ -215,14 +248,27 @@ public class DevelopmentCardEdit {
         }
     }
 
+    /**
+     *
+     * @return the output production map
+     */
     public Map<Producible,Integer> getOutput(){
         return this.output;
     }
 
+
+    /**
+     *
+     * @return the input production map
+     */
     public Map<Producible,Integer> getInput(){
         return this.input;
     }
 
+    /**
+     *
+     * @return the cost map
+     */
     public Map<ResourceType, Integer> getCost() {
         return cost;
     }
